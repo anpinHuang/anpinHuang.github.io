@@ -1,17 +1,14 @@
 ---
-title: "Ben's website"
+title: "An-Pin Huang"
 ---
-  
-The site is dedicated to  
-1. Econometrics  
-2. Data science  
-3. Financial Mathematics (Stochastic Calculus)  
+![](suit up.jpeg)
 
-create simulation time series
-yt = 1.2 + 2.2*x1 + 2.3*x2 + et
-et = rho * et_1 + wt
-```{r}
-library(MASS)
-x <- mvrnorm(n=500,mu=c(0.05,0.08),Sigma=matrix(c(0.4,0.3,0.3,0.6),nrow=2,
-                                               ncol=2,byrow=TRUE))
-```
+  
+### Education
+* Boston University, MS in Mathematical Finance
+* National Tsing Hua University, BS in Quantitative Finance
+
+### Experience
+* UBS, Risk Modeling and Analytics Specialist
+* Wellington Management Company, Technology Associate (QA Analyst) of Financial Derivatives Systems
+

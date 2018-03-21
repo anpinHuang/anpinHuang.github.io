@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>An-Pin Huang</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">An-Pin Huang</h1>
+
+</div>
+
+
+<p>Assuming <span class="math inline">\(y_t\)</span> can be written as a linear function of <span class="math inline">\(x\)</span> and the error term <span class="math inline">\(e\)</span> has aurocorrelation <span class="math display">\[y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + e_t \]</span> <span class="math display">\[ e_t = \rho e_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)\]</span> To simulate <span class="math inline">\(y\)</span> we do:</p>
+<pre class="r"><code>library(MASS)
+m=20
+x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),nrow=2,ncol=2,byrow=TRUE))
+## assuming autocorrelation in x
+et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.07)
+yt &lt;- 1.2 + x %*% c(2.2,2.3)+et</code></pre>
+<p>Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS:</p>
+<pre class="r"><code>regressY &lt;- lm(yt~x)
+summary(regressY)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = yt ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.20330 -0.11453 -0.03347  0.11267  0.26414 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.2138     0.1840   6.596 4.54e-06 ***
+## x1           -0.0359     3.6451  -0.010    0.992    
+## x2            1.5047     1.8782   0.801    0.434    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1577 on 17 degrees of freedom
+## Multiple R-squared:  0.03784,    Adjusted R-squared:  -0.07535 
+## F-statistic: 0.3343 on 2 and 17 DF,  p-value: 0.7204</code></pre>
+<pre class="r"><code>regressY$coefficients</code></pre>
+<pre><code>## (Intercept)          x1          x2 
+##  1.21377721 -0.03590278  1.50464858</code></pre>
+<p>Test the autocorrelation of residuals</p>
+<pre class="r"><code>resi &lt;- regressY$residuals
+pacf(resi)</code></pre>
+<p><img src="econometrics_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ar.ols(resi)</code></pre>
+<pre><code>## Warning in ar.ols(resi): model order: 10 singularities in the computation
+## of the projection matrix results are only valid up to model order 9</code></pre>
+<pre><code>## 
+## Call:
+## ar.ols(x = resi)
+## 
+## Coefficients:
+##       1        2        3        4        5        6        7        8  
+##  0.7617   0.8848   0.1502  -0.2951  -0.9551  -0.1699   0.7389   0.9940  
+##       9  
+##  1.8808  
+## 
+## Intercept: 0.3264 (0.03426) 
+## 
+## Order selected 9  sigma^2 estimated as  0.0002346</code></pre>
+<p>Do GLS</p>
+<p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + \epsilon\]</span></p>
+<pre class="r"><code>## regress on resi hat
+regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)]-1)
+rho &lt;- regressE$coefficients[1]
+## GLS
+## yt - rho * yt_1 = alpha * (1-rho) + beta1*(x1_t - rho * x1_t-1) + beta * 
+## (x2_t - rho * x2_t-1)
+yt2 &lt;- yt[2:length(yt)]
+xt2 &lt;- x[2:nrow(x),]
+xprime &lt;- (xt2- c(rho,rho) * x[1:(nrow(x)-1),])
+regressY_GLS &lt;- lm( (yt2-rho*yt[1:(length(yt)-1)]) ~ xprime)
+summary(regressY_GLS)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = (yt2 - rho * yt[1:(length(yt) - 1)]) ~ xprime)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.149221 -0.066594  0.008771  0.049226  0.164614 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.27569    0.03109   8.868 1.42e-07 ***
+## xprime1      0.59617    1.82899   0.326  0.74868    
+## xprime2      2.76506    0.92909   2.976  0.00891 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1002 on 16 degrees of freedom
+## Multiple R-squared:  0.3847, Adjusted R-squared:  0.3078 
+## F-statistic: 5.002 on 2 and 16 DF,  p-value: 0.02054</code></pre>
+<pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
+alpha</code></pre>
+<pre><code>## (Intercept) 
+##    1.124606</code></pre>
+<p>Cochrane–Orcutt iteration:</p>
+<pre class="r"><code>CochraneOrcuttIteration &lt;- function(y,x,tolerance) {
+  diff &lt;- 1
+  lastBetas &lt;- rep(100,ncol(x)+1)
+  lastRho &lt;- 100
+  regressY &lt;- lm(y~x)
+  resi &lt;- regressY$residuals
+  regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)] -1)
+  rho &lt;- regressE$coefficients[1]
+  yt2 &lt;- as.matrix(y[2:length(y)])
+  xt2 &lt;- x[2:nrow(x),]
+  while(diff &gt; tolerance) {
+  xprime &lt;- (xt2- c(rho,rho) * x[1:(nrow(x)-1),])
+  regressY_GLS &lt;- lm( (yt2-rho*y[1:(length(y)-1)]) ~ xprime)
+  alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
+  betas &lt;- c(alpha,regressY_GLS$coefficients[2:length(regressY_GLS$coefficient)])
+  resi &lt;- y-cbind(1,x) %*% as.matrix(betas)
+  regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)])
+  rho &lt;- regressE$coefficients[2]
+  diff &lt;- abs(max(betas-lastBetas))
+  diff &lt;- max(diff,abs(rho-lastRho))
+  lastBetas &lt;- betas
+  lastRho &lt;- rho 
+  }
+  return(betas)
+}</code></pre>
+<p>We redo the above steps for n times:</p>
+<pre class="r"><code>n=6000
+OLS_coefs &lt;- matrix(nrow=n,ncol=3)
+GLS_coefs &lt;- matrix(nrow=n,ncol=3)
+for(i in 1:n) {
+  x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),
+               Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
+                            nrow=2,ncol=2,byrow=TRUE))
+  ## assuming autocorrelation in x
+  et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.07)
+  yt &lt;- 1.2 + x %*% c(2.2,2.3)+et
+  
+  regressY &lt;- lm(yt~x)
+  #summary(regressY)
+  OLS_coefs[i,] &lt;- regressY$coefficients
+  
+  ## GLS
+  resi &lt;- regressY$residuals
+  regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)])
+  rho &lt;- regressE$coefficients[2]
+  ## GLS
+  ## yt - rho * yt_1 = alpha * (1-rho) + beta1*(x1_t - rho * x1_t-1) + beta * 
+  ## (x2_t - rho * x2_t-1)
+  # yt2 &lt;- yt[2:length(yt)]
+  # xt2 &lt;- x[2:nrow(x),]
+  # xprime &lt;- (xt2- c(rho,rho) * x[1:(nrow(x)-1),])
+  # regressY_GLS &lt;- lm( (yt2-rho*yt[1:(length(yt)-1)]) ~ xprime)
+  # alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
+  # GLS_coefs[i,1] &lt;- alpha
+  # GLS_coefs[i,2:3] &lt;- regressY_GLS$coefficients[2:3]
+  GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
+}
+colMeans(OLS_coefs)</code></pre>
+<pre><code>## [1] 1.200898 2.183062 2.297433</code></pre>
+<pre class="r"><code>colMeans(GLS_coefs)</code></pre>
+<pre><code>## [1] 1.208059 2.190290 2.305902</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

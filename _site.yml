@@ -1,11 +1,13 @@
-name: "Ben's Website"
+name: "An-Pin Huang"
 navbar:
-  title: "Ben's Website"
+  title: "An-Pin Huang"
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
+    - text: "About me"
       href: about.html
+    - text: "Econometrics"
+      href: econometrics.html
 output:
   html_document:
   theme: cosmo
