@@ -1,14 +1,15 @@
 ---
-title: "An-Pin Huang"
+title: ""
 ---
-![](suit up.jpeg)
 
+#### An-Pin (Ben) Huang
+<img src="suitUp.jpeg" width="150" height="150" />
   
-### Education
+#### Education
 * Boston University, MS in Mathematical Finance
 * National Tsing Hua University, BS in Quantitative Finance
 
-### Experience
+#### Experience
 * UBS, Risk Modeling and Analytics Specialist
 * Wellington Management Company, Technology Associate (QA Analyst) of Financial Derivatives Systems
 

@@ -11,7 +11,7 @@
 
 
 
-<title>An-Pin Huang</title>
+<title>OLS with Autocorrelation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -198,17 +198,20 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">An-Pin Huang</h1>
+<h1 class="title toc-ignore">OLS with Autocorrelation</h1>
 
 </div>
 
 
 <p>Assuming <span class="math inline">\(y_t\)</span> can be written as a linear function of <span class="math inline">\(x\)</span> and the error term <span class="math inline">\(e\)</span> has aurocorrelation <span class="math display">\[y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + e_t \]</span> <span class="math display">\[ e_t = \rho e_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)\]</span> To simulate <span class="math inline">\(y\)</span> we do:</p>
 <pre class="r"><code>library(MASS)
-m=20
-x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),nrow=2,ncol=2,byrow=TRUE))
+library(matrixStats)
+m=30
+x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),
+             Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
+                          nrow=2,ncol=2,byrow=TRUE))
 ## assuming autocorrelation in x
-et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.07)
+et &lt;- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
 yt &lt;- 1.2 + x %*% c(2.2,2.3)+et</code></pre>
 <p>Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS:</p>
 <pre class="r"><code>regressY &lt;- lm(yt~x)
@@ -219,44 +222,42 @@ summary(regressY)</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.20330 -0.11453 -0.03347  0.11267  0.26414 
+## -0.28105 -0.11752  0.00189  0.06533  0.32156 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   1.2138     0.1840   6.596 4.54e-06 ***
-## x1           -0.0359     3.6451  -0.010    0.992    
-## x2            1.5047     1.8782   0.801    0.434    
+## (Intercept)   1.0907     0.1089  10.014 1.38e-10 ***
+## x1            2.0106     1.4475   1.389   0.1762    
+## x2            3.4086     1.3572   2.512   0.0183 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.1577 on 17 degrees of freedom
-## Multiple R-squared:  0.03784,    Adjusted R-squared:  -0.07535 
-## F-statistic: 0.3343 on 2 and 17 DF,  p-value: 0.7204</code></pre>
+## Residual standard error: 0.1517 on 27 degrees of freedom
+## Multiple R-squared:  0.3396, Adjusted R-squared:  0.2907 
+## F-statistic: 6.943 on 2 and 27 DF,  p-value: 0.003691</code></pre>
 <pre class="r"><code>regressY$coefficients</code></pre>
 <pre><code>## (Intercept)          x1          x2 
-##  1.21377721 -0.03590278  1.50464858</code></pre>
+##    1.090710    2.010553    3.408593</code></pre>
 <p>Test the autocorrelation of residuals</p>
 <pre class="r"><code>resi &lt;- regressY$residuals
 pacf(resi)</code></pre>
 <p><img src="econometrics_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>ar.ols(resi)</code></pre>
-<pre><code>## Warning in ar.ols(resi): model order: 10 singularities in the computation
-## of the projection matrix results are only valid up to model order 9</code></pre>
 <pre><code>## 
 ## Call:
 ## ar.ols(x = resi)
 ## 
 ## Coefficients:
 ##       1        2        3        4        5        6        7        8  
-##  0.7617   0.8848   0.1502  -0.2951  -0.9551  -0.1699   0.7389   0.9940  
-##       9  
-##  1.8808  
+##  0.0865  -1.4358   0.5794  -0.7252   0.3487   0.1333   0.2572  -0.1644  
+##       9       10       11       12       13       14  
+##  0.2567  -0.1154  -0.6738   0.2218   0.0522  -0.3982  
 ## 
-## Intercept: 0.3264 (0.03426) 
+## Intercept: -0.05609 (0.004513) 
 ## 
-## Order selected 9  sigma^2 estimated as  0.0002346</code></pre>
+## Order selected 14  sigma^2 estimated as  3.303e-05</code></pre>
 <p>Do GLS</p>
-<p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + \epsilon\]</span></p>
+<p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w\]</span></p>
 <pre class="r"><code>## regress on resi hat
 regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)]-1)
 rho &lt;- regressE$coefficients[1]
@@ -273,52 +274,26 @@ summary(regressY_GLS)</code></pre>
 ## lm(formula = (yt2 - rho * yt[1:(length(yt) - 1)]) ~ xprime)
 ## 
 ## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -0.149221 -0.066594  0.008771  0.049226  0.164614 
+##      Min       1Q   Median       3Q      Max 
+## -0.19778 -0.07387 -0.04041  0.11038  0.20567 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.27569    0.03109   8.868 1.42e-07 ***
-## xprime1      0.59617    1.82899   0.326  0.74868    
-## xprime2      2.76506    0.92909   2.976  0.00891 ** 
+## (Intercept)   0.5731     0.0384  14.923 2.91e-14 ***
+## xprime1       1.4554     0.8905   1.634   0.1142    
+## xprime2       2.2951     0.9093   2.524   0.0181 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.1002 on 16 degrees of freedom
-## Multiple R-squared:  0.3847, Adjusted R-squared:  0.3078 
-## F-statistic: 5.002 on 2 and 16 DF,  p-value: 0.02054</code></pre>
+## Residual standard error: 0.1125 on 26 degrees of freedom
+## Multiple R-squared:  0.3707, Adjusted R-squared:  0.3223 
+## F-statistic: 7.659 on 2 and 26 DF,  p-value: 0.002426</code></pre>
 <pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
 alpha</code></pre>
 <pre><code>## (Intercept) 
-##    1.124606</code></pre>
-<p>Cochrane–Orcutt iteration:</p>
-<pre class="r"><code>CochraneOrcuttIteration &lt;- function(y,x,tolerance) {
-  diff &lt;- 1
-  lastBetas &lt;- rep(100,ncol(x)+1)
-  lastRho &lt;- 100
-  regressY &lt;- lm(y~x)
-  resi &lt;- regressY$residuals
-  regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)] -1)
-  rho &lt;- regressE$coefficients[1]
-  yt2 &lt;- as.matrix(y[2:length(y)])
-  xt2 &lt;- x[2:nrow(x),]
-  while(diff &gt; tolerance) {
-  xprime &lt;- (xt2- c(rho,rho) * x[1:(nrow(x)-1),])
-  regressY_GLS &lt;- lm( (yt2-rho*y[1:(length(y)-1)]) ~ xprime)
-  alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
-  betas &lt;- c(alpha,regressY_GLS$coefficients[2:length(regressY_GLS$coefficient)])
-  resi &lt;- y-cbind(1,x) %*% as.matrix(betas)
-  regressE &lt;- lm(resi[2:length(resi)]~resi[1:(length(resi)-1)])
-  rho &lt;- regressE$coefficients[2]
-  diff &lt;- abs(max(betas-lastBetas))
-  diff &lt;- max(diff,abs(rho-lastRho))
-  lastBetas &lt;- betas
-  lastRho &lt;- rho 
-  }
-  return(betas)
-}</code></pre>
+##    1.226861</code></pre>
 <p>We redo the above steps for n times:</p>
-<pre class="r"><code>n=6000
+<pre class="r"><code>n=2000
 OLS_coefs &lt;- matrix(nrow=n,ncol=3)
 GLS_coefs &lt;- matrix(nrow=n,ncol=3)
 for(i in 1:n) {
@@ -326,7 +301,7 @@ for(i in 1:n) {
                Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                             nrow=2,ncol=2,byrow=TRUE))
   ## assuming autocorrelation in x
-  et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.07)
+  et &lt;- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
   yt &lt;- 1.2 + x %*% c(2.2,2.3)+et
   
   regressY &lt;- lm(yt~x)
@@ -347,12 +322,17 @@ for(i in 1:n) {
   # alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
   # GLS_coefs[i,1] &lt;- alpha
   # GLS_coefs[i,2:3] &lt;- regressY_GLS$coefficients[2:3]
-  GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
+  GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.0005)
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.200898 2.183062 2.297433</code></pre>
+<pre><code>## [1] 1.200011 2.250626 2.264364</code></pre>
 <pre class="r"><code>colMeans(GLS_coefs)</code></pre>
-<pre><code>## [1] 1.208059 2.190290 2.305902</code></pre>
+<pre><code>## [1] 1.198530 2.247717 2.280950</code></pre>
+<p>The variance of sampling distribution of GLS is much smaller than that of OLS, and is therefore more effieicnt.</p>
+<pre class="r"><code>colVars(OLS_coefs)</code></pre>
+<pre><code>## [1] 0.008265137 1.785587188 1.145545046</code></pre>
+<pre class="r"><code>colVars(GLS_coefs)</code></pre>
+<pre><code>## [1] 0.005804918 0.994210572 0.663942770</code></pre>
 
 
 
