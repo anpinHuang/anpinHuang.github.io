@@ -2,7 +2,16 @@
 title: "Ben's website"
 ---
   
-The site is dedicated to 
-1. Econometrics
-2. Data science
-3. Financial Mathematics (Stochastic Calculus)
+The site is dedicated to  
+1. Econometrics  
+2. Data science  
+3. Financial Mathematics (Stochastic Calculus)  
+
+create simulation time series
+yt = 1.2 + 2.2*x1 + 2.3*x2 + et
+et = rho * et_1 + wt
+```{r}
+library(MASS)
+x <- mvrnorm(n=500,mu=c(0.05,0.08),Sigma=matrix(c(0.4,0.3,0.3,0.6),nrow=2,
+                                               ncol=2,byrow=TRUE))
+```

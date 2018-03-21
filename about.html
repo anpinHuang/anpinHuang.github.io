@@ -200,7 +200,14 @@ $(document).ready(function () {
 </div>
 
 
-<p>The site is dedicated to 1. Econometrics 2. Data science 3. Financial Mathematics (Stochastic Calculus)</p>
+<p>The site is dedicated to<br />
+1. Econometrics<br />
+2. Data science<br />
+3. Financial Mathematics (Stochastic Calculus)</p>
+<p>create simulation time series yt = 1.2 + 2.2<em>x1 + 2.3</em>x2 + et et = rho * et_1 + wt</p>
+<pre class="r"><code>library(MASS)
+x &lt;- mvrnorm(n=500,mu=c(0.05,0.08),Sigma=matrix(c(0.4,0.3,0.3,0.6),nrow=2,
+                                               ncol=2,byrow=TRUE))</code></pre>
 
 
 
