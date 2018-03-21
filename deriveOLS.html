@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Derive OLS estimators</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -198,13 +198,25 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Derive OLS estimators</h1>
 
 </div>
 
 
-<p><em><a href="deriveOLS.html">Derive OLS estimaors in matrix form</a><br />
-</em><a href="autocorrelation.html">OLS and GLS with autocorrelation error terms</a></p>
+<p><span class="math display">\[ y = x\beta + \epsilon\]</span></p>
+<p><span class="math display">\[ e = y-x\hat{\beta} \]</span></p>
+<p>note that <span class="math display">\[\epsilon  \neq e\]</span></p>
+<p>goal: minimize sum of squared residuals <span class="math display">\[ min(e\prime e) \]</span> <span class="math display">\[
+\begin{aligned}
+e\prime e &amp;=  (y-x\hat{\beta})\prime(y-x\hat{\beta}) \\
+&amp;= y\prime y - \hat{\beta}\prime x\prime y - y\prime x\hat{\beta} + \hat{\beta}\prime x\prime x \hat{\beta} \\
+&amp;= y\prime y - 2\hat{\beta}\prime x\prime y + \hat{\beta}\prime x\prime x \hat{\beta} \\
+\end{aligned}
+\]</span></p>
+<p>given that *** <span class="math display">\[ (AB)\prime = B\prime A\prime \]</span> and transpose of a scaler is a scaler *** <span class="math display">\[ y\prime x \hat{\beta} = (y\prime x \hat{\beta})\prime = (x\hat{\beta})\prime y = \hat{\beta}\prime x\prime y \]</span></p>
+<p><span class="math display">\[ \frac{\partial e\prime e}{\partial \hat{\beta}} = -2x\prime y+2x\prime x \hat{\beta} = 0 \]</span></p>
+<p><span class="math display">\[ \Rightarrow x\prime x \hat{\beta} = x\prime y \]</span> <span class="math display">\[ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime y ,\,\, if \,\, (x\prime x)^{-1} \,\, exists \]</span> <span class="math display">\[ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime (x\beta + \epsilon)  \]</span></p>
+<p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x\prime x)^{-1}x\prime \epsilon]\]</span> if <span class="math display">\[ E[\epsilon] =0 \]</span> and <span class="math display">\[E[\epsilon | x] = 0 \]</span>, then <span class="math display">\[ E[(x\prime x)^{-1}x\prime \epsilon] = 0 \]</span> and <span class="math display">\[E[ \hat{\beta}] = \beta \]</span>. <span class="math display">\[\hat{\beta}\]</span> is an unbiased estimator.</p>
 
 
 
