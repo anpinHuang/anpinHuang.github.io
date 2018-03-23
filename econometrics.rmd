@@ -1,6 +1,6 @@
 ---
 title: "Econometrics"
 ---
-*[Derive OLS estimaors in matrix form](deriveOLS.html)  
-*[OLS and GLS with autocorrelation error terms](autocorrelation.html)  
-
+[Derive OLS estimaors in matrix form](deriveOLS.html)  
+[OLS and GLS with autocorrelation error terms](autocorrelation.html)  
+[OLS and GLS with heteroskedasiticity](heteroskedasticity.html)  
