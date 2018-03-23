@@ -8,7 +8,7 @@ $$ e = y-x\hat{\beta} $$
 
 note that $$\epsilon  \neq e$$
 
-goal: minimize sum of squared residuals $$ min(e\prime e) $$ 
+goal: minimize sum of squared residuals **$$ min(e\prime e) $$**
 $$
 \begin{aligned}
 e\prime e &=  (y-x\hat{\beta})\prime(y-x\hat{\beta}) \\
@@ -16,11 +16,13 @@ e\prime e &=  (y-x\hat{\beta})\prime(y-x\hat{\beta}) \\
 &= y\prime y - 2\hat{\beta}\prime x\prime y + \hat{\beta}\prime x\prime x \hat{\beta} \\
 \end{aligned}
 $$
-
+<div style="background-color:#E5E7E9;color:black;matrixOperation:20px;">
 given that
-*** $$ (AB)\prime = B\prime A\prime $$
+$$ (AB)\prime = B\prime A\prime $$
 and transpose of a scaler is a scaler
-*** $$ y\prime x \hat{\beta} = (y\prime x \hat{\beta})\prime = (x\hat{\beta})\prime y = \hat{\beta}\prime x\prime y $$
+$$ y\prime x \hat{\beta} = (y\prime x \hat{\beta})\prime = (x\hat{\beta})\prime y = \hat{\beta}\prime x\prime y $$
+</div>
+
 
 $$ \frac{\partial e\prime e}{\partial \hat{\beta}} = -2x\prime y+2x\prime x \hat{\beta} = 0 $$
 
@@ -30,6 +32,6 @@ $$ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime y ,\,\, if \,\, (x\prime x)
 $$ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime (x\beta + \epsilon)  $$
 
 $$ E[ \hat{\beta}] = \beta + E[(x\prime x)^{-1}x\prime \epsilon]$$
-if $$ E[\epsilon] =0 $$ and $$E[\epsilon | x] = 0 $$, then $$ E[(x\prime x)^{-1}x\prime \epsilon] = 0 $$ and $$E[ \hat{\beta}] = \beta $$. $$\hat{\beta}$$ is an unbiased estimator.
+if $E[\epsilon] =0$ and $E[\epsilon | x] = 0$, then $E[(x\prime x)^{-1}x\prime \epsilon] = 0$ and $E[ \hat{\beta}] = \beta$. $\hat{\beta}$ is an unbiased estimator.
 
 

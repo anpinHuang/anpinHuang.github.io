@@ -234,13 +234,13 @@ for(i in 1:n) {
   WLS_coefs[i,2] &lt;- WLS$coefficients[1]
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.200403 1.291389</code></pre>
+<pre><code>## [1] 1.199239 1.309188</code></pre>
 <pre class="r"><code>colMeans(WLS_coefs)</code></pre>
-<pre><code>## [1] 1.199750 1.299349</code></pre>
+<pre><code>## [1] 1.199733 1.301413</code></pre>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.0007443228 0.1326161867</code></pre>
+<pre><code>## [1] 0.0006943199 0.1164848717</code></pre>
 <pre class="r"><code>colVars(WLS_coefs)</code></pre>
-<pre><code>## [1] 6.479442e-05 3.256851e-02</code></pre>
+<pre><code>## [1] 6.363699e-05 3.040353e-02</code></pre>
 <pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>
 <p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>hist(WLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>

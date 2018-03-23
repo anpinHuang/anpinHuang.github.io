@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Autocorrelation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -198,12 +198,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Autocorrelation</h1>
 
 </div>
 
 
-<p>Assuming <span class="math inline">\(y_t\)</span> can be written as a linear function of <span class="math inline">\(x\)</span> and the error term <span class="math inline">\(e\)</span> has aurocorrelation <span class="math display">\[y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + e_t \]</span> <span class="math display">\[ e_t = \rho e_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)\]</span> To simulate <span class="math inline">\(y\)</span> we do:</p>
+<p>The purpose of this section is to show that OLS is not an efficient estimator when there is autocorrelation in the error term; instead, the GLS is better.</p>
+<p>Assuming <span class="math inline">\(y_t\)</span> can be written as a linear function of <span class="math inline">\(x\)</span> and the error term <span class="math inline">\(\epsilon\)</span> has autocorrelation <span class="math display">\[y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + \epsilon_t \]</span> <span class="math display">\[ \epsilon_t = \rho \epsilon_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)\]</span> To simulate <span class="math inline">\(y\)</span> we do:</p>
 <pre class="r"><code>library(MASS)
 library(matrixStats)
 m=30
@@ -222,22 +223,22 @@ summary(regressY)</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.24428 -0.10017 -0.02142  0.10538  0.25183 
+## -0.36237 -0.04458  0.02707  0.08694  0.16471 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   1.1425     0.1088  10.497 4.97e-11 ***
-## x1            0.9243     1.5586   0.593    0.558    
-## x2            1.7082     1.0553   1.619    0.117    
+## (Intercept)  1.52877    0.09685  15.786 3.72e-15 ***
+## x1          -0.28057    1.49114  -0.188    0.852    
+## x2           1.22912    1.18427   1.038    0.309    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.1348 on 27 degrees of freedom
-## Multiple R-squared:  0.1069, Adjusted R-squared:  0.04074 
-## F-statistic: 1.616 on 2 and 27 DF,  p-value: 0.2173</code></pre>
+## Residual standard error: 0.1326 on 27 degrees of freedom
+## Multiple R-squared:  0.03966,    Adjusted R-squared:  -0.03148 
+## F-statistic: 0.5575 on 2 and 27 DF,  p-value: 0.5791</code></pre>
 <pre class="r"><code>regressY$coefficients</code></pre>
 <pre><code>## (Intercept)          x1          x2 
-##   1.1424701   0.9243041   1.7081606</code></pre>
+##   1.5287712  -0.2805697   1.2291242</code></pre>
 <p>Test the autocorrelation of residuals</p>
 <pre class="r"><code>resi &lt;- regressY$residuals
 pacf(resi)</code></pre>
@@ -249,13 +250,13 @@ pacf(resi)</code></pre>
 ## 
 ## Coefficients:
 ##       1        2        3        4        5        6        7        8  
-## -0.0152   0.1750  -0.1762   0.6447  -0.0145  -0.4063  -0.1430   0.1080  
-##       9       10       11       12       13  
-##  0.2367  -0.0468  -0.2621  -0.3969   0.2010  
+## -0.0517   0.5511   0.5006  -0.0758  -0.6762  -0.8542  -0.2844   0.0780  
+##       9       10       11       12       13       14  
+## -0.3620   0.0401   0.3507  -0.3205  -0.2559  -0.0720  
 ## 
-## Intercept: -0.05098 (0.01314) 
+## Intercept: 0.04032 (0.04497) 
 ## 
-## Order selected 13  sigma^2 estimated as  0.001209</code></pre>
+## Order selected 14  sigma^2 estimated as  0.002957</code></pre>
 <p>Do GLS</p>
 <p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w\]</span></p>
 <pre class="r"><code>## regress on resi hat
@@ -275,23 +276,23 @@ summary(regressY_GLS)</code></pre>
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -0.131503 -0.070833 -0.005986  0.030568  0.195638 
+## -0.242898 -0.068544 -0.000474  0.088350  0.184161 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   0.4112     0.0314  13.093 5.93e-13 ***
-## xprime1       2.3011     0.8793   2.617 0.014592 *  
-## xprime2       2.5518     0.6115   4.173 0.000297 ***
+## (Intercept)  0.59766    0.03689  16.200  4.2e-15 ***
+## xprime1      0.48108    1.28538   0.374   0.7112    
+## xprime2      1.99768    0.82139   2.432   0.0222 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.09233 on 26 degrees of freedom
-## Multiple R-squared:  0.4874, Adjusted R-squared:  0.4479 
-## F-statistic: 12.36 on 2 and 26 DF,  p-value: 0.0001688</code></pre>
+## Residual standard error: 0.1086 on 26 degrees of freedom
+## Multiple R-squared:  0.2268, Adjusted R-squared:  0.1673 
+## F-statistic: 3.812 on 2 and 26 DF,  p-value: 0.03532</code></pre>
 <pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
 alpha</code></pre>
 <pre><code>## (Intercept) 
-##   0.9882015</code></pre>
+##    1.417897</code></pre>
 <p>See if the residuals of GLS has autocorrelation:</p>
 <pre class="r"><code>resiGLS &lt;- regressY_GLS$residuals
 pacf(resiGLS)</code></pre>
@@ -329,14 +330,14 @@ for(i in 1:n) {
   GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.200474 2.209198 2.276608</code></pre>
+<pre><code>## [1] 1.195902 2.217099 2.333228</code></pre>
 <pre class="r"><code>colMeans(GLS_coefs)</code></pre>
-<pre><code>## [1] 1.198680 2.214203 2.288142</code></pre>
+<pre><code>## [1] 1.198042 2.202985 2.318972</code></pre>
 <p>The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.</p>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.01715496 2.66804156 1.67986926</code></pre>
+<pre><code>## [1] 0.01716042 2.74369628 1.79449175</code></pre>
 <pre class="r"><code>colVars(GLS_coefs)</code></pre>
-<pre><code>## [1] 0.01554929 0.83502748 0.53385034</code></pre>
+<pre><code>## [1] 0.1042529 0.8243635 0.5193437</code></pre>
 <pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
 <p><img src="autocorrelation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code>hist(GLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
