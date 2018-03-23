@@ -211,7 +211,7 @@ x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),
              Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                           nrow=2,ncol=2,byrow=TRUE))
 ## assuming correlation in x
-et &lt;- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
+et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
 yt &lt;- 1.2 + x %*% c(2.2,2.3)+et</code></pre>
 <p>Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS:</p>
 <pre class="r"><code>regressY &lt;- lm(yt~x)
@@ -221,23 +221,23 @@ summary(regressY)</code></pre>
 ## lm(formula = yt ~ x)
 ## 
 ## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -0.168331 -0.042144 -0.009908  0.068907  0.141394 
+##      Min       1Q   Median       3Q      Max 
+## -0.24428 -0.10017 -0.02142  0.10538  0.25183 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.13217    0.04554  24.859   &lt;2e-16 ***
-## x1           3.20209    0.92466   3.463   0.0018 ** 
-## x2           1.79299    0.68483   2.618   0.0143 *  
+## (Intercept)   1.1425     0.1088  10.497 4.97e-11 ***
+## x1            0.9243     1.5586   0.593    0.558    
+## x2            1.7082     1.0553   1.619    0.117    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.08294 on 27 degrees of freedom
-## Multiple R-squared:  0.6597, Adjusted R-squared:  0.6345 
-## F-statistic: 26.17 on 2 and 27 DF,  p-value: 4.782e-07</code></pre>
+## Residual standard error: 0.1348 on 27 degrees of freedom
+## Multiple R-squared:  0.1069, Adjusted R-squared:  0.04074 
+## F-statistic: 1.616 on 2 and 27 DF,  p-value: 0.2173</code></pre>
 <pre class="r"><code>regressY$coefficients</code></pre>
 <pre><code>## (Intercept)          x1          x2 
-##    1.132170    3.202087    1.792995</code></pre>
+##   1.1424701   0.9243041   1.7081606</code></pre>
 <p>Test the autocorrelation of residuals</p>
 <pre class="r"><code>resi &lt;- regressY$residuals
 pacf(resi)</code></pre>
@@ -249,13 +249,13 @@ pacf(resi)</code></pre>
 ## 
 ## Coefficients:
 ##       1        2        3        4        5        6        7        8  
-## -0.8249  -0.0756   0.1893  -0.5216   0.3255  -0.4818   0.8980  -0.4992  
-##       9       10       11       12       13       14  
-## -0.5066  -0.4612   0.0382   0.0729   0.9104  -0.8450  
+## -0.0152   0.1750  -0.1762   0.6447  -0.0145  -0.4063  -0.1430   0.1080  
+##       9       10       11       12       13  
+##  0.2367  -0.0468  -0.2621  -0.3969   0.2010  
 ## 
-## Intercept: 0.01136 (0.006316) 
+## Intercept: -0.05098 (0.01314) 
 ## 
-## Order selected 14  sigma^2 estimated as  0.0001309</code></pre>
+## Order selected 13  sigma^2 estimated as  0.001209</code></pre>
 <p>Do GLS</p>
 <p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w\]</span></p>
 <pre class="r"><code>## regress on resi hat
@@ -275,23 +275,27 @@ summary(regressY_GLS)</code></pre>
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -0.161980 -0.032130 -0.006371  0.051233  0.168447 
+## -0.131503 -0.070833 -0.005986  0.030568  0.195638 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.87518    0.03602  24.295  &lt; 2e-16 ***
-## xprime1      2.49002    0.92270   2.699  0.01207 *  
-## xprime2      2.13367    0.63338   3.369  0.00236 ** 
+## (Intercept)   0.4112     0.0314  13.093 5.93e-13 ***
+## xprime1       2.3011     0.8793   2.617 0.014592 *  
+## xprime2       2.5518     0.6115   4.173 0.000297 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.08028 on 26 degrees of freedom
-## Multiple R-squared:  0.6401, Adjusted R-squared:  0.6124 
-## F-statistic: 23.12 on 2 and 26 DF,  p-value: 1.702e-06</code></pre>
+## Residual standard error: 0.09233 on 26 degrees of freedom
+## Multiple R-squared:  0.4874, Adjusted R-squared:  0.4479 
+## F-statistic: 12.36 on 2 and 26 DF,  p-value: 0.0001688</code></pre>
 <pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
 alpha</code></pre>
 <pre><code>## (Intercept) 
-##    1.137018</code></pre>
+##   0.9882015</code></pre>
+<p>See if the residuals of GLS has autocorrelation:</p>
+<pre class="r"><code>resiGLS &lt;- regressY_GLS$residuals
+pacf(resiGLS)</code></pre>
+<p><img src="autocorrelation_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>We redo the above steps for n times:</p>
 <pre class="r"><code>n=2000
 OLS_coefs &lt;- matrix(nrow=n,ncol=3)
@@ -301,7 +305,7 @@ for(i in 1:n) {
                Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                             nrow=2,ncol=2,byrow=TRUE))
   ## assuming autocorrelation in x
-  et &lt;- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
+  et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
   yt &lt;- 1.2 + x %*% c(2.2,2.3)+et
   
   regressY &lt;- lm(yt~x)
@@ -325,14 +329,18 @@ for(i in 1:n) {
   GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.202437 2.156343 2.288972</code></pre>
+<pre><code>## [1] 1.200474 2.209198 2.276608</code></pre>
 <pre class="r"><code>colMeans(GLS_coefs)</code></pre>
-<pre><code>## [1] 1.198569 2.207025 2.301260</code></pre>
-<p>The variance of sampling distribution of GLS is much smaller than that of OLS, and is therefore more effieicnt.</p>
+<pre><code>## [1] 1.198680 2.214203 2.288142</code></pre>
+<p>The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.</p>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.008114863 1.769628798 1.193183102</code></pre>
+<pre><code>## [1] 0.01715496 2.66804156 1.67986926</code></pre>
 <pre class="r"><code>colVars(GLS_coefs)</code></pre>
-<pre><code>## [1] 0.005881866 1.015788454 0.693408818</code></pre>
+<pre><code>## [1] 0.01554929 0.83502748 0.53385034</code></pre>
+<pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
+<p><img src="autocorrelation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>hist(GLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
+<p><img src="autocorrelation_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 
 
 

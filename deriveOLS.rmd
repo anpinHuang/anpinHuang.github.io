@@ -1,7 +1,7 @@
 ---
 title: "Derive OLS estimators"
 ---
-
+The purpose of this section is to derive the estimators of OL, their expectation and variance.
 $$ y = x\beta + \epsilon$$
 
 $$ e = y-x\hat{\beta} $$

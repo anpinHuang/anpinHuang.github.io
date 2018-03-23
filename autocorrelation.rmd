@@ -14,7 +14,7 @@ x <- mvrnorm(n=m,mu=c(0.05,0.08),
              Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                           nrow=2,ncol=2,byrow=TRUE))
 ## assuming correlation in x
-et <- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
+et <- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
 yt <- 1.2 + x %*% c(2.2,2.3)+et
 ```
 
@@ -49,7 +49,14 @@ regressY_GLS <- lm( (yt2-rho*yt[1:(length(yt)-1)]) ~ xprime)
 summary(regressY_GLS)
 alpha <- regressY_GLS$coefficients[1]/(1-rho)
 alpha
+
 ```
+See if the residuals of GLS has autocorrelation:
+```{r}
+resiGLS <- regressY_GLS$residuals
+pacf(resiGLS)
+```
+
 
 ```{r eval=TRUE, echo=FALSE}
 #Cochrane–Orcutt iteration:
@@ -89,7 +96,7 @@ for(i in 1:n) {
                Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                             nrow=2,ncol=2,byrow=TRUE))
   ## assuming autocorrelation in x
-  et <- arima.sim(list(order = c(1,0,0),ar=0.6),n=m,rand.gen=rnorm,sd=0.1)
+  et <- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
   yt <- 1.2 + x %*% c(2.2,2.3)+et
   
   regressY <- lm(yt~x)
@@ -115,9 +122,10 @@ for(i in 1:n) {
 colMeans(OLS_coefs)
 colMeans(GLS_coefs)
 ```
-The variance of sampling distribution of GLS is much smaller than that of OLS, and is therefore more effieicnt.
+The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.
 ```{r}
 colVars(OLS_coefs)
 colVars(GLS_coefs)
-
+hist(OLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))
+hist(GLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))
 ```
