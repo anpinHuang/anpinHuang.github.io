@@ -223,7 +223,7 @@ plot(x,yt)</code></pre>
 OLS_coefs &lt;- matrix(nrow=n,ncol=2)
 WLS_coefs &lt;- matrix(nrow=n,ncol=2)
 for(i in 1:n) {
- m=30
+ m=50
   x &lt;- rnorm(m,0.1,0.06)
   ## assuming correlation in x
   et &lt;- rnorm(m,0,0.8)*x
@@ -238,17 +238,18 @@ for(i in 1:n) {
   WLS_coefs[i,2] &lt;- WLS$coefficients[1]
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.199936 1.300326</code></pre>
+<pre><code>## [1] 1.200066 1.295839</code></pre>
 <pre class="r"><code>colMeans(WLS_coefs)</code></pre>
-<pre><code>## [1] 1.200176 1.299056</code></pre>
+<pre><code>## [1] 1.199826 1.300815</code></pre>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.0007427957 0.1286720923</code></pre>
+<pre><code>## [1] 0.0004423139 0.0794147741</code></pre>
 <pre class="r"><code>colVars(WLS_coefs)</code></pre>
-<pre><code>## [1] 6.511937e-05 3.078676e-02</code></pre>
-<pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>
+<pre><code>## [1] 1.860682e-05 1.672354e-02</code></pre>
+<pre class="r"><code>hist(OLS_coefs[,2],breaks=40,xlim=c(0,3),ylim=c(0,400))</code></pre>
 <p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>hist(WLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>
+<pre class="r"><code>hist(WLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,400))</code></pre>
 <p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><strong>The variance of the sampling distribution of WLS is much smaller than that of the OLS, and is therefore more effieicnt.</strong></p>
 
 
 
