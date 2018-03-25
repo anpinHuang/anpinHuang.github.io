@@ -2,7 +2,7 @@
 title: "An-Pin Huang"
 ---
   
-The site is dedicated to  
+The purpose of this website is to document some of the topics that I find interesting and important from schools and from online sources. The subjects include:      
 1. Econometrics  
 2. Data science  
 3. Financial Mathematics (Stochastic Calculus)  

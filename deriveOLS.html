@@ -186,6 +186,9 @@ $(document).ready(function () {
 <li>
   <a href="econometrics.html">Econometrics</a>
 </li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -206,7 +209,7 @@ $(document).ready(function () {
 <p>The purpose of this section is to derive the estimators of OL, their expectation and variance. <span class="math display">\[ y = x\beta + \epsilon\]</span></p>
 <p><span class="math display">\[ e = y-x\hat{\beta} \]</span></p>
 <p>note that <span class="math display">\[\epsilon  \neq e\]</span></p>
-goal: minimize sum of squared residuals <strong><span class="math display">\[ min(e\prime e) \]</span></strong> <span class="math display">\[
+<strong>Goal: minimize sum of squared residuals</strong> <span class="math display">\[ min(e\prime e) \]</span> <span class="math display">\[
 \begin{aligned}
 e\prime e &amp;=  (y-x\hat{\beta})\prime(y-x\hat{\beta}) \\
 &amp;= y\prime y - \hat{\beta}\prime x\prime y - y\prime x\hat{\beta} + \hat{\beta}\prime x\prime x \hat{\beta} \\
@@ -218,7 +221,17 @@ e\prime e &amp;=  (y-x\hat{\beta})\prime(y-x\hat{\beta}) \\
 </div>
 <p><span class="math display">\[ \frac{\partial e\prime e}{\partial \hat{\beta}} = -2x\prime y+2x\prime x \hat{\beta} = 0 \]</span></p>
 <p><span class="math display">\[ \Rightarrow x\prime x \hat{\beta} = x\prime y \]</span> <span class="math display">\[ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime y ,\,\, if \,\, (x\prime x)^{-1} \,\, exists \]</span> <span class="math display">\[ \Rightarrow \hat{\beta} = (x\prime x)^{-1}x\prime (x\beta + \epsilon)  \]</span></p>
-<p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x\prime x)^{-1}x\prime \epsilon]\]</span> if <span class="math inline">\(E[\epsilon] =0\)</span> and <span class="math inline">\(E[\epsilon | x] = 0\)</span>, then <span class="math inline">\(E[(x\prime x)^{-1}x\prime \epsilon] = 0\)</span> and <span class="math inline">\(E[ \hat{\beta}] = \beta\)</span>. <span class="math inline">\(\hat{\beta}\)</span> is an unbiased estimator.</p>
+<hr />
+<div id="unbiasedness" class="section level3">
+<h3>Unbiasedness</h3>
+<p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x\prime x)^{-1}x\prime \epsilon]\]</span></p>
+<p>if <span class="math inline">\(E[\epsilon] =0\)</span> and <span class="math inline">\(E[\epsilon | x] = 0\)</span>, then <span class="math inline">\(E[(x\prime x)^{-1}x\prime \epsilon] = 0\)</span> and <span class="math inline">\(E[ \hat{\beta}] = \beta\)</span>.<br />
+<strong><span class="math inline">\(\Rightarrow \hat{\beta}\)</span> is an unbiased estimator.</strong></p>
+<hr />
+</div>
+<div id="variance-of-the-ols-estimator" class="section level3">
+<h3>Variance of the OLS estimator</h3>
+</div>
 
 
 

@@ -10,7 +10,7 @@ To simulate $y$ we do:
 ```{r}
 library(MASS)
 library(matrixStats)
-m=30
+m=50
 x <- mvrnorm(n=m,mu=c(0.05,0.08),
              Sigma=matrix(c(0.0004,0.00023,0.00023,0.0006),
                           nrow=2,ncol=2,byrow=TRUE))
@@ -19,6 +19,8 @@ et <- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
 yt <- 1.2 + x %*% c(2.2,2.3)+et
 ```
 
+*******
+### OLS
 Then we do regress $y$ on $x$ using OLS:
 ```{r}
 regressY <- lm(yt~x)
@@ -33,7 +35,10 @@ ar.ols(resi)
 ```
 
 
-Do GLS
+********
+
+### GLS
+GLS with AR(1) residuals is actually OLS on the below equation:
 
 $$y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w$$
 ```{r}
@@ -87,6 +92,11 @@ CochraneOrcuttIteration <- function(y,x,tolerance) {
   return(betas)
 }
 ```
+
+********
+
+### Run n times to observe the sampling distribution of OLS and GLS estimators
+
 We redo the above steps for n times:
 ```{r}
 n=2000
@@ -123,7 +133,7 @@ for(i in 1:n) {
 colMeans(OLS_coefs)
 colMeans(GLS_coefs)
 ```
-The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.
+**The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.**
 ```{r}
 colVars(OLS_coefs)
 colVars(GLS_coefs)

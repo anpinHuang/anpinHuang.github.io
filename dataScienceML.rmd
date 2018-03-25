@@ -1,0 +1,12 @@
+---
+title: "Data Science"
+---
+    
+    
+    
+#### Machine learning algorithms  
+[Decision tree](decisionTree.html)
+ 
+#### Data Manipulation practices
+[Merge, aggregate and count in R](mergeAggregateCount.html)
+

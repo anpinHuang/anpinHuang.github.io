@@ -1,0 +1,40 @@
+---
+title: "Merge, aggregate and count in R"
+---
+  
+The purpose of this section is to show some examples of SQL like data analysis using R. The data that is used in these examples is the Customer Support data from [IBM Watson Analytics](https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/).   
+  
+First, we want to load the libraries that we need:
+```{r}
+library(data.table)
+library(plyr)
+```
+
+
+```{r}
+churnAnalysis <- fread("WA_Fn-UseC_-Telco-Customer-Churn.csv") 
+churnAnalysis <- as.data.frame(churnAnalysis)
+head(churnAnalysis)
+```
+
+### Aggregate function 
+
+Let's say, if we are interested in if payment method is a driver for monthly charges, we can use **aggregate** function to see the average monthly charges of each payment method:
+```{r, message=F, warning=F}
+PaymentMethodMonthlyChargesMean <- aggregate(churnAnalysis[,c("PaymentMethod","MonthlyCharges")], list(churnAnalysis$PaymentMethod), mean)
+PaymentMethodMonthlyChargesMean
+```
+People who use mailed check to pay seems to have lower monthly charges.
+
+### Count function
+
+From the data, we observe that the people do mailed check has lower monthly charges, but to make sure that it is not driven by a small number of data, we do **count** for count how many data points we have for each payment methods:
+```{r}
+count(churnAnalysis,'PaymentMethod') ## library plyr
+```
+Given that each payment mehtod has more than 1000 data points, we can say that the difference is not driven by a small number of data.
+
+
+
+
+

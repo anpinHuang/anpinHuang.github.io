@@ -8,6 +8,8 @@ navbar:
       href: about.html
     - text: "Econometrics"
       href: econometrics.html
+    - text: "Data Science"
+      href: dataScienceML.html
 output:
   html_document:
   theme: cosmo

@@ -186,6 +186,9 @@ $(document).ready(function () {
 <li>
   <a href="econometrics.html">Econometrics</a>
 </li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -213,7 +216,8 @@ x &lt;- rnorm(m,0.1,0.06)
 et &lt;- rnorm(m,0,0.8)*x
 yt &lt;- 1.2 + 3*x+et
 plot(x,yt)</code></pre>
-<p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-1-1.png" width="672" /> In the plot, we observe the variance increase as x increase. Now we simulate again with smaller sample size (m=30) to see the variance of sampling distribution difference between OLS and WLS by repeating it by 1000 times (n=1000)) Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS and</p>
+<p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>In the plot, we observe the variance increase as x increase. Now we simulate again with smaller sample size (m=30) to see the variance of sampling distribution difference between OLS and WLS by repeating it by 1000 times (n=1000)) Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS and</p>
 <p>Weight least square: <span class="math display">\[ \frac{y_t}{x_{t}} = \frac{\alpha}{x_{t}}  + \beta + \frac{\epsilon_t}{x_{t}}  \]</span> and then we get <span class="math display">\[ Var(\frac{\epsilon_t}{x_{t}}) = \sigma ^2 \]</span></p>
 <pre class="r"><code>n=2000
 OLS_coefs &lt;- matrix(nrow=n,ncol=2)
@@ -234,13 +238,13 @@ for(i in 1:n) {
   WLS_coefs[i,2] &lt;- WLS$coefficients[1]
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.199239 1.309188</code></pre>
+<pre><code>## [1] 1.199936 1.300326</code></pre>
 <pre class="r"><code>colMeans(WLS_coefs)</code></pre>
-<pre><code>## [1] 1.199733 1.301413</code></pre>
+<pre><code>## [1] 1.200176 1.299056</code></pre>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.0006943199 0.1164848717</code></pre>
+<pre><code>## [1] 0.0007427957 0.1286720923</code></pre>
 <pre class="r"><code>colVars(WLS_coefs)</code></pre>
-<pre><code>## [1] 6.363699e-05 3.040353e-02</code></pre>
+<pre><code>## [1] 6.511937e-05 3.078676e-02</code></pre>
 <pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>
 <p><img src="heteroskedasticity_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>hist(WLS_coefs[,2],breaks=20,xlim=c(0,3),ylim=c(0,600))</code></pre>

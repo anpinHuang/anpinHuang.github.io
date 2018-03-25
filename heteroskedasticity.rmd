@@ -18,6 +18,7 @@ et <- rnorm(m,0,0.8)*x
 yt <- 1.2 + 3*x+et
 plot(x,yt)
 ```
+     
 In the plot, we observe the variance increase as x increase.
 Now we simulate again with smaller sample size (m=30) to see the variance of sampling distribution difference between OLS and WLS by repeating it by 1000 times (n=1000))
 Then we do regress $y$ on $x$ using OLS and

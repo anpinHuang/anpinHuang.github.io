@@ -1,0 +1,37 @@
+---
+title: "Decision tree"
+---
+Decision tree is an classification algorithm by dividing the explanatory variable into different subsets.
+  
+  
+### Entropy - to measure the uncertainty
+$$ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} $$
+impure (3 yes/3 no):
+$$ H(s) = -\frac{3}{6}log_2 \frac{3}{6} - \frac{3}{6}log_2 \frac{3}{6} = 1  $$
+pure set (4 yes/0 no):
+$$ H(s) = -\frac{4}{4}log_2 \frac{4}{4} - \frac{0}{4}log_2 \frac{0}{4} = 0  $$
+**$\Rightarrow$ The smaller the entropy the better!**
+
+### Information Gain - want many items in pure sets:
+
+$$  Gain(S,A) = H(S) - \sum \frac{|S_V|}{|S|}H(S_V) $$
+
+where $V$ is the possible value of $A$, $S$ is the set of examples $X$ and $S_V$ is the subset where $X_A = V$
+
+e.g. set$A$ has 10 yes and 6 no and can be devided to subset$B$ (8 yes and 4 no)and subset$C$ (2 yes and 2 no)
+
+Then the entropy before the split is $ H(S) = -\frac{10}{16}log_2 \frac{10}{16} - \frac{6}{16}log_2 \frac{6}{16} = 0.954434 $
+
+Then, the information gain after the split is:
+$$ 
+\begin{aligned}
+IG &= H(S) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
+&= 0.954434-\frac{12}{16}0.9182958-\frac{4}{16}1 \\
+&= 0.01571215 
+\end{aligned}
+$$
+**The larger the IG (information gain) the better!**
+
+
+
+

@@ -11,7 +11,7 @@
 
 
 
-<title>An-Pin Huang</title>
+<title>Decision tree</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -201,15 +201,30 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">An-Pin Huang</h1>
+<h1 class="title toc-ignore">Decision tree</h1>
 
 </div>
 
 
-<p>The purpose of this website is to document some of the topics that I find interesting and important from schools and from online sources. The subjects include:<br />
-1. Econometrics<br />
-2. Data science<br />
-3. Financial Mathematics (Stochastic Calculus)</p>
+<p>Decision tree is an classification algorithm by dividing the explanatory variable into different subsets.</p>
+<div id="entropy---to-measure-the-uncertainty" class="section level3">
+<h3>Entropy - to measure the uncertainty</h3>
+<p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (3 yes/3 no): <span class="math display">\[ H(s) = -\frac{3}{6}log_2 \frac{3}{6} - \frac{3}{6}log_2 \frac{3}{6} = 1  \]</span> pure set (4 yes/0 no): <span class="math display">\[ H(s) = -\frac{4}{4}log_2 \frac{4}{4} - \frac{0}{4}log_2 \frac{0}{4} = 0  \]</span> <strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
+</div>
+<div id="information-gain---want-many-items-in-pure-sets" class="section level3">
+<h3>Information Gain - want many items in pure sets:</h3>
+<p><span class="math display">\[  Gain(S,A) = H(S) - \sum \frac{|S_V|}{|S|}H(S_V) \]</span></p>
+<p>where <span class="math inline">\(V\)</span> is the possible value of <span class="math inline">\(A\)</span>, <span class="math inline">\(S\)</span> is the set of examples <span class="math inline">\(X\)</span> and <span class="math inline">\(S_V\)</span> is the subset where <span class="math inline">\(X_A = V\)</span></p>
+<p>e.g. set<span class="math inline">\(A\)</span> has 10 yes and 6 no and can be devided to subset<span class="math inline">\(B\)</span> (8 yes and 4 no)and subset<span class="math inline">\(C\)</span> (2 yes and 2 no)</p>
+<p>Then the entropy before the split is $ H(S) = -log_2  - log_2  = 0.954434 $</p>
+<p>Then, the information gain after the split is: <span class="math display">\[ 
+\begin{aligned}
+IG &amp;= H(S) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
+&amp;= 0.954434-\frac{12}{16}0.9182958-\frac{4}{16}1 \\
+&amp;= 0.01571215 
+\end{aligned}
+\]</span> <strong>The larger the IG (information gain) the better!</strong></p>
+</div>
 
 
 
