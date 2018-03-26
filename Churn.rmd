@@ -4,18 +4,22 @@ title: "Predicting Churns"
 
 The purpose of this section is to use tree-based algorithm to predict churn of a customr based on some explanatory variable. The data I use is the Customer Support data from [IBM Watson Analytics](https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/).
 
+
+
 ```{r}
 churnAnalysis <- fread("WA_Fn-UseC_-Telco-Customer-Churn.csv") 
 churnAnalysis <- as.data.frame(churnAnalysis)
 head(churnAnalysis)
 ```
+&nbsp;
+&nbsp;
+    
+### Data pre-processing
 
-
+Check if there is missing value. There are only 11 missing values in TotalCharges so we can just remove entire row given that the number is small.
 ```{r}
-library(party)
 sapply(churnAnalysis, function(x) sum(is.na(x)))
 churnAnalysis <- churnAnalysis[which(!is.na(churnAnalysis[,"TotalCharges"])),]
-
 ```
 
 Then we look at what variables are continuous, and they are:
@@ -24,7 +28,6 @@ Then we look at what variables are continuous, and they are:
 To use decision tree, we need to convert the continuous variables to categorical variables be setting some thresold. But first, let's split the data into training, validation and test sets.
 
 ```{r}
-count(churnAnalysis,'Churn') ## library plyr
 ## randomize the data first
 churnAnalysis <- churnAnalysis[sample(1:nrow(churnAnalysis)),]
 ## then split
@@ -76,24 +79,31 @@ for(i in 1:ncol(churnAnalysisTraining)) {
   churnAnalysisTest[,i] <- as.factor(churnAnalysisTest[,i])
 }
 ```
+     
+********    
+     
+### Use the ctree function from package:party
 
 run the decision tree using ctree from package:party
 ```{r}
 library(party)
 tree <- ctree(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
 pred_tree <- predict(tree, churnAnalysisTest)
-print("Confusion Matrix for Decision Tree"); 
-table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn)
-count(churnAnalysisTest,'Churn') ## library plyr
+table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree
 ```
+&nbsp;
+&nbsp;
+    
+********
+    
+### Use the rpart function from package: rpart
 
 use rpart to run decision tree from package:rpart
 ```{r}
 library(rpart)
 fitTree <- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
 pred_fitTree <- predict(fitTree, churnAnalysisTest,type="class")
-print("Confusion Matrix for Decision Tree")
-table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn)
+table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree
 ```
 
 ```{r}
@@ -101,6 +111,9 @@ plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)
 ```
 
+********
+
+### Prune the tree using validation set
 now prune the tree using the validation set
 
 

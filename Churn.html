@@ -245,8 +245,11 @@ head(churnAnalysis)</code></pre>
 ## 4    No
 ## 5   Yes
 ## 6   Yes</code></pre>
-<pre class="r"><code>library(party)
-sapply(churnAnalysis, function(x) sum(is.na(x)))</code></pre>
+<p>   </p>
+<div id="data-pre-processing" class="section level3">
+<h3>Data pre-processing</h3>
+<p>Check if there is missing value. There are only 11 missing values in TotalCharges so we can just remove entire row given that the number is small.</p>
+<pre class="r"><code>sapply(churnAnalysis, function(x) sum(is.na(x)))</code></pre>
 <pre><code>##       customerID           gender    SeniorCitizen          Partner 
 ##                0                0                0                0 
 ##       Dependents           tenure     PhoneService    MultipleLines 
@@ -262,10 +265,6 @@ sapply(churnAnalysis, function(x) sum(is.na(x)))</code></pre>
 <pre class="r"><code>churnAnalysis &lt;- churnAnalysis[which(!is.na(churnAnalysis[,&quot;TotalCharges&quot;])),]</code></pre>
 <p>Then we look at what variables are continuous, and they are: “tenure”, “MonthlyCharges” and “TotalCharges”</p>
 <p>To use decision tree, we need to convert the continuous variables to categorical variables be setting some thresold. But first, let’s split the data into training, validation and test sets.</p>
-<pre class="r"><code>count(churnAnalysis,&#39;Churn&#39;) ## library plyr</code></pre>
-<pre><code>##   Churn freq
-## 1    No 5163
-## 2   Yes 1869</code></pre>
 <pre class="r"><code>## randomize the data first
 churnAnalysis &lt;- churnAnalysis[sample(1:nrow(churnAnalysis)),]
 ## then split
@@ -294,36 +293,42 @@ churnAnalysis[&quot;tenure&quot;] &lt;- TenureClass
 churnAnalysisTraining &lt;- churnAnalysis[1:(nrow(churnAnalysis)/2),]
 churnAnalysisValidation &lt;- churnAnalysis[(nrow(churnAnalysis)/2+1): floor(3*nrow(churnAnalysis)/4),]
 churnAnalysisTest &lt;- churnAnalysis[floor(3*nrow(churnAnalysis)/4+1):nrow(churnAnalysis),]</code></pre>
+<hr />
+</div>
+<div id="use-the-ctree-function-from-packageparty" class="section level3">
+<h3>Use the ctree function from package:party</h3>
 <p>run the decision tree using ctree from package:party</p>
 <pre class="r"><code>library(party)
 tree &lt;- ctree(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
 pred_tree &lt;- predict(tree, churnAnalysisTest)
-print(&quot;Confusion Matrix for Decision Tree&quot;); </code></pre>
-<pre><code>## [1] &quot;Confusion Matrix for Decision Tree&quot;</code></pre>
-<pre class="r"><code>table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn)</code></pre>
+table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
 <pre><code>##          Actual
 ## Predicted   No  Yes
-##       No  1111  195
-##       Yes  172  280</code></pre>
-<pre class="r"><code>count(churnAnalysisTest,&#39;Churn&#39;) ## library plyr</code></pre>
-<pre><code>##   Churn freq
-## 1    No 1283
-## 2   Yes  475</code></pre>
+##       No  1149  249
+##       Yes  128  232</code></pre>
+<p>   </p>
+<hr />
+</div>
+<div id="use-the-rpart-function-from-package-rpart" class="section level3">
+<h3>Use the rpart function from package: rpart</h3>
 <p>use rpart to run decision tree from package:rpart</p>
 <pre class="r"><code>library(rpart)
 fitTree &lt;- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
 pred_fitTree &lt;- predict(fitTree, churnAnalysisTest,type=&quot;class&quot;)
-print(&quot;Confusion Matrix for Decision Tree&quot;)</code></pre>
-<pre><code>## [1] &quot;Confusion Matrix for Decision Tree&quot;</code></pre>
-<pre class="r"><code>table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn)</code></pre>
+table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
 <pre><code>##          Actual
 ## Predicted   No  Yes
-##       No  1142  234
-##       Yes  141  241</code></pre>
+##       No  1146  253
+##       Yes  131  228</code></pre>
 <pre class="r"><code>plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)</code></pre>
 <p><img src="Churn_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="prune-the-tree-using-validation-set" class="section level3">
+<h3>Prune the tree using validation set</h3>
 <p>now prune the tree using the validation set</p>
+</div>
 
 
 
