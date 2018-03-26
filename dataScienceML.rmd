@@ -5,8 +5,9 @@ title: "Data Science"
     
     
 #### Machine learning algorithms  
-[Decision tree](decisionTree.html)
- 
+[Decision tree](decisionTree.html)    
+[Predicting Churns](Churn.html)  
+    
 #### Data Manipulation practices
-[Merge, aggregate and count in R](mergeAggregateCount.html)
+[Merge, aggregate and count in R](mergeAggregateCount.html)    
 

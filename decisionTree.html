@@ -206,24 +206,43 @@ $(document).ready(function () {
 </div>
 
 
-<p>Decision tree is an classification algorithm by dividing the explanatory variable into different subsets.</p>
-<div id="entropy---to-measure-the-uncertainty" class="section level3">
-<h3>Entropy - to measure the uncertainty</h3>
-<p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (3 yes/3 no): <span class="math display">\[ H(s) = -\frac{3}{6}log_2 \frac{3}{6} - \frac{3}{6}log_2 \frac{3}{6} = 1  \]</span> pure set (4 yes/0 no): <span class="math display">\[ H(s) = -\frac{4}{4}log_2 \frac{4}{4} - \frac{0}{4}log_2 \frac{0}{4} = 0  \]</span> <strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
+<p>Decision tree is a classification algorithm by dividing the data set into different subsets by the explanatory variables. The content presented in this section is mainly based on the knowledge learned from <a href="https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO">Decision Tree Youtube tutorials playlist</a> by <a href="https://www.youtube.com/user/victorlavrenko/featured">Victor Lavrenko</a>.</p>
+<div id="entropy" class="section level3">
+<h3>Entropy</h3>
+<p>Entropy is a measure to measure the uncertainty of the outcome. If the outcome is certain (either all positive or all negative), then the entropy is 0. The highest entropy value is 1 when the probablity of outcome is 50-50.</p>
+<p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (5 positive, 5 negative): <span class="math display">\[ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  \]</span> pure set (5 positive, 0 negative): <span class="math display">\[ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  \]</span> <strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
 </div>
-<div id="information-gain---want-many-items-in-pure-sets" class="section level3">
-<h3>Information Gain - want many items in pure sets:</h3>
+<div id="information-gain" class="section level3">
+<h3>Information Gain</h3>
 <p><span class="math display">\[  Gain(S,A) = H(S) - \sum \frac{|S_V|}{|S|}H(S_V) \]</span></p>
 <p>where <span class="math inline">\(V\)</span> is the possible value of <span class="math inline">\(A\)</span>, <span class="math inline">\(S\)</span> is the set of examples <span class="math inline">\(X\)</span> and <span class="math inline">\(S_V\)</span> is the subset where <span class="math inline">\(X_A = V\)</span></p>
-<p>e.g. set<span class="math inline">\(A\)</span> has 10 yes and 6 no and can be devided to subset<span class="math inline">\(B\)</span> (8 yes and 4 no)and subset<span class="math inline">\(C\)</span> (2 yes and 2 no)</p>
-<p>Then the entropy before the split is $ H(S) = -log_2  - log_2  = 0.954434 $</p>
-<p>Then, the information gain after the split is: <span class="math display">\[ 
+<p>e.g. set <span class="math inline">\(A\)</span> has 10 positive and 6 negative and can be devided to subset <span class="math inline">\(B\)</span> (8 positive, 4 negative)and subset <span class="math inline">\(C\)</span> (2 positive, 2 negative)</p>
+<p>Then, the entropy before the split is <span class="math inline">\(H(S) = -\frac{10}{16}log_2 \frac{10}{16} - \frac{6}{16}log_2 \frac{6}{16} = 0.954434\)</span></p>
+<p>and the information gain after the split is: <span class="math display">\[ 
 \begin{aligned}
-IG &amp;= H(S) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
+IG &amp;= H(S_A) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
 &amp;= 0.954434-\frac{12}{16}0.9182958-\frac{4}{16}1 \\
 &amp;= 0.01571215 
 \end{aligned}
 \]</span> <strong>The larger the IG (information gain) the better!</strong></p>
+</div>
+<div id="problem-of-overfitting---bias-towards-multi-valued-attributes." class="section level3">
+<h3>Problem of overfitting - bias towards multi-valued attributes.</h3>
+<p>The algorithm will keep splitting data until each node is a pure set. (Assuming that the data is splitable. That is, there is no two data points with all x variables that are identical, but different y.) Hence the size of the tree will become too deep (with lots of layers and lots of nodes) and become too specific to the training data.</p>
+<p>Moreover, when there is a new data comes in and it is different from any of the historica data, then the algorithm doesn’t know how to classify it.</p>
+</div>
+<div id="gain-ratio" class="section level3">
+<h3>Gain ratio</h3>
+<p>There is one drawback of the information gain. That is, it tends to choose the feature that has many tiny subsets. The most extreme case is that if each data point has an unique ID, and then the entropy after spliting would be: <span class="math display">\[H(S) = \sum \frac{1}{n}0 = 0 \]</span> To penalize choosing a feature of a large number of distinct values, the Information gain ratio (<span class="math inline">\(IGR\)</span>) is prefered than the information gain (<span class="math inline">\(IG\)</span>).<br />
+Information gain ratio: <span class="math display">\[ IGR = \frac{IG}{IV} \]</span> Where <span class="math inline">\(IV\)</span> is the Intrinsic value: <span class="math display">\[  IV(S,A) = -\sum \frac{|S_V|}{|S|}log_2\frac{|S_V|}{|S|} \]</span></p>
+</div>
+<div id="continuous-data" class="section level3">
+<h3>Continuous data</h3>
+<p>When the explanatory variable is continuous (numeric data), then it has to be transform to catergorical data by setting some thresold.</p>
+</div>
+<div id="random-forest" class="section level3">
+<h3>Random forest</h3>
+<p>The random forest algorithm is aimed to address the shortcomings of the decision tree by training the data by a set of decision trees. For each tree, pick a subset of features at random to build the tree, and take the majority vote of all the trees.</p>
 </div>
 
 
