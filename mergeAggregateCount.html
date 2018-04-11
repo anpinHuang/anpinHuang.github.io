@@ -270,6 +270,50 @@ PaymentMethodMonthlyChargesMean</code></pre>
 ## 3          Electronic check 2365
 ## 4              Mailed check 1612</code></pre>
 <p>Given that each payment mehtod has more than 1000 data points, we can say that the difference is not driven by a small number of data.</p>
+<pre class="r"><code>library(&quot;RSQLite&quot;)
+# connect to the sqlite file
+mydb = dbConnect(RSQLite::SQLite(), dbname=&quot;database.sqlite&quot;) ## load the music review data
+## list all tables
+tableList &lt;- dbListTables(mydb)
+
+
+
+# dbDisconnect(mydb)
+# unlink(&quot;my-db.sqlite&quot;)</code></pre>
+<pre class="r"><code>reviews &lt;- dbReadTable(mydb,&quot;reviews&quot;)
+artists &lt;- dbReadTable(mydb,&quot;artists&quot;)
+## I want to find out how many artists first
+artistsList &lt;-  dbGetQuery(mydb, &#39;SELECT DISTINCT artist  FROM artists&#39;)
+## I want to find out for each artist, how many reviews have they got (use Group By)
+artistsReviewCount &lt;- dbGetQuery(mydb, &#39;SELECT COUNT(a.reviewid), a.* FROM artists AS a GROUP BY a.artist ORDER BY COUNT(a.reviewid) DESC&#39;)
+head(artistsReviewCount)</code></pre>
+<pre><code>##   COUNT(a.reviewid) reviewid              artist
+## 1               688     1929     various artists
+## 2                23     3594    guided by voices
+## 3                23    11868          neil young
+## 4                22      699 bonnie prince billy
+## 5                21      881         david bowie
+## 6                21     1093         the beatles</code></pre>
+<pre class="r"><code>##use R to solve the SQL problem
+## I want to find out how many artists first
+artistList &lt;- unique(artists)
+#tempReview_Artist &lt;- merge(artists,reviews,by.x=&quot;reviewid&quot;,by.y=&quot;reviewid&quot;,all.y=TRUE) ## artist is already in the review table....
+## I want to find out for each artist, how many reviews have they got
+reviewCounts &lt;- count(artists,&quot;artist&quot;)
+## only want to see artists with more than 1 reviews
+reviewCountsEx1 &lt;- reviewCounts[reviewCounts[,2]&gt;1,]</code></pre>
+<pre class="r"><code>## let&#39;s say, I don&#39;t have plyr library, what can I do?
+countGroupBy &lt;- function(table,ByColumn) {
+  groups &lt;- unique(table[,ByColumn])
+  #NewTable &lt;- as.data.frame(matrix(NA,nrow=length(groups),ncol=2))
+  temp &lt;- sapply(groups,function(x,table,ByColumn) {return(length(which(table[,ByColumn] ==x)))},table=table,ByColumn=ByColumn)
+  return(cbind(groups,as.numeric(temp)))
+}
+reviewCountsBySelf &lt;- countGroupBy(table=artists,ByColumn=&quot;artist&quot;)
+reviewCountsBySelf &lt;- reviewCountsBySelf[order(reviewCountsBySelf[,1]),]
+reviewCounts &lt;- reviewCounts[order(reviewCounts[,1]),]
+#sum(reviewCounts!=reviewCountsBySelf) ## check if the self-built function is the same as
+## the count function from plyr package</code></pre>
 </div>
 
 

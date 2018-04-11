@@ -34,4 +34,200 @@ count(churnAnalysis,'PaymentMethod') ## library plyr
 ```
 Given that each payment mehtod has more than 1000 data points, we can say that the difference is not driven by a small number of data.
 
+```{r}
+library("RSQLite")
+# connect to the sqlite file
+mydb = dbConnect(RSQLite::SQLite(), dbname="database.sqlite") ## load the music review data
+## list all tables
+tableList <- dbListTables(mydb)
+
+
+
+# dbDisconnect(mydb)
+# unlink("my-db.sqlite")
+```
+
+```{r}
+reviews <- dbReadTable(mydb,"reviews")
+artists <- dbReadTable(mydb,"artists")
+## I want to find out how many artists first
+artistsList <-  dbGetQuery(mydb, 'SELECT DISTINCT artist  FROM artists')
+## I want to find out for each artist, how many reviews have they got (use Group By)
+artistsReviewCount <- dbGetQuery(mydb, 'SELECT COUNT(a.reviewid), a.* FROM artists AS a GROUP BY a.artist ORDER BY COUNT(a.reviewid) DESC')
+head(artistsReviewCount)
+```
+
+
+
+```{r}
+##use R to solve the SQL problem
+## I want to find out how many artists first
+artistList <- unique(artists)
+#tempReview_Artist <- merge(artists,reviews,by.x="reviewid",by.y="reviewid",all.y=TRUE) ## artist is already in the review table....
+## I want to find out for each artist, how many reviews have they got
+reviewCounts <- count(artists,"artist")
+## only want to see artists with more than 1 reviews
+reviewCountsEx1 <- reviewCounts[reviewCounts[,2]>1,]
+```
+
+```{r}
+## let's say, I don't have plyr library, what can I do?
+countGroupBy <- function(table,ByColumn) {
+  groups <- unique(table[,ByColumn])
+  #NewTable <- as.data.frame(matrix(NA,nrow=length(groups),ncol=2))
+  temp <- sapply(groups,function(x,table,ByColumn) {return(length(which(table[,ByColumn] ==x)))},table=table,ByColumn=ByColumn)
+  return(cbind(groups,as.numeric(temp)))
+}
+reviewCountsBySelf <- countGroupBy(table=artists,ByColumn="artist")
+reviewCountsBySelf <- reviewCountsBySelf[order(reviewCountsBySelf[,1]),]
+reviewCounts <- reviewCounts[order(reviewCounts[,1]),]
+#sum(reviewCounts!=reviewCountsBySelf) ## check if the self-built function is the same as
+## the count function from plyr package
+```
+
+```{r}
+## use SQL
+## I want to find out for each artist, what's the album (order) that has the highest score
+years <- dbGetQuery(mydb, 'SELECT *  FROM years')
+artistsList <-  dbGetQuery(mydb, 'SELECT DISTINCT artist  FROM artists')
+dbSendQuery(mydb, 'CREATE TABLE releaseYears AS SELECT reviewid,MIN(year) AS releaseYear FROM years GROUP BY years.reviewid')
+releaseYears <- dbGetQuery(mydb, 'SELECT * FROM releaseYears')
+dbGetQuery(mydb, 'SELECT * FROM releaseYears WHERE releaseYear IS NULL') 
+dbSendQuery(mydb, 'DELETE FROM releaseYears WHERE releaseYear IS NULL') ## remove the review that doesn't have release year
+
+
+## I want to find out for each artist, how many reviews have they got (use Group By)
+# artistsReviewScore <- dbGetQuery(mydb, 'SELECT ROW_NUMBER() OVER(PARTITION BY[r.artist] ORDER BY r.pub_year) FROM reviews AS r') ## ROW_NUMBER() doesn't work for RSQLite
+dbSendQuery(mydb, 'CREATE TABLE newreviews AS SELECT r.*,(SELECT count(*) FROM (SELECT reviews.*,releaseYears.releaseYear FROM reviews JOIN releaseYears on reviews.reviewid=releaseYears.reviewid) AS r2 WHERE r.artist=r2.artist AND r.releaseYear >= r2.releaseYear) AS orderIndex FROM (SELECT reviews.*,releaseYears.releaseYear FROM reviews JOIN releaseYears ON reviews.reviewid=releaseYears.reviewid) AS r')
+
+
+artistsReviewOrder <- dbGetQuery(mydb, 'SELECT * FROM newreviews')
+## test using massive attack
+artistsReviewOrder[which(artistsReviewOrder[,"artist"]=="massive attack"),]
+## test using oasis
+artistsReviewOrder[which(artistsReviewOrder[,"artist"]=="oasis"),]
+## test using muse
+artistsReviewOrder[which(artistsReviewOrder[,"artist"]=="muse"),]
+
+artistsHighestReviewAlbum <- dbGetQuery(mydb, 'SELECT max(t.score) AS score,count(*) AS numAlbums,t.artist,t.title,t.orderIndex,t.releaseYear FROM newreviews t GROUP BY t.artist')
+
+## use massive attack to test
+artistsHighestReviewAlbum[which(artistsHighestReviewAlbum[,"artist"] %in% c("massive attack","radiohead","arctic monkeys","muse","oasis")),c("score","title","artist","orderIndex","releaseYear","numAlbums")]
+
+## plot the hist for artists that have >= 5 albums
+hist(artistsHighestReviewAlbum[which(artistsHighestReviewAlbum[,"numAlbums"]>=5),"orderIndex"]-0.01,xlim = c(0,15),breaks=100)
+```
+
+```{r}
+genres <- dbGetQuery(mydb, 'SELECT g.* FROM genres AS g')
+reviewWithGenres <- dbGetQuery(mydb, 'SELECT r.reviewid, r.title, r.artist, r.score, r.releaseYear, r.orderIndex, g.genre FROM newreviews AS r JOIN genres AS g on g.reviewid=r.reviewid')
+
+dbSendQuery(mydb, 'CREATE TABLE reviewWithGenres AS SELECT r.reviewid, r.title, r.artist,r.score, r.releaseYear, r.orderIndex, g.genre FROM newreviews AS r JOIN genres AS g on g.reviewid=r.reviewid')
+reviewWithGenres <- dbGetQuery(mydb, 'SELECT * FROM reviewWithGenres')
+GenresAvgScore <- dbGetQuery(mydb, 'SELECT AVG(r.score),r.genre,count(*) FROM reviewWithGenres r GROUP BY r.genre')
+## find the ratio of scores >= 7 for each group
+dbGetQuery(mydb, 'WITH temp AS (SELECT r.genre, count(*) AS countHigh FROM reviewWithGenres r WHERE r.score >= 7 GROUP BY r.genre), 
+           temp2 AS (SELECT r. genre, count(*) AS countAll FROM reviewWithGenres r GROUP BY r.genre)
+           SELECT a.genre, a.countAll, h.countHigh, CAST(h.countHigh AS DOUBLE)/a.countAll FROM temp h JOIN temp2 a ON a.genre = h.genre')
+
+
+## how many review doesn't have genre (check NULL)
+dbGetQuery(mydb,'SELECT count(*) FROM genres g WHERE g.genre IS NULL')
+dbGetQuery(mydb,'SELECT count(*) FROM reviewWithGenres g WHERE g.genre IS NULL')
+## where is the 67 rows in genre table but not in reviewWithGenres table?
+
+## important
+dbGetQuery(mydb, 'WITH allCount AS (SELECT r.genre, count(*) AS countA FROM reviewWithGenres r GROUP BY r.genre)
+, highScoreCount AS (SELECT r.genre, count(*) AS countH FROM reviewWithGenres r WHERE r.score >= 7 GROUP BY r.genre)
+SELECT a.genre, CAST(h.countH AS DOUBLE)/a.countA ,h.countH, a.countA FROM allCount a JOIN highScoreCount h ON a.genre=h.genre OR (a.genre IS NULL AND h.genre IS NULL)')
+
+
+
+## find the question with highest conversion ratio
+## SELECT Qid, CAST(count(CASE WHEN event=answered THEN 1) AS DOUBLE)/count(CASE WHEN event = saw THEN 1) FROM table t GROUP BY t.Qid
+
+## WITH temp AS (SELECT userName, Qid, event, order FROM table t WHERE Qid = i AND event = answer), 
+## tempNextShown AS (SELECT Qid,count(*) AS ShownCount FROM table t JOIN temp ON  t.order = temp.order + 1 AND event = "saw" AND t.userName = temp.userName GROUP BY Qid),
+## tempNextAnswer AS (SELECT Qid,count(*) AS AnswerCount FROM table t JOIN temp ON t.order = temp.order + 1 AND event = "answered" AND t.userName = temp.userName GROUP BY Qid) 
+## SELECT tempNextShown.Qid, CAST(AnswerCount AS DOUBLE)/ShownCount, FROM tempNextShown JOIN tempNextAnswer ON tempNextShown.Qid = tempNextAnswer.Qid
+
+## No no no, forget about the order, just find the user that skip question i, and for those users, find the question that has highest conversion ratio
+## WITH temp AS (SELECT userName, Qid, event FROM table t WHERE Qid = i AND event = answered), 
+## Saw AS (SELECT Qid, count(*) AS countSaw FROM table t JOIN temp ON t.userName = temp.userName WHERE event = saw GROUP BY Qid), 
+## A AS (SELECT Qid, count(*) AS countA FROM table t JOIN temp ON t.userName = temp.userName WHERE event = answerd GROUP BY Qid)
+## SELECT Qid, CAST(countA AS DOUBLE)/countSaw FROM Saw JOIN A ON Saw.Qid = A.Qid
+
+
+
+
+## For the artists that their first album's score is higher than 6, what's the probability that next album's score is also higher than 6
+
+dbGetQuery(mydb,'WITH temp AS (SELECT g.reviewid, g.artist, g.title FROM reviewWithGenres g WHERE g.artist IN ("muse","radiohead"))
+           SELECT r.reviewid, r.title, r.artist FROM temp, reviewWithGenres r WHERE r.reviewid = temp.reviewid')
+dbGetQuery(mydb,'WITH temp AS (SELECT g.reviewid, g.artist, g.title FROM reviewWithGenres g WHERE g.artist IN ("muse","radiohead"))
+           SELECT r.reviewid, r.title, r.artist FROM temp, reviewWithGenres AS r WHERE r.artist IN (SELECT DISTINCT artist FROM temp)')
+## when table temp is not defined in WHERE, then database is not working as expected
+dbGetQuery(mydb,'WITH temp AS (SELECT g.reviewid, g.artist, g.title FROM reviewWithGenres g WHERE g.artist IN ("muse","radiohead"))
+           SELECT r.reviewid, r.title, r.artist FROM reviewWithGenres AS r WHERE r.artist IN (SELECT DISTINCT artist FROM temp)')
+## now it's better
+
+## given that the highest score, what's the probability that next album's score is >=7
+dbGetQuery(mydb,'WITH temp AS (SELECT r.reviewid, r.title, r.artist, r.genre,  MAX(r.score), r.orderIndex FROM reviewWithGenres r GROUP BY r.artist), 
+           temp2 AS (SELECT r.genre, count(*) AS countAll FROM reviewWithGenres r JOIN temp ON r.orderIndex = temp.orderIndex+1 AND r.artist = temp.artist GROUP BY r.genre),
+           temp3 AS (SELECT r.genre, count(*) AS countHigh FROM reviewWithGenres r JOIN temp ON r.orderIndex = temp.orderIndex+1 AND r.artist = temp.artist AND r.score >=7.5 GROUP BY r.genre)
+           SELECT temp2.genre, CAST(temp3.countHigh AS DOUBLE)/temp2.countAll, temp3.countHigh, temp2.countAll FROM temp2 JOIN temp3 ON temp2.genre=temp3.genre OR (temp2.genre IS NULL AND temp3.genre IS NULL)')
+
+## find for each genre, how many artist's highest score album is their last album
+## this group by is wrong... I was assuming one artist belongs to only one genre...
+## actually, one album can belong to more than one genre
+dbGetQuery(mydb,'WITH maxScore AS (SELECT MAX(r.score) AS maxS, r.artist,r.genre, orderIndex FROM reviewWithGenres r GROUP BY r.artist), maxOrder AS (SELECT r.score, r.artist,r.genre, MAX(orderIndex) AS maxO FROM reviewWithGenres r GROUP BY r.artist)
+           SELECT maxOrder.genre, count(*) FROM maxScore JOIN maxOrder ON maxScore.artist = maxOrder.artist WHERE maxScore.OrderIndex = maxOrder.maxO GROUP BY maxOrder.genre')
+
+dbGetQuery(mydb,'SELECT r.artist, count(DISTINCT r.genre) FROM reviewWithGenres r GROUP BY r.artist HAVING count(DISTINCT r.genre) < 3 ORDER BY count(DISTINCT r.genre) DESC LIMIT 20')
+
+dbGetQuery(mydb,'SELECT r.genre, count(*) FROM reviewWithGenres r GROUP BY r.genre')
+
+dbGetQuery(mydb,'SELECT r.genre, CAST(count(CASE WHEN r.score>7 THEN 1 END) AS DOUBLE) /count(*) FROM reviewWithGenres r GROUP BY r.genre')
+
+dbGetQuery(mydb,'SELECT r.genre, count(*) FROM reviewWithGenres r WHERE r.score >7 GROUP BY r.genre')
+
+dbGetQuery(mydb,'SELECT g.genre, count(CASE WHEN r.score>7 THEN 1 END) FROM reviews r LEFT JOIN genres g  ON r.reviewid=g.reviewid GROUP BY g.genre')
+
+dbGetQuery(mydb,'SELECT g.genre, CAST(count(CASE WHEN r.score >7 THEN 1 END) AS DOUBLE)/count(*) AS ratio ,count(CASE WHEN r.score >7 THEN 1 END) AS count_high_score, count(*) AS count_all FROM reviews r  JOIN genres g  ON r.reviewid=g.reviewid GROUP BY g.genre')
+
+
+dbGetQuery(mydb,'SELECT r.artist, r.title, r.genre, r.score FROM reviewWithGenres r WHERE r.artist = "50 cent"')
+
+
+## find how many distinct artist in the table
+dbGetQuery(mydb,'SELECT count(*) FROM (SELECT DISTINCT r.artist FROM reviewWithGenres r) temp')
+## find how many artist that their album with highest score is their last album
+
+dbGetQuery(mydb,'SELECT g.reviewid, g.artist, g.title FROM reviewWithGenres g WHERE g.artist IN ("muse","radiohead")')
+
+dbGetQuery(mydb,'SELECT r.genre, count(*) AS countH FROM reviewWithGenres r GROUP BY r.genre')
+
+## see what category is radiohead
+reviewWithGenres[which(reviewWithGenres[,"artist"]=="radiohead"),]
+
+## see what's global
+head(reviewWithGenres[which(reviewWithGenres[,"genre"]=="global"),])
+
+## find the band with at least 2 genres.
+dbGetQuery(mydb,'SELECT r.artist, count(DISTINCT r.genre) FROM reviewWithGenres r GROUP BY r.artist HAVING count(DISTINCT r.genre) >=2 LIMIT 20')
+
+
+
+dbSendQuery(mydb, 'DROP TABLE ')
+
+```
+
+
+
+
+
+
+It is not supprising that the highest score for each artist is mostly the first two album.
+
+Be Careful on LEFT JOIN:
 

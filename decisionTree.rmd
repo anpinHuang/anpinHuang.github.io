@@ -13,6 +13,8 @@ impure (5 positive, 5 negative):
 $$ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  $$
 pure set (5 positive, 0 negative):
 $$ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  $$
+(note that $log_2 \frac{0}{5}$ is mathematically undefined. In this case, $0log_20$ is taken as 0.)
+
 **$\Rightarrow$ The smaller the entropy the better!**
 
 ********
@@ -64,6 +66,10 @@ When the explanatory variable is continuous (numeric data), then it has to be tr
 
 ### Random forest
 The random forest algorithm is aimed to address the shortcomings of the decision tree by training the data by a set of decision trees. For each tree, pick a subset of features at random to build the tree, and take the majority vote of all the trees.
+
+********
+
+### Handle unbalanced data
 
 
 

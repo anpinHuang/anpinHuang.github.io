@@ -101,7 +101,8 @@ table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn) ## Confusion Matr
 use rpart to run decision tree from package:rpart
 ```{r}
 library(rpart)
-fitTree <- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
+## xval determine how many data points you want in the validation set.
+fitTree <- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining,xval=0) 
 pred_fitTree <- predict(fitTree, churnAnalysisTest,type="class")
 table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree
 ```
@@ -109,12 +110,23 @@ table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion M
 ```{r}
 plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)
+printcp(fitTree) ## cp : complexity parameter
 ```
+The cp at row one is the (rel error at row 2 - rel error at row 1)/nsplit in row 2.
+The "rel error" is the relative error = absolute error/root node error
+
+
 
 ********
 
 ### Prune the tree using validation set
 now prune the tree using the validation set
 
+```{r}
+TreeDepth <- nrow(fitTree$cptable)
+for(i in 2:TreeDepth)
 
+
+printcp(fitTree)
+```
 

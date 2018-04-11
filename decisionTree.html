@@ -210,7 +210,8 @@ $(document).ready(function () {
 <div id="entropy" class="section level3">
 <h3>Entropy</h3>
 <p>Entropy is a measure to measure the uncertainty of the outcome. If the outcome is certain (either all positive or all negative), then the entropy is 0. The highest entropy value is 1 when the probablity of outcome is 50-50.</p>
-<p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (5 positive, 5 negative): <span class="math display">\[ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  \]</span> pure set (5 positive, 0 negative): <span class="math display">\[ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  \]</span> <strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
+<p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (5 positive, 5 negative): <span class="math display">\[ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  \]</span> pure set (5 positive, 0 negative): <span class="math display">\[ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  \]</span> (note that <span class="math inline">\(log_2 \frac{0}{5}\)</span> is mathematically undefined. In this case, <span class="math inline">\(0log_20\)</span> is taken as 0.)</p>
+<p><strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
 <hr />
 </div>
 <div id="information-gain" class="section level3">
@@ -248,6 +249,10 @@ Information gain ratio: <span class="math display">\[ IGR = \frac{IG}{IV} \]</sp
 <div id="random-forest" class="section level3">
 <h3>Random forest</h3>
 <p>The random forest algorithm is aimed to address the shortcomings of the decision tree by training the data by a set of decision trees. For each tree, pick a subset of features at random to build the tree, and take the majority vote of all the trees.</p>
+<hr />
+</div>
+<div id="handle-unbalanced-data" class="section level3">
+<h3>Handle unbalanced data</h3>
 </div>
 
 

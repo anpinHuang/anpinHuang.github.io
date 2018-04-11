@@ -1,0 +1,11 @@
+---
+title: "Think"
+---
+  
+### What happens to OLS when duplicate the training data?
+
+### Unbalance data in classification problem
+
+
+  
+  
