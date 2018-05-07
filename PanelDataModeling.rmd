@@ -1,0 +1,9 @@
+---
+title: "Panel Data Modeling"
+---
+### Pooled cross section data 
+  
+$$Crime = \alpha + \beta Police + \epsilon $$  
+```{r}
+
+```
