@@ -1,0 +1,35 @@
+---
+title: "Logistic Regression"
+---
+
+
+$$\hat p  = h_{\theta}(x) = \sigma(\theta^Tx)$$    
+
+where $\sigma$ is the sigmoid function $\sigma(t) = \frac{1}{1+e^{-t}}$
+
+```{r}
+t <- seq(-10,10, length=40)
+sigmoid_t <- 1/(1+exp(-t))
+plot(t, sigmoid_t, col="blue", lwd=2,type='l')
+```
+
+$\hat y = 0 \,\, if \,\,\hat p<0.5$ and $\hat y = 1 \,\, if \,\,\hat p\geq0.5$
+
+#### Cost Function
+singel training instance cost function:
+$$
+c(\theta) =
+  \begin{cases}
+    -log(\hat p)       & \quad \text{if } y=1\\
+    -log(1-\hat p)  & \quad \text{if } y=0
+  \end{cases}
+$$
+logistic regression cost function:
+$$l(\theta) = -\frac{1}{m}\sum_{i=1}^{m}[y^{(i)}log(\hat p)+(1-y^{(i)})log(1-\hat p)]$$
+logistic cost function partial derivatives:
+$$\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{m}\sum_{i=1}^{m}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}$$
+
+
+
+
+

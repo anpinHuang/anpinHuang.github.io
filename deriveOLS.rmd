@@ -4,9 +4,35 @@ title: "Derive OLS estimators"
 The purpose of this section is to derive the estimators of OLS (Ordinary Least Square), their expectation and variance.
 $$ y = x\beta + \epsilon$$
 
-$$ e = y-x\hat{\beta} $$
+\[
+\begin{bmatrix}
+y_{1}\\
+y_{2}\\
+\vdots\\
+y_{T}
+\end{bmatrix}=
+\begin{bmatrix}
+x_{1,1} & x_{1,2} & \dots & x_{1,K} \\
+x_{2,1} & x_{2,2} & \dots & x_{2,K} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{T,1} & x_{T,2} & \dots & x_{T,K}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_{1}\\
+\vdots\\
+\beta_{K}
+\end{bmatrix}+
+\begin{bmatrix}
+\epsilon_{1}\\
+\epsilon_{2}\\
+\vdots\\
+\epsilon_{T}
+\end{bmatrix}
+\]
+note that 
+$$ e = y-x\hat{\beta} $$ and
 
-note that $$\epsilon  \neq e$$
+$$\epsilon  \neq e$$
 
 **Goal: minimize sum of squared residuals** 
 $$ min(e^{\prime} e) $$

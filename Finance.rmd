@@ -1,0 +1,10 @@
+---
+title: "Finance"
+---
+  
+  
+  
+  
+[Cubic Spline Interpolation (Natural Spline)](CubicNaturalSpline.html)    
+  
+

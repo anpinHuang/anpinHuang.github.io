@@ -207,8 +207,32 @@ $(document).ready(function () {
 
 
 <p>The purpose of this section is to derive the estimators of OLS (Ordinary Least Square), their expectation and variance. <span class="math display">\[ y = x\beta + \epsilon\]</span></p>
-<p><span class="math display">\[ e = y-x\hat{\beta} \]</span></p>
-<p>note that <span class="math display">\[\epsilon  \neq e\]</span></p>
+<p><span class="math display">\[
+\begin{bmatrix}
+y_{1}\\
+y_{2}\\
+\vdots\\
+y_{T}
+\end{bmatrix}=
+\begin{bmatrix}
+x_{1,1} &amp; x_{1,2} &amp; \dots &amp; x_{1,K} \\
+x_{2,1} &amp; x_{2,2} &amp; \dots &amp; x_{2,K} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{T,1} &amp; x_{T,2} &amp; \dots &amp; x_{T,K}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_{1}\\
+\vdots\\
+\beta_{K}
+\end{bmatrix}+
+\begin{bmatrix}
+\epsilon_{1}\\
+\epsilon_{2}\\
+\vdots\\
+\epsilon_{T}
+\end{bmatrix}
+\]</span> note that <span class="math display">\[ e = y-x\hat{\beta} \]</span> and</p>
+<p><span class="math display">\[\epsilon  \neq e\]</span></p>
 <strong>Goal: minimize sum of squared residuals</strong> <span class="math display">\[ min(e^{\prime} e) \]</span> <span class="math display">\[
 \begin{aligned}
 e^{\prime} e &amp;=  (y-x\hat{\beta})^{\prime}(y-x\hat{\beta}) \\

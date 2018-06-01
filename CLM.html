@@ -11,7 +11,7 @@
 
 
 
-<title>An-Pin Huang</title>
+<title>Central Limit Theorem</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -189,9 +189,6 @@ $(document).ready(function () {
 <li>
   <a href="dataScienceML.html">Data Science</a>
 </li>
-<li>
-  <a href="Finance.html">Finance</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -204,19 +201,87 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">An-Pin Huang</h1>
+<h1 class="title toc-ignore">Central Limit Theorem</h1>
 
 </div>
 
 
-<p>The purpose of this website is to serve as notes for some of the topics that I find interesting and important from schools and from online sources. The subjects include:</p>
-<ol style="list-style-type: decimal">
-<li>Econometrics<br />
-</li>
-<li>Data science<br />
-</li>
-<li>Financial Mathematics (Stochastic Calculus)</li>
-</ol>
+<p><span class="math inline">\(D\)</span> is a random variable and <span class="math inline">\(S = \frac{D_1 + D_2 + ...D_n}{n}\)</span>. Then <span class="math inline">\(\sqrt{n}(S_n-\mu) \overset{p}{\to} N(0,\sigma^2)\)</span> or <span class="math inline">\((S_n-\mu) \overset{p}{\to} N(0,\frac{\sigma^2}{n})\)</span></p>
+<p>If we take the average of rolling the dice 10 times, then the variance of <span class="math inline">\(S_{10}\)</span> is <span class="math inline">\(Var(S_{10}) = Var(\frac{D_1 + D_2 + ...D_{10}}{10}) = \frac{1}{10^2}Var(D_1+...D_{10}) = \frac{1}{10}Var(D)\)</span></p>
+<pre class="r"><code>## roll the dice s=10 times and take the average. repeat the process for N=200 times and see what the dist. looks like
+dist10 &lt;- numeric(0)
+N=100
+for(i in 1:N) {
+  s10 &lt;- sample(1:6,10,rep=T)
+  dist10 &lt;- c(dist10,mean(s10))
+}
+hist(dist10,breaks=40,xlim=c(2,5),probability = TRUE)
+xfit &lt;- seq(min(dist10), max(dist10), length=40)
+yfit_density &lt;- dnorm(xfit, mean=3.5,sd=0.5400618)
+lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
+<p><img src="CLM_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>sd(dist10)^2 ## Var</code></pre>
+<pre><code>## [1] 0.3634535</code></pre>
+<pre class="r"><code>## roll the dice s=10 times and take the average. repeat the process for N=200 times and see what the dist. looks like
+dist10 &lt;- numeric(0)
+N=1000
+for(i in 1:N) {
+  s10 &lt;- sample(1:6,10,rep=T)
+  dist10 &lt;- c(dist10,mean(s10))
+}
+hist(dist10,breaks=40,xlim=c(2,5), freq = FALSE)
+xfit &lt;- seq(min(dist10), max(dist10), length=40)
+yfit_density &lt;- dnorm(xfit, mean=3.5,sd=0.5400618)
+lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
+<p><img src="CLM_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>sd(dist10)^2 ## Var</code></pre>
+<pre><code>## [1] 0.2803181</code></pre>
+<pre class="r"><code>## roll the dice s=10 times and take the average. repeat the process for N=200 times and see what the dist. looks like
+dist10 &lt;- numeric(0)
+N=10000
+for(i in 1:N) {
+  s10 &lt;- sample(1:6,10,rep=T)
+  dist10 &lt;- c(dist10,mean(s10))
+}
+hist(dist10,breaks=40,xlim=c(2,5),freq = FALSE)
+xfit &lt;- seq(min(dist10), max(dist10), length=40)
+yfit_density &lt;- dnorm(xfit, mean=3.5,sd=0.5400618)
+lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
+<p><img src="CLM_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>sd(dist10)^2 ## Var</code></pre>
+<pre><code>## [1] 0.2923211</code></pre>
+<pre class="r"><code>## roll the dice s=10 times and take the average. repeat the process for N=200 times and see what the dist. looks like
+dist50 &lt;- numeric(0)
+N=10000
+for(i in 1:N) {
+  s50 &lt;- sample(1:6,50,rep=T)
+  dist50 &lt;- c(dist50,mean(s50))
+}
+hist(dist50,breaks=40,xlim=c(2,5), freq = FALSE)
+xfit &lt;- seq(min(dist50), max(dist50), length=40)
+yfit_density &lt;- dnorm(xfit, mean=3.5,sd=0.2415229)
+lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
+<p><img src="CLM_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>sd(dist50)^2 ## Var</code></pre>
+<pre><code>## [1] 0.05839107</code></pre>
+<pre class="r"><code>## roll the dice s=10 times and take the average. repeat the process for N=200 times and see what the dist. looks like
+dist100 &lt;- numeric(0)
+N=10000
+for(i in 1:N) {
+  s100 &lt;- sample(1:6,100,rep=T)
+  dist100 &lt;- c(dist100,mean(s100))
+}
+hist(dist100,breaks=40,xlim=c(2,5),freq = FALSE)
+xfit &lt;- seq(min(dist100), max(dist100), length=40)
+yfit_density &lt;- dnorm(xfit, mean=3.5,sd=0.1707825)
+lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
+<p><img src="CLM_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>sd(dist100)^2 ## Var</code></pre>
+<pre><code>## [1] 0.02956586</code></pre>
+<div id="summary" class="section level4">
+<h4>Summary</h4>
+<p>The higher the number that is used for average, the lower the variance of the distribution. The higher the number for simulation, the closer to the normal distribution.</p>
+</div>
 
 
 
