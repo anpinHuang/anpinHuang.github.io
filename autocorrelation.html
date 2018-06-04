@@ -189,6 +189,9 @@ $(document).ready(function () {
 <li>
   <a href="dataScienceML.html">Data Science</a>
 </li>
+<li>
+  <a href="Finance.html">Finance</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -228,23 +231,23 @@ summary(regressY)</code></pre>
 ## lm(formula = yt ~ x)
 ## 
 ## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -0.306211 -0.116928  0.006897  0.111135  0.279888 
+##      Min       1Q   Median       3Q      Max 
+## -0.24670 -0.07683  0.01465  0.09175  0.26928 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.15381    0.08229  14.022   &lt;2e-16 ***
-## x1           3.10485    1.36969   2.267    0.028 *  
-## x2           1.70219    1.22030   1.395    0.170    
+## (Intercept)   1.1665     0.0660  17.674  &lt; 2e-16 ***
+## x1            2.4645     0.8236   2.992  0.00440 ** 
+## x2            2.5729     0.8142   3.160  0.00276 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.1519 on 47 degrees of freedom
-## Multiple R-squared:  0.2574, Adjusted R-squared:  0.2258 
-## F-statistic: 8.147 on 2 and 47 DF,  p-value: 0.0009166</code></pre>
+## Residual standard error: 0.1277 on 47 degrees of freedom
+## Multiple R-squared:  0.3981, Adjusted R-squared:  0.3724 
+## F-statistic: 15.54 on 2 and 47 DF,  p-value: 6.6e-06</code></pre>
 <pre class="r"><code>regressY$coefficients</code></pre>
 <pre><code>## (Intercept)          x1          x2 
-##    1.153812    3.104848    1.702190</code></pre>
+##    1.166534    2.464467    2.572913</code></pre>
 <p>Test the autocorrelation of residuals</p>
 <pre class="r"><code>resi &lt;- regressY$residuals
 pacf(resi)</code></pre>
@@ -255,12 +258,12 @@ pacf(resi)</code></pre>
 ## ar.ols(x = resi)
 ## 
 ## Coefficients:
-##       1        2        3  
-##  0.7149   0.4494  -0.3729  
+##     1  
+## 0.708  
 ## 
-## Intercept: -0.001978 (0.01178) 
+## Intercept: -0.002291 (0.01274) 
 ## 
-## Order selected 3  sigma^2 estimated as  0.00648</code></pre>
+## Order selected 1  sigma^2 estimated as  0.007952</code></pre>
 <hr />
 </div>
 <div id="gls" class="section level3">
@@ -284,23 +287,23 @@ summary(regressY_GLS)</code></pre>
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -0.228986 -0.058280 -0.002183  0.067476  0.191641 
+## -0.212905 -0.056453  0.000724  0.060030  0.188219 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.21848    0.01416  15.428  &lt; 2e-16 ***
-## xprime1      2.18329    0.62010   3.521 0.000983 ***
-## xprime2      2.43274    0.53077   4.583  3.5e-05 ***
+## (Intercept)   0.3479     0.0182  19.115  &lt; 2e-16 ***
+## xprime1       2.6088     0.5609   4.651 2.81e-05 ***
+## xprime2       2.1151     0.5320   3.976 0.000246 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.08781 on 46 degrees of freedom
-## Multiple R-squared:  0.6333, Adjusted R-squared:  0.6174 
-## F-statistic: 39.73 on 2 and 46 DF,  p-value: 9.502e-11</code></pre>
+## Residual standard error: 0.0913 on 46 degrees of freedom
+## Multiple R-squared:  0.5662, Adjusted R-squared:  0.5474 
+## F-statistic: 30.02 on 2 and 46 DF,  p-value: 4.54e-09</code></pre>
 <pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
 alpha</code></pre>
 <pre><code>## (Intercept) 
-##    1.129601</code></pre>
+##    1.189978</code></pre>
 <p>See if the residuals of GLS has autocorrelation:</p>
 <pre class="r"><code>resiGLS &lt;- regressY_GLS$residuals
 pacf(resiGLS)</code></pre>
@@ -342,14 +345,14 @@ for(i in 1:n) {
   GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.198000 2.218512 2.282796</code></pre>
+<pre><code>## [1] 1.197067 2.231235 2.282811</code></pre>
 <pre class="r"><code>colMeans(GLS_coefs)</code></pre>
-<pre><code>## [1] 1.197466 2.218380 2.296711</code></pre>
+<pre><code>## [1] 1.196438 2.213486 2.295657</code></pre>
 <p><strong>The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.</strong></p>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.01071182 1.65258858 1.09495078</code></pre>
+<pre><code>## [1] 0.01089512 1.64314979 1.11392051</code></pre>
 <pre class="r"><code>colVars(GLS_coefs)</code></pre>
-<pre><code>## [1] 0.006902348 0.452834704 0.290013761</code></pre>
+<pre><code>## [1] 0.007406257 0.468907769 0.308345095</code></pre>
 <pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
 <p><img src="autocorrelation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code>hist(GLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
