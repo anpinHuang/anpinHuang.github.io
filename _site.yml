@@ -12,6 +12,8 @@ navbar:
       href: dataScienceML.html
     - text: "Finance"
       href: Finance.html
+    - text: "Programming"
+      href: Programming.html
 output:
   html_document:
   theme: cosmo
