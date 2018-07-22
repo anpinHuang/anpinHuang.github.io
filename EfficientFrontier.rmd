@@ -1,0 +1,97 @@
+---
+title: "Efficient Frontier"
+---
+  
+```{r}
+# read the S&P constituients data
+library(data.table)
+SPs <- fread("/Users/an-pin/Documents/R/SnP_Return.csv",stringsAsFactors = FALSE)
+SPs <- as.data.frame(SPs)
+SPs <- SPs[,-1]
+rownames(SPs) <- SPs[,1]
+SPs <- SPs[,-1]
+SPs <- SPs/100
+## remove the variable with too little observations
+countNAs <- apply(SPs,2, function(x){length(which(is.na(x)))})
+columnChosen <- which(countNAs<50)
+SPs <- data.frame(SPs[1:nrow(SPs), columnChosen,drop = FALSE])
+ReturnVector <- apply(SPs,2,function(x){mean(x,na.rm = TRUE)})
+CovMatrix <- cov(SPs, use = "pairwise.complete.obs")
+CorMatrix <- cor(SPs, use = "pairwise.complete.obs")
+## Choose 2 stocks to build the frontier
+xlim <- c(0.00,0.010)
+ylim <- c(0.014,0.017)
+TwoStocks <- c("IBM", "MSFT")
+CovMatrix_twoStocks <- CovMatrix[TwoStocks,TwoStocks]
+CorMatrix_twoStocks <- CorMatrix[TwoStocks,TwoStocks]
+ReturnVector_twoStocks <- ReturnVector[TwoStocks]
+AssetWeight <- seq(0.02,1,0.02)
+AssetWeight <- cbind(AssetWeight,1-AssetWeight)
+ReturnVarianceMatrix <- AssetWeight
+ReturnVarianceMatrix[,1] <- NA
+ReturnVarianceMatrix[,2] <- NA
+colnames(ReturnVarianceMatrix) <- c("Return", "Variance")
+for(i in 1:nrow(AssetWeight)) {
+  ReturnVarianceMatrix[i,"Return"] <- AssetWeight[i,,drop=FALSE] %*% ReturnVector_twoStocks
+  ReturnVarianceMatrix[i,"Variance"] <- AssetWeight[i,,drop=FALSE] %*% CovMatrix_twoStocks %*% t(AssetWeight[i,,drop=FALSE])
+}
+plot(x=ReturnVarianceMatrix[,2],y=ReturnVarianceMatrix[,1],xlab="variance",ylab="expected return", main = "Two stocks efficient frontier", ylim = ylim, xlim = xlim)
+
+## How does the correlation affect the efficient frontier?
+CovMatrix_twoStocks[1,2] <- CovMatrix_twoStocks[1,2] - CovMatrix_twoStocks[1,2]*0.2
+CovMatrix_twoStocks[2,1] <- CovMatrix_twoStocks[2,1] - CovMatrix_twoStocks[2,1]*0.2
+for(i in 1:nrow(AssetWeight)) {
+  ReturnVarianceMatrix[i,"Return"] <- AssetWeight[i,,drop=FALSE] %*% ReturnVector_twoStocks
+  ReturnVarianceMatrix[i,"Variance"] <- AssetWeight[i,,drop=FALSE] %*% CovMatrix_twoStocks %*% t(AssetWeight[i,,drop=FALSE])
+}
+par(new = T)
+plot(x=ReturnVarianceMatrix[,2],y=ReturnVarianceMatrix[,1],xlab="",ylab="", ylim = ylim, xlim = xlim, col = 'red')
+
+## What if there is no correlation?
+CovMatrix_twoStocks[1,2] <- 0
+CovMatrix_twoStocks[2,1] <- 0
+for(i in 1:nrow(AssetWeight)) {
+  ReturnVarianceMatrix[i,"Return"] <- AssetWeight[i,,drop=FALSE] %*% ReturnVector_twoStocks
+  ReturnVarianceMatrix[i,"Variance"] <- AssetWeight[i,,drop=FALSE] %*% CovMatrix_twoStocks %*% t(AssetWeight[i,,drop=FALSE])
+}
+par(new = T)
+plot(x=ReturnVarianceMatrix[,2],y=ReturnVarianceMatrix[,1],xlab="",ylab="", ylim = ylim, xlim = xlim, col = 'blue')
+
+## -1 correlation
+CovMatrix_twoStocks[1,2] <- -sqrt(CovMatrix_twoStocks[1,1])*sqrt(CovMatrix_twoStocks[2,2])
+CovMatrix_twoStocks[2,1] <- CovMatrix_twoStocks[1,2]
+for(i in 1:nrow(AssetWeight)) {
+  ReturnVarianceMatrix[i,"Return"] <- AssetWeight[i,,drop=FALSE] %*% ReturnVector_twoStocks
+  ReturnVarianceMatrix[i,"Variance"] <- AssetWeight[i,,drop=FALSE] %*% CovMatrix_twoStocks %*% t(AssetWeight[i,,drop=FALSE])
+}
+par(new = T)
+plot(x=ReturnVarianceMatrix[,2],y=ReturnVarianceMatrix[,1],xlab="",ylab="", ylim = ylim, xlim = xlim, col = 'green')
+
+## +1 correlation
+CovMatrix_twoStocks[1,2] <- sqrt(CovMatrix_twoStocks[1,1])*sqrt(CovMatrix_twoStocks[2,2])
+CovMatrix_twoStocks[2,1] <- CovMatrix_twoStocks[1,2]
+for(i in 1:nrow(AssetWeight)) {
+  ReturnVarianceMatrix[i,"Return"] <- AssetWeight[i,,drop=FALSE] %*% ReturnVector_twoStocks
+  ReturnVarianceMatrix[i,"Variance"] <- AssetWeight[i,,drop=FALSE] %*% CovMatrix_twoStocks %*% t(AssetWeight[i,,drop=FALSE])
+}
+par(new = T)
+plot(x=ReturnVarianceMatrix[,2],y=ReturnVarianceMatrix[,1],xlab="",ylab="", ylim = ylim, xlim = xlim, col = 'brown')
+
+``` 
+
+
+
+Recall that the portfolio variance is:
+$w^TCw$ where $C$ is the covariance matrix and $w$ is the weight of the asset.
+
+and the portfolio expected return is $w_{1}E_1+w_2E_2 + ....w_nE_n$
+
+
+```{r}
+# # Choose some tech stock to build the frontier
+# StockChosen_tech <- c("AAPL", "GOOGL", "AMZN", "MSFT", "FB", "ABDE", "CRM", "WDAY", "CSCO", "HPQ", "INTC", "MSI", "NVDA", "ORCL", "PYPL", "TXN", "EBAY", "CTXS", "IBM")
+# StockChosen_tech <- StockChosen_tech[which(StockChosen_tech %in% colnames(CorMatrix))]
+# CovMatrix_tech <- CovMatrix[StockChosen_tech,StockChosen_tech] 
+# CorMatrix_tech <- CorMatrix[StockChosen_tech,StockChosen_tech] 
+```
+

@@ -1,0 +1,45 @@
+---
+title: "Effect of Duplicate Observation for OLS"
+---
+```{r}
+library(MASS)
+library(matrixStats)
+m=50
+x <- mvrnorm(n=m,mu=c(0.05,0.08),
+             Sigma=matrix(c(0.01,0,0,0.02),
+                          nrow=2,ncol=2,byrow=TRUE))
+et <- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
+yt <- 1.2 + x %*% c(2.2,2.3)+et
+xFake <- rnorm(m,0.02,0.02)
+```
+  
+```{r}
+## regress yt on x1
+OnX1 <- lm(yt~x[,1])
+summary(OnX1)
+## regress yt on x2
+OnX2 <- lm(yt~x[,1])
+summary(OnX2)
+## regress yt on fake x
+OnXFake <- lm(yt~xFake)
+summary(OnXFake)
+```  
+
+
+```{r}
+## duplicate the observations
+yD <- c(yt,yt)
+xD <- rbind(x,x)
+xFakeD <- c(xFake,xFake)
+OnX1_d <- lm(yD~xD[,1])
+summary(OnX1_d)
+## regress yt on x2
+OnX2_d <- lm(yD~xD[,1])
+summary(OnX2_d)
+## regress yt on fake x
+OnXFake_d <- lm(yD~xFakeD)
+summary(OnXFake_d)
+```  
+
+
+  

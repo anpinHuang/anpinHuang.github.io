@@ -1,0 +1,40 @@
+---
+title: "S&P 500 return distribution"
+---
+
+```{r}
+## weekly data
+WeeklyPriceSP <- read.csv("SnP500Weekly.csv", stringsAsFactors = FALSE)
+WeeklyPriceSP <- WeeklyPriceSP[,c("Date","Adj.Close")]
+rWeeklyPriceSP <- cbind.data.frame(WeeklyPriceSP[1:(nrow(WeeklyPriceSP)-1),1],diff(WeeklyPriceSP[,2])/WeeklyPriceSP[1:(nrow(WeeklyPriceSP)-1),2])
+hist(rWeeklyPriceSP[,2],breaks = 200, probability = TRUE, main = "S&P weekly simple return")
+xfit <- seq(min(rWeeklyPriceSP[,2]), max(rWeeklyPriceSP[,2]), length=200)
+yfit_density <- dnorm(xfit, mean=mean(rWeeklyPriceSP[,2]),sd=sd(rWeeklyPriceSP[,2]))
+lines(xfit, yfit_density, col="blue", lwd=2)
+## 1% tail lower bound assuming normal distribution 
+LowB <- mean(rWeeklyPriceSP[,2])-2.58*sd(rWeeklyPriceSP[,2])
+## low much data are below the 1% quatile of the normal dist.
+length(which(rWeeklyPriceSP[,2]<LowB))/length(rWeeklyPriceSP[,2])  
+```  
+
+The graph and the value shows that there is fat tail exibihit in the simple return of the S&P 500. Now we do the same for log return.
+
+```{r}
+## weekly data
+WeeklyPriceSP <- read.csv("SnP500Weekly.csv", stringsAsFactors = FALSE)
+WeeklyPriceSP <- WeeklyPriceSP[,c("Date","Adj.Close")]
+rlog_WeeklyPriceSP <- cbind.data.frame(WeeklyPriceSP[1:(nrow(WeeklyPriceSP)-1),1],diff(log(WeeklyPriceSP[,2])))
+hist(rlog_WeeklyPriceSP[,2],breaks = 200, probability = TRUE, main = "S&P weekly log return")
+xfit <- seq(min(rlog_WeeklyPriceSP[,2]), max(rlog_WeeklyPriceSP[,2]), length=200)
+yfit_density <- dnorm(xfit, mean=mean(rlog_WeeklyPriceSP[,2]),sd=sd(rlog_WeeklyPriceSP[,2]))
+lines(xfit, yfit_density, col="blue", lwd=2)
+## 1% tail lower bound assuming normal distribution 
+LowB <- mean(rlog_WeeklyPriceSP[,2])-2.58*sd(rlog_WeeklyPriceSP[,2])
+## low much data are below the 1% quatile of the normal dist.
+length(which(rlog_WeeklyPriceSP[,2]<LowB))/length(rlog_WeeklyPriceSP[,2])  
+```  
+
+The log return also exihibits fat tail.
+
+
+
