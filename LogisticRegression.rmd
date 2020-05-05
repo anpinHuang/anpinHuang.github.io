@@ -2,6 +2,16 @@
 title: "Logistic Regression"
 ---
 
+To solve a classification problem, $y_i$ is either $0$ or $1$, we want to estimate the probability of $y_i=1$ by a set of explanatory variable $X$, denoted as $p(x)$. However, we cannot simply model the probability by the linear regression model as $p(x) = \beta_0 + x   \beta$ since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.
+
+By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: $$log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta$$
+Now the equation looks like an OLS. However, we can not model the log odds ratio using OLS because of Jenson's Inequility ($E[f(X)] \neq f(E[X])$). In this case, we want to know $E[p(x)]$, but by using OLS on log odds ratio, we can only get $E[log \frac{p(x)}{1-p(x)}]$.
+
+Instead, we want to estimate the $p(x)$ directly. It can be done by using gradient descent or maximum likehood.
+
+********
+
+To estimate the probability directly, we define the probability estimator as:
 
 $$\hat p  = h_{\theta}(x) = \sigma(\theta^Tx)$$    
 

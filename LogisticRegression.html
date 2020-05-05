@@ -11,7 +11,7 @@
 
 
 
-<title>about.utf8</title>
+<title>Logistic Regression</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,35 +313,32 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Logistic Regression</h1>
 
 </div>
 
 
-<div id="an-pin-ben-huang" class="section level4">
-<h4>An-Pin (Ben) Huang</h4>
-<p><img src="suitUp.jpeg" width="150" height="150" /></p>
-</div>
-<div id="education" class="section level4">
-<h4>Education</h4>
-<ul>
-<li>Boston University, MS in Mathematical Finance</li>
-<li>National Tsing Hua University, BS in Quantitative Finance</li>
-</ul>
-</div>
-<div id="experience" class="section level4">
-<h4>Experience</h4>
-<ul>
-<li>OnDeck Capital, Senior Risk Analysit</li>
-<li>UBS, Risk Modeling and Analytics Specialist</li>
-<li>Wellington Management Company, Technology Associate (QA Analyst) of Financial Derivatives Systems</li>
-</ul>
-</div>
-<div id="contact-information" class="section level4">
-<h4>Contact Information</h4>
-<ul>
-<li>email: <a href="mailto:anpin@bu.edu" class="email">anpin@bu.edu</a></li>
-<li>Linkedin: <a href="https://www.linkedin.com/in/anpinhuang/">https://www.linkedin.com/in/anpinhuang/</a></li>
-</ul>
+<p>To solve a classification problem, <span class="math inline">\(y_i\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we want to estimate the probability of <span class="math inline">\(y_i=1\)</span> by a set of explanatory variable <span class="math inline">\(x\)</span>, denoted as <span class="math inline">\(p(x)\)</span>. However, we cannot simply model the probability by the linear regression model as <span class="math inline">\(p(x) = \beta_0 + x \beta\)</span> since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.</p>
+<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we can not model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>.</p>
+<p>Instead, we want to estimate the <span class="math inline">\(p(x)\)</span> directly. It can be done by using gradient descent or maximum likehood.</p>
+<hr />
+<p>To estimate the probability directly, we define the probability estimator as:</p>
+<p><span class="math display">\[\hat p  = h_{\theta}(x) = \sigma(\theta^Tx)\]</span></p>
+<p>where <span class="math inline">\(\sigma\)</span> is the sigmoid function <span class="math inline">\(\sigma(t) = \frac{1}{1+e^{-t}}\)</span></p>
+<pre class="r"><code>t &lt;- seq(-10,10, length=40)
+sigmoid_t &lt;- 1/(1+exp(-t))
+plot(t, sigmoid_t, col=&quot;blue&quot;, lwd=2,type=&#39;l&#39;)</code></pre>
+<p><img src="LogisticRegression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><span class="math inline">\(\hat y = 0 \,\, if \,\,\hat p&lt;0.5\)</span> and <span class="math inline">\(\hat y = 1 \,\, if \,\,\hat p\geq0.5\)</span></p>
+<div id="cost-function" class="section level4">
+<h4>Cost Function</h4>
+<p>singel training instance cost function: <span class="math display">\[
+c(\theta) =
+  \begin{cases}
+    -log(\hat p)       &amp; \quad \text{if } y=1\\
+    -log(1-\hat p)  &amp; \quad \text{if } y=0
+  \end{cases}
+\]</span> logistic regression cost function: <span class="math display">\[l(\theta) = -\frac{1}{m}\sum_{i=1}^{m}[y^{(i)}log(\hat p)+(1-y^{(i)})log(1-\hat p)]\]</span> logistic cost function partial derivatives: <span class="math display">\[\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{m}\sum_{i=1}^{m}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}\]</span></p>
 </div>
 
 
