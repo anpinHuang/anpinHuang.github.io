@@ -13,9 +13,10 @@ Instead, we want to estimate the $p(x)$ directly. It can be done by using gradie
 
 To estimate the probability directly, we define the probability estimator as:
 
-$$\hat p  = h_{\theta}(x) = \sigma(\theta^Tx)$$    
+$$\hat p  = h_{\theta}(x) = \sigma(\beta_0+x\beta)$$   
 
 where $\sigma$ is the sigmoid function $\sigma(t) = \frac{1}{1+e^{-t}}$
+
 
 ```{r}
 t <- seq(-10,10, length=40)
@@ -24,6 +25,11 @@ plot(t, sigmoid_t, col="blue", lwd=2,type='l')
 ```
 
 $\hat y = 0 \,\, if \,\,\hat p<0.5$ and $\hat y = 1 \,\, if \,\,\hat p\geq0.5$
+
+or more explicitly, 
+
+$$\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}$$
+
 
 #### Cost Function
 singel training instance cost function:
@@ -38,7 +44,7 @@ logistic regression cost function:
 $$l(\theta) = -\frac{1}{m}\sum_{i=1}^{m}[y^{(i)}log(\hat p)+(1-y^{(i)})log(1-\hat p)]$$
 logistic cost function partial derivatives:
 $$\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{m}\sum_{i=1}^{m}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}$$
-
+The logistic regression does not have analytics solution, it must be solved numerically.
 
 
 
