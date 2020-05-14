@@ -3,8 +3,10 @@ title: "Decision tree"
 ---
 Decision tree is a classification algorithm by dividing the data set into different subsets by the explanatory variables. The content presented in this section is mainly based on the knowledge learned from [Decision Tree Youtube tutorials playlist](https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO) by [Victor Lavrenko](https://www.youtube.com/user/victorlavrenko/featured).
 
+The highlevel idea is grow the tree (segment the population into buckets such that the each bucket (leaf) has the same target variable). At each node, the it can only be segment into 2 child-nodes. When the explanatory variable is categorical, we try all the combinations ($C^{m}_{1}, C^{m}_{2}, ...C^{m}_{m/2}$) to find the one combination that miniize the impurity (or has the highest the information gain as explained in the following paragraph.
 
-### Entropy
+
+### Entropy - measure the impurity
 Entropy is a measure to measure the uncertainty of the outcome. If the outcome is certain (either all positive or all negative), then the entropy is 0. The highest entropy value is 1 when the probablity of outcome is 50-50.
 
 
@@ -59,17 +61,25 @@ $$  IV(S,A) = -\sum \frac{|S_V|}{|S|}log_2\frac{|S_V|}{|S|} $$
 
 ********
 
-### Continuous data
+### Continuous explanatory variable
 When the explanatory variable is continuous (numeric data), then it has to be transform to catergorical data by setting some thresold.
 
+* rank order the numeric variable
+* calculate the average of adjacent values
+* use the averages to segment the population into 2 buckets
+* iteratively using the above thresholds to calculate the impurity and find the one that minimize the impurity.
+
 ********
 
-### Random forest
-The random forest algorithm is aimed to address the shortcomings of the decision tree by training the data by a set of decision trees. For each tree, pick a subset of features at random to build the tree, and take the majority vote of all the trees.
+### Continuous target variable - Regression tree
+In the case where the target variable is not binary, but a continuous variable, we can use regression tree. Similar to the classification tree, we are trying to segment the popuation into 2 child-node for each node. The predicted value of the child-node is the average of the samples in the node. In this case, as opposed to finding the segmentation that minimize the impurity (in classification problem), we are trying to find the segmentation that minizie the sum of square errors.
 
-********
 
-### Handle unbalanced data
+
+
+
+
+
 
 
 

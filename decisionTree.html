@@ -69,9 +69,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,8 +88,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -107,7 +111,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -127,6 +130,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -148,19 +188,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -189,6 +295,12 @@ $(document).ready(function () {
 <li>
   <a href="dataScienceML.html">Data Science</a>
 </li>
+<li>
+  <a href="Finance.html">Finance</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -207,8 +319,9 @@ $(document).ready(function () {
 
 
 <p>Decision tree is a classification algorithm by dividing the data set into different subsets by the explanatory variables. The content presented in this section is mainly based on the knowledge learned from <a href="https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO">Decision Tree Youtube tutorials playlist</a> by <a href="https://www.youtube.com/user/victorlavrenko/featured">Victor Lavrenko</a>.</p>
-<div id="entropy" class="section level3">
-<h3>Entropy</h3>
+<p>The highlevel idea is grow the tree (segment the population into buckets such that the each bucket (leaf) has the same target variable). At each node, the it can only be segment into 2 child-nodes. When the explanatory variable is categorical, we try all the combinations (<span class="math inline">\(C^{m}_{1}, C^{m}_{2}, ...C^{m}_{m/2}\)</span>) to find the one combination that miniize the impurity.</p>
+<div id="entropy---measure-the-impurity" class="section level3">
+<h3>Entropy - measure the impurity</h3>
 <p>Entropy is a measure to measure the uncertainty of the outcome. If the outcome is certain (either all positive or all negative), then the entropy is 0. The highest entropy value is 1 when the probablity of outcome is 50-50.</p>
 <p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (5 positive, 5 negative): <span class="math display">\[ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  \]</span> pure set (5 positive, 0 negative): <span class="math display">\[ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  \]</span> (note that <span class="math inline">\(log_2 \frac{0}{5}\)</span> is mathematically undefined. In this case, <span class="math inline">\(0log_20\)</span> is taken as 0.)</p>
 <p><strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
@@ -241,18 +354,20 @@ IG &amp;= H(S_A) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
 Information gain ratio: <span class="math display">\[ IGR = \frac{IG}{IV} \]</span> Where <span class="math inline">\(IV\)</span> is the Intrinsic value: <span class="math display">\[  IV(S,A) = -\sum \frac{|S_V|}{|S|}log_2\frac{|S_V|}{|S|} \]</span></p>
 <hr />
 </div>
-<div id="continuous-data" class="section level3">
-<h3>Continuous data</h3>
+<div id="continuous-explanatory-variable" class="section level3">
+<h3>Continuous explanatory variable</h3>
 <p>When the explanatory variable is continuous (numeric data), then it has to be transform to catergorical data by setting some thresold.</p>
+<ul>
+<li>rank order the numeric variable</li>
+<li>calculate the average of adjacent values</li>
+<li>use the averages to segment the population into 2 buckets</li>
+<li>iteratively using the above thresholds to calculate the impurity and find the one that minimize the impurity.</li>
+</ul>
 <hr />
 </div>
-<div id="random-forest" class="section level3">
-<h3>Random forest</h3>
-<p>The random forest algorithm is aimed to address the shortcomings of the decision tree by training the data by a set of decision trees. For each tree, pick a subset of features at random to build the tree, and take the majority vote of all the trees.</p>
-<hr />
-</div>
-<div id="handle-unbalanced-data" class="section level3">
-<h3>Handle unbalanced data</h3>
+<div id="continuous-target-variable---regression-tree" class="section level3">
+<h3>Continuous target variable - Regression tree</h3>
+<p>In the case where the target variable is not binary, but a continuous variable, we can use regression tree. Similar to the classification tree, we are trying to segment the popuation into 2 child-node for each node. The predicted value of the child-node is the average of the samples in the node. In this case, as opposed to finding the segmentation that minimize the impurity (in classification problem), we are trying to find the segmentation that minizie the sum of square errors.</p>
 </div>
 
 
