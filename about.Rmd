@@ -10,7 +10,7 @@ title: ''
 * National Tsing Hua University, BS in Quantitative Finance
 
 #### Experience
-* OnDeck Capital, Senior Risk Analysit - Credit Loss Forecasting
+* OnDeck Capital, Senior Risk Analyst - Credit Loss Forecasting
 * UBS, Risk Modeling and Analytics Specialist - Scenario Expansion & Pension Risk
 * Wellington Management Company, Technology Associate - Financial Derivatives Systems
 

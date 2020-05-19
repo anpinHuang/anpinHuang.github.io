@@ -42,6 +42,7 @@ $R_{j,m}$ for $j= 1...J_m$
     * For 
 $j=1...J_m$ compute 
 $\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)$
+    This can be solved analytically. The $\gamma$ would be the average of the residual in the leaf.
 
     * Make new predictions - update 
 $F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$
@@ -91,9 +92,9 @@ $r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}$
 $r_{i,m}$ values and create terminal regions (leaves) 
 $R_{j,m}$ for $j= 1...J_m$
 
-* For 
-$j=1...J_m$ compute 
-$\gamma_{j,m}$
+    * For 
+    $j=1...J_m$ compute 
+    $\gamma_{j,m}$
 
 $$
 \begin{aligned}
@@ -104,11 +105,15 @@ $$
 
 solve for this analytically is difficult, therefore we approximate the loss function with second order of Taylor Polynomial
 
-$$L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2$$
+$$
+L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2
+$$
  
 Now we take the derivative:
 
-$$\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma$$
+$$
+\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma
+$$
 Now set it to 0 and solve for $\gamma$:
 
 $$
@@ -119,3 +124,7 @@ $$
 $$
 
 where $\hat{p_i}$ is the estimated probability from the previous tree.
+    * Update $F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})$
+
+
+3.**Step 3:** Output $F_{M}(x)$

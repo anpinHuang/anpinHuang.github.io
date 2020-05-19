@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Bias &amp; Variance Tradeoff</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,20 +313,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Bias &amp; Variance Tradeoff</h1>
 
 </div>
 
 
-<p><a href="deriveOLS.html">Derive OLS estimaors in matrix form</a><br />
-<a href="autocorrelation.html">OLS and GLS with autocorrelation error terms</a><br />
-<a href="heteroskedasticity.html">OLS and GLS with heteroskedasiticity</a><br />
-<a href="BiasVarianceTradeoff.html">Bias &amp; Variance Tradeoff</a><br />
-<a href="RidgeLassoRegression.html">Ridge &amp; Lasso Regression</a><br />
-<a href="PCA.html">Principal Component Analysis (PCA)</a></p>
-<div id="probability-fundementals" class="section level4">
-<h4>Probability Fundementals</h4>
-<p><a href="CLM.html">Central Limit Theorem</a></p>
+<div id="bias-variance-tradeoff" class="section level3">
+<h3>Bias &amp; Variance Tradeoff</h3>
+<p>Bias and variance decomposition:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[(y-\hat{f} (x))^2] &amp;= E[(f(x) + \epsilon-\hat{f}(x))^2] \\
+&amp;= E[(f(x)-\hat{f}(x))^2] + E[\epsilon^2] + 2E[(f(x)-\hat{f}(x))]\epsilon \\
+&amp;= E[(f(x)-\hat{f}(x))^2] + \sigma^2
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(f\)</span> is the true function (unknown), <span class="math inline">\(\epsilon\)</span> is the inreducible noise.</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[(f(x)-\hat{f}(x))^2] &amp;= E[(f(x) - E[\hat{f}(x)] - \hat{f}(x) + E[\hat{f}(x)])^2] \\
+&amp;= E[((f(x) - E[\hat{f}(x)]) - (\hat{f}(x) - E[\hat{f}(x)]))^2]\\
+&amp;= E[(f(x) - E[\hat{f}(x)])^2] - E[(\hat{f}(x)-E[\hat{f}(x)])^2] - 2E[((f(x) - E[\hat{f}(x)])(\hat{f}(x) - E[\hat{f}(x)])]\\
+&amp;= bias[\hat f(x)]^2 + Var(\hat f(x))  - 2((f(x) - E[\hat{f}(x)])E[(\hat{f}(x) - E[\hat{f}(x)])] \\
+&amp;= bias[\hat f(x)]^2 + Var(\hat f(x)) \\
+\end{aligned}
+\]</span></p>
+<p>where the bias is defined as <span class="math inline">\(bias[\hat f(x)] = E[\hat f(x)] - f(x)\)</span> and variance is defined as <span class="math inline">\(Var(\hat f(x)) = E[(\hat f(x)-E[\hat f(x)])^2]\)</span> Therefore, <span class="math display">\[E[(y-\hat{f} (x))^2] = bias[\hat f(x)]^2 + Var(\hat f(x)) + \sigma^2\]</span></p>
 </div>
 
 

@@ -1,0 +1,16 @@
+---
+title: "Ridge & Lasso Regression"
+---
+
+### Ridge Regression ###
+
+$$\hat{\beta^{ridge}} = \underset{\beta^{ridge}}{\operatorname{argmin}} \sum_{i=1}^{n} (y-x^T\beta^{ridge})^2 + \lambda\sum_{j=1}^{k}(\beta_j)^2$$
+
+It can also be expressed as 
+$$\hat{\beta^{ridge}} = \underset{\beta^{ridge}}{\operatorname{argmin}} \sum_{i=1}^{n} (y-x^T\beta^{ridge})^2 $$
+
+subjected to $\sum_{j=1}^{k}(\beta_j)^2 \leq t$. There is one-to-one mapping between the $t$ and $\lambda$.
+
+To ensure that variables' coefficients are penalized fairly, standardization of the variables are required before running the regression.
+
+

@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Ridge &amp; Lasso Regression</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,20 +313,17 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Ridge &amp; Lasso Regression</h1>
 
 </div>
 
 
-<p><a href="deriveOLS.html">Derive OLS estimaors in matrix form</a><br />
-<a href="autocorrelation.html">OLS and GLS with autocorrelation error terms</a><br />
-<a href="heteroskedasticity.html">OLS and GLS with heteroskedasiticity</a><br />
-<a href="BiasVarianceTradeoff.html">Bias &amp; Variance Tradeoff</a><br />
-<a href="RidgeLassoRegression.html">Ridge &amp; Lasso Regression</a><br />
-<a href="PCA.html">Principal Component Analysis (PCA)</a></p>
-<div id="probability-fundementals" class="section level4">
-<h4>Probability Fundementals</h4>
-<p><a href="CLM.html">Central Limit Theorem</a></p>
+<div id="ridge-regression" class="section level3">
+<h3>Ridge Regression</h3>
+<p><span class="math display">\[\hat{\beta^{ridge}} = \underset{\beta^{ridge}}{\operatorname{argmin}} \sum_{i=1}^{n} (y-x^T\beta^{ridge})^2 + \lambda\sum_{j=1}^{k}(\beta_j)^2\]</span></p>
+<p>It can also be expressed as <span class="math display">\[\hat{\beta^{ridge}} = \underset{\beta^{ridge}}{\operatorname{argmin}} \sum_{i=1}^{n} (y-x^T\beta^{ridge})^2 \]</span></p>
+<p>subjected to <span class="math inline">\(\sum_{j=1}^{k}(\beta_j)^2 \leq t\)</span>. There is one-to-one mapping between the <span class="math inline">\(t\)</span> and <span class="math inline">\(\lambda\)</span>.</p>
+<p>To ensure that variables’ coefficients are penalized fairly, standardization of the variables are required before running the regression.</p>
 </div>
 
 

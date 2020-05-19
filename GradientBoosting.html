@@ -378,11 +378,9 @@ $(document).ready(function () {
 <ul>
 <li><p>Compute <span class="math inline">\(r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\)</span> for <span class="math inline">\(i = 1,...,n\)</span>. We know from above that <span class="math inline">\(\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)} = -y_i + \hat{p}\)</span>, so <span class="math inline">\(r_{i,m}\)</span> is just the residuals: <span class="math inline">\(y_i- \hat{p}\)</span></p></li>
 <li><p>Fit a regression tree to the <span class="math inline">\(r_{i,m}\)</span> values and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span></p></li>
+<li><p>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m}\)</span></p></li>
 </ul></li>
 </ol>
-<ul>
-<li>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m}\)</span></li>
-</ul>
 <p><span class="math display">\[
 \begin{aligned}
 \gamma_{j,m} &amp;= \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma) \\
@@ -390,16 +388,21 @@ $(document).ready(function () {
 \end{aligned}
 \]</span></p>
 <p>solve for this analytically is difficult, therefore we approximate the loss function with second order of Taylor Polynomial</p>
-<p><span class="math display">\[L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2\]</span></p>
+<p><span class="math display">\[
+L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2
+\]</span></p>
 <p>Now we take the derivative:</p>
-<p><span class="math display">\[\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma\]</span> Now set it to 0 and solve for <span class="math inline">\(\gamma\)</span>:</p>
+<p><span class="math display">\[
+\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma
+\]</span> Now set it to 0 and solve for <span class="math inline">\(\gamma\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \gamma_{i,j} &amp;= \frac{-1 \cdot \sum_{i=1}^{n}\frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x))}{\sum_{i=1}^{n}\frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma} \\
 &amp;= \frac{\sum_{i=1}^{n} (y_i-\hat{p_i})}{\sum_{i=1}^{n}[\hat{p_i} \cdot (1-\hat{p_i})]}
 \end{aligned}
 \]</span></p>
-<p>where <span class="math inline">\(\hat{p_i}\)</span> is the estimated probability from the previous tree.</p>
+<p>where <span class="math inline">\(\hat{p_i}\)</span> is the estimated probability from the previous tree. * Update <span class="math inline">\(F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})\)</span></p>
+<p>3.<strong>Step 3:</strong> Output <span class="math inline">\(F_{M}(x)\)</span></p>
 </div>
 
 

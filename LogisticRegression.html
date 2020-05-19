@@ -319,7 +319,7 @@ $(document).ready(function () {
 
 
 <p>To solve a classification problem, <span class="math inline">\(y_i\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we want to estimate the probability of <span class="math inline">\(y_i=1\)</span> by a set of explanatory variable <span class="math inline">\(X\)</span>, denoted as <span class="math inline">\(p(x)\)</span>. However, we cannot simply model the probability by the linear regression model as <span class="math inline">\(p(x) = \beta_0 + x \beta\)</span> since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.</p>
-<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we can not model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>.</p>
+<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we cannot model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>. Also when transforming the data to log(odds), the target variable becomes positive and negative, and therefore the residuals cannot be calculated.</p>
 <p>Instead, we want to estimate the <span class="math inline">\(p(x)\)</span> directly. It can be done by using gradient descent or maximum likehood.</p>
 <hr />
 <p>To estimate the probability directly, we define the probability estimator as:</p>
@@ -345,6 +345,8 @@ c(\beta_0, \beta) =
 <p><span class="math display">\[l(\beta_0, \beta) = \sum_{i=1}^{n}y_i(log(p(x_i)))+(1-y_i)log(1-p(x_i)) \]</span></p>
 <p>The estimation can either done by minimize the cost function or maximize the log-likelihood function</p>
 <p>logistic cost function partial derivatives: <span class="math display">\[\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}\]</span> The logistic regression does not have analytical solution, it must be solved numerically.</p>
+<p>###Goodness of Fit###</p>
+<p><strong>Psuedo R square</strong> Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square. However, we can’t use the residual</p>
 </div>
 
 
