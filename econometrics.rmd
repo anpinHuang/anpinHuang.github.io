@@ -6,7 +6,8 @@ title: "Econometrics"
 [OLS and GLS with heteroskedasiticity](heteroskedasticity.html)  
 [Bias & Variance Tradeoff](BiasVarianceTradeoff.html)  
 [Ridge & Lasso Regression](RidgeLassoRegression.html)  
-[Principal Component Analysis (PCA)](PCA.html)
+[Principal Component Analysis (PCA)](PCA.html)  
+[Panel Data Regression](PanelData.html)  
 
 #### Probability Fundementals
 [Central Limit Theorem](CLM.html)
