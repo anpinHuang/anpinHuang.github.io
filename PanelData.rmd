@@ -1,5 +1,5 @@
 ---
-title: "Panel Data"
+title: "Panel Data Regression"
 ---
 
 ### Issue with Pooled OLS ###
@@ -45,11 +45,47 @@ This way, we can actually estimate $\alpha_i$, however, if we have larger number
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 Now we want to foucs on estimating $\alpha_i$, the heterogeneity
 
-### $R squared in Fixed Effect/LSDV ###
+### R Squared in Fixed Effect/LSDV ###
 
 $$\tilde{HP_{i,t}} = \beta_1\tilde{Crime_{i,t}}+\beta_2\tilde{Unemployment_{i,t}}+\tilde{u_{i,t}}$$
 
-$R^2$ here means the variation of $HP_{i,t}$ explained by the model relative to $HP_i$
+$R^2$ here for fixed effect model means the variation of $HP_{i,t}$ explained by the model relative to $HP_i$.
+
+For LSDV, the high $R^2$ is not surprised and not very indicative. Even without the crime and unemployment rate, we still have dummy variables (city specific) and year in the model.
+
+### First Difference v.s. Fixed Effect\LSDV ###
+
+$$T=2: FD = FE$$
+
+$$T \geq3 : FD \neq FE$$
+
+Both $\hat\beta_{FD}$ and $\hat\beta_{FE}$ are unbiased, so we compare the efficiency.
+
+$$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
+
+$cov(u_{i,t}, u_{i,t-1} = 0$ then 
+$$
+\begin{aligned} 
+Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{i,t-2}) \\
+&= Cov(u_{i,t-1},u_{i,t-1}) \\
+&= -Var(u_{i,t-1})
+\end{aligned} 
+$$ 
+Therefore, if we have serial uncorrelated idiosyncratic errors $u_{i,t}$ then $\Delta u_{i,t}$ is serially correlated, and therefore fixed effect is preferred. However, if we have serial correlated $u_{i,t}$, then it depends on the $\rho$ of $u_{i,t} = \rho u_{i,t-1} + \epsilon_{i,t}$.
+
+However, in both method, we don't actually estimate the $u_{i,t}$, so we don't know if they are serially correlated. We can do use the estimation from first difference:
+
+
+if $Cov(\Delta \hat u_{i,t}$ is significant negative, then FE is favorable
+if $Cov(\Delta \hat u_{i,t} = 0$ then FD is favorable.
+
+In the end, it is better to do both, and examine the difference of these two estimators.
+
+If $T>N$,where $N$ is small, then FE is quite sensitive. If $X_{i,t}$ is unit root, then FE is subject to spurious regression. 
+
+If $T$ is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity ($Cov(u_{i,t}, X_{i,s})$)
+
+### Random Effects ###
 
 
 
