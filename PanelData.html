@@ -11,7 +11,7 @@
 
 
 
-<title>Panel Data</title>
+<title>Panel Data Regression</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,7 +313,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Panel Data</h1>
+<h1 class="title toc-ignore">Panel Data Regression</h1>
 
 </div>
 
@@ -326,8 +326,8 @@ $(document).ready(function () {
 <h3>First Difference Approach</h3>
 <p><span class="math display">\[
 \begin{aligned} 
-\Delta HP_{i,t} &amp;= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + u_{i,t}^{&#39;}\\
-&amp;= \beta_1 \Delta Crime_{i,t}  + V_{t} - V_{t-1} + u_{i,t}^{&#39;}
+\Delta HP_{i,t} &amp;= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + \Delta u_{i,t}\\
+&amp;= \beta_1 \Delta Crime_{i,t}  + V_{t} - V_{t-1} + \Delta u_{i,t}
 \end{aligned}
 \]</span></p>
 <p>Now the city’s specific effect has been removed, and <span class="math inline">\(\beta_1\)</span> is consistent estimated this way.</p>
@@ -350,9 +350,32 @@ $(document).ready(function () {
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> Now we want to foucs on estimating <span class="math inline">\(\alpha_i\)</span>, the heterogeneity</p>
 </div>
 <div id="r-squared-in-fixed-effectlsdv" class="section level3">
-<h3>$R squared in Fixed Effect/LSDV</h3>
+<h3>R Squared in Fixed Effect/LSDV</h3>
 <p><span class="math display">\[\tilde{HP_{i,t}} = \beta_1\tilde{Crime_{i,t}}+\beta_2\tilde{Unemployment_{i,t}}+\tilde{u_{i,t}}\]</span></p>
-<p><span class="math inline">\(R^2\)</span> here means the variation of <span class="math inline">\(HP_{i,t}\)</span> explained by the model relative to <span class="math inline">\(HP_i\)</span></p>
+<p><span class="math inline">\(R^2\)</span> here for fixed effect model means the variation of <span class="math inline">\(HP_{i,t}\)</span> explained by the model relative to <span class="math inline">\(HP_i\)</span>.</p>
+<p>For LSDV, the high <span class="math inline">\(R^2\)</span> is not surprised and not very indicative. Even without the crime and unemployment rate, we still have dummy variables (city specific) and year in the model.</p>
+</div>
+<div id="first-difference-v.s.-fixed-effect" class="section level3">
+<h3>First Difference v.s. Fixed Effect</h3>
+<p><span class="math display">\[T=2: FD = FE\]</span></p>
+<p><span class="math display">\[T \geq3 : FD \neq FE\]</span></p>
+<p>Both <span class="math inline">\(\hat\beta_{FD}\)</span> and <span class="math inline">\(\hat\beta_{FE}\)</span> are unbiased, so we compare the efficiency.</p>
+<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
+<p><span class="math inline">\(cov(u_{i,t}, u_{i,t-1} = 0\)</span> then <span class="math display">\[
+\begin{aligned} 
+Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{i,t-2}) \\
+&amp;= Cov(u_{i,t-1},u_{i,t-1}) \\
+&amp;= -Var(u_{i,t-1})
+\end{aligned} 
+\]</span> Therefore, if we have serial uncorrelated idiosyncratic errors <span class="math inline">\(u_{i,t}\)</span> then <span class="math inline">\(\Delta u_{i,t}\)</span> is serially correlated, and therefore fixed effect is preferred. However, if we have serial correlated <span class="math inline">\(u_{i,t}\)</span>, then it depends on the <span class="math inline">\(\rho\)</span> of <span class="math inline">\(u_{i,t} = \rho u_{i,t-1} + \epsilon_{i,t}\)</span>.</p>
+<p>However, in both method, we don’t actually estimate the <span class="math inline">\(u_{i,t}\)</span>, so we don’t know if they are serially correlated. We can do use the estimation from first difference:</p>
+<p>if <span class="math inline">\(Cov(\Delta \hat u_{i,t}\)</span> is significant negative, then FE is favorable if <span class="math inline">\(Cov(\Delta \hat u_{i,t} = 0\)</span> then FD is favorable.</p>
+<p>In the end, it is better to do both, and examine the difference of these two estimators.</p>
+<p>If <span class="math inline">\(T&gt;N\)</span>,where <span class="math inline">\(N\)</span> is small, then FE is quite sensitive. If <span class="math inline">\(X_{i,t}\)</span> is unit root, then FE is subject to spurious regression.</p>
+<p>If <span class="math inline">\(T\)</span> is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity (<span class="math inline">\(Cov(u_{i,t}, X_{i,s})\)</span>)</p>
+</div>
+<div id="random-effects" class="section level3">
+<h3>Random Effects</h3>
 </div>
 
 

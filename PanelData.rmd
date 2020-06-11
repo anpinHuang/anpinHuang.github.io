@@ -12,8 +12,8 @@ if $\alpha_i$ is not in the OLS, then it would end up in the error term, and $co
 ### First Difference Approach ###
 $$
 \begin{aligned} 
-\Delta HP_{i,t} &= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + u_{i,t}^{'}\\
-&= \beta_1 \Delta Crime_{i,t}  + V_{t} - V_{t-1} + u_{i,t}^{'}
+\Delta HP_{i,t} &= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + \Delta u_{i,t}\\
+&= \beta_1 \Delta Crime_{i,t}  + V_{t} - V_{t-1} + \Delta u_{i,t}
 \end{aligned}
 $$
 
