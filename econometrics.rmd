@@ -8,6 +8,7 @@ title: "Econometrics"
 [Ridge & Lasso Regression](RidgeLassoRegression.html)  
 [Principal Component Analysis (PCA)](PCA.html)  
 [Panel Data Regression](PanelData.html)  
+[Healthcare Economics](HealthcareEconomics.html)  
 
 #### Probability Fundementals
 [Central Limit Theorem](CLM.html)

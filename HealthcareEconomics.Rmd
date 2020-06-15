@@ -1,0 +1,240 @@
+---
+title: "Healthcare Economics"
+---
+
+### Healthcare Market ###
+
+Free Market
+
+* Buyer has full financial responsibility
+* The finaiclal responsibility is immediate
+* The value of the consumption is easily determined even if the service is intangible
+* Not vulnerable purchase
+* Limit cost/risk sharing
+* Self-ration as consumer owns 100% of the cost
+
+
+
+Healthcare Market
+
+* Financial responsibility might be shared
+* The finaiclal responsibility may not be immediate
+* Difficult to determine the value of service (medication)
+* Uncertainty
+* Cost/risk sharing
+* Tendency of overconsumption given uncertainty, lack of information and cost/risk sharing
+* Induced demand: supplier (healthcare provider) side factor on the demand. It is observed when there is an increase of supply (upshift of supply curve), it always accompanied with upshit of demand curve.
+
+### Health Insurance ###
+Buyer: 
+
+* Maximum WTP (willingness to pay)
+* Risk sharing
+* Risk aversion - people buy H.I. when there is high cost of treatment with low probability of event
+
+
+Seller (Insurance company):
+
+* Minimum WTA (willingness to accept)
+* Risk pooling: pool by similar risk segment - just like we did in credit market
+* Setting the **premium $P$** based on: 
+    * **Expected payout $E$** - the average payout by the insurance company for the segment
+    * $+$ admin cost
+    * $+$ reserve funds
+    * $+$ profit
+    * $E$ is called the fair value of the insurance
+    * The price of the commodity (the insureance) is the loading fee $L$
+    * Usually, people express loading fee in relative form(%): where $L = \frac{P-E}{E}$
+* $P-E$ is called the loading fee $L$
+
+
+Determing expected payout $E$
+
+* Experience rating: more narrow
+* Community rating
+
+
+**Moral Hazard:**
+
+* Change of the behaviour of the consumer when he/she has the insurance coverage.
+* Orginally, the person who bought the insurance is risk adverse, but once he/she has insurance, he/she can become more risk taking.
+* Since the healthcase is paid by the 3rd party, there might be higher consumption of the healthcare even when it's not necessary. The healthcare provider can also induce the demand to shift the demand curve.
+* If the insurance company collects the data of you when you didn't have insurance to determine $E$, it cannot predict your behaviour once you have the insurance.
+* Mitigant 1: To make the persone more sensitive/elastic, the insurance company introduce. coinsurance/copay (not 100% coverage since 100% coverage is perfectly inelastic.)
+* Mitigant 2: Customary payment (**FFS - Fee for Service**). Insurance company set how much it would pay for a particular item/service, and anything higher than that,regardless which healthcare the customer goes to, the customer has to pay out of pocket.
+* Mitigant 3: Managed care
+    * **Gatekeeper physician** (e.g. your primary doctor): You have to be referred by the primary doctor to see the specialist.
+    * **Pre-certification or pre-approval** from insurance company in case of high cost service.
+    * **Stop loss provision** (a form of deductible). The deductible has several layer/threshold, and stop loss provision only has 1 threshold.
+
+**Adverse selection:**
+
+* Within the segment that the insurance company pooled, the difference in purchasing the insurance due to different characteristics from an average person within the segment. This means the price (premium) is wrong for those individuals.
+* Migitant 1: Direct pay (in some way similar to experience rating)
+* Migitant 2: Community rating (In practice it doesn't work according to empirical stury)
+
+
+**Employer health insurance:**
+
+* Advantage| Employer may have policy that help the insureance company to have more homogeneious characteristics within the segment/pool and therefore the insurance company can offer community rating, addressing the issue of adverse selection
+* Disadvandage| No job no insurance. Thus the U.S. government implemented COBRA (1985)
+* Disadvantage| Job lock: changing the job become difficult because you are flagged as less healthy person. 
+
+**Integration between insurance company and provider.** Different from other markets, the insurance company is setting 2 prices where it's setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).
+
+
+3 types of negotiation between insurance company & healthcare provider
+
+* **Separate entities:** 0 integration, called Indemnity plan or FFS. The insurance company has no say in terms of which provider you go to.
+* **Selective contracting:** Insurance company channelizes toward a selective group of providers, and in return the providers give the insurance company a lower negotiated price. In this situation, the price of the premium is not involved and therefore the insurance company can have a higher profit. The patients are not benefitted in this system, paying escalating higher healthcare cost.
+* **Vertical integration** - MCO Managed Care Organization: an organization is formed with insurance department and healthcare provider department. MCO charges a fixed rate of premium drown from a small fixed pool of population. By restricting to a small fixed pool of population, it mitigate the information gap (healthness of the population) between the patients and the insurance company. This fixed rate premium is usually lower than the premium of the 2 systems above.
+  * **PPO Preferred Provider Organization:** The insurance providers create a list of in-network healthcare providers. There are incentives (higher coverage of cost) for patients to go to in-network healthcare providers. There is no restriction for patients to go to out of network providers.
+  * **HMO Health Maintenance Organization:** There is gatekeeper physician to authorize all healthcare use.
+    * Staff model: The doctors are employees of the HMO. The benefit is only eligible if the patients go to these doctors
+    * Group model: The group of doctors are contracted with the HMO
+    * Network model (contract with multiple groups of doctors)
+    * Independent providers: Individual providers have contract with the HMO and don't see other patients not from the HMO. Question - what kind of doctors would want to go in to this kind of contract?
+  * **POS Point of Service Plan:** Mixture of PPO & HMO. It has in/out of network, but it also has a gatekeeper.
+
+
+Real cost of treatment: Monetary cost + time cost. The higher income people value time more than money, willing to pay more premium and therefore bring up the price. In the end, the insurance would cater only to this group and the lower income group would become uninsured.
+
+### Market Theory ###
+
+* **Perfect Competition:** It is the most efficient. It is also hypothetical.
+  * Infinite number of buyers & sellers
+  * All sellers sell indentical/homogeneous products
+  * All sellers are price takers, and there is 1 single price
+  * There is free entry/exit to/from the market for the seller
+  * $TR = P \cdot Q$
+  * $MR = \frac{\Delta TR}{\Delta Q}$
+  * $MR = \bar{P} = ATC$   (By free entry/exit assumption, if $P>ATC$ then new entries will bring down the price. If $P<ATC$, then merchant would exits the market and bring up the price)
+  * The $Q$ is at the cost minimizing level of output and therefore we say it is the most efficient
+* **Monopoly:**
+  * There is one single seller, and it is a price maker instead of a price taker
+  * There are large number of buyers but is finite
+  * Homogenous product (because there is only one seller)
+  * Barrier to entry as the singel seller would try to stop new competitions 
+  * The law of demand and diminishing of marginal revenue still hold
+  * The monopolist produces less than the cost minimizing level of output and charge a higher price, and that's why the monopoly is less efficient than perfect competition.
+* **Monopolistic Competition:** The pharmeseutical, healthcare workforce and the hospital fall under this categorical. There is a tendancy for company in this category to move to monopoly.
+  * Finite number of buyers of sellers and the number of sellers is less than number of buyers
+  * The markets are geographically localized
+  * The sellers provide non-homogeneous products. The same kind of service, but different in, for example, branding, advertising and/or location.
+  * Relatively free entry/exit of sellers
+  * The law of demand and diminishing of marginal revenue still hold
+  * The buyer has imcomplete information about the product and/or price (i.e. the buyer does not if he/she can get the same service at a different price from another seller)
+  * In a case that the seller is loosing money, some of the sellers will exit, and from the other sellers who stay in the market, they would experience a upshift of demand curve to where $P = ATC$ (please note the overall demand curve has not change).
+  * The final equilibrium point Q is still lower than the cost minimizing level of output
+  * Like perfect competition, eventually break even will happen ($P^Q = C^Q$), however, the Q is still lower than the cost minizing level of output. Therefore, we say Monopolistic Competition is more efficient than Monopoly but less efficient than Perfect Competition.
+
+### Hospital Industry ### 
+  
+Hospital history
+
+* 1910: Hospital industry started to gain importance.  Flexnor Report
+* 1928: Nursing reform. Before then, nurses were more volunteering work wihtout specialized traning.
+* 1945: During World War II, creation of new hospitals mostly with government fundings.
+* 1960's: Public health insurance programs. Medicare & Medicaid.
+* 1980's: Competition is introduced. Before then, there was very little competition.
+* 1990's: Large spending in hospitals both in terms of consumer spending and government spending. The costs had gone up.
+
+Hospital industry classification
+
+* By length of stay
+  * Short term hospital (length of stay < 30 days)
+  * Long term hospital (length of stay > 30 days)
+* By ownership
+  * Federal (only a few)
+  * Non-federal 
+    * Community hospitals (a lot): short term stay, provides general service and some categories of specialized services. Private not for profit (60%). Private for profit (25%). Owned by state/local government (15%)
+    * Speciality hospitals: Only focus on one specialized services
+  * Learning hospital: Usually affliated with university and needs to have residency program. Thses are usually long-term stay hospital. They have very high cost of operation.
+  
+  
+In the past year, we have seen decrease in community hospitals and increase in ambulantory care clinic (not hospital) which are owned by physicians and need primary physicians referral. 
+
+It has been observed that the profit margins are the same between for profit and non-profit hospitals. The problem of how to re-invest the retained earnings. We say that the non-profit hospitals are still doing profit maximization:
+
+* Utility maximization (Owner's utility)
+  * Monetary
+  * Non-monetary (prestiage status)
+* Physician control
+
+Degree of competition
+
+* Price competition was very low
+* There was non-price competition - in terms of quality
+* It is a localized market and is therefore more closed to Monopolistic Competition than Perfect Competition.
+* The service is not homogeneous (e.g. not identical in terms of quality)
+* The patients do not have perfect information of the product.
+* Buyers are price insensitive (demand is inelastic)
+  * Patients need the service, there is no choice of not taking it. Life is on the line...you might not have time to shop around to find the cheaper price.
+  * Mostly of time it is covered by 3rd party (insurance company).
+* We conclude that it is a low competition market, and therefore it is not efficient and produce less welfare.
+
+### Physician Market ###
+
+Demand:
+
+* Input demand: Derived demand, meaning that this demand is not the ultimate goal. The ultimate goal is to be healthy, so you seek for physician.
+* It can be driven by related goods, complement goods or competing goods.
+* Inelastic
+* Induced demand
+
+Supply:
+
+* Limited supply $Q_S < Q_D$ because of the barrier to entry
+* High cost to entry -> education, license
+* Restriction on immigration
+  * Upside: quality control
+  * Downside: supply shortage persists
+* Monopolist Competition Market. Physicians compete in terms of quality but not price.
+
+### Healthcare Systems ###
+
+* Centralized: Government make the decision
+  * Advantage| Economies of scale
+  * Advantage| Better distribution
+  * Disadvantage| Lower degree of innovation
+* Decentralized: The market make the decision
+  * Disadvantage| Diseconomies of scale
+  * Disadvantage| Less coordination
+  * Advantage| Higher degree of innovation
+* PPP - Public Private Partnership
+
+
+* Consumer Sovereignty Model (Private Insurance Model)
+  * Low government involvement.
+  * The consumers decide what insurance coverage they want. The consumer has a lot of freedom on how he/she want to manage the possible high cost of treatment.
+  * Example: USA
+* Social Insurance Model
+  * Government pushes the universal coverage
+  * Employers & employees contribute to a fund that runs by non-profit organization
+  * The government subsidizes the insurance fund
+  * Example: Germany, Netherlands
+  
+* National Health Insurance
+  * Maximum involvement of the government
+  * The funding is directly through government taxation
+  * Example: UK
+
+Financing 3rd party
+
+* Insurance company
+  * Premium
+  * Voluntary payment
+  * Based on risk characteristics
+* Government
+  * Taxation
+  * Non-voluntary payment
+  * Not based on risk characteristics
+
+Use of Technology
+
+* Basic research: No commercial incentive
+* Applied research: e.g. making vaccines
+* Clinical testing on humans
+* Commercial motivation: dissenmination, adoption
+  
+

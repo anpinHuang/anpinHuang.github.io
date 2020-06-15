@@ -76,8 +76,8 @@ Therefore, if we have serial uncorrelated idiosyncratic errors $u_{i,t}$ then $\
 However, in both method, we don't actually estimate the $u_{i,t}$, so we don't know if they are serially correlated. We can do use the estimation from first difference:
 
 
-if $Cov(\Delta \hat u_{i,t}$ is significant negative, then FE is favorable
-if $Cov(\Delta \hat u_{i,t} = 0$ then FD is favorable.
+if $Cov(\Delta \hat u_{i,t})$ is significant negative, then FE is favorable
+if $Cov(\Delta \hat u_{i,t}) = 0$ then FD is favorable.
 
 In the end, it is better to do both, and examine the difference of these two estimators.
 
@@ -86,6 +86,36 @@ If $T>N$,where $N$ is small, then FE is quite sensitive. If $X_{i,t}$ is unit ro
 If $T$ is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity ($Cov(u_{i,t}, X_{i,s})$)
 
 ### Random Effects ###
+
+$$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
+
+If $Cov(\alpha_i, X_{i,t}) = 0$ then $\beta_{OLS}$ is consistent, but we have serial correlation in the error terms. To address this, we do FGLS which is called the random effect for Panel Data.
+
+$$Cov(\alpha_i+u_{i,t}, \alpha_i+u_{i,s}) = Var(\alpha_i)$$
+
+
+$$HP_{i,t} - \lambda \bar{HP_{i,t}} = \beta_0(1-\lambda)+\beta_1 (Crime_{i,t}-\lambda Crime_{i,t}) + \beta_2 (Unemployment_{i,t} \lambda Unemployment_{i,t}) + \alpha_i (1-\lambda) + u_{i,t} (1-\lambda)$$
+$\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}$
+
+note that when $\lambda = 1$, then it's fixed effect.
+
+Steps of feasible GLS (Random Effect):
+
+* estimate $\hat{\lambda}$ by FE or Pooled OLS
+* Use Pooled OLS on the transformed system
+
+**We can only use random effect if $Cov(\alpha_i, X_{i,t}) = 0$ **
+
+### Benefits of random effects - time constant variables ###
+
+$$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 Geography_{i} + \beta_4 Race_{i}+ \alpha_i + u_{i,t}$$
+
+Time constant variables are not possible to be estimated using FE or FD. Since $\lambda$ lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.
+
+
+### Hausman test for Random Effects vs Fixed Effects ###
+
+
 
 
 

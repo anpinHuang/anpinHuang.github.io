@@ -369,13 +369,32 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 \end{aligned} 
 \]</span> Therefore, if we have serial uncorrelated idiosyncratic errors <span class="math inline">\(u_{i,t}\)</span> then <span class="math inline">\(\Delta u_{i,t}\)</span> is serially correlated, and therefore fixed effect is preferred. However, if we have serial correlated <span class="math inline">\(u_{i,t}\)</span>, then it depends on the <span class="math inline">\(\rho\)</span> of <span class="math inline">\(u_{i,t} = \rho u_{i,t-1} + \epsilon_{i,t}\)</span>.</p>
 <p>However, in both method, we don’t actually estimate the <span class="math inline">\(u_{i,t}\)</span>, so we don’t know if they are serially correlated. We can do use the estimation from first difference:</p>
-<p>if <span class="math inline">\(Cov(\Delta \hat u_{i,t}\)</span> is significant negative, then FE is favorable if <span class="math inline">\(Cov(\Delta \hat u_{i,t} = 0\)</span> then FD is favorable.</p>
+<p>if <span class="math inline">\(Cov(\Delta \hat u_{i,t})\)</span> is significant negative, then FE is favorable if <span class="math inline">\(Cov(\Delta \hat u_{i,t}) = 0\)</span> then FD is favorable.</p>
 <p>In the end, it is better to do both, and examine the difference of these two estimators.</p>
 <p>If <span class="math inline">\(T&gt;N\)</span>,where <span class="math inline">\(N\)</span> is small, then FE is quite sensitive. If <span class="math inline">\(X_{i,t}\)</span> is unit root, then FE is subject to spurious regression.</p>
 <p>If <span class="math inline">\(T\)</span> is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity (<span class="math inline">\(Cov(u_{i,t}, X_{i,s})\)</span>)</p>
 </div>
 <div id="random-effects" class="section level3">
 <h3>Random Effects</h3>
+<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
+<p>If <span class="math inline">\(Cov(\alpha_i, X_{i,t}) = 0\)</span> then <span class="math inline">\(\beta_{OLS}\)</span> is consistent, but we have serial correlation in the error terms. To address this, we do FGLS which is called the random effect for Panel Data.</p>
+<p><span class="math display">\[Cov(\alpha_i+u_{i,t}, \alpha_i+u_{i,s}) = Var(\alpha_i)\]</span></p>
+<p><span class="math display">\[HP_{i,t} - \lambda \bar{HP_{i,t}} = \beta_0(1-\lambda)+\beta_1 (Crime_{i,t}-\lambda Crime_{i,t}) + \beta_2 (Unemployment_{i,t} \lambda Unemployment_{i,t}) + \alpha_i (1-\lambda) + u_{i,t} (1-\lambda)\]</span> <span class="math inline">\(\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}\)</span></p>
+<p>note that when <span class="math inline">\(\lambda = 1\)</span>, then it’s fixed effect.</p>
+<p>Steps of feasible GLS (Random Effect):</p>
+<ul>
+<li>estimate <span class="math inline">\(\hat{\lambda}\)</span> by FE or Pooled OLS</li>
+<li>Use Pooled OLS on the transformed system</li>
+</ul>
+<p><strong>We can only use random effect if <span class="math inline">\(Cov(\alpha_i, X_{i,t}) = 0\)</span> </strong></p>
+</div>
+<div id="benefits-of-random-effects---time-constant-variables" class="section level3">
+<h3>Benefits of random effects - time constant variables</h3>
+<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 Geography_{i} + \beta_4 Race_{i}+ \alpha_i + u_{i,t}\]</span></p>
+<p>Time constant variables are not possible to be estimated using FE or FD. Since <span class="math inline">\(\lambda\)</span> lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.</p>
+</div>
+<div id="hausman-test-for-random-effects-vs-fixed-effects" class="section level3">
+<h3>Hausman test for Random Effects vs Fixed Effects</h3>
 </div>
 
 
