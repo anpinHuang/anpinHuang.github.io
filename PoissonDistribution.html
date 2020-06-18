@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Poisson Distribution</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,24 +313,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Poisson Distribution</h1>
 
 </div>
 
 
-<p><a href="deriveOLS.html">Derive OLS estimaors in matrix form</a><br />
-<a href="autocorrelation.html">OLS and GLS with autocorrelation error terms</a><br />
-<a href="heteroskedasticity.html">OLS and GLS with heteroskedasiticity</a><br />
-<a href="BiasVarianceTradeoff.html">Bias &amp; Variance Tradeoff</a><br />
-<a href="RidgeLassoRegression.html">Ridge &amp; Lasso Regression</a><br />
-<a href="PCA.html">Principal Component Analysis (PCA)</a><br />
-<a href="PanelData.html">Panel Data Regression</a><br />
-<a href="HealthcareEconomics.html">Healthcare Economics</a></p>
-<div id="probability-fundementals" class="section level4">
-<h4>Probability Fundementals</h4>
-<p><a href="CLM.html">Central Limit Theorem</a><br />
-<a href="PoissonDistribution.html">Poisson Distribution</a></p>
-</div>
+<p>Recall that Binomial Distribution:</p>
+<p><span class="math display">\[P(X=x) = C_x^n P^x (1-p)^{n-x}\]</span></p>
+<p>Assumptions: * The probability of 2 or more events occur in a sufficiently short interval is 0 * Probability of event occur is independent between non-overlapping intervals * The probability of exactly 1 event occurs in a sufficiently short interval <span class="math inline">\(h\)</span> is <span class="math inline">\(\lambda h\)</span></p>
+<p>Given the above assumptions, the probability of an event occur in any one subinterval <span class="math inline">\(\frac{1}{n}\)</span> is <span class="math inline">\(\lambda(\frac{1}{n}) = \frac{\lambda}{n}\)</span></p>
+<p>Derive poisson distribution by taking <span class="math inline">\(n\to\infty\)</span> of the binomial distribution: <span class="math display">\[
+\begin{aligned}
+P(X=x) &amp;= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdot (1-\frac{\lambda}{n})^{n-x}\\
+&amp;= \lim_{n\to\infty} \frac{n(n-1) ...(n-x+1)}{n^x} \frac{\lambda^x}{x!}(1-\frac{\lambda}{n})^n(1-\frac{\lambda}{n})^{-x} \\
+&amp;= 1 \cdot \frac{\lambda^x}{x!} \cdot e^{-\lambda} \cdot 1 \\
+&amp; = \frac{\lambda^x e^{-\lambda}}{x!}
+\end{aligned} 
+\]</span></p>
 
 
 

@@ -69,9 +69,12 @@ logistic cost function partial derivatives:
 $$\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}$$
 The logistic regression does not have analytical solution, it must be solved numerically.
 
-###Goodness of Fit###
+### Goodness of Fit ###
+
 We discuss one of the ways to measure the goodness of fit.
-** McFadden's psuedo $R^2$**
+
+**McFadden's psuedo $R^2$**
+
 Recall that the $R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}$ in linear regression where $SS$ means the sum of residual's square $SS(mean)$ is the sum of residual's square where the prediction is just the average of the sample target variable. However, we can't use the residual.
 
 
@@ -79,12 +82,29 @@ We use $LL(fit)$ for the log-likelihood of the fitted line, and use it as a subs
 $$R^2 = \frac{LL(0)-LL(fit)}{LL(0)}$$ 
 
 
+We use the null and saturated model to calculate the proposed model's R square and p-value
+* Null model: an oversimplified model
+* Saturated model: an over-complicated model
+
+Review R squuare for linear regression:
+$$R^2 = \frac{SS(Null Model)-SS(Proposed Model)}{SS(Null Model)}$$
+Null Model here is the average of the target variable.
+
+
+Now for log-likelihood based R square:
+
+$$R^2 = \frac{LL(Null Model)-LL(Proposed Model)}{LL(Null Model)-LL(SaturatedModel)}$$
+
+**The inclusion of saturated model ensures that the R square is between 0 and 1!**
 
 
 
+* **Residual deviance: ** $2 \cdot (LL(SaturatedModel)-LL(ProposedModel))$ follows Chi-square distribution. For this to work, the proposed model has to be a simplier version of the saturated model
+* **Null deviance: ** $2 \cdot (LL(SaturatedModel)-LL(NullModel))$
+* $Null Deviance - Residual Deviance$ is a Chi-square value with degree of freedom equal to the difference in the number of parameters for the proposed Model and the Null Model
+* **Deviance residuals: ** $\sum_i^N \sqrt{2 \cdot LL(SaturatedModel)_i - LL(ProposedModel)_i}$Analogous to the residuals of OLS.
 
-
-
+Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the $LL(SaturatedModel)=0$.
 
 
 

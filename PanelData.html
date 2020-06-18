@@ -379,7 +379,7 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
 <p>If <span class="math inline">\(Cov(\alpha_i, X_{i,t}) = 0\)</span> then <span class="math inline">\(\beta_{OLS}\)</span> is consistent, but we have serial correlation in the error terms. To address this, we do FGLS which is called the random effect for Panel Data.</p>
 <p><span class="math display">\[Cov(\alpha_i+u_{i,t}, \alpha_i+u_{i,s}) = Var(\alpha_i)\]</span></p>
-<p><span class="math display">\[HP_{i,t} - \lambda \bar{HP_{i,t}} = \beta_0(1-\lambda)+\beta_1 (Crime_{i,t}-\lambda Crime_{i,t}) + \beta_2 (Unemployment_{i,t} \lambda Unemployment_{i,t}) + \alpha_i (1-\lambda) + u_{i,t} (1-\lambda)\]</span> <span class="math inline">\(\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}\)</span></p>
+<p><span class="math display">\[HP_{i,t} - \lambda \bar{HP_{i,t}} = \beta_0(1-\lambda)+\beta_1 (Crime_{i,t}-\lambda Crime_{i,t}) + \beta_2 (Unemployment_{i,t} \lambda Unemployment_{i,t}) + \alpha_i (1-\lambda) + u_{i,t} (1-\lambda)\]</span> <span class="math display">\[\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}\]</span></p>
 <p>note that when <span class="math inline">\(\lambda = 1\)</span>, then it’s fixed effect.</p>
 <p>Steps of feasible GLS (Random Effect):</p>
 <ul>
@@ -395,6 +395,7 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 </div>
 <div id="hausman-test-for-random-effects-vs-fixed-effects" class="section level3">
 <h3>Hausman test for Random Effects vs Fixed Effects</h3>
+<p>Null Hypothesis <span class="math inline">\(H_0 = Cov(\alpha_i, X_{i,t}) = 0\)</span> <span class="math display">\[w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2\]</span> under <span class="math inline">\(H_0\)</span></p>
 </div>
 
 

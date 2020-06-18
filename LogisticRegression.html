@@ -319,8 +319,19 @@ $(document).ready(function () {
 
 
 <p>To solve a classification problem, <span class="math inline">\(y_i\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we want to estimate the probability of <span class="math inline">\(y_i=1\)</span> by a set of explanatory variable <span class="math inline">\(X\)</span>, denoted as <span class="math inline">\(p(x)\)</span>. However, we cannot simply model the probability by the linear regression model as <span class="math inline">\(p(x) = \beta_0 + x \beta\)</span> since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.</p>
-<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we cannot model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>. Also when transforming the data to log(odds), the target variable becomes positive and negative, and therefore the residuals cannot be calculated.</p>
+<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we cannot model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated.</p>
 <p>Instead, we want to estimate the <span class="math inline">\(p(x)\)</span> directly. It can be done by using gradient descent or maximum likehood.</p>
+The probability can be expressed as the log(odds): $$
+<span class="math display">\[\begin{aligned}
+log(\frac{p}{1-p}) &amp;=  log(odds) \\
+\frac{p}{1-p} &amp;= e^{log(odds)} \\
+p &amp;= (1-p)e^{log(odds)} \\
+p &amp;= e^{log(odds)}-pe^{log(odds)} \\
+p+pe^{log(odds)} &amp;=e^{log(odds)}\\
+p &amp;= \frac{e^{log(odds)}}{1+e^{log(odds)}}
+
+\end{aligned}\]</span>
+<p>$$</p>
 <hr />
 <p>To estimate the probability directly, we define the probability estimator as:</p>
 <p><span class="math display">\[\hat p  = h_{\theta}(x) = \sigma(\beta_0+x\beta)\]</span></p>
@@ -345,8 +356,25 @@ c(\beta_0, \beta) =
 <p><span class="math display">\[l(\beta_0, \beta) = \sum_{i=1}^{n}y_i(log(p(x_i)))+(1-y_i)log(1-p(x_i)) \]</span></p>
 <p>The estimation can either done by minimize the cost function or maximize the log-likelihood function</p>
 <p>logistic cost function partial derivatives: <span class="math display">\[\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}\]</span> The logistic regression does not have analytical solution, it must be solved numerically.</p>
-<p>###Goodness of Fit###</p>
-<p><strong>Psuedo R square</strong> Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square. However, we can’t use the residual</p>
+</div>
+<div id="goodness-of-fit" class="section level3">
+<h3>Goodness of Fit</h3>
+<p>We discuss one of the ways to measure the goodness of fit.</p>
+<p><strong>McFadden’s psuedo <span class="math inline">\(R^2\)</span></strong></p>
+<p>Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square <span class="math inline">\(SS(mean)\)</span> is the sum of residual’s square where the prediction is just the average of the sample target variable. However, we can’t use the residual.</p>
+<p>We use <span class="math inline">\(LL(fit)\)</span> for the log-likelihood of the fitted line, and use it as a substitute for <span class="math inline">\(SS(fit)\)</span>. Now we need to substitution for <span class="math inline">\(SS(mean)\)</span>. For benchmarking purpose, we have to find substitution for <span class="math inline">\(SS(mean)\)</span>. We can use the log-likelihood of the estimation with no explanatory variable. This would be the log-likelihood with the estimate of probability <span class="math inline">\(\hat{p}\)</span> equals to the sum of <span class="math inline">\(y\)</span> divided by number of observations. We denote this as <span class="math inline">\(LL(0)\)</span>. Now we have the McFadden’s psuedo <span class="math display">\[R^2 = \frac{LL(0)-LL(fit)}{LL(0)}\]</span></p>
+<p>We use the null and saturated model to calculate the proposed model’s R square and p-value * Null model: an oversimplified model * Saturated model: an over-complicated model</p>
+<p>Review R squuare for linear regression: <span class="math display">\[R^2 = \frac{SS(Null Model)-SS(Proposed Model)}{SS(Null Model)}\]</span> Null Model here is the average of the target variable.</p>
+<p>Now for log-likelihood based R square:</p>
+<p><span class="math display">\[R^2 = \frac{LL(Null Model)-LL(Proposed Model)}{LL(Null Model)-LL(SaturatedModel)}\]</span></p>
+<p><strong>The inclusion of saturated model ensures that the R square is between 0 and 1!</strong></p>
+<ul>
+<li><strong>Residual deviance: </strong> <span class="math inline">\(2 \cdot (LL(SaturatedModel)-LL(ProposedModel))\)</span> follows Chi-square distribution. For this to work, the proposed model has to be a simplier version of the saturated model</li>
+<li><strong>Null deviance: </strong> <span class="math inline">\(2 \cdot (LL(SaturatedModel)-LL(NullModel))\)</span></li>
+<li><span class="math inline">\(Null Deviance - Residual Deviance\)</span> is a Chi-square value with degree of freedom equal to the difference in the number of parameters for the proposed Model and the Null Model</li>
+<li><strong>Deviance residuals: </strong> <span class="math inline">\(\sum_i^N \sqrt{2 \cdot LL(SaturatedModel)_i - LL(ProposedModel)_i}\)</span>Analogous to the residuals of OLS.</li>
+</ul>
+<p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(SaturatedModel)=0\)</span>.</p>
 </div>
 
 

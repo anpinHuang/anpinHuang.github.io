@@ -63,7 +63,7 @@ Both $\hat\beta_{FD}$ and $\hat\beta_{FE}$ are unbiased, so we compare the effic
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 
-$cov(u_{i,t}, u_{i,t-1} = 0$ then 
+$cov(u_{i,t}, u_{i,t-1}) = 0$ then 
 $$
 \begin{aligned} 
 Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{i,t-2}) \\
@@ -95,7 +95,7 @@ $$Cov(\alpha_i+u_{i,t}, \alpha_i+u_{i,s}) = Var(\alpha_i)$$
 
 
 $$HP_{i,t} - \lambda \bar{HP_{i,t}} = \beta_0(1-\lambda)+\beta_1 (Crime_{i,t}-\lambda Crime_{i,t}) + \beta_2 (Unemployment_{i,t} \lambda Unemployment_{i,t}) + \alpha_i (1-\lambda) + u_{i,t} (1-\lambda)$$
-$\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}$
+$$\lambda = 1-\frac{\sigma_{u}^2}{\sigma_{u}^2+T \sigma_{\alpha}^2}^{1/2}$$
 
 note that when $\lambda = 1$, then it's fixed effect.
 
@@ -115,7 +115,10 @@ Time constant variables are not possible to be estimated using FE or FD. Since $
 
 ### Hausman test for Random Effects vs Fixed Effects ###
 
+Null Hypothesis $H_0 = Cov(\alpha_i, X_{i,t}) = 0$
+$$w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2$$ 
+under $H_0$
 
-
-
-
+Intuition, if Null Hypothesis is true, then 
+* $\hat{\beta_{RE}}$, $\hat{\beta_{FE}}$ are consistent, and therefore the numarator of $w$ statistics should be close to 0.
+* $SE(\hat{\beta_{RE}}) < SE(\hat{\beta_{FE}})$ and therefore the denominator of the $w$ statistics should be large.
