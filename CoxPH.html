@@ -11,7 +11,7 @@
 
 
 
-<title>Poisson Distribution</title>
+<title>Cox Proportional Hazard Model</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,40 +313,33 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Poisson Distribution</h1>
+<h1 class="title toc-ignore">Cox Proportional Hazard Model</h1>
 
 </div>
 
 
-<p>Poisson distribution describe the probability of <span class="math inline">\(x\)</span> times of arrivals in a given time interval, denoted as <span class="math inline">\(P(X=x)\)</span>. Poisson distribution has a parameter <span class="math inline">\(\lambda\)</span>, called the <strong>arrival rate</strong> or <strong>intensity</strong>.</p>
-<p>Assumptions:</p>
+<p>Study the Cox Proportional hazard model using healthcare example, learned from <a href="https://www.youtube.com/watch?v=3gXTkL2uVGU">online resource</a></p>
+<div id="hazard-ratio" class="section level4">
+<h4>Hazard Ratio</h4>
+<p>We define the Hazard Ratio (HR) as: <span class="math display">\[HR = \frac{H_{treatment}}{H_{control}}\]</span> where <span class="math inline">\(H\)</span> - hazard rate refers to the probability of the event.</p>
 <ul>
-<li><strong>Time-homogeneity</strong>: The probability of k arrivals is the same for all intervals of the same length <span class="math inline">\(\tau\)</span>.</li>
-<li><strong>Independence</strong>: The number of arrivals duraing a particular time interval is independent of the history outside of this interval.</li>
-<li><strong>Small Interval Probabilities</strong>: For a small interval <span class="math inline">\(\tau\)</span> where <span class="math inline">\(\tau \to 0\)</span>, the probability of 1 arrival <span class="math inline">\(P(X=1) = \lambda \tau\)</span></li>
+<li>HR = 0.5: at any particular time, half as many patients in the treatment group are experiencing an event compared to the controled group</li>
+<li>HR = 1: at any particular time, the event rates are the same in both groups</li>
+<li>HR = 2: at any particular time, twice as many patients in the treatment group are experiencing an event compared to the controled group</li>
 </ul>
-<p>Given the above assumptions, the probability of 1 event occurs in any one small interval <span class="math inline">\(\frac{1}{n}\)</span> is <span class="math inline">\(\lambda(\frac{1}{n}) = \frac{\lambda}{n}\)</span></p>
-<p>Recall that Binomial Distribution:</p>
-<p><span class="math display">\[P(X=x) = C_x^n \ \ p^x (1-p)^{n-x}\]</span></p>
-<p>Derive poisson distribution for a time interval of 1 unit by taking <span class="math inline">\(n\to\infty\)</span> of the binomial distribution. Each trial is a Bernoulli process - whether there is 1 event occurs in a small inverval of time <span class="math inline">\(\frac{1}{n}\)</span>. <span class="math display">\[
-\begin{aligned}
-P(X=x) &amp;= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdot (1-\frac{\lambda}{n})^{n-x}\\
-&amp;= \lim_{n\to\infty} \frac{n(n-1) ...(n-x+1)}{n^x} \frac{\lambda^x}{x!}(1-\frac{\lambda}{n})^n(1-\frac{\lambda}{n})^{-x} \\
-&amp;= 1 \cdot \frac{\lambda^x}{x!} \cdot e^{-\lambda} \cdot 1 \\
-&amp; = \frac{\lambda^x e^{-\lambda}}{x!}
-\end{aligned} 
-\]</span></p>
-<div id="probability-for-the-time-t-of-the-first-arrival" class="section level4">
-<h4>Probability for the time T of the first arrival</h4>
-<p>The probability for the time T of the first arrival follows exponential distribution. The first arrival time between <span class="math inline">\(0\)</span> and <span class="math inline">\(t\)</span> is given by the cumulative distribution <span class="math inline">\(F_T(t)\)</span>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-F_T(t) &amp;= P(T \leq t) \\
- &amp;= 1-P(T&gt;t)\\
- &amp;= 1-Poisson(0,t)\\
- &amp;= 1- e^{-\lambda t}\\
-\end{aligned} 
-\]</span></p>
+<p>The mathematical formula resembles that of linear regression &amp; logistic regression.</p>
+<p><span class="math display">\[H(t) = H_0(t) \cdot e^{b_1X_1+b_2X_2+....b_kX_k}\]</span></p>
+<p>By dividing both sides of the above equation by <span class="math inline">\(H_0(t)\)</span>, and take log, we get: <span class="math display">\[ln(\frac{H(t)}{H_0(t)}) = b_1X_1+b_2X_2+....b_kX_k\]</span></p>
+<p>Let’s compare it with the logistic regression: <span class="math display">\[ln(\frac{\hat p}{1-\hat p}) = b_1X_1+b_2X_2+....b_kX_k\]</span> or expressed the logistic as odds ratio:</p>
+<p><span class="math display">\[ln(Odds \ Ratio) = b_1X_1+b_2X_2+....b_kX_k\]</span></p>
+</div>
+<div id="model-assumptions" class="section level4">
+<h4>Model Assumptions</h4>
+<ul>
+<li>Independence of survival times between distinct individuals in the sample</li>
+<li>A multiplicative relationship between the predicators and the hazard (as opposed to a linear one for multiple linear regression (OLS))</li>
+<li>A constant Hazard Ratio (HR) over time (proportional hazards assumption)!!!</li>
+</ul>
 </div>
 
 

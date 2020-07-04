@@ -1,0 +1,30 @@
+---
+title: "Poisson Regression Model"
+---
+
+#### Model the count
+
+The dependent variable $Y$ is the count, or it can be $Y/t$ referring to the frequency where $t$ is the time interval. The response $Y$ follows poisson distrubition and $E[Y] = \mu$
+
+If we use OLS model:
+
+$$ \mu = \beta_0 + \beta_1x_1$$
+
+The model can have forecast value $\hat{\mu} < 0$. To solve this issue, we model the log count.
+
+$$log(\mu) = \beta_0 + \beta_1x_1$$
+
+
+#### Model the rate
+
+$$
+\begin{aligned}
+log(\frac{\mu}{t}) &=  \beta_0 + \beta_1x_1\\
+log(\mu) - log(t) &= \beta_0 + \beta_1x_1\\
+log(\mu) &= \beta_0 + \beta_1x_1 + log(t) \\
+\end{aligned}
+$$
+
+$log(t)$ is referred to as an **offset**
+
+

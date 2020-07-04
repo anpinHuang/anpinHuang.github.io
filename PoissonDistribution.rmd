@@ -2,19 +2,23 @@
 title: "Poisson Distribution"
 ---
 
-Recall that Binomial Distribution:
-
-$$P(X=x) = C_x^n P^x (1-p)^{n-x}$$
+Poisson distribution describe the probability of $x$ times of arrivals in a given time interval, denoted as $P(X=x)$. Poisson distribution has a parameter $\lambda$, called the **arrival rate** or **intensity**.
 
 Assumptions:
-* The probability of 2 or more events occur in a sufficiently short interval is 0
-* Probability of event occur is independent between non-overlapping intervals
-* The probability of exactly 1 event occurs in a sufficiently short interval $h$ is $\lambda h$
+
+* **Time-homogeneity**: The probability of k arrivals is the same for all intervals of the same length $\tau$.
+* **Independence**: The number of arrivals duraing a particular time interval is independent of the history outside of this interval.
+* **Small Interval Probabilities**: For a small interval $\tau$ where $\tau \to 0$, the probability of 1 arrival $P(X=1) = \lambda \tau$
 
 
-Given the above assumptions, the probability of an event occur in any one subinterval $\frac{1}{n}$ is $\lambda(\frac{1}{n}) = \frac{\lambda}{n}$
+Given the above assumptions, the probability of 1 event occurs in any one small interval $\frac{1}{n}$ is $\lambda(\frac{1}{n}) = \frac{\lambda}{n}$
 
-Derive poisson distribution by taking $n\to\infty$ of the binomial distribution:
+
+Recall that Binomial Distribution:
+
+$$P(X=x) = C_x^n \ \ p^x (1-p)^{n-x}$$
+
+Derive poisson distribution for a time interval of 1 unit by taking $n\to\infty$ of the binomial distribution. Each trial is a Bernoulli process - whether there is 1 event occurs in a small inverval of time $\frac{1}{n}$.
 $$
 \begin{aligned}
 P(X=x) &= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdot (1-\frac{\lambda}{n})^{n-x}\\
@@ -23,6 +27,23 @@ P(X=x) &= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdo
 & = \frac{\lambda^x e^{-\lambda}}{x!}
 \end{aligned} 
 $$
+
+
+#### Probability for the time T of the first arrival
+The probability for the time T of the first arrival follows **Exponential distribution**. The first arrival time between $0$ and $t$ is given by the cumulative distribution $F_T(t)$:
+
+$$
+\begin{aligned}
+F_T(t) &= P(T \leq t) \\
+ &= 1-P(T>t)\\
+ &= 1-Poisson(0,t)\\
+ &= 1- e^{-\lambda t}\\
+\end{aligned} 
+$$
+
+The p.d.f. can then be derived by taking the derivative:
+
+$$f_T(t) = \lambda e^{-\lambda t}$$
 
 
 
