@@ -45,5 +45,54 @@ The p.d.f. can then be derived by taking the derivative:
 
 $$f_T(t) = \lambda e^{-\lambda t}$$
 
+Note that $f_T(t)$ is not the probability of 1st arrival at time $t$. The probability of 1st arrival at exact time $t$ is 0 for exponential distribution,  which is a continunous distribution.
+
+
+The graph below shows the probability of **FIRST** arrival within each time interval (0,1], (1,2],...(9,10]. It shows that to catch the first arrival, we should choose the earlist time interval as possible given a fixed legnth of time.
+
+
+```{r}
+times <- times <- seq(0,10,1)
+lambdas <- c(0.6,0.5,0.4, 0.3, 0.2,0.1)
+colors <- c('black','green','blue','red','grey','orange')
+F_intervals <- rep(NA, length(times)-1)
+for(k in 1:length(lambdas)) {
+  lambda <- lambdas[k]
+  for(i in 2:length(times)) {
+    F_intervals[i-1] <- exp(-lambda*times[i-1])-exp(-lambda*times[i])
+  }
+  if(k == 1) {
+    plot(F_intervals, type = 'l')
+  } else {
+    lines(F_intervals, col = colors[k])
+  }
+}
+
+```
+
+The exponential distribution is also considered the continuenous version of Geometric distrubition, where the Geometric distribution can be expressed as the following equation and the meaning is how many fail $x$ one should try before he/she hit the first success:
+
+$$P(X=x) = (1-p)^{x}p$$
+
+The following example shows an example of Geometric distribution. Ben has a playlist that has 10 songs and his favorite song is "Bohemian Rhapsody". If the player randomly plays the song in the playlist and the same song can be repeated, what's the probability that he hears "Bohemian Rhapsody" for the first time at after 5 songs have played?
+
+First, we need to know the **Expected Value of the Geometric distribution**: 
+
+$$
+\begin{aligned}
+E[X] &= \sum_{x=1}^{\infty} x(1-p)^{x}p \\
+ &= (1-p)p + 2(1-p)^2p+3(1-p)^3p + .... \\
+(1-p)E[X] &= \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1-p)^2p + 2(1-p)^3p+...\\
+E[X]-(1-p)E[X] &= (1-p)p + (1-p)^2+ (1-p)^3p+ ...\\
+&= \frac{(1-p)p} {1-(1-p)} = 1-p\\
+E[X] &= (1-p) \ \frac{1}{1-(1-p)} \\
+&= (1-p) \ \frac{1}{p} \\
+&= \frac{1-p}{p} \\
+\end{aligned}
+$$
+So in this example, the expected number of times before "Bohemian Rhapsody" is: $\frac{1-1/10}{1/10} = 9$
+
+
+
 
 

@@ -338,7 +338,7 @@ P(X=x) &amp;= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x 
 \]</span></p>
 <div id="probability-for-the-time-t-of-the-first-arrival" class="section level4">
 <h4>Probability for the time T of the first arrival</h4>
-<p>The probability for the time T of the first arrival follows exponential distribution. The first arrival time between <span class="math inline">\(0\)</span> and <span class="math inline">\(t\)</span> is given by the cumulative distribution <span class="math inline">\(F_T(t)\)</span>:</p>
+<p>The probability for the time T of the first arrival follows <strong>Exponential distribution</strong>. The first arrival time between <span class="math inline">\(0\)</span> and <span class="math inline">\(t\)</span> is given by the cumulative distribution <span class="math inline">\(F_T(t)\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
 F_T(t) &amp;= P(T \leq t) \\
@@ -347,6 +347,42 @@ F_T(t) &amp;= P(T \leq t) \\
  &amp;= 1- e^{-\lambda t}\\
 \end{aligned} 
 \]</span></p>
+<p>The p.d.f. can then be derived by taking the derivative:</p>
+<p><span class="math display">\[f_T(t) = \lambda e^{-\lambda t}\]</span></p>
+<p>Note that <span class="math inline">\(f_T(t)\)</span> is not the probability of 1st arrival at time <span class="math inline">\(t\)</span>. The probability of 1st arrival at exact time <span class="math inline">\(t\)</span> is 0 for exponential distribution, which is a continunous distribution.</p>
+<p>The graph below shows the probability of <strong>FIRST</strong> arrival within each time interval (0,1], (1,2],…(9,10]. It shows that to catch the first arrival, we should choose the earlist time interval as possible given a fixed legnth of time.</p>
+<pre class="r"><code>times &lt;- times &lt;- seq(0,10,1)
+lambdas &lt;- c(0.6,0.5,0.4, 0.3, 0.2,0.1)
+colors &lt;- c(&#39;black&#39;,&#39;green&#39;,&#39;blue&#39;,&#39;red&#39;,&#39;grey&#39;,&#39;orange&#39;)
+F_intervals &lt;- rep(NA, length(times)-1)
+for(k in 1:length(lambdas)) {
+  lambda &lt;- lambdas[k]
+  for(i in 2:length(times)) {
+    F_intervals[i-1] &lt;- exp(-lambda*times[i-1])-exp(-lambda*times[i])
+  }
+  if(k == 1) {
+    plot(F_intervals, type = &#39;l&#39;)
+  } else {
+    lines(F_intervals, col = colors[k])
+  }
+}</code></pre>
+<p><img src="PoissonDistribution_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The exponential distribution is also considered the continuenous version of Geometric distrubition, where the Geometric distribution can be expressed as the following equation and the meaning is how many fail <span class="math inline">\(x\)</span> one should try before he/she hit the first success:</p>
+<p><span class="math display">\[P(X=x) = (1-p)^{x}p\]</span></p>
+<p>The following example shows an example of Geometric distribution. Ben has a playlist that has 10 songs and his favorite song is “Bohemian Rhapsody”. If the player randomly plays the song in the playlist and the same song can be repeated, what’s the probability that he hears “Bohemian Rhapsody” for the first time at after 5 songs have played?</p>
+<p>First, we need to know the <strong>Expected Value of the Geometric distribution</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[X] &amp;= \sum_{x=1}^{\infty} x(1-p)^{x}p \\
+ &amp;= (1-p)p + 2(1-p)^2p+3(1-p)^3p + .... \\
+(1-p)E[X] &amp;= \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1-p)^2p + 2(1-p)^3p+...\\
+E[X]-(1-p)E[X] &amp;= (1-p)p + (1-p)^2+ (1-p)^3p+ ...\\
+&amp;= \frac{(1-p)p} {1-(1-p)} = 1-p\\
+E[X] &amp;= (1-p) \ \frac{1}{1-(1-p)} \\
+&amp;= (1-p) \ \frac{1}{p} \\
+&amp;= \frac{1-p}{p} \\
+\end{aligned}
+\]</span> So in this example, the expected number of times before “Bohemian Rhapsody” is: <span class="math inline">\(\frac{1-1/10}{1/10} = 9\)</span></p>
 </div>
 
 
