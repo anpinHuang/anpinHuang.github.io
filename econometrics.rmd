@@ -1,15 +1,16 @@
 ---
 title: "Econometrics"
 ---
-[Derive OLS estimaors in matrix form](deriveOLS.html)  
-[OLS and GLS with autocorrelation error terms](autocorrelation.html)  
-[OLS and GLS with heteroskedasiticity](heteroskedasticity.html)  
-[Bias & Variance Tradeoff](BiasVarianceTradeoff.html)  
-[Ridge & Lasso Regression](RidgeLassoRegression.html)  
-[Principal Component Analysis (PCA)](PCA.html)  
-[Panel Data Regression](PanelData.html)  
-[Healthcare Economics](HealthcareEconomics.html)  
+
+* [Derive OLS estimaors in matrix form](deriveOLS.html)  
+* [OLS and GLS with autocorrelation error terms](autocorrelation.html)  
+* [OLS and GLS with heteroskedasiticity](heteroskedasticity.html)  
+* [Bias & Variance Tradeoff](BiasVarianceTradeoff.html)  
+* [Ridge & Lasso Regression](RidgeLassoRegression.html)  
+* [Principal Component Analysis (PCA)](PCA.html)  
+* [Panel Data Regression](PanelData.html)  
+* [Healthcare Economics](HealthcareEconomics.html)  
 
 #### Probability Fundementals
-[Central Limit Theorem](CLM.html)  
-[Poisson Distribution](PoissonDistribution.html)  
+* [Central Limit Theorem](CLM.html)  
+* [Poisson Distribution](PoissonDistribution.html)  

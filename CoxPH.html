@@ -319,8 +319,9 @@ $(document).ready(function () {
 
 
 <p>Study the Cox Proportional hazard model using healthcare example, learned from <a href="https://www.youtube.com/watch?v=3gXTkL2uVGU">online resource</a></p>
-<div id="hazard-ratio" class="section level4">
-<h4>Hazard Ratio</h4>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="hazard-ratio">Hazard Ratio</h3>
+</div>
 <p>We define the Hazard Ratio (HR) as: <span class="math display">\[HR = \frac{H_{treatment}}{H_{control}}\]</span> where <span class="math inline">\(H\)</span> - hazard rate refers to the probability of the event.</p>
 <ul>
 <li>HR = 0.5: at any particular time, half as many patients in the treatment group are experiencing an event compared to the controled group</li>
@@ -332,15 +333,14 @@ $(document).ready(function () {
 <p>By dividing both sides of the above equation by <span class="math inline">\(H_0(t)\)</span>, and take log, we get: <span class="math display">\[ln(\frac{H(t)}{H_0(t)}) = b_1X_1+b_2X_2+....b_kX_k\]</span></p>
 <p>Let’s compare it with the logistic regression: <span class="math display">\[ln(\frac{\hat p}{1-\hat p}) = b_1X_1+b_2X_2+....b_kX_k\]</span> or expressed the logistic as odds ratio:</p>
 <p><span class="math display">\[ln(Odds \ Ratio) = b_1X_1+b_2X_2+....b_kX_k\]</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="model-assumptions">Model Assumptions</h3>
 </div>
-<div id="model-assumptions" class="section level4">
-<h4>Model Assumptions</h4>
 <ul>
 <li>Independence of survival times between distinct individuals in the sample</li>
 <li>A multiplicative relationship between the predicators and the hazard (as opposed to a linear one for multiple linear regression (OLS))</li>
 <li>A constant Hazard Ratio (HR) over time (proportional hazards assumption)!!!</li>
 </ul>
-</div>
 
 
 

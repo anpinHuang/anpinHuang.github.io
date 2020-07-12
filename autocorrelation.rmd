@@ -8,6 +8,7 @@ $$y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + \epsilon_t $$
 $$ \epsilon_t = \rho \epsilon_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)$$
 To simulate $y$ we do:
 ```{r}
+#install.packages("matrixStats")
 library(MASS)
 library(matrixStats)
 m=50
@@ -20,7 +21,11 @@ yt <- 1.2 + x %*% c(2.2,2.3)+et
 ```
 
 *******
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
 ### OLS
+</div>
+
 Then we do regress $y$ on $x$ using OLS:
 ```{r}
 regressY <- lm(yt~x)
@@ -37,7 +42,10 @@ ar.ols(resi)
 
 ********
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
 ### GLS
+</div>
+
 GLS with AR(1) residuals is actually OLS on the below equation:
 
 $$y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w$$

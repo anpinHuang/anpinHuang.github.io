@@ -3,8 +3,10 @@ title: "Cox Proportional Hazard Model"
 ---
 Study the Cox Proportional hazard model using healthcare example, learned from  [online resource](https://www.youtube.com/watch?v=3gXTkL2uVGU)
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Hazard Ratio
+</div>
 
-#### Hazard Ratio
 We define the Hazard Ratio (HR) as:
 $$HR = \frac{H_{treatment}}{H_{control}}$$
 where $H$ - hazard rate refers to the probability of the event.
@@ -28,7 +30,9 @@ or expressed the logistic as odds ratio:
 
 $$ln(Odds \ Ratio) = b_1X_1+b_2X_2+....b_kX_k$$
 
-#### Model Assumptions
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Model Assumptions
+</div>
 
 * Independence of survival times between distinct individuals in the sample
 * A multiplicative relationship between the predicators and the hazard (as opposed to a linear one for multiple linear regression (OLS))

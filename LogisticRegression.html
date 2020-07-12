@@ -343,8 +343,9 @@ plot(t, sigmoid_t, col=&quot;blue&quot;, lwd=2,type=&#39;l&#39;)</code></pre>
 <p><span class="math inline">\(\hat y = 0 \,\, if \,\,\hat p&lt;0.5\)</span> and <span class="math inline">\(\hat y = 1 \,\, if \,\,\hat p\geq0.5\)</span></p>
 <p>or more explicitly,</p>
 <p><span class="math display">\[\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}\]</span></p>
-<div id="cost-function" class="section level4">
-<h4>Cost Function</h4>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="cost-function">Cost Function</h3>
+</div>
 <p>singel training instance cost function: <span class="math display">\[
 c(\beta_0, \beta) =
   \begin{cases}
@@ -352,13 +353,13 @@ c(\beta_0, \beta) =
     -log(1-\hat p)  &amp; \quad \text{if } y=0
   \end{cases}
 \]</span> logistic regression cost function: <span class="math display">\[l(\beta_0, \beta) = -\frac{1}{n}\sum_{i=1}^{n}[y_ilog(\hat p)+(1-y_i)log(1-\hat p)]\]</span> It’s similar to the log likelihood function, where we can define the likelihood function as:</p>
-<p><span class="math display">\[ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})\]</span> then log-likelihood function is then:</p>
+<p><span class="math display">\[ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})\]</span> then <strong>log-likelihood function</strong> is then:</p>
 <p><span class="math display">\[l(\beta_0, \beta) = \sum_{i=1}^{n}y_i(log(p(x_i)))+(1-y_i)log(1-p(x_i)) \]</span></p>
 <p>The estimation can either done by minimize the cost function or maximize the log-likelihood function</p>
 <p>logistic cost function partial derivatives: <span class="math display">\[\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}\]</span> The logistic regression does not have analytical solution, it must be solved numerically.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="goodness-of-fit">Goodness of Fit</h3>
 </div>
-<div id="goodness-of-fit" class="section level3">
-<h3>Goodness of Fit</h3>
 <p>We discuss one of the ways to measure the goodness of fit.</p>
 <p><strong>McFadden’s psuedo <span class="math inline">\(R^2\)</span></strong></p>
 <p>Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square <span class="math inline">\(SS(mean)\)</span> is the sum of residual’s square where the prediction is just the average of the sample target variable. However, we can’t use the residual.</p>
@@ -375,7 +376,6 @@ c(\beta_0, \beta) =
 <li><strong>Deviance residuals: </strong> <span class="math inline">\(\sum_i^N \sqrt{2 \cdot LL(SaturatedModel)_i - LL(ProposedModel)_i}\)</span>Analogous to the residuals of OLS.</li>
 </ul>
 <p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(SaturatedModel)=0\)</span>.</p>
-</div>
 
 
 

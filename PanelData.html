@@ -318,12 +318,13 @@ $(document).ready(function () {
 </div>
 
 
-<div id="issue-with-pooled-ols" class="section level3">
-<h3>Issue with Pooled OLS</h3>
-<p>assuming <span class="math inline">\(i\)</span> is the index for different city and <span class="math inline">\(t\)</span> is the index for time. We are trying to see the relationship between house price <span class="math inline">\(HP\)</span> and crime rate. <span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + V_t + \alpha_i + u_{i,t}\]</span> where <span class="math inline">\(V_t\)</span> is time dependent variable which represent the time trend across all cities, and <span class="math inline">\(\alpha_i\)</span> is the city specific variable that is fixed across time (e.g. geographic, demographic, race, education). if <span class="math inline">\(\alpha_i\)</span> is not in the OLS, then it would end up in the error term, and <span class="math inline">\(cov(Crime_{i,t}, \alpha) \neq0\)</span> (a city’s crime rate can be related to its city specific variables). In this case the <span class="math inline">\(\beta\)</span> is biased and inconsistent.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="issue-with-pooled-ols">Issue with Pooled OLS</h3>
 </div>
-<div id="first-difference-approach" class="section level3">
-<h3>First Difference Approach</h3>
+<p>assuming <span class="math inline">\(i\)</span> is the index for different city and <span class="math inline">\(t\)</span> is the index for time. We are trying to see the relationship between house price <span class="math inline">\(HP\)</span> and crime rate. <span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + V_t + \alpha_i + u_{i,t}\]</span> where <span class="math inline">\(V_t\)</span> is time dependent variable which represent the time trend across all cities, and <span class="math inline">\(\alpha_i\)</span> is the city specific variable that is fixed across time (e.g. geographic, demographic, race, education). if <span class="math inline">\(\alpha_i\)</span> is not in the OLS, then it would end up in the error term, and <span class="math inline">\(cov(Crime_{i,t}, \alpha) \neq0\)</span> (a city’s crime rate can be related to its city specific variables). In this case the <span class="math inline">\(\beta\)</span> is biased and inconsistent.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="first-difference-approach">First Difference Approach</h3>
+</div>
 <p><span class="math display">\[
 \begin{aligned} 
 \Delta HP_{i,t} &amp;= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + \Delta u_{i,t}\\
@@ -331,32 +332,32 @@ $(document).ready(function () {
 \end{aligned}
 \]</span></p>
 <p>Now the city’s specific effect has been removed, and <span class="math inline">\(\beta_1\)</span> is consistent estimated this way.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="fixed-effect-approach">Fixed Effect Approach</h3>
 </div>
-<div id="fixed-effect-approach" class="section level3">
-<h3>Fixed Effect Approach</h3>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> <span class="math display">\[\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}\]</span> <span class="math display">\[\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i\]</span></p>
 <p>Thus,</p>
 <p><span class="math display">\[\bar{HP_i} = \beta_0 + \beta_1 \bar{Crime_i}+\beta_2 \bar{Unemployment_i}+\alpha_i+\bar{u_i}\]</span></p>
 <p>Then</p>
 <p><span class="math display">\[HP_{i,t}-\bar{HP_i} = \beta_1 (Crime_{i,t}-\bar{Crime_i}) + \beta_2 (Unemployment_{i,t}-\bar{Unemployment_i}) + (u_{i,t}-\bar{u_i})\]</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="dummy-variables-estimator">Dummy Variables Estimator</h3>
 </div>
-<div id="dummy-variables-estimator" class="section level3">
-<h3>Dummy Variables Estimator</h3>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}\]</span> where <span class="math inline">\(d_2 = 1, when i=2, =0, otherwise\)</span>. This way, we can actually estimate <span class="math inline">\(\alpha_i\)</span>, however, if we have larger number of different cities, then this approach becomes unrealistic.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="estimating-unobserved-heterogeneity">Estimating Unobserved Heterogeneity</h3>
 </div>
-<div id="estimating-unobserved-heterogeneity" class="section level3">
-<h3>Estimating Unobserved Heterogeneity</h3>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> Now we want to foucs on estimating <span class="math inline">\(\alpha_i\)</span>, the heterogeneity</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="r-squared-in-fixed-effectlsdv">R Squared in Fixed Effect/LSDV</h3>
 </div>
-<div id="r-squared-in-fixed-effectlsdv" class="section level3">
-<h3>R Squared in Fixed Effect/LSDV</h3>
 <p><span class="math display">\[\tilde{HP_{i,t}} = \beta_1\tilde{Crime_{i,t}}+\beta_2\tilde{Unemployment_{i,t}}+\tilde{u_{i,t}}\]</span></p>
 <p><span class="math inline">\(R^2\)</span> here for fixed effect model means the variation of <span class="math inline">\(HP_{i,t}\)</span> explained by the model relative to <span class="math inline">\(HP_i\)</span>.</p>
 <p>For LSDV, the high <span class="math inline">\(R^2\)</span> is not surprised and not very indicative. Even without the crime and unemployment rate, we still have dummy variables (city specific) and year in the model.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="first-difference-v.s.-fixed-effect">First Difference v.s. Fixed Effect</h3>
 </div>
-<div id="first-difference-v.s.-fixed-effect" class="section level3">
-<h3>First Difference v.s. Fixed Effect</h3>
 <p><span class="math display">\[T=2: FD = FE\]</span></p>
 <p><span class="math display">\[T \geq3 : FD \neq FE\]</span></p>
 <p>Both <span class="math inline">\(\hat\beta_{FD}\)</span> and <span class="math inline">\(\hat\beta_{FE}\)</span> are unbiased, so we compare the efficiency.</p>
@@ -373,9 +374,9 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 <p>In the end, it is better to do both, and examine the difference of these two estimators.</p>
 <p>If <span class="math inline">\(T&gt;N\)</span>,where <span class="math inline">\(N\)</span> is small, then FE is quite sensitive. If <span class="math inline">\(X_{i,t}\)</span> is unit root, then FE is subject to spurious regression.</p>
 <p>If <span class="math inline">\(T\)</span> is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity (<span class="math inline">\(Cov(u_{i,t}, X_{i,s})\)</span>)</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="random-effects">Random Effects</h3>
 </div>
-<div id="random-effects" class="section level3">
-<h3>Random Effects</h3>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
 <p>If <span class="math inline">\(Cov(\alpha_i, X_{i,t}) = 0\)</span> then <span class="math inline">\(\beta_{OLS}\)</span> is consistent, but we have serial correlation in the error terms. To address this, we do FGLS which is called the random effect for Panel Data.</p>
 <p><span class="math display">\[Cov(\alpha_i+u_{i,t}, \alpha_i+u_{i,s}) = Var(\alpha_i)\]</span></p>
@@ -387,17 +388,16 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 <li>Use Pooled OLS on the transformed system</li>
 </ul>
 <p><strong>We can only use random effect if <span class="math inline">\(Cov(\alpha_i, X_{i,t}) = 0\)</span> </strong></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="benefits-of-random-effects---time-constant-variables">Benefits of random effects - time constant variables</h3>
 </div>
-<div id="benefits-of-random-effects---time-constant-variables" class="section level3">
-<h3>Benefits of random effects - time constant variables</h3>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 Geography_{i} + \beta_4 Race_{i}+ \alpha_i + u_{i,t}\]</span></p>
-<p>Time constant variables are not possible to be estimated using FE or FD. Since <span class="math inline">\(\lambda\)</span> lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.</p>
+<p><strong>Time constant variables are not possible to be estimated using FE or FD.</strong> Since <span class="math inline">\(\lambda\)</span> lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="hausman-test-for-random-effects-vs-fixed-effects">Hausman test for Random Effects vs Fixed Effects</h3>
 </div>
-<div id="hausman-test-for-random-effects-vs-fixed-effects" class="section level3">
-<h3>Hausman test for Random Effects vs Fixed Effects</h3>
 <p>Null Hypothesis <span class="math inline">\(H_0 = Cov(\alpha_i, X_{i,t}) = 0\)</span> <span class="math display">\[w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2\]</span> under <span class="math inline">\(H_0\)</span></p>
 <p>Intuition, if Null Hypothesis is true, then * <span class="math inline">\(\hat{\beta_{RE}}\)</span>, <span class="math inline">\(\hat{\beta_{FE}}\)</span> are consistent, and therefore the numarator of <span class="math inline">\(w\)</span> statistics should be close to 0. * <span class="math inline">\(SE(\hat{\beta_{RE}}) &lt; SE(\hat{\beta_{FE}})\)</span> and therefore the denominator of the <span class="math inline">\(w\)</span> statistics should be large.</p>
-</div>
 
 
 

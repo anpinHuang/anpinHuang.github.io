@@ -2,14 +2,20 @@
 title: "Panel Data Regression"
 ---
 
-### Issue with Pooled OLS ###
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Issue with Pooled OLS
+</div>
+
 assuming $i$ is the index for different city and $t$ is the index for time. We are trying to see the relationship between house price $HP$ and crime rate.
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + V_t + \alpha_i + u_{i,t}$$
 where $V_t$ is time dependent variable which represent the time trend across all cities, and $\alpha_i$ is the city specific variable that is fixed across time (e.g. geographic, demographic, race, education).
 if $\alpha_i$ is not in the OLS, then it would end up in the error term, and $cov(Crime_{i,t}, \alpha) \neq0$ (a city's crime rate can be related to its city specific variables). In this case the $\beta$ is biased and inconsistent.
 
 
-### First Difference Approach ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### First Difference Approach
+</div>
 $$
 \begin{aligned} 
 \Delta HP_{i,t} &= \beta_0-\beta_0 + \beta_1 \Delta Crime_{i,t} + V_{t} - V_{t-1} + \alpha_i-\alpha_i + \Delta u_{i,t}\\
@@ -20,7 +26,10 @@ $$
 Now the city's specific effect has been removed, and $\beta_1$ is consistent estimated this way.
 
 
-### Fixed Effect Approach ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Fixed Effect Approach
+</div>
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 $$\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}$$
 $$\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i$$
@@ -33,19 +42,28 @@ Then
 
 $$HP_{i,t}-\bar{HP_i} = \beta_1 (Crime_{i,t}-\bar{Crime_i}) + \beta_2 (Unemployment_{i,t}-\bar{Unemployment_i}) + (u_{i,t}-\bar{u_i})$$
 
-### Dummy Variables Estimator ###
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Dummy Variables Estimator
+</div>
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}$$
 where $d_2 = 1, when i=2, =0, otherwise$.
 This way, we can actually estimate $\alpha_i$, however, if we have larger number of different cities, then this approach becomes unrealistic.
 
-### Estimating Unobserved Heterogeneity ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Estimating Unobserved Heterogeneity
+</div>
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 Now we want to foucs on estimating $\alpha_i$, the heterogeneity
 
-### R Squared in Fixed Effect/LSDV ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### R Squared in Fixed Effect/LSDV
+</div>
+
 
 $$\tilde{HP_{i,t}} = \beta_1\tilde{Crime_{i,t}}+\beta_2\tilde{Unemployment_{i,t}}+\tilde{u_{i,t}}$$
 
@@ -53,8 +71,10 @@ $R^2$ here for fixed effect model means the variation of $HP_{i,t}$ explained by
 
 For LSDV, the high $R^2$ is not surprised and not very indicative. Even without the crime and unemployment rate, we still have dummy variables (city specific) and year in the model.
 
-### First Difference v.s. Fixed Effect\LSDV ###
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### First Difference v.s. Fixed Effect\LSDV
+</div>
 $$T=2: FD = FE$$
 
 $$T \geq3 : FD \neq FE$$
@@ -85,7 +105,9 @@ If $T>N$,where $N$ is small, then FE is quite sensitive. If $X_{i,t}$ is unit ro
 
 If $T$ is very large, then FE is less sensitive than FD with respect to violation of strict exogeneity ($Cov(u_{i,t}, X_{i,s})$)
 
-### Random Effects ###
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Random Effects
+</div>
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 
@@ -106,14 +128,20 @@ Steps of feasible GLS (Random Effect):
 
 **We can only use random effect if $Cov(\alpha_i, X_{i,t}) = 0$ **
 
-### Benefits of random effects - time constant variables ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Benefits of random effects - time constant variables
+</div>
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 Geography_{i} + \beta_4 Race_{i}+ \alpha_i + u_{i,t}$$
 
-Time constant variables are not possible to be estimated using FE or FD. Since $\lambda$ lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.
+**Time constant variables are not possible to be estimated using FE or FD.** Since $\lambda$ lays between 0 and 1, and therefore the Time constant variables are not going to disappear in the transformed equation.
 
 
-### Hausman test for Random Effects vs Fixed Effects ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Hausman test for Random Effects vs Fixed Effects
+</div>
 
 Null Hypothesis $H_0 = Cov(\alpha_i, X_{i,t}) = 0$
 $$w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2$$ 

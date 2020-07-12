@@ -11,7 +11,7 @@
 
 
 
-<title>Poisson Distribution</title>
+<title>CECL for Line of Credit</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,77 +313,24 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Poisson Distribution</h1>
+<h1 class="title toc-ignore">CECL for Line of Credit</h1>
 
 </div>
 
 
-<p>Poisson distribution describe the probability of <span class="math inline">\(x\)</span> times of arrivals in a given time interval, denoted as <span class="math inline">\(P(X=x)\)</span>. Poisson distribution has a parameter <span class="math inline">\(\lambda\)</span>, called the <strong>arrival rate</strong> or <strong>intensity</strong>.</p>
-<p>Assumptions:</p>
-<ul>
-<li><strong>Time-homogeneity</strong>: The probability of k arrivals is the same for all intervals of the same length <span class="math inline">\(\tau\)</span>.</li>
-<li><strong>Independence</strong>: The number of arrivals duraing a particular time interval is independent of the history outside of this interval.</li>
-<li><strong>Small Interval Probabilities</strong>: For a small interval <span class="math inline">\(\tau\)</span> where <span class="math inline">\(\tau \to 0\)</span>, the probability of 1 arrival <span class="math inline">\(P(X=1) = \lambda \tau\)</span></li>
-</ul>
-<p>Given the above assumptions, the probability of 1 event occurs in any one small interval <span class="math inline">\(\frac{1}{n}\)</span> is <span class="math inline">\(\lambda(\frac{1}{n}) = \frac{\lambda}{n}\)</span></p>
-<p>Recall that Binomial Distribution:</p>
-<p><span class="math display">\[P(X=x) = C_x^n \ \ p^x (1-p)^{n-x}\]</span></p>
-<p>Derive poisson distribution for a time interval of 1 unit by taking <span class="math inline">\(n\to\infty\)</span> of the binomial distribution. Each trial is a Bernoulli process - whether there is 1 event occurs in a small inverval of time <span class="math inline">\(\frac{1}{n}\)</span>. <span class="math display">\[
-\begin{aligned}
-P(X=x) &amp;= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdot (1-\frac{\lambda}{n})^{n-x}\\
-&amp;= \lim_{n\to\infty} \frac{n(n-1) ...(n-x+1)}{n^x} \frac{\lambda^x}{x!}(1-\frac{\lambda}{n})^n(1-\frac{\lambda}{n})^{-x} \\
-&amp;= 1 \cdot \frac{\lambda^x}{x!} \cdot e^{-\lambda} \cdot 1 \\
-&amp; = \frac{\lambda^x e^{-\lambda}}{x!}
-\end{aligned} 
-\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="probability-for-the-time-t-of-the-first-arrival">Probability for the time T of the first arrival</h4>
+<h3 id="cecl-requirements">CECL Requirements</h3>
 </div>
-<p>The probability for the time T of the first arrival follows <strong>Exponential distribution</strong>. The first arrival time between <span class="math inline">\(0\)</span> and <span class="math inline">\(t\)</span> is given by the cumulative distribution <span class="math inline">\(F_T(t)\)</span>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-F_T(t) &amp;= P(T \leq t) \\
- &amp;= 1-P(T&gt;t)\\
- &amp;= 1-Poisson(0,t)\\
- &amp;= 1- e^{-\lambda t}\\
-\end{aligned} 
-\]</span></p>
-<p>The p.d.f. can then be derived by taking the derivative:</p>
-<p><span class="math display">\[f_T(t) = \lambda e^{-\lambda t}\]</span></p>
-<p>Note that <span class="math inline">\(f_T(t)\)</span> is not the probability of 1st arrival at time <span class="math inline">\(t\)</span>. The probability of 1st arrival at exact time <span class="math inline">\(t\)</span> is 0 for exponential distribution, which is a continunous distribution.</p>
-<p>The graph below shows the probability of <strong>FIRST</strong> arrival within each time interval (0,1], (1,2],…(9,10]. It shows that to catch the first arrival, we should choose the earlist time interval as possible given a fixed legnth of time.</p>
-<pre class="r"><code>times &lt;- times &lt;- seq(0,10,1)
-lambdas &lt;- c(0.6,0.5,0.4, 0.3, 0.2,0.1)
-colors &lt;- c(&#39;black&#39;,&#39;green&#39;,&#39;blue&#39;,&#39;red&#39;,&#39;grey&#39;,&#39;orange&#39;)
-F_intervals &lt;- rep(NA, length(times)-1)
-for(k in 1:length(lambdas)) {
-  lambda &lt;- lambdas[k]
-  for(i in 2:length(times)) {
-    F_intervals[i-1] &lt;- exp(-lambda*times[i-1])-exp(-lambda*times[i])
-  }
-  if(k == 1) {
-    plot(F_intervals, type = &#39;l&#39;)
-  } else {
-    lines(F_intervals, col = colors[k])
-  }
-}</code></pre>
-<p><img src="PoissonDistribution_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>The exponential distribution is also considered the continuenous version of Geometric distrubition, where the Geometric distribution can be expressed as the following equation and the meaning is how many fail <span class="math inline">\(x\)</span> one should try before he/she hit the first success:</p>
-<p><span class="math display">\[P(X=x) = (1-p)^{x}p\]</span></p>
-<p>The following example shows an example of Geometric distribution. Ben has a playlist that has 10 songs and his favorite song is “Bohemian Rhapsody”. If the player randomly plays the song in the playlist and the same song can be repeated, what’s the probability that he hears “Bohemian Rhapsody” for the first time at after 5 songs have played?</p>
-<p>First, we need to know the <strong>Expected Value of the Geometric distribution</strong>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-E[X] &amp;= \sum_{x=1}^{\infty} x(1-p)^{x}p \\
- &amp;= (1-p)p + 2(1-p)^2p+3(1-p)^3p + .... \\
-(1-p)E[X] &amp;= \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1-p)^2p + 2(1-p)^3p+...\\
-E[X]-(1-p)E[X] &amp;= (1-p)p + (1-p)^2+ (1-p)^3p+ ...\\
-&amp;= \frac{(1-p)p} {1-(1-p)} = 1-p\\
-E[X] &amp;= (1-p) \ \frac{1}{1-(1-p)} \\
-&amp;= (1-p) \ \frac{1}{p} \\
-&amp;= \frac{1-p}{p} \\
-\end{aligned}
-\]</span> So in this example, the expected number of times before “Bohemian Rhapsody” is: <span class="math inline">\(\frac{1-1/10}{1/10} = 9\)</span></p>
+<p>Under the Current Expected Credit Loss, or CECL, publised by Financial Accounting Standards Board (FASB), the lending company is required to reserve the expected “lifetime” credit loss for the loan as early as when the loan is originated as opposed to the “incurred” loss under the old standard. The main ideas of the CECL are</p>
+<ul>
+<li>Expected</li>
+<li>Lifetime</li>
+</ul>
+<p>The first point requires the forward-looking forecast for the foreseable future. A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the economic indicators projected by internal economists or senior management. Another approach would be to model the through the cycle loss rate and then add model overlay on top of it based on the forward economic forecast. The 2nd major difference is the requirement to reserve against the lifetime credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future. For example, a loan $100K, 10 year loan, annual principal payment as 10K and has annual probability of default (PB) = 3%, the reserve under incurred loss for the following 12 months would be <span class="math inline">\(100K \cdot 3\% = 3K\)</span>, whereas under CECL, the reserve would be <span class="math inline">\(100K \cdot 3\% + 90K \cdot 3\% + ...+ 10K \cdot 3\% = 16.5K\)</span>. Although it’s unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="line-of-credit-unconditionally-cancellable">Line of Credit &amp; Unconditionally Cancellable</h3>
+</div>
+<p>In this section, we specifically discuss the line of credit under the CECL regulation.</p>
 
 
 

@@ -105,6 +105,87 @@ Therefore, our estimate of variance of $\hat\beta_{OLS}$ becomes
 $$s^2(X^{\prime} X)^{-1}$$
 Then the distribution of $\hat\beta_{OLS}$ becomes a t-distribution with $T-K$ degree of freedoms with $mean = \beta$ and $variance = s^2(X^{^{\prime}} X)^{-1}$
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Distribution of $\hat{\beta}_{OLS}$
+</div>
+With the expected value and variance estimated in the above sections, we still need to know the sampling distribution of $\hat{\beta}_{OLS}$ to perform the significant test
+
+* $\epsilon$ is normally distributed, then $\hat{\beta}_{OLS}$ is normally distributed
+* Don't know $\epsilon$'s distribution: Large sample -> $\hat{\beta}_{OLS}$ is asymtotically normally distributed. The common argument for this assumption is that $\epsilon$ is a sum of many unobserved factors, so by Generalized Central Limit Theorem it is asymtotically normally distributed. (Note: the standard Central Limit Theorem requires that the samples of the unobserved factors are i.d.d. which is not the case in the real world)
+
+The following code takes a sample of 20 non-i.d.d. variables (Normal, Uniform or Cauchy distributions with different parameters) and simulate 1000 times.
+
+```{r}
+N <- 1000
+s <- numeric(0)
+for(i in 1:N) {
+  x1 <- rnorm(1,-2,1)
+  x2 <- rnorm(1,-1,1)
+  x3 <- rnorm(1,2,1)
+  x4 <- rnorm(1,2,0.5)
+  x5 <- rnorm(1,5,2)
+  x6 <- rnorm(1,7,2)
+  x7 <- rcauchy(1,2,1)
+  x8 <- rcauchy(1,2,2)
+  x9 <- runif(1,0,3)
+  x10 <- runif(1,2,3)
+  x11 <- runif(1,3,5)
+  x12 <- rnorm(1,2.2,0.8)
+  x13 <- rnorm(1,6,1)
+  x14 <- rcauchy(1,2,1.5)
+  x15 <- runif(1,0,6)
+  x16 <- runif(1,5,6)
+  x17 <- rnorm(1,3,1)
+  x18 <- rnorm(1,10,3)
+  x19 <- rcauchy(1,2,2)
+  x20 <- runif(1,-2,8)
+  s20 <- x1+x2+x3+x4+x5+x6+x7+x8+x9+x10+x11+x12+x13+x14+x15+x16+x17+x18+x19+x20
+  s20 <- s20/20
+  s <- c(s, s20)
+}
+s_95q <- quantile(s,0.95)
+s_5q <- quantile(s,0.05)
+s <- s[which(s>s_5q & s<s_95q)]
+hist(s, breaks = 40, xlim=c(0,6), freq = F)
+xfit <- seq(min(s), max(s), length=40)
+s_mean <- mean(s)
+s_sd <- sd(s)
+yfit_density <- dnorm(xfit, mean=s_mean,sd=s_sd)
+lines(xfit, yfit_density, col="blue", lwd=2)
+```
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### F Test
+</div>
+
+$$ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon$$
+
+$$H_0: \beta_1=\beta_2 = ...= \beta_p = 0$$
+$$H_1: \beta_i \neq 0$$
+Sum of Squared Residuals of the Unrestricted model (the above equation):
+$$SSR_U = \sum_{i=1}^n e_U^2$$
+where $e_R$ is the estimate of $\epsilon$ by the unrestricted model
+
+The restricted model (No explanatory variables)
+$$y = \beta_0 + e_R$$
+
+then Sum of Squared Residuals of the Restricted model:
+$$SSR_R = \sum_{i=1}^n e_R^2$$
+
+
+$$SSR_R > SSR_U$$
+
+but is it signigicant?
+
+$$F = \frac{(SSR_R-SSR_U)/p}{SSR_U/(n-p-1)}$$
+Recall the Chi-square distribution - If $Z_1,...Z_k$ are independent, standard normal random variables, then the sum of their squares,
+
+$$Q = \sum_{i=1}^k Z_i^2$$
+
+$$Q \sim \chi^2(k)$$
+
+where $k$ specifies the degree of freedom. The F distribution is the ratio of 2 scaled independent Chi-square distribution. The F test requires the sample errors $e$ ,or $Z_i$ to be normally distributed.
+
 
 
 

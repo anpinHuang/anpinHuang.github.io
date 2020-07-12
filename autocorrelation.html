@@ -69,9 +69,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,8 +88,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -107,7 +111,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -127,6 +130,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -148,19 +188,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -192,6 +298,9 @@ $(document).ready(function () {
 <li>
   <a href="Finance.html">Finance</a>
 </li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -211,7 +320,8 @@ $(document).ready(function () {
 
 <p>The purpose of this section is to show that OLS is not an efficient estimator when there is autocorrelation in the error term; instead, the GLS is better.</p>
 <p>Assuming <span class="math inline">\(y_t\)</span> can be written as a linear function of <span class="math inline">\(x\)</span> and the error term <span class="math inline">\(\epsilon\)</span> has autocorrelation <span class="math display">\[y_t = 1.2 + 2.2 x_{1,t} + 2.3 x_{2,t} + \epsilon_t \]</span> <span class="math display">\[ \epsilon_t = \rho \epsilon_{t-1} + w_t ,\, where\, w \sim N(0,\sigma^2)\]</span> To simulate <span class="math inline">\(y\)</span> we do:</p>
-<pre class="r"><code>library(MASS)
+<pre class="r"><code>#install.packages(&quot;matrixStats&quot;)
+library(MASS)
 library(matrixStats)
 m=50
 x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),
@@ -221,8 +331,9 @@ x &lt;- mvrnorm(n=m,mu=c(0.05,0.08),
 et &lt;- arima.sim(list(order = c(1,0,0),ar=0.8),n=m,rand.gen=rnorm,sd=0.1)
 yt &lt;- 1.2 + x %*% c(2.2,2.3)+et</code></pre>
 <hr />
-<div id="ols" class="section level3">
-<h3>OLS</h3>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="ols">OLS</h3>
+</div>
 <p>Then we do regress <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> using OLS:</p>
 <pre class="r"><code>regressY &lt;- lm(yt~x)
 summary(regressY)</code></pre>
@@ -232,22 +343,22 @@ summary(regressY)</code></pre>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.24670 -0.07683  0.01465  0.09175  0.26928 
+## -0.31410 -0.07973 -0.02068  0.09471  0.41825 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   1.1665     0.0660  17.674  &lt; 2e-16 ***
-## x1            2.4645     0.8236   2.992  0.00440 ** 
-## x2            2.5729     0.8142   3.160  0.00276 ** 
+## (Intercept)  1.25457    0.06644  18.884  &lt; 2e-16 ***
+## x1           2.30900    1.36586   1.691  0.09755 .  
+## x2           2.89047    0.97862   2.954  0.00489 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.1277 on 47 degrees of freedom
-## Multiple R-squared:  0.3981, Adjusted R-squared:  0.3724 
-## F-statistic: 15.54 on 2 and 47 DF,  p-value: 6.6e-06</code></pre>
+## Residual standard error: 0.1495 on 47 degrees of freedom
+## Multiple R-squared:  0.3829, Adjusted R-squared:  0.3567 
+## F-statistic: 14.58 on 2 and 47 DF,  p-value: 1.183e-05</code></pre>
 <pre class="r"><code>regressY$coefficients</code></pre>
 <pre><code>## (Intercept)          x1          x2 
-##    1.166534    2.464467    2.572913</code></pre>
+##    1.254567    2.309003    2.890474</code></pre>
 <p>Test the autocorrelation of residuals</p>
 <pre class="r"><code>resi &lt;- regressY$residuals
 pacf(resi)</code></pre>
@@ -258,16 +369,18 @@ pacf(resi)</code></pre>
 ## ar.ols(x = resi)
 ## 
 ## Coefficients:
-##     1  
-## 0.708  
+##       1        2        3        4        5        6        7        8  
+##  0.6754  -0.0614   0.0394   0.1304   0.1232  -0.1091  -0.1257   0.1748  
+##       9       10  
+## -0.1142  -0.0707  
 ## 
-## Intercept: -0.002291 (0.01274) 
+## Intercept: 0.01651 (0.01251) 
 ## 
-## Order selected 1  sigma^2 estimated as  0.007952</code></pre>
+## Order selected 10  sigma^2 estimated as  0.005735</code></pre>
 <hr />
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="gls">GLS</h3>
 </div>
-<div id="gls" class="section level3">
-<h3>GLS</h3>
 <p>GLS with AR(1) residuals is actually OLS on the below equation:</p>
 <p><span class="math display">\[y_t - \rho y_{t-1} = \alpha (1-\rho) + \beta_1(x_{1,t} - \rho  x_{1,t-1}) + \beta_2 (x_{2,t} - \rho  x_{2,t-1}) + w\]</span></p>
 <pre class="r"><code>## regress on resi hat
@@ -287,29 +400,28 @@ summary(regressY_GLS)</code></pre>
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -0.212905 -0.056453  0.000724  0.060030  0.188219 
+## -0.249252 -0.054987 -0.003421  0.062469  0.196076 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   0.3479     0.0182  19.115  &lt; 2e-16 ***
-## xprime1       2.6088     0.5609   4.651 2.81e-05 ***
-## xprime2       2.1151     0.5320   3.976 0.000246 ***
+## (Intercept)  0.37893    0.01762  21.504  &lt; 2e-16 ***
+## xprime1      1.91697    0.71672   2.675   0.0103 *  
+## xprime2      2.76565    0.51603   5.359 2.61e-06 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.0913 on 46 degrees of freedom
-## Multiple R-squared:  0.5662, Adjusted R-squared:  0.5474 
-## F-statistic: 30.02 on 2 and 46 DF,  p-value: 4.54e-09</code></pre>
+## Residual standard error: 0.1036 on 46 degrees of freedom
+## Multiple R-squared:  0.6446, Adjusted R-squared:  0.6291 
+## F-statistic: 41.71 on 2 and 46 DF,  p-value: 4.646e-11</code></pre>
 <pre class="r"><code>alpha &lt;- regressY_GLS$coefficients[1]/(1-rho)
 alpha</code></pre>
 <pre><code>## (Intercept) 
-##    1.189978</code></pre>
+##    1.298153</code></pre>
 <p>See if the residuals of GLS has autocorrelation:</p>
 <pre class="r"><code>resiGLS &lt;- regressY_GLS$residuals
 pacf(resiGLS)</code></pre>
 <p><img src="autocorrelation_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <hr />
-</div>
 <div id="run-n-times-to-observe-the-sampling-distribution-of-ols-and-gls-estimators" class="section level3">
 <h3>Run n times to observe the sampling distribution of OLS and GLS estimators</h3>
 <p>We redo the above steps for n times:</p>
@@ -345,14 +457,14 @@ for(i in 1:n) {
   GLS_coefs[i,] &lt;- CochraneOrcuttIteration(yt,x,0.001)
 }
 colMeans(OLS_coefs)</code></pre>
-<pre><code>## [1] 1.197067 2.231235 2.282811</code></pre>
+<pre><code>## [1] 1.197613 2.209329 2.299635</code></pre>
 <pre class="r"><code>colMeans(GLS_coefs)</code></pre>
-<pre><code>## [1] 1.196438 2.213486 2.295657</code></pre>
+<pre><code>## [1] 1.198018 2.200722 2.312031</code></pre>
 <p><strong>The variance of the sampling distribution of GLS is much smaller than that of the OLS, and is therefore more effieicnt.</strong></p>
 <pre class="r"><code>colVars(OLS_coefs)</code></pre>
-<pre><code>## [1] 0.01089512 1.64314979 1.11392051</code></pre>
+<pre><code>## [1] 0.01046321 1.55525773 1.08659067</code></pre>
 <pre class="r"><code>colVars(GLS_coefs)</code></pre>
-<pre><code>## [1] 0.007406257 0.468907769 0.308345095</code></pre>
+<pre><code>## [1] 0.006809025 0.420937164 0.279653416</code></pre>
 <pre class="r"><code>hist(OLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>
 <p><img src="autocorrelation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code>hist(GLS_coefs[,2],breaks=20,xlim=c(-5,10),ylim=c(0,600))</code></pre>

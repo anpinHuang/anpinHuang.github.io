@@ -2,8 +2,9 @@
 title: "Healthcare Economics"
 ---
 
-### Healthcare Market ###
-
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Healthcare Market
+</div>
 Free Market
 
 * Buyer has full financial responsibility
@@ -25,7 +26,11 @@ Healthcare Market
 * Tendency of overconsumption given uncertainty, lack of information and cost/risk sharing
 * Induced demand: supplier (healthcare provider) side factor on the demand. It is observed when there is an increase of supply (upshift of supply curve), it always accompanied with upshit of demand curve.
 
-### Health Insurance ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Health Insurance
+</div>
+
 Buyer: 
 
 * Maximum WTP (willingness to pay)
@@ -99,7 +104,9 @@ Determing expected payout $E$
 
 Real cost of treatment: Monetary cost + time cost. The higher income people value time more than money, willing to pay more premium and therefore bring up the price. In the end, the insurance would cater only to this group and the lower income group would become uninsured.
 
-### Market Theory ###
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Market Theory
+</div>
 
 * **Perfect Competition:** It is the most efficient. It is also hypothetical.
   * Infinite number of buyers & sellers
@@ -128,8 +135,11 @@ Real cost of treatment: Monetary cost + time cost. The higher income people valu
   * The final equilibrium point Q is still lower than the cost minimizing level of output
   * Like perfect competition, eventually break even will happen ($P^Q = C^Q$), however, the Q is still lower than the cost minizing level of output. Therefore, we say Monopolistic Competition is more efficient than Monopoly but less efficient than Perfect Competition.
 
-### Hospital Industry ### 
-  
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Hospital Industry
+</div>
+
 Hospital history
 
 * 1910: Hospital industry started to gain importance.  Flexnor Report
@@ -173,7 +183,10 @@ Degree of competition
   * Mostly of time it is covered by 3rd party (insurance company).
 * We conclude that it is a low competition market, and therefore it is not efficient and produce less welfare.
 
-### Physician Market ###
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Physician Market
+</div>
 
 Demand:
 
@@ -191,7 +204,9 @@ Supply:
   * Downside: supply shortage persists
 * Monopolist Competition Market. Physicians compete in terms of quality but not price.
 
-### Healthcare Systems ###
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Healthcare Systems
+</div>
 
 * Centralized: Government make the decision
   * Advantage| Economies of scale

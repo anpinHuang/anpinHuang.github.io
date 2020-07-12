@@ -28,8 +28,10 @@ P(X=x) &= \lim_{n\to\infty} \frac{n!}{x!(n-x)!} \cdot (\frac{\lambda}{n})^x \cdo
 \end{aligned} 
 $$
 
-
+<div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Probability for the time T of the first arrival
+</div>
+
 The probability for the time T of the first arrival follows **Exponential distribution**. The first arrival time between $0$ and $t$ is given by the cumulative distribution $F_T(t)$:
 
 $$

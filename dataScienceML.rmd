@@ -3,14 +3,19 @@ title: "Data Science"
 ---
     
     
-    
-#### Machine learning algorithms  
-[Decision tree](decisionTree.html)    
-[Logistic Regression](LogisticRegression.html)  
-[Gradient Boosting](GradientBoosting.html)  
-[Predicting Churns](Churn.html)  
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Machine learning algorithms 
+</div>    
+ 
+* [Decision tree](decisionTree.html)    
+* [Logistic Regression](LogisticRegression.html)  
+* [Gradient Boosting](GradientBoosting.html)  
+* [Predicting Churns](Churn.html)  
 
     
-#### Data Manipulation practices
-[Merge, aggregate and count in R](mergeAggregateCount.html)    
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Data Manipulation practices
+</div> 
+
+* [Merge, aggregate and count in R](mergeAggregateCount.html)    
 
