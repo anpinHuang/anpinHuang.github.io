@@ -3,9 +3,9 @@ title: "Data Science"
 ---
     
     
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Machine learning algorithms 
-</div>    
+
+#### Machine learning algorithms 
+  
  
 * [Decision tree](decisionTree.html)    
 * [Logistic Regression](LogisticRegression.html)  
@@ -13,9 +13,7 @@ title: "Data Science"
 * [Predicting Churns](Churn.html)  
 
     
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Data Manipulation practices
-</div> 
+#### Data Manipulation practices
 
 * [Merge, aggregate and count in R](mergeAggregateCount.html)    
 

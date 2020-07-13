@@ -1,0 +1,20 @@
+---
+title: "OLS Assumptions Test"
+---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Stationary: ADF test
+</div>
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Auto-correlation: Durbin-Watson Statistics
+</div>
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Homoscedasticity
+</div>
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Multi-collinearity: VIF
+</div>
+

@@ -1,5 +1,5 @@
 ---
-title: "Derive OLS estimators"
+title: "Derive OLS Estimators"
 ---
 The purpose of this section is to derive the estimators of OLS (Ordinary Least Square), their expectation and variance.
 $$ y = x\beta + \epsilon$$
