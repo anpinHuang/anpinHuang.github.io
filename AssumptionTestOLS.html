@@ -319,8 +319,11 @@ $(document).ready(function () {
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="stationary-adf-test">Stationary: ADF test</h4>
+<h4 id="stationary-dickey-fuller-test">Stationary: Dickey-Fuller test</h4>
 </div>
+<p>Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
+<p>The original equation can also be written as the equation below, so that by testing the significancy of <span class="math inline">\(y_{t-1}\)</span> (wheher <span class="math inline">\(\theta = 0\)</span>), we can conclude that whether the time series is unit root: <span class="math display">\[\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
+<p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be down in R packages.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h4 id="auto-correlation-durbin-watson-statistics">Auto-correlation: Durbin-Watson Statistics</h4>
 </div>

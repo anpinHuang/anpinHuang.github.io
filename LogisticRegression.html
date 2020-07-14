@@ -365,17 +365,17 @@ c(\beta_0, \beta) =
 <p>Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square <span class="math inline">\(SS(mean)\)</span> is the sum of residual’s square where the prediction is just the average of the sample target variable. However, we can’t use the residual.</p>
 <p>We use <span class="math inline">\(LL(fit)\)</span> for the log-likelihood of the fitted line, and use it as a substitute for <span class="math inline">\(SS(fit)\)</span>. Now we need to substitution for <span class="math inline">\(SS(mean)\)</span>. For benchmarking purpose, we have to find substitution for <span class="math inline">\(SS(mean)\)</span>. We can use the log-likelihood of the estimation with no explanatory variable. This would be the log-likelihood with the estimate of probability <span class="math inline">\(\hat{p}\)</span> equals to the sum of <span class="math inline">\(y\)</span> divided by number of observations. We denote this as <span class="math inline">\(LL(0)\)</span>. Now we have the McFadden’s psuedo <span class="math display">\[R^2 = \frac{LL(0)-LL(fit)}{LL(0)}\]</span></p>
 <p>We use the null and saturated model to calculate the proposed model’s R square and p-value * Null model: an oversimplified model * Saturated model: an over-complicated model</p>
-<p>Review R squuare for linear regression: <span class="math display">\[R^2 = \frac{SS(Null Model)-SS(Proposed Model)}{SS(Null Model)}\]</span> Null Model here is the average of the target variable.</p>
+<p>Review R squuare for linear regression: <span class="math display">\[R^2 = \frac{SS(Null\ Model)-SS(Proposed\ Model)}{SS(Null\ Model)}\]</span> Null Model here is the average of the target variable.</p>
 <p>Now for log-likelihood based R square:</p>
-<p><span class="math display">\[R^2 = \frac{LL(Null Model)-LL(Proposed Model)}{LL(Null Model)-LL(SaturatedModel)}\]</span></p>
+<p><span class="math display">\[R^2 = \frac{LL(Null \ Model)-LL(Proposed \ Model)}{LL(Null \ Model)-LL(Saturated \ Model)}\]</span></p>
 <p><strong>The inclusion of saturated model ensures that the R square is between 0 and 1!</strong></p>
 <ul>
-<li><strong>Residual deviance: </strong> <span class="math inline">\(2 \cdot (LL(SaturatedModel)-LL(ProposedModel))\)</span> follows Chi-square distribution. For this to work, the proposed model has to be a simplier version of the saturated model</li>
-<li><strong>Null deviance: </strong> <span class="math inline">\(2 \cdot (LL(SaturatedModel)-LL(NullModel))\)</span></li>
+<li><strong>Residual deviance: </strong> <span class="math inline">\(2 \cdot (LL(Saturated \ Model)-LL(Proposed \ Model))\)</span> follows Chi-square distribution. For this to work, the proposed model has to be a simplier version of the saturated model</li>
+<li><strong>Null deviance: </strong> <span class="math inline">\(2 \cdot (LL(Saturated \ Model)-LL(Null \ Model))\)</span></li>
 <li><span class="math inline">\(Null Deviance - Residual Deviance\)</span> is a Chi-square value with degree of freedom equal to the difference in the number of parameters for the proposed Model and the Null Model</li>
-<li><strong>Deviance residuals: </strong> <span class="math inline">\(\sum_i^N \sqrt{2 \cdot LL(SaturatedModel)_i - LL(ProposedModel)_i}\)</span>Analogous to the residuals of OLS.</li>
+<li><strong>Deviance residuals: </strong> <span class="math inline">\(\sum_i^N \sqrt{2 \cdot LL(Saturated \ Model)_i - LL(ProposedModel)_i}\)</span>Analogous to the residuals of OLS.</li>
 </ul>
-<p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(SaturatedModel)=0\)</span>.</p>
+<p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(Saturated \ Model)=0\)</span>.</p>
 
 
 

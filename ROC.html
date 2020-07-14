@@ -11,7 +11,7 @@
 
 
 
-<title>Data Science</title>
+<title>Receiver Operating Characteristic (ROC) Curve</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,30 +313,24 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Data Science</h1>
+<h1 class="title toc-ignore">Receiver Operating Characteristic (ROC) Curve</h1>
 
 </div>
 
 
-<div id="machine-learning-algorithms" class="section level4">
-<h4>Machine learning algorithms</h4>
+<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The x-axis of the curve is the false positive rate (FPR) and the y-axis is the true positive rate (TPR). The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain.</p>
 <ul>
-<li><a href="decisionTree.html">Decision tree</a><br />
-</li>
-<li><a href="LogisticRegression.html">Logistic Regression</a><br />
-</li>
-<li><a href="GradientBoosting.html">Gradient Boosting</a></li>
-<li><a href="ROC.html">ROC Curve</a></li>
-<li><a href="CoxPH.html">Cox Proportional Hazard Model</a></li>
-<li><a href="Churn.html">Predicting Churns</a></li>
+<li>True Positive Rate: <span class="math inline">\(\frac{TP}{P} = \frac{TP}{TP+FN}\)</span></li>
+<li>False Positive Rate: <span class="math inline">\(\frac{FP}{N} = \frac{FP}{TN+FP}\)</span></li>
 </ul>
-</div>
-<div id="data-manipulation-practices" class="section level4">
-<h4>Data Manipulation practices</h4>
+<p>The <span class="math inline">\(P\)</span> is defined as the real positive cases in the data and <span class="math inline">\(N\)</span> is defined as the real negative cases in the data.</p>
 <ul>
-<li><a href="mergeAggregateCount.html">Merge, aggregate and count in R</a></li>
+<li>True Positive (TP): Predict 1 (positive) and it’s correct (true)</li>
+<li>False Positive (FP): Predict 1 (positive) but it’s incorrect (false)</li>
+<li>True Negative (TN): Predict 0 (negative) and it’s correct (true)</li>
+<li>False Negative (FN): Predict 0 (negative) and it’s incorrect (false)</li>
 </ul>
-</div>
+<p><img src="ConfusionMatrix.png" height="600px" width="600px" /></p>
 
 
 

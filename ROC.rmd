@@ -1,0 +1,20 @@
+---
+title: "Receiver Operating Characteristic (ROC) Curve "
+---
+
+The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The x-axis of the curve is the false positive rate (FPR) and the y-axis is the true positive rate (TPR). The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain.
+
+* True Positive Rate: $\frac{TP}{P} = \frac{TP}{TP+FN}$
+* False Positive Rate: $\frac{FP}{N} = \frac{FP}{TN+FP}$
+
+The $P$ is defined as the real positive cases in the data and $N$ is defined as the real negative cases in the data.
+
+* True Positive (TP): Predict 1 (positive) and it's correct (true)
+* False Positive (FP): Predict 1 (positive) but it's incorrect (false)
+* True Negative (TN): Predict 0 (negative) and it's correct (true)
+* False Negative (FN): Predict 0 (negative) and it's incorrect (false)
+
+<img src="ConfusionMatrix.png" height="600px" width="600px" />
+
+
+

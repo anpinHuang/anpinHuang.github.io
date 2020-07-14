@@ -9,7 +9,9 @@ title: "Data Science"
  
 * [Decision tree](decisionTree.html)    
 * [Logistic Regression](LogisticRegression.html)  
-* [Gradient Boosting](GradientBoosting.html)  
+* [Gradient Boosting](GradientBoosting.html) 
+* [ROC Curve](ROC.html) 
+* [Cox Proportional Hazard Model](CoxPH.html) 
 * [Predicting Churns](Churn.html)  
 
     
