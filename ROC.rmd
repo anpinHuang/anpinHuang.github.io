@@ -9,10 +9,10 @@ The Receiver Operating Characteristic (ROC) Curve is a way of measuring the perf
 
 The $P$ is defined as the real positive cases in the data and $N$ is defined as the real negative cases in the data.
 
-* True Positive (TP): Predict 1 (positive) and it's correct (true)
-* False Positive (FP): Predict 1 (positive) but it's incorrect (false)
-* True Negative (TN): Predict 0 (negative) and it's correct (true)
-* False Negative (FN): Predict 0 (negative) and it's incorrect (false)
+* True Positive (TP): Predict 1 (positive) and the prediction is correct (true)
+* False Positive (FP): Predict 1 (positive) but the prediction is incorrect (false)
+* True Negative (TN): Predict 0 (negative) and the prediction is correct (true)
+* False Negative (FN): Predict 0 (negative) and the prediction is incorrect (false)
 
 <img src="ConfusionMatrix.png" height="600px" width="600px" />
 

@@ -335,16 +335,17 @@ $(document).ready(function () {
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h3 id="fixed-effect-approach">Fixed Effect Approach</h3>
 </div>
-<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> <span class="math display">\[\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}\]</span> <span class="math display">\[\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i\]</span></p>
+<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> The <strong>average</strong> of the house price for each city accross time is: <span class="math display">\[\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}\]</span> <span class="math display">\[\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i\]</span></p>
 <p>Thus,</p>
 <p><span class="math display">\[\bar{HP_i} = \beta_0 + \beta_1 \bar{Crime_i}+\beta_2 \bar{Unemployment_i}+\alpha_i+\bar{u_i}\]</span></p>
 <p>Then</p>
 <p><span class="math display">\[HP_{i,t}-\bar{HP_i} = \beta_1 (Crime_{i,t}-\bar{Crime_i}) + \beta_2 (Unemployment_{i,t}-\bar{Unemployment_i}) + (u_{i,t}-\bar{u_i})\]</span></p>
+<p><strong>Note that both First Difference and Fixed Effect can successfully estimate the coefficients for crime rate <span class="math inline">\(\beta_1\)</span> &amp; employment rate <span class="math inline">\(\beta_2\)</span>, it tells us nothing about the city specific characteristics variables <span class="math inline">\(\alpha_i\)</span></strong></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h3 id="dummy-variables-estimator">Dummy Variables Estimator</h3>
 </div>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
-<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}\]</span> where <span class="math inline">\(d_2 = 1, when i=2, =0, otherwise\)</span>. This way, we can actually estimate <span class="math inline">\(\alpha_i\)</span>, however, if we have larger number of different cities, then this approach becomes unrealistic.</p>
+<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}\]</span> where <span class="math inline">\(d_2 = 1\)</span> , when <span class="math inline">\(i=2\)</span>, otherwise <span class="math inline">\(d_2=0\)</span>. This way, we can actually estimate <span class="math inline">\(\alpha_i\)</span>, however, if we have larger number of different cities, then this approach becomes unrealistic.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h3 id="estimating-unobserved-heterogeneity">Estimating Unobserved Heterogeneity</h3>
 </div>
@@ -397,7 +398,11 @@ Cov(\Delta u_{i,t}, \Delta u_{i,t-1}) &amp;= Cov(u_{i,t}-u_{i,t-1},u_{i,t-1}-u_{
 <h3 id="hausman-test-for-random-effects-vs-fixed-effects">Hausman test for Random Effects vs Fixed Effects</h3>
 </div>
 <p>Null Hypothesis <span class="math inline">\(H_0 = Cov(\alpha_i, X_{i,t}) = 0\)</span> <span class="math display">\[w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2\]</span> under <span class="math inline">\(H_0\)</span></p>
-<p>Intuition, if Null Hypothesis is true, then * <span class="math inline">\(\hat{\beta_{RE}}\)</span>, <span class="math inline">\(\hat{\beta_{FE}}\)</span> are consistent, and therefore the numarator of <span class="math inline">\(w\)</span> statistics should be close to 0. * <span class="math inline">\(SE(\hat{\beta_{RE}}) &lt; SE(\hat{\beta_{FE}})\)</span> and therefore the denominator of the <span class="math inline">\(w\)</span> statistics should be large.</p>
+<p>Intuition, if Null Hypothesis is true, then</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta_{RE}}\)</span>, <span class="math inline">\(\hat{\beta_{FE}}\)</span> are consistent, and therefore the numarator of <span class="math inline">\(w\)</span> statistics should be close to 0.</li>
+<li><span class="math inline">\(SE(\hat{\beta_{RE}}) &lt; SE(\hat{\beta_{FE}})\)</span> and therefore the denominator of the <span class="math inline">\(w\)</span> statistics should be large.</li>
+</ul>
 
 
 

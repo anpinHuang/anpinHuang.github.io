@@ -15,13 +15,13 @@ $$H_1: \rho <1$$
 The original equation can also be written as the equation below, so that by testing the significancy of $y_{t-1}$ (wheher $\theta = 0$), we can conclude that whether the time series is unit root:
 $$\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t$$
 
-However, when the true $\theta = 0$, the sampling distribution of $\theta$ is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be down in R packages.
+However, when the true $\theta = 0$, the sampling distribution of $\theta$ is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Auto-correlation: Durbin-Watson Statistics
 </div>
-
+The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package.
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">

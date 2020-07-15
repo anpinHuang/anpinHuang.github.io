@@ -31,6 +31,7 @@ Now the city's specific effect has been removed, and $\beta_1$ is consistent est
 ### Fixed Effect Approach
 </div>
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
+The **average** of the house price for each city accross time is:
 $$\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}$$
 $$\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i$$
 
@@ -42,6 +43,8 @@ Then
 
 $$HP_{i,t}-\bar{HP_i} = \beta_1 (Crime_{i,t}-\bar{Crime_i}) + \beta_2 (Unemployment_{i,t}-\bar{Unemployment_i}) + (u_{i,t}-\bar{u_i})$$
 
+**Note that both First Difference and Fixed Effect can successfully estimate the coefficients for crime rate $\beta_1$ & employment rate $\beta_2$, it tells us nothing about the city specific characteristics variables $\alpha_i$**
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 ### Dummy Variables Estimator
@@ -49,7 +52,7 @@ $$HP_{i,t}-\bar{HP_i} = \beta_1 (Crime_{i,t}-\bar{Crime_i}) + \beta_2 (Unemploym
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}$$
-where $d_2 = 1, when i=2, =0, otherwise$.
+where $d_2 = 1$ , when $i=2$, otherwise $d_2=0$.
 This way, we can actually estimate $\alpha_i$, however, if we have larger number of different cities, then this approach becomes unrealistic.
 
 
@@ -148,5 +151,6 @@ $$w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})
 under $H_0$
 
 Intuition, if Null Hypothesis is true, then 
+
 * $\hat{\beta_{RE}}$, $\hat{\beta_{FE}}$ are consistent, and therefore the numarator of $w$ statistics should be close to 0.
 * $SE(\hat{\beta_{RE}}) < SE(\hat{\beta_{FE}})$ and therefore the denominator of the $w$ statistics should be large.
