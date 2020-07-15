@@ -1,12 +1,10 @@
 ---
-title: "Data Science"
+title: "Data Science & Machine Learning"
 ---
     
-    
 
-#### Machine learning algorithms 
-  
- 
+#### Machine learning Algorithms 
+
 * [Decision tree](decisionTree.html)    
 * [Logistic Regression](LogisticRegression.html)  
 * [Gradient Boosting](GradientBoosting.html) 
@@ -14,8 +12,7 @@ title: "Data Science"
 * [Cox Proportional Hazard Model](CoxPH.html) 
 * [Predicting Churns](Churn.html)  
 
-    
-#### Data Manipulation practices
+#### Data Manipulation Practices
 
-* [Merge, aggregate and count in R](mergeAggregateCount.html)    
+* [Merge, Aggregate and Count in R](mergeAggregateCount.html)    
 
