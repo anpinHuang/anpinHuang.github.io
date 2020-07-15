@@ -6,4 +6,5 @@ The purpose of this website is to serve as notes for some of the topics that I f
     
   1. Econometrics  
   2. Data science  
-  3. Financial Mathematics (Stochastic Calculus)  
+  3. Financial Mathematics (Stochastic Calculus) 
+  4. Programming
