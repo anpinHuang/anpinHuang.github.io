@@ -69,9 +69,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,8 +88,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -107,7 +111,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -127,6 +130,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -148,19 +188,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -189,6 +295,12 @@ $(document).ready(function () {
 <li>
   <a href="dataScienceML.html">Data Science</a>
 </li>
+<li>
+  <a href="Finance.html">Finance</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -206,7 +318,28 @@ $(document).ready(function () {
 </div>
 
 
-<p>Under construction!</p>
+<p>Principal Component Analysis (PCA) is often used for dimensionality reduction. PCA finds the linear combination of the variables (dimension) to form the new dimensions that keeps the greatest variables and the dimensions are orthogonal.</p>
+<p>Steps:</p>
+<ol style="list-style-type: decimal">
+<li>de-mean</li>
+<li>calculate the covariance matrix (if the variable is at different scale, then normalization or standardization should be performed, otherwise the direction has the greatest variance would be the direction that has the smallest unit)</li>
+<li>do the eigenvalue decomposition to get the eigenvectors and the corresponding eigenvalues</li>
+<li>project (dot product) the de-meaned variables to the eigenvectors (in the order of eigenvalue from largest to smallest). The projections form the new variables</li>
+<li>determine how many transformed variable to use by determining how much variability you want to keep. Using only the first variable would maintain <span class="math inline">\(\frac{\lambda_1}{\lambda_1+\lambda_2 + ...+ \lambda_d}\)</span> of the total variability (variance)</li>
+</ol>
+<p>Interesting behaviour: when you multiply (dot product) the covariance matrix with a data point over and over again, the direction of the data point converges to the direction that has greatest variance.</p>
+<p>Eigenvalue &amp; Eigenvector: <span class="math display">\[Av = \lambda v\]</span> where <span class="math inline">\(v\)</span> is the eigenvector and <span class="math inline">\(\lambda\)</span> is the eigenvalue</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="why-eigenvectors">Why Eigenvectors?</h3>
+</div>
+<ul>
+<li><p>Variance of projections: <span class="math display">\[\frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j-\mu)^2 = \frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j)^2\]</span> Assuming we already de-mean the <span class="math inline">\(X\)</span>, so that <span class="math inline">\(\mu = 0\)</span></p></li>
+<li><p>We want to <strong>maximize the variance of the projection</strong> subect to that the dimension <span class="math inline">\(||e||=1\)</span>. This becomes a constrains optimization</p></li>
+</ul>
+<p><span class="math display">\[V = \frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j)^2 - \lambda((\sum_{j=1}^d e_j^2)-1)\]</span></p>
+<ul>
+<li>Then we take the derivative $$$$</li>
+</ul>
 
 
 

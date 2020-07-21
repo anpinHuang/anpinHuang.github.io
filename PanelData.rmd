@@ -14,7 +14,7 @@ if $\alpha_i$ is not in the OLS, then it would end up in the error term, and $co
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### First Difference Approach
+### First Difference Approach (FD)
 </div>
 $$
 \begin{aligned} 
@@ -28,7 +28,7 @@ Now the city's specific effect has been removed, and $\beta_1$ is consistent est
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Fixed Effect Approach
+### Fixed Effect Approach (FE)
 </div>
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
 The **average** of the house price for each city accross time is:
@@ -55,12 +55,6 @@ $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2
 where $d_2 = 1$ , when $i=2$, otherwise $d_2=0$.
 This way, we can actually estimate $\alpha_i$, however, if we have larger number of different cities, then this approach becomes unrealistic.
 
-
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Estimating Unobserved Heterogeneity
-</div>
-$$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}$$
-Now we want to foucs on estimating $\alpha_i$, the heterogeneity
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">

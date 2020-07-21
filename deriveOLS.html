@@ -11,7 +11,7 @@
 
 
 
-<title>Derive OLS estimators</title>
+<title>Derive OLS Estimators</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,7 +313,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Derive OLS estimators</h1>
+<h1 class="title toc-ignore">Derive OLS Estimators</h1>
 
 </div>
 
@@ -431,9 +431,18 @@ s_mean &lt;- mean(s)
 s_sd &lt;- sd(s)
 yfit_density &lt;- dnorm(xfit, mean=s_mean,sd=s_sd)
 lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
-<p><img src="deriveOLS_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<img src="deriveOLS_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="f-test">F Test</h3>
+<h3 id="significance-test-for-beta-and-their-confidence-interval">Significance test for <span class="math inline">\(\beta\)</span> and their confidence interval</h3>
+</div>
+<p>The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.</p>
+<p><strong>The t statistics:</strong> <span class="math display">\[t = \frac{\bar{X}-\mu}{\hat{\sigma}/\sqrt{n}}\]</span> where <span class="math inline">\(\mu\)</span> is the population mean, <span class="math inline">\(\hat{\sigma}\)</span> is the estimate of the standard deviation of the population. The t statistics follows <strong>Student t distribution</strong>. (Derived from <span class="math inline">\(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span> follows normal distribution by the central limit theorem, but the standard deviation of the population is an estimation from the sample in t statistics)</p>
+<ul>
+<li><p>The significance test has the <span class="math inline">\(\mu\)</span> as the value of Null hypothesis and measures the distance of sample mean from the Null hypothesis.</p></li>
+<li><p>The confidence interval is an interval with the sample mean at the center and the confidence limit stretched from the sample mean.</p></li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="f-test-for-the-overall-model">F Test for the overall model</h3>
 </div>
 <p><span class="math display">\[ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon\]</span></p>
 <p><span class="math display">\[H_0: \beta_1=\beta_2 = ...= \beta_p = 0\]</span> <span class="math display">\[H_1: \beta_i \neq 0\]</span> Sum of Squared Residuals of the Unrestricted model (the above equation): <span class="math display">\[SSR_U = \sum_{i=1}^n e_U^2\]</span> where <span class="math inline">\(e_R\)</span> is the estimate of <span class="math inline">\(\epsilon\)</span> by the unrestricted model</p>

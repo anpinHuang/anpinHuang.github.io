@@ -5,3 +5,5 @@ title: "Finance"
 * [Cubic Spline Interpolation in Python (Natural Spline)](CubicNaturalSpline.html)    
 * [Efficient Frontier - return and variance](EfficientFrontier.html)    
 * [Bond Analytics - Python](BondAnalytics.html) 
+* [CECL for Line of Credit](CECL_LOC.html) 
+* [Notes on IFRS 9](IFRS9.html) 

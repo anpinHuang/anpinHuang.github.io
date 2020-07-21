@@ -16,6 +16,15 @@ where $H$ - hazard rate refers to the probability of the event.
 * HR = 1: at any particular time, the event rates are the same in both groups
 * HR = 2: at any particular time, twice as many patients in the treatment group are experiencing an event compared to the controled group
 
+In another words, the shape of the hazard function is the same for all individuals, and only a scalar multiple changes per individual.
+
+$$H_i(t) = \alpha_i H_0(t)$$
+At the core of the assumption is that $\alpha_i$ does not change over time. Therefore, the hazard ratio is constant accross time
+
+$$\frac{H_i(t)}{H_j(t)} = \frac{\alpha_i H_0(t)}{\alpha_j H_0(t)} = \frac{\alpha_i}{\alpha_j} $$
+
+
+
 
 The mathematical formula resembles that of linear regression & logistic regression.
 
@@ -37,4 +46,9 @@ $$ln(Odds \ Ratio) = b_1X_1+b_2X_2+....b_kX_k$$
 * Independence of survival times between distinct individuals in the sample
 * A multiplicative relationship between the predicators and the hazard (as opposed to a linear one for multiple linear regression (OLS))
 * A constant Hazard Ratio (HR) over time (proportional hazards assumption)!!!
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Schoenfeld residuals
+</div>
+
 

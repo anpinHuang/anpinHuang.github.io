@@ -323,7 +323,7 @@ $(document).ready(function () {
 </div>
 <p>assuming <span class="math inline">\(i\)</span> is the index for different city and <span class="math inline">\(t\)</span> is the index for time. We are trying to see the relationship between house price <span class="math inline">\(HP\)</span> and crime rate. <span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + V_t + \alpha_i + u_{i,t}\]</span> where <span class="math inline">\(V_t\)</span> is time dependent variable which represent the time trend across all cities, and <span class="math inline">\(\alpha_i\)</span> is the city specific variable that is fixed across time (e.g. geographic, demographic, race, education). if <span class="math inline">\(\alpha_i\)</span> is not in the OLS, then it would end up in the error term, and <span class="math inline">\(cov(Crime_{i,t}, \alpha) \neq0\)</span> (a city’s crime rate can be related to its city specific variables). In this case the <span class="math inline">\(\beta\)</span> is biased and inconsistent.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="first-difference-approach">First Difference Approach</h3>
+<h3 id="first-difference-approach-fd">First Difference Approach (FD)</h3>
 </div>
 <p><span class="math display">\[
 \begin{aligned} 
@@ -333,7 +333,7 @@ $(document).ready(function () {
 \]</span></p>
 <p>Now the city’s specific effect has been removed, and <span class="math inline">\(\beta_1\)</span> is consistent estimated this way.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="fixed-effect-approach">Fixed Effect Approach</h3>
+<h3 id="fixed-effect-approach-fe">Fixed Effect Approach (FE)</h3>
 </div>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> The <strong>average</strong> of the house price for each city accross time is: <span class="math display">\[\bar{HP_i} = \frac{1}{T} \sum_{t=1}^{T}HP_{i,t}\]</span> <span class="math display">\[\bar{\alpha_{i}} = \frac{1}{T}T\alpha_{i} = \alpha_i\]</span></p>
 <p>Thus,</p>
@@ -346,10 +346,6 @@ $(document).ready(function () {
 </div>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span></p>
 <p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \mu_1d_2 + \mu_2d_3 + u_{i,t}\]</span> where <span class="math inline">\(d_2 = 1\)</span> , when <span class="math inline">\(i=2\)</span>, otherwise <span class="math inline">\(d_2=0\)</span>. This way, we can actually estimate <span class="math inline">\(\alpha_i\)</span>, however, if we have larger number of different cities, then this approach becomes unrealistic.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="estimating-unobserved-heterogeneity">Estimating Unobserved Heterogeneity</h3>
-</div>
-<p><span class="math display">\[HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \alpha_i + u_{i,t}\]</span> Now we want to foucs on estimating <span class="math inline">\(\alpha_i\)</span>, the heterogeneity</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h3 id="r-squared-in-fixed-effectlsdv">R Squared in Fixed Effect/LSDV</h3>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: "Logistic Regression"
+title: "Logistic Regression & Information Value (IV)"
 ---
 
 To solve a classification problem, $y_i$ is either $0$ or $1$, we want to estimate the probability of $y_i=1$ by a set of explanatory variable $X$, denoted as $p(x)$. However, we cannot simply model the probability by the linear regression model as $p(x) = \beta_0 + x   \beta$ since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.
@@ -105,12 +105,31 @@ $$R^2 = \frac{LL(Null \ Model)-LL(Proposed \ Model)}{LL(Null \ Model)-LL(Saturat
 
 
 
-* **Residual deviance: ** $2 \cdot (LL(Saturated \ Model)-LL(Proposed \ Model))$ follows Chi-square distribution. For this to work, the proposed model has to be a simplier version of the saturated model
+* **Residual deviance: ** $2 \cdot (LL(Saturated \ Model)-LL(Proposed \ Model))$ follows Chi-square distribution. For this to work, the proposed model has to be a simpler version of the saturated model
 * **Null deviance: ** $2 \cdot (LL(Saturated \ Model)-LL(Null \ Model))$
 * $Null Deviance - Residual Deviance$ is a Chi-square value with degree of freedom equal to the difference in the number of parameters for the proposed Model and the Null Model
-* **Deviance residuals: ** $\sum_i^N \sqrt{2 \cdot LL(Saturated \ Model)_i - LL(ProposedModel)_i}$Analogous to the residuals of OLS.
+* **Deviance residuals: ** $\sum_i^N \sqrt{2 \cdot LL(Saturated \ Model)_i - LL(ProposedModel)_i}$, it is Analogous to the residuals of OLS.
 
 Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the $LL(Saturated \ Model)=0$.
 
+The glm function in R for logistic regression returns residual deviance and null deviance which can be used for calculating the McFadden's psuedo $R^2$
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Information Value (IV) and Weight of Evidence
+</div>
+
+**Weight of evidence (WOE):**
+$$WOE = ln(\frac{\% \ of \ non-event}{\% \ of \ event})$$
+
+Steps:
+
+1. For continuous variable, split the data into n bucket. If the variable is categorical , nothing needs to be done for this step.
+2. Apply the formula above for each bucket.
+
+Note that WOE is usually positive as non-event is usually less than event.
+
+**Information Value (IV):**
+
+$$IV = \sum_{i=1}^n \ (\% \ of \ non-event - \% \ of \ event) \cdot WOE$$
+The IV is commonly used for **variable selection** & **univariate analysis** for logistic regression as the logic is similar to log-odds ratio which is used in logistic regression. Variable selection using IV will not be optimal for classification algorithm other than logistic regression.
 

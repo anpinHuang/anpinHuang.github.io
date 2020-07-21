@@ -321,17 +321,22 @@ $(document).ready(function () {
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h4 id="stationary-dickey-fuller-test">Stationary: Dickey-Fuller test</h4>
 </div>
-<p>Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
+<p>The test needs to be done for all dependent and explanatory variables individually. Regress on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
 <p>The original equation can also be written as the equation below, so that by testing the significancy of <span class="math inline">\(y_{t-1}\)</span> (wheher <span class="math inline">\(\theta = 0\)</span>), we can conclude that whether the time series is unit root: <span class="math display">\[\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
-<p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be down in R packages.</p>
+<p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h4 id="auto-correlation-durbin-watson-statistics">Auto-correlation: Durbin-Watson Statistics</h4>
 </div>
+<p>The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is auto-correlation in the residuals. The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h4 id="homoscedasticity">Homoscedasticity</h4>
 </div>
+The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is Heteroscedasticity.
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h4 id="multi-collinearity-vif">Multi-collinearity: VIF</h4>
+</div>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h4 id="normality-of-the-residuals">Normality of the residuals</h4>
 </div>
 
 

@@ -6,7 +6,7 @@ title: "Data Science & Machine Learning"
 #### Machine learning Algorithms 
 
 * [Decision tree](decisionTree.html)    
-* [Logistic Regression](LogisticRegression.html)  
+* [Logistic Regression & Information Value (IV)](LogisticRegression.html)  
 * [Gradient Boosting](GradientBoosting.html) 
 * [ROC Curve](ROC.html) 
 * [Cox Proportional Hazard Model](CoxPH.html) 

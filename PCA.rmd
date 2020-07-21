@@ -2,4 +2,34 @@
 title: "Principal Component Analysis (PCA)"
 ---
 
-Under construction!
+Principal Component Analysis (PCA) is often used for dimensionality reduction. PCA finds the linear combination of the variables (dimension) to form the new dimensions that keeps the greatest variables and the dimensions are orthogonal.
+
+Steps: 
+
+1. de-mean
+2. calculate the covariance matrix (if the variable is at different scale, then normalization or standardization should be performed, otherwise the direction has the greatest variance would be the direction that has the smallest unit)
+3. do the eigenvalue decomposition to get the eigenvectors and the corresponding eigenvalues
+4. project (dot product) the de-meaned variables to the eigenvectors (in the order of eigenvalue from largest to smallest). The projections form the new variables
+5. determine how many transformed variable to use by determining how much variability you want to keep. Using only the first variable would maintain $\frac{\lambda_1}{\lambda_1+\lambda_2 + ...+ \lambda_d}$ of the total variability (variance)
+
+Interesting behaviour: when you multiply (dot product) the covariance matrix with a data point over and over again, the direction of the data point converges to the direction that has greatest variance.
+
+
+Eigenvalue & Eigenvector:
+$$Av = \lambda v$$
+where $v$ is the eigenvector and $\lambda$ is the eigenvalue
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Why Eigenvectors?
+</div>
+
+* Variance of projections:
+$$\frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j-\mu)^2 = \frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j)^2$$ Assuming we already de-mean the $X$, so that $\mu = 0$
+
+* We want to **maximize the variance of the projection** subect to that the dimension $||e||=1$. This becomes a constrains optimization
+
+$$V = \frac{1}{n} \sum_{i=1}^{n} (\sum_{j=1}^d x_{i,j}e_j)^2 - \lambda((\sum_{j=1}^d e_j^2)-1)$$ 
+
+* Then we take the derivative
+$$$$
+

@@ -153,9 +153,22 @@ s_sd <- sd(s)
 yfit_density <- dnorm(xfit, mean=s_mean,sd=s_sd)
 lines(xfit, yfit_density, col="blue", lwd=2)
 ```
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Significance test for $\beta$ and their confidence interval 
+</div>
+
+The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.
+
+**The t statistics:**
+$$t = \frac{\bar{X}-\mu}{\hat{\sigma}/\sqrt{n}}$$
+where $\mu$ is the population mean, $\hat{\sigma}$ is the estimate of the standard deviation of the population. The t statistics follows **Student t distribution**. (Derived from $\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}$ follows normal distribution by the central limit theorem, but the standard deviation of the population is an estimation from the sample in t statistics)
+
+* The significance test has the $\mu$ as the value of Null hypothesis and measures the distance of sample mean from the Null hypothesis.
+
+* The confidence interval is an interval with the sample mean at the center and the confidence limit stretched from the sample mean.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### F Test
+### F Test for the overall model
 </div>
 
 $$ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon$$

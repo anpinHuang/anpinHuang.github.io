@@ -328,6 +328,9 @@ $(document).ready(function () {
 <li>HR = 1: at any particular time, the event rates are the same in both groups</li>
 <li>HR = 2: at any particular time, twice as many patients in the treatment group are experiencing an event compared to the controled group</li>
 </ul>
+<p>In another words, the shape of the hazard function is the same for all individuals, and only a scalar multiple changes per individual.</p>
+<p><span class="math display">\[H_i(t) = \alpha_i H_0(t)\]</span> At the core of the assumption is that <span class="math inline">\(\alpha_i\)</span> does not change over time. Therefore, the hazard ratio is constant accross time</p>
+<p><span class="math display">\[\frac{H_i(t)}{H_j(t)} = \frac{\alpha_i H_0(t)}{\alpha_j H_0(t)} = \frac{\alpha_i}{\alpha_j} \]</span></p>
 <p>The mathematical formula resembles that of linear regression &amp; logistic regression.</p>
 <p><span class="math display">\[H(t) = H_0(t) \cdot e^{b_1X_1+b_2X_2+....b_kX_k}\]</span></p>
 <p>By dividing both sides of the above equation by <span class="math inline">\(H_0(t)\)</span>, and take log, we get: <span class="math display">\[ln(\frac{H(t)}{H_0(t)}) = b_1X_1+b_2X_2+....b_kX_k\]</span></p>
@@ -341,6 +344,9 @@ $(document).ready(function () {
 <li>A multiplicative relationship between the predicators and the hazard (as opposed to a linear one for multiple linear regression (OLS))</li>
 <li>A constant Hazard Ratio (HR) over time (proportional hazards assumption)!!!</li>
 </ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="schoenfeld-residuals">Schoenfeld residuals</h3>
+</div>
 
 
 

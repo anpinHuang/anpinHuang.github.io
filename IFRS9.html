@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Notes on IFRS 9</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Finance</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Notes on IFRS 9</h1>
+
+</div>
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="overview">Overview</h3>
+</div>
+<ul>
+<li><strong>Stage 1:</strong> Initial recognition. Lender is required to reserve for the expected credit loss (ECL) that are expected to occur over the next <strong>12-month</strong> period.</li>
+<li><strong>Stage 2:</strong> If a loan’s credit risk has increased significantly since initial recognition and is not considered low anymore, <strong>lifetime</strong> ECL should be recognised. The calculation of interest revenue is the same as for Stage 1. To emphasize, the wording ‘increase significantly’ is a comparison of the default risk at reporting date <strong>relative</strong> to initianl recognition date.</li>
+<li><strong>Stage 3:</strong> If the loan’s credit risk increases to the point where it is considered <strong>credit-impaired</strong>, interest revenue is calculated based on the loan’s <strong>amortised cost</strong> (gross carrying amount minus loss allowance). Lifetime ECLs are recognised.</li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="significant-increase-in-credit-risk"><a href="http://archive.ifrs.org/Meetings/MeetingDocs/Other%20Meeting/2015/September/AP1-Significant-increases-in-credit-risk.pdf">Significant Increase in Credit Risk</a></h3>
+</div>
+<ul>
+<li>Significant increase in the <strong>Lifetime Default Risk</strong> as opposed to lifetime expected credit loss. As per <a href="https://www.moodysanalytics.com/risk-perspectives-magazine/risk-finance-accounting-converge-ifrs9/spotlight-ifrs-9/complying-with-ifrs-9-impairment-calculations">Moody’s Intrepretation</a>, when comparing the lifetime default risk, it should be based on the same time frame - the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.</li>
+<li><strong>B5.5.23:</strong> An entity may use its internal credit risk ratings or other methodologies that are consistent with a globally understood definition of low credit risk and that consider the risks and the type of financial instruments that are being assessed. An external rating of <strong>Investment Grade</strong> is an example of a financial instrument that may be considered as having low credit risk. However, financial instruments are not required to be externally rated to be considered to have low credit risk.</li>
+<li>How the instruments were grouped if expected credit losses were measured on a <strong>collective basis</strong>?</li>
+<li><p>Expected <strong>performance/behaviours</strong> and forecasts of <strong>future conditions</strong> must also be taken into account to the extent appropriate. The following behaviour indicators are NOT forward looking in nature and consequently they may NOT result in the <strong>timely identification</strong> of significant increases in credit risk.:</p>
+<ul>
+<li>where a customer has made only the minimum monthly repayment for a specified number of months;</li>
+<li>where a customer has failed to make a payment on a loan with a different lender; or</li>
+<li>where a customer has failed to make a specified number of minimum monthly repayments.</li>
+</ul></li>
+<li>A smaller absolute change in the risk of default occurring will be more significant for a high quality asset than for a low quality one. (in a probability of default sense it takes a smaller movement to cause a high quality asset to move to a lifetime expected credit loss measure than a low quality one)</li>
+<li><p><strong>B5.5.17</strong> The following non-exhaustive list of information may be relevant in assessing changes in credit risk:</p>
+<ul>
+<li>Significant changes in internal <strong>price indicators</strong> of credit risk as a result of a change in credit risk since inception, including, but not limited to, the credit spread that would result if a particular financial instrument or similar financial instrument with the same terms and the same counterparty were newly originated or issued at the reporting date.</li>
+<li>Other <strong>changes in offer</strong> such as the rates or terms of an existing financial instrument that would be significantly different if the instrument was newly originated or issued at the reporting date (such as more stringent covenants, increased amounts of collateral or guarantees, or higher income coverage) because of changes in the credit risk of the financial instrument since initial recognition</li>
+<li><p>significant changes in <strong>external market indicators</strong> of credit risk for a particular financial instrument or similar financial instruments with the same expected life. Changes in market indicators of credit risk include, but are not limited to:</p>
+<ul>
+<li>the credit spread;</li>
+<li>the credit default swap prices for the borrower;</li>
+<li>the length of time or the extent to which the fair value of a financial asset has been less than its amortised cost;</li>
+<li>other market information related to the borrower, such as changes in the price of a borrower’s debt (e.g. <strong>bond</strong>) and <strong>equity instruments</strong>.</li>
+</ul></li>
+<li>an actual or expected significant change in the financial instrument’s <strong>external credit rating</strong>.</li>
+<li>an actual or expected internal credit rating downgrade for the borrower or decrease in behavioural scoring used to assess credit risk internally. Internal credit ratings and internal behavioural scoring are more reliable when they are mapped to external ratings or supported by default studies.</li>
+<li>existing or forecast adverse changes in business, financial or economic conditions that are expected to cause a significant change in the borrower’s ability to meet its debt obligations, such as an actual or expected increase in <strong>interest rates</strong> or an actual or expected significant increase in <strong>unemployment rates</strong></li>
+<li>an actual or expected significant change in the <strong>operating results</strong> of the borrower. Examples include actual or expected declining revenues or margins, increasing operating risks, working capital deficiencies, decreasing asset quality, increased balance sheet leverage, liquidity, management problems or changes in the scope of business or organisational structure (such as the discontinuance of a segment of the business) that results in a significant change in the borrower’s ability to meet its debt obligations.</li>
+<li>significant increases in credit risk on other financial instruments of the same borrower</li>
+<li>an actual or expected significant adverse change in the <strong>regulatory</strong>, economic, or <strong>technological environment</strong> of the borrower that results in a significant change in the borrower’s ability to meet its debt obligations, such as a decline in the demand for the borrower’s sales product because of a shift in technology.</li>
+<li>significant changes in the value of the <strong>collateral</strong> supporting the obligation or in the quality of third-party guarantees or credit enhancements, which are expected to reduce the borrower’s economic incentive to make scheduled contractual payments or to otherwise have an effect on the probability of a default occurring. <strong>For example, if the value of collateral declines because house prices decline, borrowers in some jurisdictions have a greater incentive to default on their mortgages.</strong></li>
+<li>a significant change in the quality of the guarantee provided by a shareholder (or an individual’s parents) if the shareholder (or parents) have an incentive and financial ability to prevent default by capital or cash infusion</li>
+<li>significant changes, such as reductions in financial support from a parent entity or other affiliate or an actual or expected significant change in the quality of credit enhancement, that are expected to reduce the borrower’s economic incentive to make scheduled contractual payments. Credit quality enhancements or support include the consideration of the financial condition of the guarantor and/or, for interests issued in securitisations, whether subordinated interests are expected to be capable of absorbing expected credit losses (for example, on the loans underlying the security).</li>
+<li>expected changes in the loan documentation including an expected breach of contract that may lead to covenant waivers or amendments, interest payment holidays, interest rate step-ups, requiring additional collateral or guarantees, or other changes to the contractual framework of the instrument.</li>
+<li>significant changes in the expected performance and behaviour of the borrower, including changes in the payment status of borrowers in the <strong>group</strong> (for example, an increase in the expected number or extent of delayed contractual payments or significant increases in the expected number of credit card borrowers who are expected to approach or exceed their credit limit or who are expected to be paying the minimum monthly amount).</li>
+<li>changes in the entity’s credit management approach in relation to the financial instrument; ie based on emerging indicators of changes in the credit risk of the financial instrument, the entity’s credit risk management practice is expected to become more active or to be focused on managing the instrument, including the instrument becoming more closely monitored or controlled, or the entity specifically intervening with the borrower.</li>
+<li><p>past due information, including the rebuttable presumption as set out in paragraph <strong>5.5.11.</strong></p></li>
+</ul></li>
+</ul>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

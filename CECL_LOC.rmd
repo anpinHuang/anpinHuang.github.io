@@ -6,12 +6,19 @@ title: "CECL for Line of Credit"
 ### CECL Requirements
 </div>
 
-Under the Current Expected Credit Loss, or CECL, publised by Financial Accounting Standards Board (FASB), the lending company is required to reserve the expected "lifetime" credit loss for the loan as early as when the loan is originated as opposed to the "incurred" loss under the old standard. The main ideas of the CECL are 
+Current Expected Credit Loss, or [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the allowance for loan loss and provisioning. Under CECL, the lending company is required to reserve the expected "lifetime" credit loss for the loan as early as when the loan is originated as opposed to the "incurred" loss under the old standard. The main ideas of the CECL are 
 
 * Expected 
 * Lifetime
 
-The first point requires the forward-looking forecast for the foreseable future. A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the economic indicators projected by internal economists or senior management. Another approach would be to model the through the cycle loss rate and then add model overlay on top of it based on the forward economic forecast. The 2nd major difference is the requirement to reserve against the lifetime credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future. For example, a loan $100K, 10 year loan, annual principal payment as 10K and has annual probability of default (PB) = 3%, the reserve under incurred loss for the following 12 months would be $100K \cdot 3\% = 3K$, whereas under CECL, the reserve would be $100K \cdot 3\%  + 90K \cdot 3\% + ...+ 10K \cdot 3\% = 16.5K$. Although it's unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.
+The first point requires the **forward-looking** forecast for the foreseable future. A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the economic indicators projected by internal economists or senior management. Another approach would be to model the **through-the-cycle (TTC)** loss rate and then add model overlay on top of it based on the forward economic forecast. The 2nd major difference is the requirement to reserve against the lifetime credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future. 
+
+For example, a loan $100K, 10 year loan, annual principal payment as 10K and has annual probability of default (PB) = 3%, 
+
+* The reserve under incurred loss for the following 12 months would be $100K \cdot 3\% = 3K$, 
+* Whereas under CECL, the reserve would be $100K \cdot 3\%  + 90K \cdot 3\% + ...+ 10K \cdot 3\% = 16.5K$. 
+
+Although it's unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.
 
 
 
@@ -19,7 +26,7 @@ The first point requires the forward-looking forecast for the foreseable future.
 ### Line of Credit & Unconditionally Cancellable
 </div>
 
-In this section, we specifically discuss the line of credit under the CECL regulation. 
+In this section, we specifically discuss the line of credit under the CECL regulation. As specified in **326-20-30-11** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), the lender shall estimate the expected loss over the contractual period unless the obligation is **unconditionally cancellable**. The credit card normally falls into this category as the 'term & conditions' often specificies the lender's authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding balance. The covid-19 is a good example as numorous online lenders stopped the credit line amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in **326-20-55-54** to **326-20-55-56** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true).
 
 
 

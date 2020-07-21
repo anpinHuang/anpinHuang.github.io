@@ -5,6 +5,7 @@ title: "OLS Assumptions Test"
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Stationary: Dickey-Fuller test
 </div>
+The test needs to be done for all dependent and explanatory variables individually. Regress on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
 Test for unit root:
 $$y_t = \alpha + \rho y_{t-1} + \epsilon_t$$
 Null Hypothesis:
@@ -21,14 +22,23 @@ However, when the true $\theta = 0$, the sampling distribution of $\theta$ is no
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Auto-correlation: Durbin-Watson Statistics
 </div>
-The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package.
+The test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is auto-correlation in the residuals.
+The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Homoscedasticity
 </div>
-
+The test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is Heteroscedasticity.
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 #### Multi-collinearity: VIF
 </div>
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Normality of the residuals
+</div>
+
+
+
+
 
