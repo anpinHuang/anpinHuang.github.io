@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Notes on Basel II &amp; ASRF Model</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Finance &amp; Risk</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Notes on Basel II &amp; ASRF Model</h1>
+
+</div>
+
+
+<p>This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures:</p>
+<ul>
+<li><a href="https://www.bis.org/bcbs/irbriskweight.pdf">An Explanatory Note on the Basel II IRB Risk Weight Functions</a></li>
+<li><a href="https://pdfs.semanticscholar.org/71e1/13295d22c5ba474cffa53baef822fb029d52.pdf">Theory behind regulatory Capital Formulae</a></li>
+<li><a href="https://www.bis.org/bcbs/publ/d424.pdf">Basel III: Finalising post-crisis reforms</a></li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="basel-requirements">Basel Requirements</h3>
+</ins>
+</div>
+<p>Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the <strong>yearly (12-month)</strong> loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires <strong>through-the-cycle (TTC)</strong> loss forecast over the next 12 months. <strong>Portfolio-invariant</strong> is required under the Basel rule.</p>
+<ul>
+<li><strong>Expected Loss (EL)</strong>: The expected value of the loss over the next 12 month</li>
+<li><strong>Unexpected Loss (UL)</strong>: Losses above the Expected Loss (EL)</li>
+<li><strong>Value-at-Risk (VaR)</strong>: EL + UL</li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="the-mertons-model">The Merton’s Model</h3>
+</ins>
+</div>
+<p>The Merton’s model leverage the <strong>Black-Scholes</strong> model used in option pricing. Similar to option pricing that the option’s value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company’s total assets and its total liabilities. The logic is that the loan defaults when the company’s total assets cannot support its total liabilities. The evolution of the asset value <span class="math inline">\(A\)</span> is log-normmally distributed as the stock price in Black Scholes.</p>
+<p>Stochastic differential equation (SDE) of a firm’s assets: <span class="math display">\[dA = (\mu A )dt + \sigma AdW(t)\]</span></p>
+<p>Apply <a href="ItoLemma.html"><strong>Ito’s lemma</strong></a> for <span class="math inline">\(g(x) = ln(x)\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+dg(A) &amp;= d(ln(A))\\
+&amp;= \frac{1}{A}dA + \frac{1}{2} \frac{-1}{A^2} (dA)^2 \\
+&amp;= \mu dt + \sigma dW(t) - \frac{1}{2A^2} [(\mu A)^2(dt)^2 + 2(\mu A)dt\sigma AdW(t) + \sigma^2 (dW(t))^2] \\
+&amp;= \mu dt + \sigma dW(t) - \frac{1}{2A^2} [0 + 0 + \sigma^2A^2dt]\\
+&amp;= \mu dt + \sigma dW(t) - \frac{1}{2} \sigma^2dt\\
+&amp;= (\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t) \\
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[ln(A_t) = ln(A_0) + \int_{0}^{t} (\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+A_t &amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
+&amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)t + \sigma \sqrt{t}X(t)} 
+\end{aligned}
+\]</span> where <span class="math inline">\(X_t \sim \mathcal{N}(0,1)\)</span></p>
+<p>The probability of default (not risk-neutral, but physical world and therefore <span class="math inline">\(\mu\)</span> is used instead of <span class="math inline">\(r\)</span>) can be expressed as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathcal{P}[A_i(T)&lt;L_i] &amp;= \mathcal{P}[A_i(0) \cdot e^{(\mu_i - \frac{1}{2}\sigma_i^2)T + \sigma_i \sqrt{T}X_i(T)}&lt;L_i]\\
+&amp;= \mathcal{P}[X_i(T)&lt;\frac{ln(L_i)-ln(A_i(0))-(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+&amp;= \mathcal{P}[X_i(T)&gt;\frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+&amp;= 1-\mathcal{N}(d2) \\
+&amp;= \mathcal{N}(-d2)
+\end{aligned}
+\]</span> where <span class="math inline">\(L_i\)</span> is the total liabilities of company <span class="math inline">\(i\)</span>, and</p>
+<p><span class="math display">\[d_2 = \frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}\]</span></p>
+<p>Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="asymptotic-single-risk-factor-asrf-model">Asymptotic Single Risk Factor (ASRF) model</h3>
+</ins>
+</div>
+<p>The Merton’s model can be extended to ASRF model, assuming the assets value any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant.</p>
+<p>The asset value of company <span class="math inline">\(i\)</span> is driven by a single factor <span class="math inline">\(Z\)</span> that represents the systemic credit risk. The idiosyncretic risk should already diversified.</p>
+<p><span class="math display">\[X_i = aZ+b \epsilon_i\]</span> where both <span class="math inline">\(Z\)</span> and <span class="math inline">\(\epsilon\)</span> follow standard normal distribution and <span class="math inline">\(Z\)</span> is independent of <span class="math inline">\(\epsilon\)</span> and each of <span class="math inline">\(\epsilon_i\)</span> for <span class="math inline">\(i=1,...,n\)</span> is independent of each other</p>
+<p>To find <span class="math inline">\(a\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\rho = cor(X_i, X_j) &amp;= \frac{Cov(X_i, X_j)}{\sigma_{X_i}\sigma_{X_j}} \\
+&amp;= \frac{E[X_iX_j] - E[X_i]E[X_j]}{1\cdot 1} \\
+&amp;= E[(aZ+b_i\epsilon_i)(aZ+b_j\epsilon_j)] - 0 \\
+&amp;= E[a^2Z^2+ab_iZ\epsilon_i+ab_jZ\epsilon_j+b_ib_j\epsilon_i\epsilon_j] \\
+&amp;= a^2E[Z^2] + ab_iE[Z]E[\epsilon_i] + ab_jE[Z]E[\epsilon_j] + b_ib_jE[\epsilon_i]E[\epsilon_j] \\
+&amp;= a^2E[Z^2] + 0\\
+&amp;= a^2(Var(Z)+E[Z]^2) = a^2
+\end{aligned}
+\]</span> The parameter <span class="math inline">\(a\)</span> is then therefore <span class="math inline">\(\sqrt{\rho}\)</span>.</p>
+<p>Then to find <span class="math inline">\(b\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
+&amp;= E[(aZ+b_i\epsilon_i)^2] - a^2 \\
+&amp;= a^2E[Z^2] + 2abE[Z]E[\epsilon_i] + b_i^2E[\epsilon_i^2] \\
+&amp;= a^2E[Z^2] +0+b_i^2 \\
+&amp;= a^2+b^2 = \rho+b_i^2\\
+\end{aligned}
+\]</span> Given that <span class="math inline">\(Var(X_i) = 1\)</span>, we obtain that <span class="math inline">\(b_i^2 = \sqrt{1-\rho}\)</span>. With <span class="math inline">\(a = \sqrt{\rho}\)</span> and <span class="math inline">\(b_i = \sqrt{1-\rho}\)</span> as shown in above, we can now write <span class="math inline">\(X_i\)</span> as:</p>
+<p><span class="math display">\[X_i = \sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i\]</span></p>
+<p>The credit loss:</p>
+<p><span class="math display">\[L = I \cdot EAD \cdot LGD\]</span> where <span class="math inline">\(I\)</span> is the indicator function of default.</p>
+<ul>
+<li><span class="math inline">\(I=1\)</span>, when <span class="math inline">\(X_i &lt; N_A^{-1}(PD_i)\)</span></li>
+<li><span class="math inline">\(I=0\)</span>, otherwise</li>
+</ul>
+<p>The conditional expected value of the default indicator given the systemic credit risk variable is:</p>
+<p><span class="math display">\[E[I_i|Z] = \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
+<p>Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:</p>
+<p><span class="math display">\[E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
+<p>Now we can calculate the value-at-risk (VaR) given a specified condifence level <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho} \mathcal{N}_Z^{-1}(1-\alpha)}{\sqrt{1-\rho}})\]</span> In practice,</p>
+<ul>
+<li>The asset correlation <span class="math inline">\(\rho\)</span> can be calibrated by observing correlations in the market or from historical default data.</li>
+<li></li>
+</ul>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

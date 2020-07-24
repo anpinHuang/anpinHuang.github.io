@@ -296,7 +296,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Finance &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -319,24 +319,61 @@ $(document).ready(function () {
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="stationary-dickey-fuller-test">Stationary: Dickey-Fuller test</h4>
+<ins>
+<h3 id="stationary-dickey-fuller-test">Stationary: Dickey-Fuller test</h3>
+</ins>
 </div>
-<p>The test needs to be done for all dependent and explanatory variables individually. Regress on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
+<p>The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
 <p>The original equation can also be written as the equation below, so that by testing the significancy of <span class="math inline">\(y_{t-1}\)</span> (wheher <span class="math inline">\(\theta = 0\)</span>), we can conclude that whether the time series is unit root: <span class="math display">\[\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
 <p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.</p>
+<hr />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="auto-correlation-durbin-watson-statistics">Auto-correlation: Durbin-Watson Statistics</h4>
+<ins>
+<h3 id="auto-correlation">Auto-correlation:</h3>
+</ins>
 </div>
-<p>The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is auto-correlation in the residuals. The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.</p>
+<p>This test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is auto-correlation in the residuals. The t test for <span class="math inline">\(\beta\)</span> is therefore not valid.</p>
+<ul>
+<li><p><strong>Durbin-Watson Statistics</strong>: The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.</p></li>
+<li><p><strong>Breusch–Godfrey test</strong>:</p></li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="homoscedasticity">Homoscedasticity</h4>
+<ins>
+<h3 id="homoscedasticity">Homoscedasticity</h3>
+</ins>
 </div>
-The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is Heteroscedasticity.
+<p>The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is Heteroscedasticity. The t test for <span class="math inline">\(\beta\)</span> is therefore not valid.</p>
+<ul>
+<li><strong>Breusch–Pagan test</strong>: For a linear equation <span class="math display">\[y = \beta_0 + \beta_1x1+ \beta_2x2+...\beta_kxk + \epsilon\]</span> then
+<ul>
+<li><span class="math inline">\(Var(u|x) = \sigma^2\)</span> if homoskasdasticity</li>
+<li><span class="math inline">\(Var(u|x) = \sigma^2f(x)\)</span> if heteroskasdasticity</li>
+</ul>
+To test it, we regress the estimates of errors’ squares <span class="math inline">\(\hat{\epsilon}^2\)</span> with the explanatory variables <span class="math inline">\(x\)</span>: <span class="math display">\[\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k + e \]</span> Then we use <strong>F-test</strong> for hypothesis testing:
+<ul>
+<li>The Null Hypothesis <span class="math inline">\(H_0: a_1 = a_2 = ...a_k = 0\)</span></li>
+<li>The Alternate Hyphthesis <span class="math inline">\(H_1: a_i \neq 0\)</span></li>
+</ul></li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="multi-collinearity-vif">Multi-collinearity: VIF</h4>
+<ins>
+<h3 id="multi-collinearity">Multi-collinearity</h3>
+</ins>
 </div>
+<p>When Multi-collinearity exists in the model, the model is not able to distinguish the effects of the variables and therefore the variables of the <span class="math inline">\(\beta\)</span> sampling distribution will be huge.</p>
+<ul>
+<li><strong>Model is significant but <span class="math inline">\(\beta\)</span>s are not</strong>:<br />
+The usual symtom could be that the model is significant (p value small for F test) but non of the <span class="math inline">\(\beta\)</span>s are significant because the model is not able to discern the effect of the variables.</li>
+<li><strong>Correlation matrix</strong>:<br />
+In some case, it can also be observed in the correlation matrix of the explanatory. However, if one variable is closed to a linear combination of 2 or more other variables, it cannot be seen in the correlation matrix.</li>
+<li><strong>Variance inflation factor (VIF)</strong>:<br />
+For each explanatory variable, regress it on all the other explanatory variables.Then calculate <span class="math display">\[VIF_i = \frac{1}{1-R_i^2}\]</span><br />
+A high VIF indicates Multi-collinearity.</li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h4 id="normality-of-the-residuals">Normality of the residuals</h4>
+<ins>
+<h3 id="normality-of-the-residuals">Normality of the Residuals</h3>
+</ins>
 </div>
 
 

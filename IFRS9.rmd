@@ -5,6 +5,8 @@ title: "Notes on IFRS 9"
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 ### Overview
 </div>
+Under the IFRS 9, published by ISAB, the lender should reserve for the loan loss based on different stages the loans are in.
+
 
 * **Stage 1:** Initial recognition. Lender is required to reserve for the expected credit loss (ECL) that are expected to occur over the next **12-month** period.
 * **Stage 2:** If a loan’s credit risk has increased significantly since initial recognition and is not considered low anymore, **lifetime** ECL should be recognised. The calculation of interest revenue is the same as for Stage 1. To emphasize, the wording 'increase significantly' is a comparison of the default risk at reporting date **relative** to initianl recognition date. 
@@ -15,7 +17,7 @@ title: "Notes on IFRS 9"
 ### [Significant Increase in Credit Risk](http://archive.ifrs.org/Meetings/MeetingDocs/Other%20Meeting/2015/September/AP1-Significant-increases-in-credit-risk.pdf)
 </div>
 
-* Significant increase in the **Lifetime Default Risk** as opposed to lifetime expected credit loss. As per [Moody's Intrepretation](https://www.moodysanalytics.com/risk-perspectives-magazine/risk-finance-accounting-converge-ifrs9/spotlight-ifrs-9/complying-with-ifrs-9-impairment-calculations), when comparing the lifetime default risk, it should be based on the same time frame - the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.
+* Significant increase in the **Lifetime Default Risk** as opposed to lifetime expected credit loss. As per [Moody's Intrepretation](https://www.moodysanalytics.com/risk-perspectives-magazine/risk-finance-accounting-converge-ifrs9/spotlight-ifrs-9/complying-with-ifrs-9-impairment-calculations), when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.
 * **B5.5.23:** An entity may use its internal credit risk ratings or other methodologies that are consistent with a globally understood definition of low credit risk and that consider the risks and the type of financial instruments that are being assessed. An external rating of **Investment Grade** is an example of a financial instrument that may be considered as having low credit risk. However, financial instruments are not required to be externally rated to be considered to have low credit risk. 
 * How the instruments were grouped if expected credit losses were measured on a **collective basis**?
 * Expected **performance/behaviours** and forecasts of **future

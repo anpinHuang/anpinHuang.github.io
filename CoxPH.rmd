@@ -50,5 +50,5 @@ $$ln(Odds \ Ratio) = b_1X_1+b_2X_2+....b_kX_k$$
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 ### Schoenfeld residuals
 </div>
-
+Schoenfeld residuals is used for testing the assumption of constant Hazard Ratio.
 

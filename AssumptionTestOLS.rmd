@@ -3,9 +3,11 @@ title: "OLS Assumptions Test"
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-#### Stationary: Dickey-Fuller test
+<ins>
+### Stationary: Dickey-Fuller test
+</ins>
 </div>
-The test needs to be done for all dependent and explanatory variables individually. Regress on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
+The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
 Test for unit root:
 $$y_t = \alpha + \rho y_{t-1} + \epsilon_t$$
 Null Hypothesis:
@@ -18,24 +20,62 @@ $$\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t$$
 
 However, when the true $\theta = 0$, the sampling distribution of $\theta$ is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.
 
-
+---
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-#### Auto-correlation: Durbin-Watson Statistics
+<ins>
+### Auto-correlation: 
+</ins>
 </div>
-The test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is auto-correlation in the residuals.
+
+This test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is auto-correlation in the residuals. The t test for $\beta$ is therefore not valid.
+
+* **Durbin-Watson Statistics**: 
 The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.
 
+* **Breusch–Godfrey test**: 
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-#### Homoscedasticity
+<ins>
+### Homoscedasticity
+</ins>
 </div>
-The test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is Heteroscedasticity.
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-#### Multi-collinearity: VIF
-</div>
+The test needs to be done on the model residauls. The variances of the sampling distribution of $\beta$ of the OLS is not correct when there is Heteroscedasticity. The t test for $\beta$ is therefore not valid.
+
+* **Breusch–Pagan test**: 
+For a linear equation
+$$y = \beta_0 + \beta_1x1+ \beta_2x2+...\beta_kxk + \epsilon$$
+then 
+  * $Var(u|x) = \sigma^2$ if homoskasdasticity
+  * $Var(u|x) = \sigma^2f(x)$ if heteroskasdasticity
+  
+  To test it, we regress the estimates of errors' squares $\hat{\epsilon}^2$ with the explanatory variables $x$:
+  $$\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k + e $$
+  Then we use **F-test** for hypothesis testing:
+  * The Null Hypothesis $H_0: a_1 = a_2 = ...a_k = 0$
+  * The Alternate Hyphthesis $H_1: a_i \neq 0$
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-#### Normality of the residuals
+<ins>
+### Multi-collinearity
+</ins>
+</div>
+When Multi-collinearity exists in the model, the model is not able to distinguish the effects of the variables and therefore the variables of the $\beta$ sampling distribution will be huge.  
+
+* **Model is significant but $\beta$s are not**:  
+  The usual symtom could be that the model is significant (p value small for F test) but non of the $\beta$s are significant because the model is not able to discern the effect of the variables.
+* **Correlation matrix**:  
+  In some case, it can also be observed in the correlation matrix of the explanatory. However, if one variable is closed to a linear combination of 2 or more other variables, it cannot be seen in the correlation matrix.
+* **Variance inflation factor (VIF)**:  
+  For each explanatory variable, regress it on all the other explanatory variables.Then calculate 
+  $$VIF_i = \frac{1}{1-R_i^2}$$  
+A high VIF indicates Multi-collinearity.
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Normality of the Residuals
+</ins>
 </div>
 
 

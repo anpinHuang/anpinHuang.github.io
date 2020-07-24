@@ -1,0 +1,142 @@
+---
+title: "Notes on Basel II & ASRF Model"
+---
+
+This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures: 
+
+* [An Explanatory Note on the Basel II IRB Risk Weight Functions](https://www.bis.org/bcbs/irbriskweight.pdf)
+* [Theory behind regulatory Capital Formulae](https://pdfs.semanticscholar.org/71e1/13295d22c5ba474cffa53baef822fb029d52.pdf)
+* [Basel III: Finalising post-crisis reforms](https://www.bis.org/bcbs/publ/d424.pdf)
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Basel Requirements
+</ins>
+</div>
+Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the **yearly (12-month)** loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires **through-the-cycle (TTC)** loss forecast over the next 12 months. **Portfolio-invariant** is required under the Basel rule.
+
+* **Expected Loss (EL)**: The expected value of the loss over the next 12 month
+* **Unexpected Loss (UL)**: Losses above the Expected Loss (EL)
+* **Value-at-Risk (VaR)**: EL + UL
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### The Merton's Model
+</ins>
+</div>
+The Merton's model leverage the **Black-Scholes** model used in option pricing. Similar to option pricing that the option's value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company's total assets and its total liabilities. The logic is that the loan defaults when the company's total assets cannot support its total liabilities. The evolution of the asset value $A$ is log-normmally distributed as the stock price in Black Scholes.
+
+Stochastic differential equation (SDE) of a firm's assets:
+$$dA = (\mu A )dt + \sigma AdW(t)$$
+
+Apply [**Ito's lemma**](ItoLemma.html) for $g(x) = ln(x)$:
+
+$$
+\begin{aligned}
+dg(A) &= d(ln(A))\\
+&= \frac{1}{A}dA + \frac{1}{2} \frac{-1}{A^2} (dA)^2 \\
+&= \mu dt + \sigma dW(t) - \frac{1}{2A^2} [(\mu A)^2(dt)^2 + 2(\mu A)dt\sigma AdW(t) + \sigma^2 (dW(t))^2] \\
+&= \mu dt + \sigma dW(t) - \frac{1}{2A^2} [0 + 0 + \sigma^2A^2dt]\\
+&= \mu dt + \sigma dW(t) - \frac{1}{2} \sigma^2dt\\
+&= (\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t) \\
+\end{aligned}
+$$
+
+$$ln(A_t) = ln(A_0) + \int_{0}^{t} (\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)$$
+
+$$
+\begin{aligned}
+A_t &= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
+&= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)t + \sigma \sqrt{t}X(t)} 
+\end{aligned}
+$$ 
+where $X_t \sim \mathcal{N}(0,1)$
+
+The probability of default (not risk-neutral, but physical world and therefore $\mu$ is used instead of $r$) can be expressed as
+
+$$
+\begin{aligned}
+\mathcal{P}[A_i(T)<L_i] &= \mathcal{P}[A_i(0) \cdot e^{(\mu_i - \frac{1}{2}\sigma_i^2)T + \sigma_i \sqrt{T}X_i(T)}<L_i]\\
+&= \mathcal{P}[X_i(T)<\frac{ln(L_i)-ln(A_i(0))-(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+&= \mathcal{P}[X_i(T)>\frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+&= 1-\mathcal{N}(d2) \\
+&= \mathcal{N}(-d2)
+\end{aligned}
+$$
+where $L_i$ is the total liabilities of company $i$, and 
+
+$$d_2 = \frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}$$
+
+Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Asymptotic Single Risk Factor (ASRF) model
+</ins>
+</div>
+The Merton's model can be extended to ASRF model, assuming the assets value any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
+
+The asset value of company $i$ is driven by a single factor $Z$ that represents the systemic credit risk. The idiosyncretic risk should already diversified.
+
+$$X_i = aZ+b \epsilon_i$$
+where both $Z$ and $\epsilon$ follow standard normal distribution and $Z$ is independent of $\epsilon$ and each of $\epsilon_i$ for $i=1,...,n$ is independent of each other
+
+To find $a$: 
+
+$$
+\begin{aligned}
+\rho = cor(X_i, X_j) &= \frac{Cov(X_i, X_j)}{\sigma_{X_i}\sigma_{X_j}} \\
+&= \frac{E[X_iX_j] - E[X_i]E[X_j]}{1\cdot 1} \\
+&= E[(aZ+b_i\epsilon_i)(aZ+b_j\epsilon_j)] - 0 \\
+&= E[a^2Z^2+ab_iZ\epsilon_i+ab_jZ\epsilon_j+b_ib_j\epsilon_i\epsilon_j] \\
+&= a^2E[Z^2] + ab_iE[Z]E[\epsilon_i] + ab_jE[Z]E[\epsilon_j] + b_ib_jE[\epsilon_i]E[\epsilon_j] \\
+&= a^2E[Z^2] + 0\\
+&= a^2(Var(Z)+E[Z]^2) = a^2
+\end{aligned}
+$$
+The parameter $a$ is then therefore $\sqrt{\rho}$.
+
+Then to find $b$: 
+
+$$
+\begin{aligned}
+Var(X_i) &= E[X_i^2] - E[X_i]^2 \\
+&= E[(aZ+b_i\epsilon_i)^2] - a^2 \\
+&= a^2E[Z^2] + 2abE[Z]E[\epsilon_i] + b_i^2E[\epsilon_i^2] \\
+&= a^2E[Z^2] +0+b_i^2 \\
+&= a^2+b^2 = \rho+b_i^2\\
+\end{aligned}
+$$
+Given that $Var(X_i) = 1$, we obtain that $b_i^2 = \sqrt{1-\rho}$. With $a = \sqrt{\rho}$ and $b_i = \sqrt{1-\rho}$ as shown in above, we can now write $X_i$ as: 
+
+
+$$X_i = \sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i$$
+
+The credit loss:
+
+$$L = I \cdot EAD \cdot LGD$$
+where $I$ is the indicator function of default.
+
+* $I=1$, when $X_i < N_A^{-1}(PD_i)$
+* $I=0$, otherwise 
+
+The conditional expected value of the default indicator given the systemic credit risk variable is:
+
+$$E[I_i|Z] = \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+
+Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:
+
+$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+
+Now we can calculate the value-at-risk (VaR) given a specified condifence level $\alpha$:
+
+$$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho} \mathcal{N}_Z^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
+In practice, 
+
+* The asset correlation $\rho$ can be calibrated by observing correlations in the market or from historical default data.
+* 
+
+
+
+
+
