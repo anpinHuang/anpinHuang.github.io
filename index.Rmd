@@ -4,7 +4,7 @@ title: "An-Pin Huang"
   
 The purpose of this website is to serve as notes for some of the topics that I find interesting and important from schools and from online sources. The subjects include:  
     
-  1. Econometrics  
-  2. Data Science & Machine Learning
-  3. Financial Mathematics (Stochastic Calculus) & Risk Management
-  4. Programming
+  1. [Econometrics](econometrics.html)  
+  2. [Data Science & Machine Learning](dataScienceML.html)  
+  3. [Financial Mathematics (Stochastic Calculus) & Risk Management](Finance.html)  
+  4. [Programming](Programming.html)

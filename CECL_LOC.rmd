@@ -6,7 +6,7 @@ title: "CECL for Line of Credit"
 ### CECL Requirements
 </div>
 
-Current Expected Credit Loss, or [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the allowance for loan loss and provisioning. Under CECL, the lending company is required to reserve the expected "lifetime" credit loss for the loan as early as when the loan is originated as opposed to the "incurred" loss under the old standard. The main ideas of the CECL are 
+Current Expected Credit Loss, or [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected "lifetime" credit loss for the loan as early as when the loan is originated as opposed to the "incurred" loss under the old standard. The main ideas of the CECL are 
 
 * Expected 
 * Lifetime

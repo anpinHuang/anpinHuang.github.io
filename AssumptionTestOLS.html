@@ -323,7 +323,11 @@ $(document).ready(function () {
 <h3 id="stationary-dickey-fuller-test">Stationary: Dickey-Fuller test</h3>
 </ins>
 </div>
-<p>The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for unit root: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span> Null Hypothesis: <span class="math display">\[H_0: \rho = 1\]</span> Alternative Hypothesis: <span class="math display">\[H_1: \rho &lt;1\]</span></p>
+<p>The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for <strong>Unit Root</strong>: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span></p>
+<ul>
+<li>Null Hypothesis: <span class="math inline">\(H_0: \rho = 1\)</span></li>
+<li>Alternative Hypothesis: <span class="math inline">\(H_1: \rho &lt;1\)</span></li>
+</ul>
 <p>The original equation can also be written as the equation below, so that by testing the significancy of <span class="math inline">\(y_{t-1}\)</span> (wheher <span class="math inline">\(\theta = 0\)</span>), we can conclude that whether the time series is unit root: <span class="math display">\[\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
 <p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.</p>
 <hr />
@@ -351,8 +355,8 @@ $(document).ready(function () {
 </ul>
 To test it, we regress the estimates of errors’ squares <span class="math inline">\(\hat{\epsilon}^2\)</span> with the explanatory variables <span class="math inline">\(x\)</span>: <span class="math display">\[\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k + e \]</span> Then we use <strong>F-test</strong> for hypothesis testing:
 <ul>
-<li>The Null Hypothesis <span class="math inline">\(H_0: a_1 = a_2 = ...a_k = 0\)</span></li>
-<li>The Alternate Hyphthesis <span class="math inline">\(H_1: a_i \neq 0\)</span></li>
+<li>Null Hypothesis <span class="math inline">\(H_0: a_1 = a_2 = ...a_k = 0\)</span></li>
+<li>Alternate Hyphthesis <span class="math inline">\(H_1: a_i \neq 0\)</span></li>
 </ul></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
@@ -375,6 +379,12 @@ A high VIF indicates Multi-collinearity.</li>
 <h3 id="normality-of-the-residuals">Normality of the Residuals</h3>
 </ins>
 </div>
+<p>Recall from <a href="deriveOLS.html">Derive OLS Estimaors in Matrix Form</a> we derive that <span class="math inline">\(\hat{\beta} = \beta+(X^{&#39;}X)^{-1}X^{&#39;} \epsilon\)</span>.</p>
+<ul>
+<li><strong>Quantile-quantile plot (QQ plot)</strong>:</li>
+<li><strong>Jarque–Bera test</strong>:</li>
+<li><strong>Kolmogorov–Smirnov test</strong>:</li>
+</ul>
 
 
 

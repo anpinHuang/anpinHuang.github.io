@@ -8,12 +8,11 @@ title: "OLS Assumptions Test"
 </ins>
 </div>
 The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
-Test for unit root:
+Test for **Unit Root**:
 $$y_t = \alpha + \rho y_{t-1} + \epsilon_t$$
-Null Hypothesis:
-$$H_0: \rho = 1$$
-Alternative Hypothesis:
-$$H_1: \rho <1$$
+ 
+ * Null Hypothesis: $H_0: \rho = 1$
+ * Alternative Hypothesis: $H_1: \rho <1$
 
 The original equation can also be written as the equation below, so that by testing the significancy of $y_{t-1}$ (wheher $\theta = 0$), we can conclude that whether the time series is unit root:
 $$\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t$$
@@ -52,8 +51,8 @@ then
   To test it, we regress the estimates of errors' squares $\hat{\epsilon}^2$ with the explanatory variables $x$:
   $$\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k + e $$
   Then we use **F-test** for hypothesis testing:
-  * The Null Hypothesis $H_0: a_1 = a_2 = ...a_k = 0$
-  * The Alternate Hyphthesis $H_1: a_i \neq 0$
+  * Null Hypothesis $H_0: a_1 = a_2 = ...a_k = 0$
+  * Alternate Hyphthesis $H_1: a_i \neq 0$
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
@@ -78,7 +77,12 @@ A high VIF indicates Multi-collinearity.
 </ins>
 </div>
 
+Recall from [Derive OLS Estimaors in Matrix Form](deriveOLS.html) we derive that $\hat{\beta} = \beta+(X^{'}X)^{-1}X^{'} \epsilon$. 
 
+* **Quantile-quantile plot (QQ plot)**:
+  This method is very intuitive. One can plot the normalized values of error for each quantile with the value of standard normal distribution of each quantile. We can get a sense of if there is strong non-normality in the errors by eyeballing it.
+* **Jarque–Bera test**:
+* **Kolmogorov–Smirnov test**:
 
 
 

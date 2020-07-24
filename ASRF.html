@@ -402,7 +402,16 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 &amp;= a^2+b^2 = \rho+b_i^2\\
 \end{aligned}
 \]</span> Given that <span class="math inline">\(Var(X_i) = 1\)</span>, we obtain that <span class="math inline">\(b_i^2 = \sqrt{1-\rho}\)</span>. With <span class="math inline">\(a = \sqrt{\rho}\)</span> and <span class="math inline">\(b_i = \sqrt{1-\rho}\)</span> as shown in above, we can now write <span class="math inline">\(X_i\)</span> as:</p>
-<p><span class="math display">\[X_i = \sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i\]</span></p>
+<p><span class="math display">\[X_i = \sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i\]</span> Now we want to derive the <strong>conditional default probability</strong> given the information of systematic credit risk <span class="math inline">\(Z\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathcal{P}(A_i(T)&lt;L_i) &amp;= \mathcal{P}(X_i(T)&lt;-d_2)\\
+&amp;=  \mathcal{P}(\sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i &lt; -d_2) \\
+&amp;=  \mathcal{P}(\epsilon_i &lt; \frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&amp;=  \mathcal{N}(\frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&amp;=  \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+\]</span> where <span class="math inline">\(PD_i^{*}\)</span> is the <strong>unconditionally default probability (PD)</strong>, or the through-the-cycle (TTC) PD and <span class="math inline">\(\mathcal{N}^{-1}(PD_i^{*})\)</span> is the thresold for default by taking the inverse of standard normal distribution.</p>
 <p>The credit loss:</p>
 <p><span class="math display">\[L = I \cdot EAD \cdot LGD\]</span> where <span class="math inline">\(I\)</span> is the indicator function of default.</p>
 <ul>
@@ -410,15 +419,20 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 <li><span class="math inline">\(I=0\)</span>, otherwise</li>
 </ul>
 <p>The conditional expected value of the default indicator given the systemic credit risk variable is:</p>
-<p><span class="math display">\[E[I_i|Z] = \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
+<p><span class="math display">\[E[I_i|Z] = \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
 <p>Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:</p>
-<p><span class="math display">\[E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
+<p><span class="math display">\[E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
 <p>Now we can calculate the value-at-risk (VaR) given a specified condifence level <span class="math inline">\(\alpha\)</span>:</p>
-<p><span class="math display">\[VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho} \mathcal{N}_Z^{-1}(1-\alpha)}{\sqrt{1-\rho}})\]</span> In practice,</p>
+<p><span class="math display">\[VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \mathcal{N}^{-1}(1-\alpha)}{\sqrt{1-\rho}})\]</span> In practice,</p>
 <ul>
 <li>The asset correlation <span class="math inline">\(\rho\)</span> can be calibrated by observing correlations in the market or from historical default data.</li>
-<li></li>
+<li>To derive <span class="math inline">\(PD_i^{*}\)</span> we need <span class="math inline">\(\mu\)</span> the instantenious expected rate of return of the asset value of company <span class="math inline">\(i\)</span></li>
 </ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="portfolio-invariance">Portfolio Invariance</h3>
+</ins>
+</div>
 
 
 

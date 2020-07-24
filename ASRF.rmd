@@ -111,6 +111,19 @@ Given that $Var(X_i) = 1$, we obtain that $b_i^2 = \sqrt{1-\rho}$. With $a = \sq
 
 
 $$X_i = \sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i$$
+Now we want to derive the **conditional default probability** given the information of systematic credit risk $Z$. 
+
+$$
+\begin{aligned}
+\mathcal{P}(A_i(T)<L_i) &= \mathcal{P}(X_i(T)<-d_2)\\
+&=  \mathcal{P}(\sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i < -d_2) \\
+&=  \mathcal{P}(\epsilon_i < \frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&=  \mathcal{N}(\frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&=  \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+$$
+where $PD_i^{*}$ is the **unconditionally default probability (PD)**, or the through-the-cycle (TTC) PD and $\mathcal{N}^{-1}(PD_i^{*})$ is the thresold for default by taking the inverse of standard normal distribution.
+
 
 The credit loss:
 
@@ -122,21 +135,25 @@ where $I$ is the indicator function of default.
 
 The conditional expected value of the default indicator given the systemic credit risk variable is:
 
-$$E[I_i|Z] = \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[I_i|Z] = \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:
 
-$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Now we can calculate the value-at-risk (VaR) given a specified condifence level $\alpha$:
 
-$$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}_{\epsilon}(\frac{\mathcal{N}_A^{-1}(PD_i)-\sqrt{\rho} \mathcal{N}_Z^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
+$$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \mathcal{N}^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
 In practice, 
 
 * The asset correlation $\rho$ can be calibrated by observing correlations in the market or from historical default data.
-* 
+* To derive $PD_i^{*}$ we need $\mu$ the instantenious expected rate of return of the asset value of company $i$
 
 
-
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Portfolio Invariance
+</ins>
+</div>
 
 

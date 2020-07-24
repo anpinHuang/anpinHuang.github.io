@@ -3,3 +3,40 @@ title: "Ito's Lemma & Stochastic Calculus"
 ---
 
 
+Recall that the **Chain Rule** for non-stochastic functions $h(x) = f(g(x))$:
+
+$$h'(x) = f'(g(x))g'(x)$$
+
+where $f$ and $g$ are differentiable. It can also be expressed as 
+
+$$\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}$$
+where $y$ is a function of $x$ and $z$ is a function of $y$.
+
+Extended to integral:
+
+$$\int_a^bf(g(x))g'(x)dx = \int_{g(a)}^{g(b)} f(u)du = \int_a^bf(g(x))dg(x)$$
+where $u = g(x)$
+
+However, all of the above only works when function $g$ is differentiable. In a case where $g(t) = W(t)$ which is a Brownian motion, a non-differentiable function, we can't use the Chain Rule as described but we need a rule. 
+
+Luckily **Taylor's Expansion** come to save us. The Taylor's Expansion is:
+
+$$
+\begin{aligned}
+d(f(g(t))) &= f(g(t)+dg(t)) - f(g(t)) \\
+&= f'(g(t))dg(t) + \frac{1}{2}f^{(2)}(g(t)) \cdot [dg(t)]^2 + ..\frac{1}{k!}f^{(k)}(g(t)) \cdot [dg(t)]^k _ ...
+\end{aligned}
+$$
+
+Plug in $g(t) = W(t)$ and ignoring the higher order terms ($k>=3$), then we can get the **Ito's Lemma**:
+
+$$
+\begin{aligned}df(W(t)) &= f(W(t)+dW(t)) - f(W(t)) \\
+&= f'(W(t))dW(t) + \frac{1}{2} f^{(2)}(W(t))[dW(t)]^2\\
+&= f'(W(t))dW(t) + \frac{1}{2} f^{(2)}(W(t))dt \\
+\end{aligned}
+$$
+
+The 3rd step is an important property of the Wiener process and will be shown in the following paragraphs.
+
+
