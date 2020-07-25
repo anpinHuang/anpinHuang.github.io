@@ -79,4 +79,4 @@ $$
 \end{aligned}
 $$
 
-By taking the derivative, we can derive that $dW_t = dt$
+By taking the derivative, we can derive that $(dW_t)^2 = dt$
