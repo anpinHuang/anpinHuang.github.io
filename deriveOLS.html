@@ -296,7 +296,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -364,14 +364,18 @@ e^{\prime} e &amp;=  (y-x\hat{\beta})^{\prime}(y-x\hat{\beta}) \\
  \end{aligned}
  \]</span>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="unbiasedness">Unbiasedness</h3>
+</ins>
 </div>
 <p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x^{\prime} x)^{-1}x^{\prime} \epsilon]\]</span></p>
 <p>If <span class="math inline">\(E[\epsilon] =0\)</span> and <span class="math inline">\(E[\epsilon | x] = 0\)</span>, then <span class="math inline">\(E[(x^{\prime} x)^{-1}x^{\prime} \epsilon] = 0\)</span> and <span class="math inline">\(E[ \hat{\beta}] = \beta\)</span>.<br />
 <strong><span class="math inline">\(\Rightarrow \hat{\beta}\)</span> is an unbiased estimator.</strong></p>
 <hr />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="variance-of-the-ols-estimator">Variance of the OLS estimator</h3>
+</ins>
 </div>
 <p>recall the formula for variance <span class="math display">\[Var(A) = E[\,(A-E[A])\, (A-E[A])^{\prime}]\]</span> and the OLS estimator we just derived <span class="math display">\[\hat\beta_{OLS} = \beta + (x^{\prime} x)^{-1}x^{\prime}  \epsilon\]</span> and if the OLS estimator is an unbiased estimator <span class="math display">\[E[\hat\beta_{OLS}] = \beta\]</span> Then <span class="math display">\[
 \begin{aligned}
@@ -387,7 +391,9 @@ Var(\hat\beta_{OLS}) &amp;=(x^{\prime} x)^{-1}x^{\prime} \,\, E[\epsilon\epsilon
 <p>Then we estimate the <span class="math inline">\(\sigma^2\)</span> by <span class="math display">\[s^2= \frac{e^{\prime} e}{T-K} \]</span> where <span class="math inline">\(K\)</span> is the number of explanatory variables</p>
 <p>Therefore, our estimate of variance of <span class="math inline">\(\hat\beta_{OLS}\)</span> becomes <span class="math display">\[s^2(X^{\prime} X)^{-1}\]</span> Then the distribution of <span class="math inline">\(\hat\beta_{OLS}\)</span> becomes a t-distribution with <span class="math inline">\(T-K\)</span> degree of freedoms with <span class="math inline">\(mean = \beta\)</span> and <span class="math inline">\(variance = s^2(X^{^{\prime}} X)^{-1}\)</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="distribution-of-hatbeta_ols">Distribution of <span class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
+</ins>
 </div>
 <p>With the expected value and variance estimated in the above sections, we still need to know the sampling distribution of <span class="math inline">\(\hat{\beta}_{OLS}\)</span> to perform the significant test</p>
 <ul>
@@ -433,7 +439,9 @@ yfit_density &lt;- dnorm(xfit, mean=s_mean,sd=s_sd)
 lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 <img src="deriveOLS_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="significance-test-for-beta-and-their-confidence-interval">Significance test for <span class="math inline">\(\beta\)</span> and their confidence interval</h3>
+</ins>
 </div>
 <p>The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.</p>
 <p><strong>The t statistics:</strong> <span class="math display">\[t = \frac{\bar{X}-\mu}{\hat{\sigma}/\sqrt{n}}\]</span> where <span class="math inline">\(\mu\)</span> is the population mean, <span class="math inline">\(\hat{\sigma}\)</span> is the estimate of the standard deviation of the population. The t statistics follows <strong>Student t distribution</strong>. (Derived from <span class="math inline">\(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span> follows normal distribution by the central limit theorem, but the standard deviation of the population is an estimation from the sample in t statistics)</p>
@@ -442,7 +450,9 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 <li><p>The confidence interval is an interval with the sample mean at the center and the confidence limit stretched from the sample mean.</p></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="f-test-for-the-overall-model">F Test for the overall model</h3>
+</ins>
 </div>
 <p><span class="math display">\[ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon\]</span></p>
 <p><span class="math display">\[H_0: \beta_1=\beta_2 = ...= \beta_p = 0\]</span> <span class="math display">\[H_1: \beta_i \neq 0\]</span> Sum of Squared Residuals of the Unrestricted model (the above equation): <span class="math display">\[SSR_U = \sum_{i=1}^n e_U^2\]</span> where <span class="math inline">\(e_R\)</span> is the estimate of <span class="math inline">\(\epsilon\)</span> by the unrestricted model</p>

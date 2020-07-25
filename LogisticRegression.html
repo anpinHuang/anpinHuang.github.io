@@ -296,7 +296,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -344,7 +344,9 @@ plot(t, sigmoid_t, col=&quot;blue&quot;, lwd=2,type=&#39;l&#39;)</code></pre>
 <p>or more explicitly,</p>
 <p><span class="math display">\[\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="cost-function">Cost Function</h3>
+</ins>
 </div>
 <p>singel training instance cost function: <span class="math display">\[
 c(\beta_0, \beta) =
@@ -353,12 +355,14 @@ c(\beta_0, \beta) =
     -log(1-\hat p)  &amp; \quad \text{if } y=0
   \end{cases}
 \]</span> logistic regression cost function: <span class="math display">\[l(\beta_0, \beta) = -\frac{1}{n}\sum_{i=1}^{n}[y_ilog(\hat p)+(1-y_i)log(1-\hat p)]\]</span> It’s similar to the log likelihood function, where we can define the likelihood function as:</p>
-<p><span class="math display">\[ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})\]</span> then <strong>log-likelihood function</strong> is then:</p>
+<p><span class="math display">\[ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})\]</span> then <strong>log-likelihood function</strong> is:</p>
 <p><span class="math display">\[l(\beta_0, \beta) = \sum_{i=1}^{n}y_i(log(p(x_i)))+(1-y_i)log(1-p(x_i)) \]</span></p>
 <p>The estimation can either done by minimize the cost function or maximize the log-likelihood function</p>
 <p>logistic cost function partial derivatives: <span class="math display">\[\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma(\theta^T x^{(i)}-y^{(i)}))x_j^{(i)}\]</span> The logistic regression does not have analytical solution, it must be solved numerically.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="goodness-of-fit">Goodness of Fit</h3>
+</ins>
 </div>
 <p>We discuss one of the ways to measure the goodness of fit.</p>
 <p><strong>McFadden’s psuedo <span class="math inline">\(R^2\)</span></strong></p>
@@ -378,7 +382,9 @@ c(\beta_0, \beta) =
 <p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(Saturated \ Model)=0\)</span>.</p>
 <p>The glm function in R for logistic regression returns residual deviance and null deviance which can be used for calculating the McFadden’s psuedo <span class="math inline">\(R^2\)</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="information-value-iv-and-weight-of-evidence">Information Value (IV) and Weight of Evidence</h3>
+</ins>
 </div>
 <p><strong>Weight of evidence (WOE):</strong> <span class="math display">\[WOE = ln(\frac{\% \ of \ non-event}{\% \ of \ event})\]</span></p>
 <p>Steps:</p>

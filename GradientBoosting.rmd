@@ -44,7 +44,7 @@ $j=1...J_m$ compute
 $\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)$
     This can be solved analytically. The $\gamma$ would be the average of the residual in the leaf.
 
-    * Make new predictions - update 
+    * Make new predictions: update 
 $F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$
 
 

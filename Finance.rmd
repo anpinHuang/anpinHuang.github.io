@@ -1,5 +1,5 @@
 ---
-title: "Finance & Risk"
+title: "Financial Mathematics & Risk"
 ---
 
 * [CECL for Line of Credit](CECL_LOC.html) 

@@ -63,7 +63,9 @@ $$
  \end{aligned}
  $$
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Unbiasedness
+</ins>
 </div>
 
 $$ E[ \hat{\beta}] = \beta + E[(x^{\prime} x)^{-1}x^{\prime} \epsilon]$$
@@ -73,7 +75,9 @@ If $E[\epsilon] =0$ and $E[\epsilon | x] = 0$, then $E[(x^{\prime} x)^{-1}x^{\pr
 
 ********
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Variance of the OLS estimator
+</ins>
 </div>
 recall the formula for variance
 $$Var(A) = E[\,(A-E[A])\, (A-E[A])^{\prime}]$$
@@ -106,7 +110,9 @@ $$s^2(X^{\prime} X)^{-1}$$
 Then the distribution of $\hat\beta_{OLS}$ becomes a t-distribution with $T-K$ degree of freedoms with $mean = \beta$ and $variance = s^2(X^{^{\prime}} X)^{-1}$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Distribution of $\hat{\beta}_{OLS}$
+</ins>
 </div>
 With the expected value and variance estimated in the above sections, we still need to know the sampling distribution of $\hat{\beta}_{OLS}$ to perform the significant test
 
@@ -154,7 +160,9 @@ yfit_density <- dnorm(xfit, mean=s_mean,sd=s_sd)
 lines(xfit, yfit_density, col="blue", lwd=2)
 ```
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Significance test for $\beta$ and their confidence interval 
+</ins>
 </div>
 
 The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.
@@ -168,7 +176,9 @@ where $\mu$ is the population mean, $\hat{\sigma}$ is the estimate of the standa
 * The confidence interval is an interval with the sample mean at the center and the confidence limit stretched from the sample mean.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### F Test for the overall model
+</ins>
 </div>
 
 $$ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon$$

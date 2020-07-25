@@ -296,7 +296,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance &amp; Risk</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -318,8 +318,18 @@ $(document).ready(function () {
 </div>
 
 
-<p>Recall that the <strong>Chain Rule</strong> for non-stochastic functions <span class="math inline">\(h(x) = f(g(x))\)</span>:</p>
-<p><span class="math display">\[h&#39;(x) = f&#39;(g(x))g&#39;(x)\]</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="derive-itos-lemma">Derive Ito’s Lemma</h3>
+</ins>
+</div>
+<p>Recall that the <strong>Chain Rule</strong> for non-stochastic functions:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{d}{dx}f(g(x)) &amp;= f&#39;(g(x))g&#39;(x) \\
+&amp;= f&#39;(g(x))dg(x)
+\end{aligned}
+\]</span></p>
 <p>where <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are differentiable. It can also be expressed as</p>
 <p><span class="math display">\[\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}\]</span> where <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> is a function of <span class="math inline">\(y\)</span>.</p>
 <p>Extended to integral:</p>
@@ -329,7 +339,7 @@ $(document).ready(function () {
 <p><span class="math display">\[
 \begin{aligned}
 d(f(g(t))) &amp;= f(g(t)+dg(t)) - f(g(t)) \\
-&amp;= f&#39;(g(t))dg(t) + \frac{1}{2}f^{(2)}(g(t)) \cdot [dg(t)]^2 + ..\frac{1}{k!}f^{(k)}(g(t)) \cdot [dg(t)]^k _ ...
+&amp;= f&#39;(g(t))dg(t) + \frac{1}{2}f^{(2)}(g(t)) \cdot [dg(t)]^2 + ..\frac{1}{k!}f^{(k)}(g(t)) \cdot [dg(t)]^k + ...
 \end{aligned}
 \]</span></p>
 <p>Plug in <span class="math inline">\(g(t) = W(t)\)</span> and ignoring the higher order terms (<span class="math inline">\(k&gt;=3\)</span>), then we can get the <strong>Ito’s Lemma</strong>:</p>
@@ -339,7 +349,29 @@ d(f(g(t))) &amp;= f(g(t)+dg(t)) - f(g(t)) \\
 &amp;= f&#39;(W(t))dW(t) + \frac{1}{2} f^{(2)}(W(t))dt \\
 \end{aligned}
 \]</span></p>
-<p>The 3rd step is an important property of the Wiener process and will be shown in the following paragraphs.</p>
+<p>The 3rd step is an important property of the Wiener process and will be shown in the following paragraph.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="wiener-process">Wiener Process</h3>
+</ins>
+</div>
+<p>Properties of Wiener Process:</p>
+<ul>
+<li><span class="math inline">\(W_0 = 0\)</span></li>
+<li><span class="math inline">\(W_n = W_0 + \sum_{t=1}^n \Delta W_t\)</span></li>
+<li>Increments <span class="math inline">\(\Delta W_t\)</span> are i.i.d. and <span class="math inline">\(W_t-W_s \sim \mathcal{N}(0,t-s)\)</span> where <span class="math inline">\(t-s\)</span> is the variance</li>
+</ul>
+<p>Given that <span class="math inline">\(t_0 = 0 &lt; t_1 &lt; t_2 &lt; ...t_n = t\)</span> and <span class="math inline">\(t_{i}-t_{i-1} = \frac{t}{n}\)</span> and <span class="math inline">\(n \to \infty\)</span> then <span class="math display">\[W_{t_i}-W_{t_{i-1}} \sim \mathcal{N}(0,\frac{t}{n})\]</span></p>
+<p><span class="math display">\[\int_0^tdW_{t_i} = \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\int_0^t(dW_s)^2 &amp;= \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})^2 \\
+&amp; \to n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
+&amp;= n \cdot Var(W_{t_i}-W_{t_{i-1}}) \\
+&amp;= n \cdot \frac{t}{n} = t\\
+\end{aligned}
+\]</span></p>
+<p>By taking the derivative, we can derive that <span class="math inline">\(dW_t = dt\)</span></p>
 
 
 

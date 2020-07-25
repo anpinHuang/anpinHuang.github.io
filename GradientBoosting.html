@@ -296,7 +296,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -344,8 +344,8 @@ $(document).ready(function () {
 <ul>
 <li><p>Compute <span class="math inline">\(r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\)</span></p></li>
 <li><p>Fit a regression tree to the <span class="math inline">\(r_{i,m}\)</span> values and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span></p></li>
-<li><p>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)\)</span></p></li>
-<li><p>Make new predictions - update <span class="math inline">\(F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})\)</span></p></li>
+<li><p>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)\)</span> This can be solved analytically. The <span class="math inline">\(\gamma\)</span> would be the average of the residual in the leaf.</p></li>
+<li><p>Make new predictions: update <span class="math inline">\(F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})\)</span></p></li>
 </ul></li>
 </ol>
 </div>

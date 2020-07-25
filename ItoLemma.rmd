@@ -2,10 +2,22 @@
 title: "Ito's Lemma & Stochastic Calculus"
 ---
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Derive Ito's Lemma
+</ins>
+</div>
+Recall that the **Chain Rule** for non-stochastic functions:
 
-Recall that the **Chain Rule** for non-stochastic functions $h(x) = f(g(x))$:
+$$
+\begin{aligned}
+\frac{d}{dx}f(g(x)) &= f'(g(x))g'(x) \\
+&= f'(g(x))dg(x)
+\end{aligned}
+$$
 
-$$h'(x) = f'(g(x))g'(x)$$
+
+
 
 where $f$ and $g$ are differentiable. It can also be expressed as 
 
@@ -24,7 +36,7 @@ Luckily **Taylor's Expansion** come to save us. The Taylor's Expansion is:
 $$
 \begin{aligned}
 d(f(g(t))) &= f(g(t)+dg(t)) - f(g(t)) \\
-&= f'(g(t))dg(t) + \frac{1}{2}f^{(2)}(g(t)) \cdot [dg(t)]^2 + ..\frac{1}{k!}f^{(k)}(g(t)) \cdot [dg(t)]^k _ ...
+&= f'(g(t))dg(t) + \frac{1}{2}f^{(2)}(g(t)) \cdot [dg(t)]^2 + ..\frac{1}{k!}f^{(k)}(g(t)) \cdot [dg(t)]^k + ...
 \end{aligned}
 $$
 
@@ -37,6 +49,34 @@ $$
 \end{aligned}
 $$
 
-The 3rd step is an important property of the Wiener process and will be shown in the following paragraphs.
+The 3rd step is an important property of the Wiener process and will be shown in the following paragraph.
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Wiener Process
+</ins>
+</div>
+
+Properties of Wiener Process:
+
+* $W_0 = 0$
+* $W_n = W_0 + \sum_{t=1}^n \Delta W_t$
+* Increments $\Delta W_t$ are i.i.d. and $W_t-W_s \sim \mathcal{N}(0,t-s)$ where $t-s$ is the variance
+
+Given that $t_0 = 0 < t_1 < t_2 < ...t_n = t$ and $t_{i}-t_{i-1} = \frac{t}{n}$ and $n \to \infty$
+then
+$$W_{t_i}-W_{t_{i-1}} \sim \mathcal{N}(0,\frac{t}{n})$$
+
+$$\int_0^tdW_{t_i} = \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})$$
 
 
+$$
+\begin{aligned}
+\int_0^t(dW_s)^2 &= \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})^2 \\
+& \to n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
+&= n \cdot Var(W_{t_i}-W_{t_{i-1}}) \\
+&= n \cdot \frac{t}{n} = t\\
+\end{aligned}
+$$
+
+By taking the derivative, we can derive that $dW_t = dt$

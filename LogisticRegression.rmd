@@ -45,7 +45,9 @@ or more explicitly,
 $$\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}$$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Cost Function
+</ins>
 </div>
 
 
@@ -62,7 +64,7 @@ $$l(\beta_0, \beta) = -\frac{1}{n}\sum_{i=1}^{n}[y_ilog(\hat p)+(1-y_i)log(1-\ha
 It's similar to the log likelihood function, where we can define the likelihood function as: 
 
 $$ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})$$
-then **log-likelihood function** is then:
+then **log-likelihood function** is:
 
 $$l(\beta_0, \beta) = \sum_{i=1}^{n}y_i(log(p(x_i)))+(1-y_i)log(1-p(x_i)) $$
 
@@ -73,7 +75,9 @@ $$\frac{\partial}{\partial \theta_j}l(\theta) = \frac{1}{n}\sum_{i=1}^{n}(\sigma
 The logistic regression does not have analytical solution, it must be solved numerically.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Goodness of Fit
+</ins>
 </div>
 
 
@@ -115,7 +119,9 @@ Logistic regression is a special case where we can ingnore the saturated model w
 The glm function in R for logistic regression returns residual deviance and null deviance which can be used for calculating the McFadden's psuedo $R^2$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Information Value (IV) and Weight of Evidence
+</ins>
 </div>
 
 **Weight of evidence (WOE):**
