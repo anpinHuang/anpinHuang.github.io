@@ -73,7 +73,7 @@ $$\int_0^tdW_{t_i} = \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})$$
 $$
 \begin{aligned}
 \int_0^t(dW_s)^2 &= \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})^2 \\
-& \to n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
+& \overrightarrow{n \to \infty} \ \ n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
 &= n \cdot Var(W_{t_i}-W_{t_{i-1}}) \\
 &= n \cdot \frac{t}{n} = t\\
 \end{aligned}

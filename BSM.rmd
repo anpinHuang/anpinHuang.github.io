@@ -2,3 +2,135 @@
 title: "Derive Black-Scholes Model"
 ---
 
+In this page we derive the famous Black-Scholes Model for European option pricing.
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Geometric Brownian Motion
+</ins>
+</div>
+
+Assuming the stock price follows geometric brownian motion and the SDE is:
+$$dS_t = \mu S_t dt + \sigma S_t dW_t$$
+and $g(x) = ln(x)$
+Apply the Ito's formula:
+
+$$
+\begin{aligned}
+dg(S_t) &= d(ln(S_t)) \\
+&= \frac{1}{S_t}dS_t + \frac{1}{2} \cdot (-1) \cdot \frac{1}{S_t^2} \sigma^2 S_t^2dt \\
+&= \frac{1}{S_t}(\mu S_t dt + \sigma S_t dW_t) - \frac{1}{2} \sigma^2dt \\
+&= (\mu-\frac{1}{2} \sigma^2) dt + \sigma dW_t
+\end{aligned}
+$$
+Take the integral, then we get the stock price $S_t$ at time $t$:
+
+$$S_t = S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t + \sigma W_t}$$
+
+**Expected value of $S_t$**: 
+
+$$
+\begin{aligned}
+E[S_t] &= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t } \cdot E[e^{\sigma W_t}] \\
+&= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t} \cdot e^{\frac{\sigma^2 t}{2}} \\
+&= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t+\frac{1}{2}\sigma^2 t} \\
+&= S_0 \cdot e^{\mu t} \\
+\end{aligned}
+$$
+We haven't proved that $E[e^{\sigma W_t}]$ yet. Let's derive $E[e^{W_t}]$ fisrt:
+
+$$
+\begin{aligned}
+E[e^{W_t}] &= \int e^x \cdot \frac{1}{\sigma_w\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-\mu}{\sigma_w})^2} dx\\
+&= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{x-\frac{1}{2}(\frac{x}{\sqrt{t}})^2} dx \\
+&= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-x-\frac{x^2}{2t}} dx\\
+&= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{2xt+x^2}{2t}} dx\\
+&= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{x^2+2xt+t^2}{2t}+\frac{t^2}{2t}} dx\\
+&= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2+\frac{t}{2}}  dx \\
+&= e^{\frac{t}{2}} \cdot \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2} dx  \\
+&= e^{\frac{t}{2}} \\
+\end{aligned}
+$$
+We can then extend to that $E[e^{\sigma W_t}] = e^{\frac{\sigma^2 t}{2}}$ by replacing $\sigma_w = \sqrt{t}$ with $\sigma_w = \sigma \sqrt{t}$
+
+
+Geometric Brownian Motion means that the log of stock return follows normal distribution.
+
+
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Risk Neutral Measure & Girsanov's Theorem
+</ins>
+</div>
+
+
+
+
+$$
+\begin{aligned}
+C &= E_Q[e^{-rT}(S_T-K)^+] \\
+&= E_Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
+&= \text{1st term} - \text{2nd term}
+\end{aligned}
+$$
+
+We will tackle the 1st term and 2nd term individually.
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### The 1st Term
+</ins>
+</div>
+
+$$
+\begin{aligned}
+E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] &= E^Q[e^{-rT}S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}\cdot I_{\{S_T-K\}}]\\
+&= S_0 \cdot E_Q[e^{-\frac{1}{2}\sigma T+\sigma W_T^Q} I_{\{S_T-K\}}]\\
+\end{aligned}
+$$
+Now we have to change the measure again using the Girsanov's Theorem . Define:
+
+$$\frac{dQ^s}{dQ} = Z_t = e^{-\frac{1}{2}\sigma T+\sigma W_T^Q}$$
+Then we can continue as 
+$$
+\begin{aligned}
+S_0 \cdot E^Q[e^{-\frac{1}{2}\sigma T+\sigma W_T} I_{\{S_T-K\}}] &= S_0 \cdot E^Q[\frac{dQ^s}{dQ} \cdot  I_{\{S_T-K\}}]\\
+&= S_0 \cdot E^{Q^s}[I_{\{S_T-K\}}] \\
+&= S_0 \cdot Q^s[S_T>K] \\
+&= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}>K] \\
+&= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma(W_T^{Q^s}+\sigma T)}>K] \\
+&= S_0 \cdot Q^s[S_0 \cdot e^{(r+\frac{1}{2}\sigma^2)T+\sigma W_T^{Q^s}}>K] \\
+&= S_0 \cdot Q^s[W_T^{Q^s}> \frac{ln(K/S_0)-(r+\frac{1}{2}\sigma^2)T}{\sigma}] \\
+&= S_0 \cdot Q^s[\epsilon<\frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
+&= S_0 \cdot \Phi(d_1)
+\end{aligned}
+$$
+
+Where 
+
+$$d_1 = \frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}$$
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### The 2nd Term
+</ins>
+</div>
+
+THe derivation of the 2nd term is always under $Q$ measure. i.e. $E[x] = E^Q[x]$ and $W_T = W^Q_T$
+
+$$
+\begin{aligned}
+E[e^{-rT}K \cdot I_{\{S_T-K\}}] &= e^{-rT} \cdot K \cdot Q[S_T>K]\\
+&= e^{-rT} \cdot Q[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T + \sigma W_T}>K] \\
+&= e^{-rT} \cdot Q[\epsilon>\frac{ln(K/S_0)-(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
+&=  e^{-rT} \cdot Q[\epsilon<\frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
+&= e^{-rT} \cdot K \cdot \Phi(d_2)
+\end{aligned}
+$$
+
+Where 
+$$d_2 = \frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}$$
+
