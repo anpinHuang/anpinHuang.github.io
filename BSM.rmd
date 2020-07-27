@@ -37,7 +37,7 @@ E[S_t] &= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t } \cdot E[e^{\sigma W_t}] \\
 &= S_0 \cdot e^{\mu t} \\
 \end{aligned}
 $$
-We haven't proved that $E[e^{\sigma W_t}]$ yet. Let's derive $E[e^{W_t}]$ fisrt:
+We haven't proved that $E[e^{\sigma W_t}] = e^{\frac{1}{2}\sigma^2t}$ yet. Let's derive $E[e^{W_t}] = e^{\frac{1}{2}t}$ fisrt:
 
 $$
 \begin{aligned}

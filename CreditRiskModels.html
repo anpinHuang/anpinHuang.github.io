@@ -11,7 +11,7 @@
 
 
 
-<title>Derive Black-Scholes Model</title>
+<title>Credit Risk Models Comparison</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,104 +313,56 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Derive Black-Scholes Model</h1>
+<h1 class="title toc-ignore">Credit Risk Models Comparison</h1>
 
 </div>
 
 
-<p>In this page we derive the famous Black-Scholes Model for European option pricing.</p>
+<p>This page is for comparison of different credit risk models that used for Allowance for loan and lease losses (ALLL) purposes and if they can also be used for other regulatory purposes.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="geometric-brownian-motion">Geometric Brownian Motion</h3>
-</ins>
+<h3 id="roll-rate-model">Roll Rate Model</h3>
 </div>
-<p>Assuming the stock price follows geometric brownian motion and the SDE is: <span class="math display">\[dS_t = \mu S_t dt + \sigma S_t dW_t\]</span> and <span class="math inline">\(g(x) = ln(x)\)</span> Apply the Ito’s formula:</p>
-<p><span class="math display">\[
-\begin{aligned}
-dg(S_t) &amp;= d(ln(S_t)) \\
-&amp;= \frac{1}{S_t}dS_t + \frac{1}{2} \cdot (-1) \cdot \frac{1}{S_t^2} \sigma^2 S_t^2dt \\
-&amp;= \frac{1}{S_t}(\mu S_t dt + \sigma S_t dW_t) - \frac{1}{2} \sigma^2dt \\
-&amp;= (\mu-\frac{1}{2} \sigma^2) dt + \sigma dW_t
-\end{aligned}
-\]</span> Take the integral, then we get the stock price <span class="math inline">\(S_t\)</span> at time <span class="math inline">\(t\)</span>:</p>
-<p><span class="math display">\[S_t = S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t + \sigma W_t}\]</span></p>
-<p><strong>Expected value of <span class="math inline">\(S_t\)</span></strong>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-E[S_t] &amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t } \cdot E[e^{\sigma W_t}] \\
-&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t} \cdot e^{\frac{\sigma^2 t}{2}} \\
-&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t+\frac{1}{2}\sigma^2 t} \\
-&amp;= S_0 \cdot e^{\mu t} \\
-\end{aligned}
-\]</span> We haven’t proved that <span class="math inline">\(E[e^{\sigma W_t}] = e^{\frac{1}{2}\sigma^2t}\)</span> yet. Let’s derive <span class="math inline">\(E[e^{W_t}] = e^{\frac{1}{2}t}\)</span> fisrt:</p>
-<p><span class="math display">\[
-\begin{aligned}
-E[e^{W_t}] &amp;= \int e^x \cdot \frac{1}{\sigma_w\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-\mu}{\sigma_w})^2} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{x-\frac{1}{2}(\frac{x}{\sqrt{t}})^2} dx \\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-x-\frac{x^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{2xt+x^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{x^2+2xt+t^2}{2t}+\frac{t^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2+\frac{t}{2}}  dx \\
-&amp;= e^{\frac{t}{2}} \cdot \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2} dx  \\
-&amp;= e^{\frac{t}{2}} \\
-\end{aligned}
-\]</span> We can then extend to that <span class="math inline">\(E[e^{\sigma W_t}] = e^{\frac{\sigma^2 t}{2}}\)</span> by replacing <span class="math inline">\(\sigma_w = \sqrt{t}\)</span> with <span class="math inline">\(\sigma_w = \sigma \sqrt{t}\)</span></p>
-<p>Geometric Brownian Motion means that the log of stock return follows normal distribution.</p>
+<p>Pros:</p>
+<ul>
+<li>Can see the evolution of the balance rolling for 1 bucket to the next which can be useful for understanding how the delinquency rate will move in the forecast.</li>
+<li>The calibration can be very straight-forward.</li>
+<li>The model forecast the loss rate directly, so there is no need to build separate models for PD and EAD.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Not easy to incorporate economic indicators into the model, which is required in the new CECL, IFRS 9, and CCAR regulation.</li>
+<li>The pros is also it’s cons. The model does not segregate the loss to PD and EAD. For IFRS 9, it is not desirable since to measure if there is “increase in lifetime default risk”, one needs to know the PD instead of the loss rate.</li>
+<li>The property of the transition matrix is memoryless. The DPD state information already contains all the information. How the balance changed before it become the current DPD state is irrelevant. This might not be true, since intuitively, a balance that is cured from 60+ to 30+ should be different from a balance that went from current to 30+.</li>
+<li>Needs segregation of product charastistics and risk. There might be a lot of transition matrics needed to be calibrated and there might not be enough data.</li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="risk-neutral-measure-girsanovs-theorem">Risk Neutral Measure &amp; Girsanov’s Theorem</h3>
-</ins>
+<h3 id="cox-proportional-hazard-rate-model">Cox Proportional Hazard Rate Model</h3>
 </div>
-<p><span class="math display">\[
-\begin{aligned}
-C &amp;= E_Q[e^{-rT}(S_T-K)^+] \\
-&amp;= E_Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
-&amp;= \text{1st term} - \text{2nd term}
-\end{aligned}
-\]</span></p>
-<p>We will tackle the 1st term and 2nd term individually.</p>
+<p>Pros:</p>
+<ul>
+<li>The model gives the whole PD curve as a function of age so it’s easy to get the 12-month PD and lifetime PD which is an advantage for IFRS 9.</li>
+<li>Survival model is widely used not only in Finance but also other medical research area.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>The survival model is just the PD model. EAD model has to be built separately.</li>
+<li>The assumption of constant hazard ratio (such that the shape of the curve should be similar when changing explanatory variables) is likely to be breached if the left censor point is the reporting date and day past due is one of the explanatory variable. It should work better for forecasting at the origination date.</li>
+<li>Difficult to incorporate economic indicator.</li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="the-1st-term">The 1st Term</h3>
-</ins>
+<h3 id="discrete-time-survival-model">Discrete Time Survival Model</h3>
 </div>
-<p><span class="math display">\[
-\begin{aligned}
-E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] &amp;= E^Q[e^{-rT}S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}\cdot I_{\{S_T-K\}}]\\
-&amp;= S_0 \cdot E_Q[e^{-\frac{1}{2}\sigma T+\sigma W_T^Q} I_{\{S_T-K\}}]\\
-\end{aligned}
-\]</span> Now we have to change the measure again using the Girsanov’s Theorem . Define:</p>
-<p><span class="math display">\[\frac{dQ^s}{dQ} = Z_t = e^{-\frac{1}{2}\sigma T+\sigma W_T^Q}\]</span> Then we can continue as <span class="math display">\[
-\begin{aligned}
-S_0 \cdot E^Q[e^{-\frac{1}{2}\sigma T+\sigma W_T} I_{\{S_T-K\}}] &amp;= S_0 \cdot E^Q[\frac{dQ^s}{dQ} \cdot  I_{\{S_T-K\}}]\\
-&amp;= S_0 \cdot E^{Q^s}[I_{\{S_T-K\}}] \\
-&amp;= S_0 \cdot Q^s[S_T&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma(W_T^{Q^s}+\sigma T)}&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r+\frac{1}{2}\sigma^2)T+\sigma W_T^{Q^s}}&gt;K] \\
-&amp;= S_0 \cdot Q^s[W_T^{Q^s}&gt; \frac{ln(K/S_0)-(r+\frac{1}{2}\sigma^2)T}{\sigma}] \\
-&amp;= S_0 \cdot Q^s[\epsilon&lt;\frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
-&amp;= S_0 \cdot \Phi(d_1)
-\end{aligned}
-\]</span></p>
-<p>Where</p>
-<p><span class="math display">\[d_1 = \frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="the-2nd-term">The 2nd Term</h3>
-</ins>
-</div>
-<p>THe derivation of the 2nd term is always under <span class="math inline">\(Q\)</span> measure. i.e. <span class="math inline">\(E[x] = E^Q[x]\)</span> and <span class="math inline">\(W_T = W^Q_T\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-E[e^{-rT}K \cdot I_{\{S_T-K\}}] &amp;= e^{-rT} \cdot K \cdot Q[S_T&gt;K]\\
-&amp;= e^{-rT} \cdot Q[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T + \sigma W_T}&gt;K] \\
-&amp;= e^{-rT} \cdot Q[\epsilon&gt;\frac{ln(K/S_0)-(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
-&amp;=  e^{-rT} \cdot Q[\epsilon&lt;\frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
-&amp;= e^{-rT} \cdot K \cdot \Phi(d_2)
-\end{aligned}
-\]</span></p>
-<p>Where <span class="math display">\[d_2 = \frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
+<p>Pros:</p>
+<ul>
+<li>Don’t need the assumption of constant hazard ratio like the CoxPH model, so it can forecast at the reporting date and use delinquency information.</li>
+<li>Easy to incorporate economic indicators into the model.</li>
+<li>Easy to get the 12-month PD and lifetime (remaining life) PD for IFRS 9 purpose.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Needs a separate EAD model.</li>
+<li>Needs some heavy lifting in coding to build models for each period since reporting date.</li>
+</ul>
 
 
 
