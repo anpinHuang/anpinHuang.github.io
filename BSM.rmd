@@ -2,7 +2,11 @@
 title: "Derive Black-Scholes Model"
 ---
 
-In this page we derive the famous Black-Scholes Model for European option pricing.
+In this page we derive the famous Black-Scholes Model for European option pricing. I first
+
+1. Assume stock returns are log-normal (Stock price is Geometric Brownian Motion), then
+2. Change to Risk-neutral measure by Girsanov's theorem, then
+3. Solve for European call option under Risk-neutral measure by applying Girsanov's theorem again
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -65,19 +69,90 @@ Geometric Brownian Motion means that the log of stock return follows normal dist
 ### Risk Neutral Measure & Girsanov's Theorem
 </ins>
 </div>
+***[To be validated]***
+
+The price of an European call option can be expressed as:
+
+$$C = E[e^{-\mu_cT} \cdot (S_T-K)^+]$$
+
+Where $\mu$ is the required rate of return for the option, $S_T$ is the stock price at maturity date $T$ and $K$ is the strike price. Since the required rate of return for the option in unknown, we need to do some tranformation in order to price the option: change to risk-neutral measure.
+
+Under Physical measure $P$, the stock price has SDE:
+
+$S_T = S_0 \cdot e^{(\mu -\frac{1}{2}\sigma^2)T + \sigma W_T^P}$
+
+where $\mu$ is the expected rate of return of the stock.
 
 
+**Girsanov's Theorem**:  
 
+Define:
+$$\frac{dQ}{dP} = Z_t = e^{\int_0^t \varphi_sdW_s^P-\frac{1}{2}\int_0^t \varphi_s^2ds}$$
+want Q as a probability measure: $Z_t \geq 0$ and $Q[\Omega] = 1$
+
+$$W_t^Q = W_t^P - \int_0^t \varphi_sds$$
+move it around we get:
 
 $$
 \begin{aligned}
-C &= E_Q[e^{-rT}(S_T-K)^+] \\
-&= E_Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
+W_t^P &= W_t^Q + \int_0^t \varphi_sds \\
+&= W_t^P - \int_0^t (-\varphi_s)ds
+\end{aligned}
+$$
+
+Hence
+
+$$
+\begin{aligned}
+\frac{dP}{dQ} &= e^{\int_0^t (-\varphi_s)dW_s^Q-\frac{1}{2}\int_0^t (-\varphi_s)^2ds} \\
+&= e^{-\int_0^t \varphi_sdW_s^Q-\frac{1}{2}\int_0^t \varphi_s^2ds}
+\end{aligned}
+$$
+
+The choice $\varphi_s = \frac{r-\mu}{\sigma}$ (constant). So:
+
+$$
+\begin{aligned}
+\frac{dQ}{dP} &= Z_t\\
+&= e^{\int_0^t \frac{r=\mu}{\sigma}dW_s^P -\frac{1}{2}\int_0^t (\frac{r-\mu}{\sigma})^2ds} \\
+&= e^{\frac{r-\mu}{\sigma}W_t^P-\frac{1}{2}(\frac{r-\mu}{\sigma})^2t}
+\end{aligned}
+$$
+
+and
+
+
+$$W_t^Q = W_t^P - \int_0^t \frac{r-\mu}{\sigma}ds = W_t^P-\frac{r-\mu}{\sigma}t$$
+
+
+
+* Under physical measure $P$:
+  $$E^P[S_T] = S_0 \cdot e^{\mu T}$$
+* Under risk-netural measure $Q$:
+  $$
+  \begin{aligned}
+  E^Q[S_T] &= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T+ \sigma W_T^P}] \\
+  &= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T + \sigma (W_T^Q + \frac{r-\mu}{\sigma})T}] \\
+  &= E^Q[S_0 \cdot e^{\mu T - \frac{\sigma^2}{2}}T + \sigma W_T^Q + rT-\mu T]\\
+  &= E^Q[S_0 \cdot e^{(r-\frac{\sigma^2}{2})T+\sigma W_T^Q}] \\
+  &= S_0 \cdot e^{rT}
+  \end{aligned}
+  $$
+
+Now, we can price the option under the risk-neutral measure $Q$ by taking the expected value $E^Q$
+
+$$
+\begin{aligned}
+C &= E^Q[e^{-rT}(S_T-K)^+] \\
+&= E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
 &= \text{1st term} - \text{2nd term}
 \end{aligned}
 $$
 
-We will tackle the 1st term and 2nd term individually.
+Under the risk-neutral measure all the assets earn risk-free rate, so both $\mu_c$ and $\mu$ are replaced with $r$. The stock price at $T$ is therefore $S_T = S_0 \cdot e^{(r-\frac{\sigma^2}{2})T + \sigma W_T^Q}$. We will tackle the 1st term and 2nd term individually.
+
+A good analogy I read on [stackexchange post](https://quant.stackexchange.com/questions/35697/risk-neutral-vs-physical-measures-real-world-example) said that "it's like pricing an umbrella, the price depends on how likely it is to rain, and how much people hate rain". In risk-neutral pricing, we change the require rate of return $mu$ to risk-free rate $r$ (change how people hate rain), we must, at the same time, also change the probability to under risk-neutral measure by Girsanov's theorem (change how likely it is to rain) so that the pricing is the same as under physical measure.
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>

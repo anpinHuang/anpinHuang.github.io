@@ -318,7 +318,12 @@ $(document).ready(function () {
 </div>
 
 
-<p>In this page we derive the famous Black-Scholes Model for European option pricing.</p>
+<p>In this page we derive the famous Black-Scholes Model for European option pricing. I first</p>
+<ol style="list-style-type: decimal">
+<li>Assume stock returns are log-normal (Stock price is Geometric Brownian Motion), then</li>
+<li>Change to Risk-neutral measure by Girsanov’s theorem, then</li>
+<li>Solve for European call option under Risk-neutral measure by applying Girsanov’s theorem again</li>
+</ol>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="geometric-brownian-motion">Geometric Brownian Motion</h3>
@@ -361,14 +366,61 @@ E[e^{W_t}] &amp;= \int e^x \cdot \frac{1}{\sigma_w\sqrt{2\pi}} \cdot e^{-\frac{1
 <h3 id="risk-neutral-measure-girsanovs-theorem">Risk Neutral Measure &amp; Girsanov’s Theorem</h3>
 </ins>
 </div>
+<p><strong><em>[To be validated]</em></strong></p>
+<p>The price of an European call option can be expressed as:</p>
+<p><span class="math display">\[C = E[e^{-\mu_cT} \cdot (S_T-K)^+]\]</span></p>
+<p>Where <span class="math inline">\(\mu\)</span> is the required rate of return for the option, <span class="math inline">\(S_T\)</span> is the stock price at maturity date <span class="math inline">\(T\)</span> and <span class="math inline">\(K\)</span> is the strike price. Since the required rate of return for the option in unknown, we need to do some tranformation in order to price the option: change to risk-neutral measure.</p>
+<p>Under Physical measure <span class="math inline">\(P\)</span>, the stock price has SDE:</p>
+<p><span class="math inline">\(S_T = S_0 \cdot e^{(\mu -\frac{1}{2}\sigma^2)T + \sigma W_T^P}\)</span></p>
+<p>where <span class="math inline">\(\mu\)</span> is the expected rate of return of the stock.</p>
+<p><strong>Girsanov’s Theorem</strong>:</p>
+<p>Define: <span class="math display">\[\frac{dQ}{dP} = Z_t = e^{\int_0^t \varphi_sdW_s^P-\frac{1}{2}\int_0^t \varphi_s^2ds}\]</span> want Q as a probability measure: <span class="math inline">\(Z_t \geq 0\)</span> and <span class="math inline">\(Q[\Omega] = 1\)</span></p>
+<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t \varphi_sds\]</span> move it around we get:</p>
 <p><span class="math display">\[
 \begin{aligned}
-C &amp;= E_Q[e^{-rT}(S_T-K)^+] \\
-&amp;= E_Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
+W_t^P &amp;= W_t^Q + \int_0^t \varphi_sds \\
+&amp;= W_t^P - \int_0^t (-\varphi_s)ds
+\end{aligned}
+\]</span></p>
+<p>Hence</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{dP}{dQ} &amp;= e^{\int_0^t (-\varphi_s)dW_s^Q-\frac{1}{2}\int_0^t (-\varphi_s)^2ds} \\
+&amp;= e^{-\int_0^t \varphi_sdW_s^Q-\frac{1}{2}\int_0^t \varphi_s^2ds}
+\end{aligned}
+\]</span></p>
+<p>The choice <span class="math inline">\(\varphi_s = \frac{r-\mu}{\sigma}\)</span> (constant). So:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{dQ}{dP} &amp;= Z_t\\
+&amp;= e^{\int_0^t \frac{r=\mu}{\sigma}dW_s^P -\frac{1}{2}\int_0^t (\frac{r-\mu}{\sigma})^2ds} \\
+&amp;= e^{\frac{r-\mu}{\sigma}W_t^P-\frac{1}{2}(\frac{r-\mu}{\sigma})^2t}
+\end{aligned}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t \frac{r-\mu}{\sigma}ds = W_t^P-\frac{r-\mu}{\sigma}t\]</span></p>
+<ul>
+<li>Under physical measure <span class="math inline">\(P\)</span>: <span class="math display">\[E^P[S_T] = S_0 \cdot e^{\mu T}\]</span></li>
+<li>Under risk-netural measure <span class="math inline">\(Q\)</span>: <span class="math display">\[
+\begin{aligned}
+E^Q[S_T] &amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T+ \sigma W_T^P}] \\
+&amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T + \sigma (W_T^Q + \frac{r-\mu}{\sigma})T}] \\
+&amp;= E^Q[S_0 \cdot e^{\mu T - \frac{\sigma^2}{2}}T + \sigma W_T^Q + rT-\mu T]\\
+&amp;= E^Q[S_0 \cdot e^{(r-\frac{\sigma^2}{2})T+\sigma W_T^Q}] \\
+&amp;= S_0 \cdot e^{rT}
+\end{aligned}
+\]</span></li>
+</ul>
+<p>Now, we can price the option under the risk-neutral measure <span class="math inline">\(Q\)</span> by taking the expected value <span class="math inline">\(E^Q\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+C &amp;= E^Q[e^{-rT}(S_T-K)^+] \\
+&amp;= E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
 &amp;= \text{1st term} - \text{2nd term}
 \end{aligned}
 \]</span></p>
-<p>We will tackle the 1st term and 2nd term individually.</p>
+<p>Under the risk-neutral measure all the assets earn risk-free rate, so both <span class="math inline">\(\mu_c\)</span> and <span class="math inline">\(\mu\)</span> are replaced with <span class="math inline">\(r\)</span>. The stock price at <span class="math inline">\(T\)</span> is therefore <span class="math inline">\(S_T = S_0 \cdot e^{(r-\frac{\sigma^2}{2})T + \sigma W_T^Q}\)</span>. We will tackle the 1st term and 2nd term individually.</p>
+<p>A good analogy I read on <a href="https://quant.stackexchange.com/questions/35697/risk-neutral-vs-physical-measures-real-world-example">stackexchange post</a> said that “it’s like pricing an umbrella, the price depends on how likely it is to rain, and how much people hate rain”. In risk-neutral pricing, we change the require rate of return <span class="math inline">\(mu\)</span> to risk-free rate <span class="math inline">\(r\)</span> (change how people hate rain), we must, at the same time, also change the probability to under risk-neutral measure by Girsanov’s theorem (change how likely it is to rain) so that the pricing is the same as under physical measure.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="the-1st-term">The 1st Term</h3>
