@@ -1,0 +1,17 @@
+---
+title: "Finite Differences for Solving PDEs"
+---
+
+
+The kind of PDEs we are interested in are the form of:
+
+
+$$0 = A(t,x) + B(t,x) \frac{\partial f(t,x)}{\partial t} + C(t,x) \frac{\partial f(t,x)}{\partial x} + D(t,x) \frac{\partial^2 f(t,x)}{\partial x^2}$$
+
+where 
+
+$$\frac{\partial f(t,x)}{\partial t} = \lim_{\delta \to 0} \frac{f(t+\delta ,x)-f(t,x)}{\delta}$$
+
+
+
+

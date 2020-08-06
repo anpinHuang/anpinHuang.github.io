@@ -1,5 +1,12 @@
 ---
 title: "Derive Black-Scholes Model"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 In this page we derive the famous Black-Scholes Model for European option pricing. I first
@@ -66,10 +73,11 @@ Geometric Brownian Motion means that the log of stock return follows normal dist
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Risk Neutral Measure & Girsanov's Theorem
+### Risk Neutral Measure
 </ins>
 </div>
 ***[To be validated]***
+The pricing of European option requires changing from phycial measure to risk neutral measure using Girsanov's Theorem.
 
 The price of an European call option can be expressed as:
 

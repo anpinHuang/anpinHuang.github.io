@@ -1,5 +1,12 @@
 ---
 title: "Cox Proportional Hazard Model"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 Study the Cox Proportional hazard model using healthcare example, learned from  [online resource](https://www.youtube.com/watch?v=3gXTkL2uVGU)
 

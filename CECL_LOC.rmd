@@ -26,10 +26,12 @@ Although it's unlikely for a loan to have uniform distribution of PD accross the
 ### Line of Credit & Unconditionally Cancellable
 </div>
 
-In this section, we specifically discuss the line of credit under the CECL regulation. As specified in **326-20-30-11** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), the lender shall estimate the expected loss over the contractual period unless the obligation is **"Unconditionally Cancellable"**. The credit card normally falls into this category as the 'term & conditions' often specificies the lender's authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding balance. The covid-19 is a good example as numorous online lenders stopped the credit line amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in **326-20-55-54** to **326-20-55-56** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true).
+In this section, we specifically discuss the line of credit under the CECL regulation. As specified in **326-20-30-11** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), the lender shall estimate the expected loss over the contractual period unless the obligation is **"Unconditionally Cancellable"**. The credit card normally falls into this category as the 'term & conditions' often specificies the lender's authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding principal & interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in **326-20-55-54** to **326-20-55-56** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true).
 
 
-
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### The Paydown Curve of Reporting Date's UPB - PD & EAD View
+</div>
 
 
 

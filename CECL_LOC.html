@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -83,7 +83,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +231,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -243,18 +243,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -296,7 +284,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance &amp; Risk</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -336,7 +324,10 @@ $(document).ready(function () {
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <h3 id="line-of-credit-unconditionally-cancellable">Line of Credit &amp; Unconditionally Cancellable</h3>
 </div>
-<p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specificies the lender’s authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding balance. The covid-19 is a good example as numorous online lenders stopped the credit line amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>.</p>
+<p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specificies the lender’s authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<h3 id="the-paydown-curve-of-reporting-dates-upb---pd-ead-view">The Paydown Curve of Reporting Date’s UPB - PD &amp; EAD View</h3>
+</div>
 
 
 
@@ -355,6 +346,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

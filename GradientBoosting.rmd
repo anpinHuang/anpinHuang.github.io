@@ -1,12 +1,26 @@
 ---
 title: "Gredient Boosting"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 In this page we discuss fundementals of building gradient boosting trees for continunous target variable and binary target variable. This is a study note from [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
 
 ********
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### GB for Continuous Variable
+</ins>
+</div>
 
-### Gradient Boosting for continuous target variable
+
+
+Steps for Gradient Boosting for continuous target variable
 
 1. Make initial estimation - all sample average of target variable
 2. Build a regression tree (industry practice is to have ~8 leaf nodes)
@@ -47,9 +61,13 @@ $\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y
     * Make new predictions: update 
 $F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### GB for Binary Variable
+</ins>
+</div>
 
-### Gradient Boosting for binary target variable
-Similar to gradient boosting for continunous target variable, but the loss function is different
+Gradient Boosting for binary target variable is similar to that for continunous target variable, but the loss function is different
 **Loss function**
 $$-\sum_{i=1}^{n} y_i \cdot log(\hat{p})+(1-y_i) \cdot log(1-\hat{p}) $$
 

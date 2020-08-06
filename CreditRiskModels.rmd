@@ -1,5 +1,12 @@
 ---
 title: "Credit Risk Models Comparison"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 This page is for comparison of different credit risk models that used for Allowance for loan and lease losses (ALLL) purposes and if they can also be used for other regulatory purposes.
@@ -24,7 +31,7 @@ Cons:
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Cox Proportional Hazard Rate Model
+### Cox Proportional Hazard Ratio
 </div>
 
 Pros:

@@ -1,12 +1,20 @@
 ---
 title: "Notes on Basel II & ASRF Model"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
-This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures: 
+This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures including the regulatory documents: 
 
 * [An Explanatory Note on the Basel II IRB Risk Weight Functions](https://www.bis.org/bcbs/irbriskweight.pdf)
 * [Theory behind regulatory Capital Formulae](https://pdfs.semanticscholar.org/71e1/13295d22c5ba474cffa53baef822fb029d52.pdf)
-* [Basel III: Finalising post-crisis reforms](https://www.bis.org/bcbs/publ/d424.pdf)
+* [Basel III: Finalising post-crisis reforms](https://www.bis.org/bcbs/publ/d424.pdf)  
+* [International Convergence of Capital Measurement and Capital Standards](https://www.bis.org/publ/bcbs128.pdf)
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -24,7 +32,7 @@ Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss th
 ### The Merton's Model
 </ins>
 </div>
-The Merton's model leverage the **Black-Scholes** model used in option pricing. Similar to option pricing that the option's value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company's total assets and its total liabilities. The logic is that the loan defaults when the company's total assets cannot support its total liabilities. The evolution of the asset value $A$ is log-normmally distributed as the stock price in Black Scholes.
+The Merton's model leverage the **Black-Scholes** model used in option pricing. Similar to option pricing that the option's value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company's total assets and its total liabilities. The logic is that the loan defaults when the company's total assets cannot support its total liabilities. The evolution of the asset value $A$ is log-normmally distributed as the stock price in Black Scholes. The industry practice is to use Merton's model to estimate PD for corporation, and use logistic regression type model to estimate PD for retail exposures.
 
 Stochastic differential equation (SDE) of a firm's assets:
 $$dA = (\mu A )dt + \sigma AdW(t)$$
@@ -50,7 +58,7 @@ A_t &= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 &= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)t + \sigma \sqrt{t}X(t)} 
 \end{aligned}
 $$ 
-where $X_t \sim \mathcal{N}(0,1)$
+where $X_t \sim \mathcal{N}(0,1)$ or $\Phi$
 
 The probability of default (not risk-neutral, but physical world and therefore $\mu$ is used instead of $r$) can be expressed as
 
@@ -59,8 +67,8 @@ $$
 \mathcal{P}[A_i(T)<L_i] &= \mathcal{P}[A_i(0) \cdot e^{(\mu_i - \frac{1}{2}\sigma_i^2)T + \sigma_i \sqrt{T}X_i(T)}<L_i]\\
 &= \mathcal{P}[X_i(T)<\frac{ln(L_i)-ln(A_i(0))-(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
 &= \mathcal{P}[X_i(T)>\frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
-&= 1-\mathcal{N}(d2) \\
-&= \mathcal{N}(-d2)
+&= 1-\Phi(d2) \\
+&= \Phi(-d2)
 \end{aligned}
 $$
 where $L_i$ is the total liabilities of company $i$, and 
@@ -71,10 +79,10 @@ Note that unlike Black-Scholes which is under the risk-neutral measure, the Mert
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Asymptotic Single Risk Factor (ASRF) model
+###  ASRF model
 </ins>
 </div>
-The Merton's model can be extended to ASRF model, assuming the assets value any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
+The Merton's model can be extended to Asymptotic Single Risk Factor (ASRF) model, assuming the assets value any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
 
 The asset value of company $i$ is driven by a single factor $Z$ that represents the systemic credit risk. The idiosyncretic risk should already diversified.
 
@@ -118,35 +126,42 @@ $$
 \mathcal{P}(A_i(T)<L_i) &= \mathcal{P}(X_i(T)<-d_2)\\
 &=  \mathcal{P}(\sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i < -d_2) \\
 &=  \mathcal{P}(\epsilon_i < \frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
-&=  \mathcal{N}(\frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
-&=  \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&=  \Phi(\frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+&=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 \end{aligned}
 $$
-where $PD_i^{*}$ is the **unconditionally default probability (PD)**, or the through-the-cycle (TTC) PD and $\mathcal{N}^{-1}(PD_i^{*})$ is the thresold for default by taking the inverse of standard normal distribution.
+where $PD_i^{*}$ is the **unconditionally default probability (PD)**, or the through-the-cycle (TTC) PD and $\Phi^{-1}(PD_i^{*})$ is the thresold for default by taking the inverse of standard normal distribution.
 
 
 The credit loss:
 
-$$L = I \cdot EAD \cdot LGD$$
+$$Loss = I \cdot EAD \cdot LGD$$
 where $I$ is the indicator function of default.
 
-* $I=1$, when $X_i < N_A^{-1}(PD_i)$
+* $I=1$, when $X_i < \Phi^{-1}(PD_i)$ (the probability is equivalent to $A_i(T) < L_i$ as shown in the above)
 * $I=0$, otherwise 
 
 The conditional expected value of the default indicator given the systemic credit risk variable is:
 
-$$E[I_i|Z] = \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[I_i|Z] = \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:
 
-$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Now we can calculate the value-at-risk (VaR) given a specified condifence level $\alpha$:
 
-$$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\mathcal{N}^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \mathcal{N}^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
+$$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \Phi^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
 In practice, 
 
-* The asset correlation $\rho$ can be calibrated by observing correlations in the market or from historical default data.
+* The asset correlation $\rho$ can be calibrated by observing correlations in the market or from historical default data. 
+* The Basel rules for calculating the correlation $\rho$ are:
+
+  * Corporate, sovereign and bank exposure:
+  * Small- and medium-sized entities (SMEs):
+    
+  $$\rho = 0.12 × (1 – e{-50 × PD}) / (1 – EXP(-50)) +
+0.24 × [1 – (1 – EXP(-50 × PD)) / (1 – EXP(-50))] $$
 * To derive $PD_i^{*}$ we need $\mu$ the instantenious expected rate of return of the asset value of company $i$
 
 
@@ -155,5 +170,23 @@ In practice,
 ### Portfolio Invariance
 </ins>
 </div>
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### IRB Approaches
+</ins>
+</div>
+Alternative to the Standard Approach (SA), the Basel II also allows banks to use Internal Ratings-Based (IRB) approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.
+
+
+* **Foundation IRB Approach**: 
+  The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)
+* **Advanded IRB Approach**:
+  The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
+
+
+
+
 
 

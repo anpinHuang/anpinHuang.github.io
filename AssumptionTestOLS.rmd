@@ -1,13 +1,20 @@
 ---
 title: "OLS Assumptions Test"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Stationary: Dickey-Fuller test
+### Stationary
 </ins>
 </div>
-The test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
+The Dickey-Fuller test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables.
 Test for **Unit Root**:
 $$y_t = \alpha + \rho y_{t-1} + \epsilon_t$$
  
@@ -22,7 +29,7 @@ However, when the true $\theta = 0$, the sampling distribution of $\theta$ is no
 ---
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Auto-correlation: 
+### Auto-correlation 
 </ins>
 </div>
 

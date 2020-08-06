@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -83,7 +86,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +234,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -244,20 +247,77 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
 
 
 
@@ -267,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -318,6 +388,11 @@ $(document).ready(function () {
 </div>
 
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="problem-formulation">Problem Formulation</h3>
+</ins>
+</div>
 <p>The purpose of this section is to derive the estimators of OLS (Ordinary Least Square), their expectation and variance. <span class="math display">\[ y = x\beta + \epsilon\]</span></p>
 <p><span class="math display">\[
 \begin{bmatrix}
@@ -365,7 +440,7 @@ e^{\prime} e &amp;=  (y-x\hat{\beta})^{\prime}(y-x\hat{\beta}) \\
  \]</span>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="unbiasedness">Unbiasedness</h3>
+<h3 id="unbiasedness-of-hatbeta">Unbiasedness of <span class="math inline">\(\hat{\beta}\)</span></h3>
 </ins>
 </div>
 <p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x^{\prime} x)^{-1}x^{\prime} \epsilon]\]</span></p>
@@ -374,7 +449,7 @@ e^{\prime} e &amp;=  (y-x\hat{\beta})^{\prime}(y-x\hat{\beta}) \\
 <hr />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="variance-of-the-ols-estimator">Variance of the OLS estimator</h3>
+<h3 id="variance-of-the-hatbeta">Variance of the <span class="math inline">\(\hat{\beta}\)</span></h3>
 </ins>
 </div>
 <p>recall the formula for variance <span class="math display">\[Var(A) = E[\,(A-E[A])\, (A-E[A])^{\prime}]\]</span> and the OLS estimator we just derived <span class="math display">\[\hat\beta_{OLS} = \beta + (x^{\prime} x)^{-1}x^{\prime}  \epsilon\]</span> and if the OLS estimator is an unbiased estimator <span class="math display">\[E[\hat\beta_{OLS}] = \beta\]</span> Then <span class="math display">\[
@@ -440,7 +515,7 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 <img src="deriveOLS_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="significance-test-for-beta-and-their-confidence-interval">Significance test for <span class="math inline">\(\beta\)</span> and their confidence interval</h3>
+<h3 id="significancy-confidence-interval">Significancy &amp; Confidence Interval</h3>
 </ins>
 </div>
 <p>The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.</p>
@@ -451,7 +526,7 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="f-test-for-the-overall-model">F Test for the overall model</h3>
+<h3 id="f-test-for-the-model">F Test for the Model</h3>
 </ins>
 </div>
 <p><span class="math display">\[ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon\]</span></p>
@@ -467,6 +542,8 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -481,6 +558,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

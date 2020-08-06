@@ -1,5 +1,12 @@
 ---
 title: "Panel Data Regression"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
@@ -58,7 +65,7 @@ This way, we can actually estimate $\alpha_i$, however, if we have larger number
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### R Squared in Fixed Effect/LSDV
+### R Squared in FE/LSDV
 </div>
 
 
@@ -127,8 +134,9 @@ Steps of feasible GLS (Random Effect):
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Benefits of random effects - time constant variables
+### Benefits of Random Effects
 </div>
+Benefits of random effects $-$ time constant variables
 
 $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 Geography_{i} + \beta_4 Race_{i}+ \alpha_i + u_{i,t}$$
 
@@ -137,8 +145,10 @@ $$HP_{i,t} = \beta_0+\beta_1 Crime_{i,t} + \beta_2 Unemployment_{i,t} + \beta_3 
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Hausman test for Random Effects vs Fixed Effects
+### Hausman Test
 </div>
+
+Hausman Test for Random Effects vs Fixed Effects.
 
 Null Hypothesis $H_0 = Cov(\alpha_i, X_{i,t}) = 0$
 $$w = \frac{(\hat{\beta_{FE}^{*}}-\hat{\beta_{RE}^{*}})^2} {Var(\hat{\beta_{FE})}-Var(\hat{\beta_{RE})}} \sim \chi_1^2$$ 
