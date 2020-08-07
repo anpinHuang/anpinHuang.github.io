@@ -79,7 +79,7 @@ $$
  $$
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Unbiasedness of $\hat{\beta}$
+### Unbiasedness of $\hat{\beta}_{OLS}$
 </ins>
 </div>
 
@@ -91,7 +91,7 @@ If $E[\epsilon] =0$ and $E[\epsilon | x] = 0$, then $E[(x^{\prime} x)^{-1}x^{\pr
 ********
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Variance of the $\hat{\beta}$
+### Variance of the $\hat{\beta}_{OLS}$
 </ins>
 </div>
 recall the formula for variance

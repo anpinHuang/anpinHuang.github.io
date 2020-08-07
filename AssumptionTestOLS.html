@@ -441,7 +441,7 @@ The usual symtom could be that the model is significant (p value small for F tes
 <li><strong>Correlation matrix</strong>:<br />
 In some case, it can also be observed in the correlation matrix of the explanatory. However, if one variable is closed to a linear combination of 2 or more other variables, it cannot be seen in the correlation matrix.</li>
 <li><strong>Variance inflation factor (VIF)</strong>:<br />
-For each explanatory variable, regress it on all the other explanatory variables.Then calculate <span class="math display">\[VIF_i = \frac{1}{1-R_i^2}\]</span><br />
+This method address the weakness of only looking at the correlation matrix. For each explanatory variable, regress it on all the other explanatory variables. Then calculate <span class="math display">\[VIF_i = \frac{1}{1-R_i^2}\]</span><br />
 A high VIF indicates Multi-collinearity.</li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">

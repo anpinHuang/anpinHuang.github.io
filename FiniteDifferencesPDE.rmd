@@ -1,7 +1,20 @@
 ---
 title: "Finite Differences for Solving PDEs"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### The Problem and Goal
+</ins>
+</div>
+This page is focused on approximating the PDEs when it's difficult to find the closed form solution. This is a study note summarized from the course MF-796 of Boston University Mathematical Finance Master Program.
 
 The kind of PDEs we are interested in are the form of:
 
@@ -11,7 +24,70 @@ $$0 = A(t,x) + B(t,x) \frac{\partial f(t,x)}{\partial t} + C(t,x) \frac{\partial
 where 
 
 $$\frac{\partial f(t,x)}{\partial t} = \lim_{\delta \to 0} \frac{f(t+\delta ,x)-f(t,x)}{\delta}$$
+Dimensionality reduction:
+
+* $\frac{\partial f(t,x)}{\partial t} = \frac{f(t+\delta ,x)-f(t,x)}{\delta} + O(\delta)$
+* $\frac{\partial f(t,x)}{\partial x} = \frac{f(t ,x+\Delta)-f(t,x)}{\Delta} + O(\Delta)$
+* $\frac{\partial^2 f(t,x)}{\partial x^2} = \frac{f(t ,x+\Delta)-2f(t,x)+f(t, x-\Delta)}{\Delta^2} + O(\Delta^2)$
+
+Now we can write:
+
+$$0 = A(t,x) + B(t,x) \frac{\tilde{f}(t+\delta,x)}{\delta} + C(t,x) \frac{\tilde{f}(t,x+\Delta)-\tilde{f}(t,x)}{\Delta} + D(t,x) \frac{\tilde{f}(t,x+\Delta)-2\tilde{f}(t,x)+\tilde{f}(t,x-\Delta)}{\Delta^2}$$
+if $\delta \approx 0$ and $\Delta \approx 0$, then $\tilde{f} \approx f$
+
+To solve this for every $t$ and $x$, we discretize time to $N=T/\delta$ and space to $M = X/\Delta$, the equation becomes:
+
+$$0 = A(t_i,x_j) + B(t_i,x_j) \frac{\tilde{f}(t_{i+1}+,x_j)-\tilde{f}(t_{i}+,x_j)}{\delta} + C(t_i,x_j) \frac{\tilde{f}(t_i,x_{j+1})-\tilde{f}(t_i,x_j)}{\Delta} + D(t_i,x_j) \frac{\tilde{f}(t_i,x+{j+1})-2\tilde{f}(t_i,x_j)+\tilde{f}(t_i,x_{j-1})}{\Delta^2}$$
+
+
+The boundary conditions:
+
+* $\tilde{f}(t_N, x_j) = \tilde{f}(T,x_j) = f(T,x_j)$
 
 
 
+This approch of approximating the $f$ by solving the discretized system of equations is called Finite Differences.
 
+Alternative difference quotients:
+
+* Forward difference  
+  $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\delta ,x)-f(t,x)}{\delta}$
+* Backward difference  
+  $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t,x)-f(t-\delta,x)}{\delta}$
+* Central difference  
+  $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\frac{\delta}{2},x)-f(t-\frac{\delta}{2},x)}{\delta}$
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Implicit Method
+</ins>
+</div>
+Derivation:
+
+$$
+\begin{aligned}
+0 &= A(t_i,x_j) + B(t_i,x_j) \frac{\tilde{f}(t_{i+1}+,x_j)-\tilde{f}(t_{i},x_j)}{\delta} + C(t_i,x_j) \frac{\tilde{f}(t_i,x_{j+1})-\tilde{f}(t_i,x_j)}{\Delta} + \\
+& \ \ \ \ \ D(t_i,x_j) \frac{\tilde{f}(t_i,x+{j+1})-2\tilde{f}(t_i,x_j)+\tilde{f}(t_i,x_{j-1})}{\Delta^2} \\
+\tilde{f}(t_i,x_j) \ [\frac{B(t_i,x_j)}{\delta} + \frac{C(t_i,x_j)}{\Delta} + 2\frac{D(t_i,x_j)}{\Delta^2}] &= A(t_{i},x_j)+\\ 
+& \ \ \ \ \ \tilde{f}(t_{i+1},x_j) \ [\frac{B(t_i, x_j)}{\delta}] + \\
+& \ \ \ \ \ \tilde{f}(t_{i},x_{j+1})\ [\frac{C(t_i,x_{j})}{\Delta}+\frac{D(t_i,x_{j})}{\Delta^2}]+\\
+& \ \ \ \ \ \tilde{f}(t_{i},x_{j-1}) \ [\frac{D(t_i,x_j)}{\Delta^2}] \\
+P^{i,I} \cdot \tilde{f}^i&= Q^{i,I} \tilde{f}^{i+1} + \alpha^{i,I} \\
+\tilde{f}^i &= (P^{i,I})^{-1} [Q^{i,I} \tilde{f}^{i+1} + \alpha^{i,I}] \\
+\end{aligned}
+$$
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Explicit Method
+</ins>
+</div>
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Crank-Nicolson Method
+</ins>
+</div>

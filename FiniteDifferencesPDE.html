@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -306,13 +388,72 @@ $(document).ready(function () {
 </div>
 
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="the-problem-and-goal">The Problem and Goal</h3>
+</ins>
+</div>
+<p>This page is focused on approximating the PDEs when it’s difficult to find the closed form solution. This is a study note summarized from the course MF-796 of Boston University Mathematical Finance Master Program.</p>
 <p>The kind of PDEs we are interested in are the form of:</p>
 <p><span class="math display">\[0 = A(t,x) + B(t,x) \frac{\partial f(t,x)}{\partial t} + C(t,x) \frac{\partial f(t,x)}{\partial x} + D(t,x) \frac{\partial^2 f(t,x)}{\partial x^2}\]</span></p>
 <p>where</p>
-<p><span class="math display">\[\frac{\partial f(t,x)}{\partial t} = \lim_{\delta \to 0} \frac{f(t+\delta ,x)-f(t,x)}{\delta}\]</span></p>
+<p><span class="math display">\[\frac{\partial f(t,x)}{\partial t} = \lim_{\delta \to 0} \frac{f(t+\delta ,x)-f(t,x)}{\delta}\]</span> Dimensionality reduction:</p>
+<ul>
+<li><span class="math inline">\(\frac{\partial f(t,x)}{\partial t} = \frac{f(t+\delta ,x)-f(t,x)}{\delta} + O(\delta)\)</span></li>
+<li><span class="math inline">\(\frac{\partial f(t,x)}{\partial x} = \frac{f(t ,x+\Delta)-f(t,x)}{\Delta} + O(\Delta)\)</span></li>
+<li><span class="math inline">\(\frac{\partial^2 f(t,x)}{\partial x^2} = \frac{f(t ,x+\Delta)-2f(t,x)+f(t, x-\Delta)}{\Delta^2} + O(\Delta^2)\)</span></li>
+</ul>
+<p>Now we can write:</p>
+<p><span class="math display">\[0 = A(t,x) + B(t,x) \frac{\tilde{f}(t+\delta,x)}{\delta} + C(t,x) \frac{\tilde{f}(t,x+\Delta)-\tilde{f}(t,x)}{\Delta} + D(t,x) \frac{\tilde{f}(t,x+\Delta)-2\tilde{f}(t,x)+\tilde{f}(t,x-\Delta)}{\Delta^2}\]</span> if <span class="math inline">\(\delta \approx 0\)</span> and <span class="math inline">\(\Delta \approx 0\)</span>, then <span class="math inline">\(\tilde{f} \approx f\)</span></p>
+<p>To solve this for every <span class="math inline">\(t\)</span> and <span class="math inline">\(x\)</span>, we discretize time to <span class="math inline">\(N=T/\delta\)</span> and space to <span class="math inline">\(M = X/\Delta\)</span>, the equation becomes:</p>
+<p><span class="math display">\[0 = A(t_i,x_j) + B(t_i,x_j) \frac{\tilde{f}(t_{i+1}+,x_j)-\tilde{f}(t_{i}+,x_j)}{\delta} + C(t_i,x_j) \frac{\tilde{f}(t_i,x_{j+1})-\tilde{f}(t_i,x_j)}{\Delta} + D(t_i,x_j) \frac{\tilde{f}(t_i,x+{j+1})-2\tilde{f}(t_i,x_j)+\tilde{f}(t_i,x_{j-1})}{\Delta^2}\]</span></p>
+<p>The boundary conditions:</p>
+<ul>
+<li><span class="math inline">\(\tilde{f}(t_N, x_j) = \tilde{f}(T,x_j) = f(T,x_j)\)</span></li>
+</ul>
+<p>This approch of approximating the <span class="math inline">\(f\)</span> by solving the discretized system of equations is called Finite Differences.</p>
+<p>Alternative difference quotients:</p>
+<ul>
+<li>Forward difference<br />
+<span class="math inline">\(\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\delta ,x)-f(t,x)}{\delta}\)</span></li>
+<li>Backward difference<br />
+<span class="math inline">\(\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t,x)-f(t-\delta,x)}{\delta}\)</span></li>
+<li>Central difference<br />
+<span class="math inline">\(\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\frac{\delta}{2},x)-f(t-\frac{\delta}{2},x)}{\delta}\)</span></li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="implicit-method">Implicit Method</h3>
+</ins>
+</div>
+<p>Derivation:</p>
+<p><span class="math display">\[
+\begin{aligned}
+0 &amp;= A(t_i,x_j) + B(t_i,x_j) \frac{\tilde{f}(t_{i+1}+,x_j)-\tilde{f}(t_{i},x_j)}{\delta} + C(t_i,x_j) \frac{\tilde{f}(t_i,x_{j+1})-\tilde{f}(t_i,x_j)}{\Delta} + \\
+&amp; \ \ \ \ \ D(t_i,x_j) \frac{\tilde{f}(t_i,x+{j+1})-2\tilde{f}(t_i,x_j)+\tilde{f}(t_i,x_{j-1})}{\Delta^2} \\
+\tilde{f}(t_i,x_j) \ [\frac{B(t_i,x_j)}{\delta} + \frac{C(t_i,x_j)}{\Delta} + 2\frac{D(t_i,x_j)}{\Delta^2}] &amp;= A(t_{i},x_j)+\\ 
+&amp; \ \ \ \ \ \tilde{f}(t_{i+1},x_j) \ [\frac{B(t_i, x_j)}{\delta}] + \\
+&amp; \ \ \ \ \ \tilde{f}(t_{i},x_{j+1})\ [\frac{C(t_i,x_{j})}{\Delta}+\frac{D(t_i,x_{j})}{\Delta^2}]+\\
+&amp; \ \ \ \ \ \tilde{f}(t_{i},x_{j-1}) \ [\frac{D(t_i,x_j)}{\Delta^2}] \\
+P^{i,I} \cdot \tilde{f}^i&amp;= Q^{i,I} \tilde{f}^{i+1} + \alpha^{i,I} \\
+\tilde{f}^i &amp;= (P^{i,I})^{-1} [Q^{i,I} \tilde{f}^{i+1} + \alpha^{i,I}] \\
+\end{aligned}
+\]</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="explicit-method">Explicit Method</h3>
+</ins>
+</div>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="crank-nicolson-method">Crank-Nicolson Method</h3>
+</ins>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -345,6 +486,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

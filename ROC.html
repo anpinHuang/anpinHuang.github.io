@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -83,7 +83,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +231,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -243,18 +243,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -296,7 +284,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -318,7 +306,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR) and the y-axis is the true positive rate (TPR). The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain. As we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count would also increase at the same time.</p>
+<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR) and the y-axis is the true positive rate (TPR). The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain? As we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count also increases at the same time.</p>
 <p>For a model that has no predicting power (no better than random), the slope of the ROC curve would be 45 degree (slope = 1):</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -328,9 +316,27 @@ $(document).ready(function () {
 \end{aligned}
 \]</span></p>
 <p>since that if the model is random, then the ratio of <span class="math inline">\(\frac{TP}{FP}\)</span> would be the same as <span class="math inline">\(\frac{P}{N}\)</span></p>
+<p>Use true value as the denominator, where <span class="math inline">\(D\)</span> is true default and <span class="math inline">\(\mathcal{P}(D)\)</span> is the probability of default, <span class="math inline">\(ND\)</span> is true non-default, <span class="math inline">\(E\)</span> is the predicted default and <span class="math inline">\(NE\)</span> is the predicted non-default.</p>
 <ul>
-<li>True Positive Rate: <span class="math inline">\(\frac{TP}{P} = \frac{TP}{TP+FN}\)</span></li>
-<li>False Positive Rate: <span class="math inline">\(\frac{FP}{N} = \frac{FP}{TN+FP}\)</span></li>
+<li><strong>True Positive Rate (TPR)</strong>, sensitivity, recall, or hit rate:<br />
+<span class="math inline">\(\frac{TP}{P} = \frac{TP}{TP+FN} = \mathcal{P}(E|D)\)</span></li>
+<li><strong>False Positive Rate (FPR)</strong>, or fall-out:<br />
+<span class="math inline">\(\frac{FP}{N} = \frac{FP}{FP+TN} = \mathcal{P}(E|ND)\)</span></li>
+<li><strong>True Negative Rate (TNR)</strong>, specificity, or selectivity:<br />
+<span class="math inline">\(\frac{TN}{N} = \frac{TN}{TN+FP} = \mathcal{P}(NE|ND)\)</span></li>
+<li><strong>False Negative Rate (FNR)</strong>, or miss rate:<br />
+<span class="math inline">\(\frac{FN}{P} = \frac{FN}{TP+FN} = \mathcal{P}(NE|D)\)</span></li>
+</ul>
+<p>Use predictive value as the denominator:</p>
+<ul>
+<li><strong>Positive Predictive Value (PPV)</strong>, or precision:<br />
+<span class="math inline">\(\frac{TP}{TP+FP} = \mathcal{P}(D|E)\)</span></li>
+<li><strong>Negative Predictive Value (NPV)</strong>:<br />
+<span class="math inline">\(\frac{TN}{TN+FN} = \mathcal{P}(ND|NE)\)</span></li>
+<li><strong>False Discovery rate (FDR)</strong>:<br />
+<span class="math inline">\(\frac{FP}{TP+FP} = 1-PPV = \mathcal{P}(ND|E)\)</span></li>
+<li><strong>False Omission rate (FOR)</strong>:<br />
+<span class="math inline">\(\frac{FN}{TN+FN} = 1-NPV = \mathcal{P}(D|NE)\)</span></li>
 </ul>
 <p>The <span class="math inline">\(P\)</span> is defined as the real positive cases in the data and <span class="math inline">\(N\)</span> is defined as the real negative cases in the data.</p>
 <ul>
@@ -340,6 +346,16 @@ $(document).ready(function () {
 <li>False Negative (FN): Predict 0 (negative) and the prediction is incorrect (false)</li>
 </ul>
 <p><img src="ConfusionMatrix.png" height="600px" width="600px" /></p>
+<p>Above ratios can also be linked through <strong>Baye’s Rule</strong>:<br />
+<span class="math display">\[
+\begin{aligned}
+\mathcal{P}(D|E) &amp;= \frac{\mathcal{P}(D, E)}{\mathcal{P}(E)}  \\
+&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E)} \\
+&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E,D) +\mathcal{P}(E,ND)}  \\
+&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E|D) \cdot \mathcal{P}(D)+\mathcal{P}(E|ND)\cdot \mathcal{P}(ND)} 
+\end{aligned}
+\]</span></p>
+<p>Comparing <span class="math inline">\(\mathcal{P}(D|E)\)</span> against <span class="math inline">\(\mathcal{P}(D)\)</span>, we can see how much improvement we have given the additional information from the model.</p>
 
 
 
@@ -358,6 +374,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

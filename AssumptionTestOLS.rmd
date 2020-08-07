@@ -74,7 +74,7 @@ When Multi-collinearity exists in the model, the model is not able to distinguis
 * **Correlation matrix**:  
   In some case, it can also be observed in the correlation matrix of the explanatory. However, if one variable is closed to a linear combination of 2 or more other variables, it cannot be seen in the correlation matrix.
 * **Variance inflation factor (VIF)**:  
-  For each explanatory variable, regress it on all the other explanatory variables.Then calculate 
+  This method address the weakness of only looking at the correlation matrix. For each explanatory variable, regress it on all the other explanatory variables. Then calculate 
   $$VIF_i = \frac{1}{1-R_i^2}$$  
 A high VIF indicates Multi-collinearity.
 

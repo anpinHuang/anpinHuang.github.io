@@ -4,6 +4,7 @@ title: "Financial Mathematics & Risk"
 
 * [Ito's Lemma & Stochastic Calculus](ItoLemma.html) 
 * [Derive Black-Scholes Model](BSM.html)  
+* [Finite Difference for PDEs](FiniteDifferencesPDE.html)  
 * [SABR Model (for Fixed Income Derivatives)](SABR.html)  
 * [Notes on Basel II & ASRF Model](ASRF.html)  
 * [CECL for Line of Credit](CECL_LOC.html) 

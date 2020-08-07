@@ -56,7 +56,7 @@ $$
 \end{aligned}
 $$
 
-The 3rd step is an important property of the Wiener process and will be shown in the following paragraph.
+The 3rd step of the above equation is an important property of the Wiener process and will be shown in the following paragraph.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
