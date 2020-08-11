@@ -5,9 +5,10 @@ title: "Logistic Regression & Information Value (IV)"
 To solve a classification problem, $y_i$ is either $0$ or $1$, we want to estimate the probability of $y_i=1$ by a set of explanatory variable $X$, denoted as $p(x)$. However, we cannot simply model the probability by the linear regression model as $p(x) = \beta_0 + x   \beta$ since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.
 
 By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: $$log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta$$
-Now the equation looks like an OLS. However, we cannot model the log odds ratio using OLS because of Jenson's Inequility ($E[f(X)] \neq f(E[X])$). In this case, we want to know $E[p(x)]$, but by using OLS on log odds ratio, we can only get $E[log \frac{p(x)}{1-p(x)}]$. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated.
+Now the equation looks like an OLS. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated. To estimate the $\beta$s, we can use the maximum likelihood or gradient descent. 
 
-Instead, we want to estimate the $p(x)$ directly. It can be done by using gradient descent or maximum likehood.
+<!-- However, we cannot model the log odds ratio using OLS because of Jenson's Inequility ($E[f(X)] \neq f(E[X])$). In this case, we want to know $E[p(x)]$, but by using OLS on log odds ratio, we can only get $E[log \frac{p(x)}{1-p(x)}]$.  -->
+
 
 The probability can be expressed as the log(odds):
 $$
@@ -18,7 +19,6 @@ p &= (1-p)e^{log(odds)} \\
 p &= e^{log(odds)}-pe^{log(odds)} \\
 p+pe^{log(odds)} &=e^{log(odds)}\\
 p &= \frac{e^{log(odds)}}{1+e^{log(odds)}}
-
 \end{aligned}
 $$
 
@@ -42,7 +42,7 @@ $\hat y = 0 \,\, if \,\,\hat p<0.5$ and $\hat y = 1 \,\, if \,\,\hat p\geq0.5$
 
 or more explicitly, 
 
-$$\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}$$
+$$\hat p  = \frac{1}{1+e^{-(\beta_0+x\beta)}}$$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -93,8 +93,9 @@ $$R^2 = \frac{LL(0)-LL(fit)}{LL(0)}$$
 
 
 We use the null and saturated model to calculate the proposed model's R square and p-value
-* Null model: an oversimplified model
-* Saturated model: an over-complicated model
+
+* **Null model**: an oversimplified model
+* **Saturated model**: an over-complicated model
 
 Review R squuare for linear regression:
 $$R^2 = \frac{SS(Null\ Model)-SS(Proposed\ Model)}{SS(Null\ Model)}$$
@@ -136,6 +137,6 @@ Note that WOE is usually positive as non-event is usually less than event.
 
 **Information Value (IV):**
 
-$$IV = \sum_{i=1}^n \ (\% \ of \ non-event - \% \ of \ event) \cdot WOE$$
+$$IV = \sum_{i=1}^n \ (\% \ of \ NonEvent - \% \ of \ Event) \cdot WOE$$
 The IV is commonly used for **variable selection** & **univariate analysis** for logistic regression as the logic is similar to log-odds ratio which is used in logistic regression. Variable selection using IV will not be optimal for classification algorithm other than logistic regression.
 

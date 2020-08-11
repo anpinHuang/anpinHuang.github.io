@@ -12,6 +12,7 @@ title: "Econometrics"
 * [Panel Data Regression](PanelData.html)  
 * [Healthcare Economics](HealthcareEconomics.html)  
 
-#### Probability Fundementals
+#### Probability & Math Fundementals
 * [Central Limit Theorem](CLM.html)  
 * [Poisson Distribution](PoissonDistribution.html)  
+* [Jensen's Inequility](jensenineq.html)  

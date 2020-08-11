@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -83,7 +83,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +231,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -243,18 +243,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -319,19 +307,18 @@ $(document).ready(function () {
 
 
 <p>To solve a classification problem, <span class="math inline">\(y_i\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we want to estimate the probability of <span class="math inline">\(y_i=1\)</span> by a set of explanatory variable <span class="math inline">\(X\)</span>, denoted as <span class="math inline">\(p(x)\)</span>. However, we cannot simply model the probability by the linear regression model as <span class="math inline">\(p(x) = \beta_0 + x \beta\)</span> since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.</p>
-<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. However, we cannot model the log odds ratio using OLS because of Jenson’s Inequility (<span class="math inline">\(E[f(X)] \neq f(E[X])\)</span>). In this case, we want to know <span class="math inline">\(E[p(x)]\)</span>, but by using OLS on log odds ratio, we can only get <span class="math inline">\(E[log \frac{p(x)}{1-p(x)}]\)</span>. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated.</p>
-<p>Instead, we want to estimate the <span class="math inline">\(p(x)\)</span> directly. It can be done by using gradient descent or maximum likehood.</p>
-The probability can be expressed as the log(odds): $$
-<span class="math display">\[\begin{aligned}
+<p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated.</p>
+<!-- However, we cannot model the log odds ratio using OLS because of Jenson's Inequility ($E[f(X)] \neq f(E[X])$). In this case, we want to know $E[p(x)]$, but by using OLS on log odds ratio, we can only get $E[log \frac{p(x)}{1-p(x)}]$.  -->
+<p>The probability can be expressed as the log(odds): <span class="math display">\[
+\begin{aligned}
 log(\frac{p}{1-p}) &amp;=  log(odds) \\
 \frac{p}{1-p} &amp;= e^{log(odds)} \\
 p &amp;= (1-p)e^{log(odds)} \\
 p &amp;= e^{log(odds)}-pe^{log(odds)} \\
 p+pe^{log(odds)} &amp;=e^{log(odds)}\\
 p &amp;= \frac{e^{log(odds)}}{1+e^{log(odds)}}
-
-\end{aligned}\]</span>
-<p>$$</p>
+\end{aligned}
+\]</span></p>
 <hr />
 <p>To estimate the probability directly, we define the probability estimator as:</p>
 <p><span class="math display">\[\hat p  = h_{\theta}(x) = \sigma(\beta_0+x\beta)\]</span></p>
@@ -342,7 +329,7 @@ plot(t, sigmoid_t, col=&quot;blue&quot;, lwd=2,type=&#39;l&#39;)</code></pre>
 <p><img src="LogisticRegression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p><span class="math inline">\(\hat y = 0 \,\, if \,\,\hat p&lt;0.5\)</span> and <span class="math inline">\(\hat y = 1 \,\, if \,\,\hat p\geq0.5\)</span></p>
 <p>or more explicitly,</p>
-<p><span class="math display">\[\hat p  = \frac{1}{1+e^{-\beta_0+x\beta}}\]</span></p>
+<p><span class="math display">\[\hat p  = \frac{1}{1+e^{-(\beta_0+x\beta)}}\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="cost-function">Cost Function</h3>
@@ -368,7 +355,11 @@ c(\beta_0, \beta) =
 <p><strong>McFadden’s psuedo <span class="math inline">\(R^2\)</span></strong></p>
 <p>Recall that the <span class="math inline">\(R^2=\frac{SS(mean)-SS(fit)}{SS(mean)}\)</span> in linear regression where <span class="math inline">\(SS\)</span> means the sum of residual’s square <span class="math inline">\(SS(mean)\)</span> is the sum of residual’s square where the prediction is just the average of the sample target variable. However, we can’t use the residual.</p>
 <p>We use <span class="math inline">\(LL(fit)\)</span> for the log-likelihood of the fitted line, and use it as a substitute for <span class="math inline">\(SS(fit)\)</span>. Now we need to substitution for <span class="math inline">\(SS(mean)\)</span>. For benchmarking purpose, we have to find substitution for <span class="math inline">\(SS(mean)\)</span>. We can use the log-likelihood of the estimation with no explanatory variable. This would be the log-likelihood with the estimate of probability <span class="math inline">\(\hat{p}\)</span> equals to the sum of <span class="math inline">\(y\)</span> divided by number of observations. We denote this as <span class="math inline">\(LL(0)\)</span>. Now we have the McFadden’s psuedo <span class="math display">\[R^2 = \frac{LL(0)-LL(fit)}{LL(0)}\]</span></p>
-<p>We use the null and saturated model to calculate the proposed model’s R square and p-value * Null model: an oversimplified model * Saturated model: an over-complicated model</p>
+<p>We use the null and saturated model to calculate the proposed model’s R square and p-value</p>
+<ul>
+<li><strong>Null model</strong>: an oversimplified model</li>
+<li><strong>Saturated model</strong>: an over-complicated model</li>
+</ul>
 <p>Review R squuare for linear regression: <span class="math display">\[R^2 = \frac{SS(Null\ Model)-SS(Proposed\ Model)}{SS(Null\ Model)}\]</span> Null Model here is the average of the target variable.</p>
 <p>Now for log-likelihood based R square:</p>
 <p><span class="math display">\[R^2 = \frac{LL(Null \ Model)-LL(Proposed \ Model)}{LL(Null \ Model)-LL(Saturated \ Model)}\]</span></p>
@@ -394,7 +385,7 @@ c(\beta_0, \beta) =
 </ol>
 <p>Note that WOE is usually positive as non-event is usually less than event.</p>
 <p><strong>Information Value (IV):</strong></p>
-<p><span class="math display">\[IV = \sum_{i=1}^n \ (\% \ of \ non-event - \% \ of \ event) \cdot WOE\]</span> The IV is commonly used for <strong>variable selection</strong> &amp; <strong>univariate analysis</strong> for logistic regression as the logic is similar to log-odds ratio which is used in logistic regression. Variable selection using IV will not be optimal for classification algorithm other than logistic regression.</p>
+<p><span class="math display">\[IV = \sum_{i=1}^n \ (\% \ of \ NonEvent - \% \ of \ Event) \cdot WOE\]</span> The IV is commonly used for <strong>variable selection</strong> &amp; <strong>univariate analysis</strong> for logistic regression as the logic is similar to log-odds ratio which is used in logistic regression. Variable selection using IV will not be optimal for classification algorithm other than logistic regression.</p>
 
 
 
@@ -413,6 +404,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

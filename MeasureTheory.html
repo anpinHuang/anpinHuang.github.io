@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Measure Theory</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -301,43 +383,82 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Measure Theory</h1>
 
 </div>
 
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="sigma-algebra">Sigma Algebra</h3>
+</ins>
+</div>
+<p><span class="math inline">\(X\)</span> set</p>
+<p><span class="math inline">\(\mathcal{P}(X)\)</span> power set of X</p>
+<p><strong>Example</strong>: <span class="math inline">\(X = \{a, b\}\)</span>, then <span class="math inline">\(\mathcal{P}(X) = \{\phi, X, \{a\}, \{b\} \}\)</span></p>
+<p><strong>Definition</strong>: <span class="math inline">\(\mathcal{A} \subseteq P(X)\)</span> is called a <span class="math inline">\(\sigma\)</span> -algebra if it satisfies:</p>
 <ul>
-<li><a href="deriveOLS.html">Derive OLS Estimaors in Matrix Form</a><br />
+<li><span class="math inline">\(\phi, X \in \mathcal{A}\)</span><br />
 </li>
-<li><a href="autocorrelation.html">OLS and GLS with Autocorrelation Error Terms</a><br />
+<li><span class="math inline">\(A \in \mathcal{A}\)</span> =&gt; <span class="math inline">\(A^c \in \mathcal{A}\)</span><br />
 </li>
-<li><a href="heteroskedasticity.html">OLS and GLS with Heteroskedasiticity</a><br />
-</li>
-<li><a href="AssumptionTestOLS.html">OLS Assumptions Test</a><br />
-</li>
-<li><a href="BiasVarianceTradeoff.html">Bias &amp; Variance Tradeoff</a><br />
-</li>
-<li><a href="RidgeLassoRegression.html">Ridge &amp; Lasso Regression</a><br />
-</li>
-<li><a href="PCA.html">Principal Component Analysis (PCA)</a><br />
-</li>
-<li><a href="PanelData.html">Panel Data Regression</a><br />
-</li>
-<li><a href="HealthcareEconomics.html">Healthcare Economics</a></li>
+<li><span class="math inline">\(A_i \in \mathcal{A}, \ i \in \mathbb{N}\)</span> =&gt; <span class="math inline">\(\bigcup_{i=1}^{\infty} A_i \in \mathcal{A}\)</span></li>
 </ul>
-<div id="probability-math-fundementals" class="section level4">
-<h4>Probability &amp; Math Fundementals</h4>
+<p><span class="math inline">\(A \in \mathcal{A}\)</span> is called a <span class="math inline">\(\mathcal{A}\)</span>-measurable set.</p>
+<p><strong>Example</strong>:</p>
 <ul>
-<li><a href="CLM.html">Central Limit Theorem</a><br />
-</li>
-<li><a href="PoissonDistribution.html">Poisson Distribution</a><br />
-</li>
-<li><a href="jensenineq.html">Jensen’s Inequility</a></li>
+<li><span class="math inline">\(\mathcal{A}=\{\phi, X\}\)</span></li>
+<li><span class="math inline">\(\mathcal{A} = \mathcal{P}(X)\)</span></li>
 </ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="borel-sigma-algebra">Borel Sigma Algebra</h3>
+</ins>
+</div>
+<p><strong>Definition</strong>: For <span class="math inline">\(\mathcal{M} \in \mathcal{P}(X)\)</span>, there is a smallest <span class="math inline">\(\sigma\)</span>-algebra that contains <span class="math inline">\(\mathcal{M}\)</span>:</p>
+<p><span class="math inline">\(\sigma(\mathcal{M}):=\bigcap_{\mathcal{A} \subseteq \mathcal{M}} \mathcal{A}\)</span></p>
+<p><strong>Example</strong>: <span class="math inline">\(X = \{a,b,c,d\}\)</span>, <span class="math inline">\(\mathcal{M} = \{\{a\},\{b\}\}\)</span><br />
+The most effieicnt <span class="math inline">\(\sigma\)</span>-algebra (with the smallest set)<span class="math inline">\(\sigma(\mathcal{M}) = \{\phi, X,\{a\},\{b\}, \{a,b\}, \{b,c,d\},\{a,c,d\}, \{c,d\}\)</span></p>
+<p>It is difficult if the set X is infinity</p>
+<p><strong>Definition</strong>: Let X be a topological (or metric, or <span class="math inline">\(\mathbb{R^n}\)</span>) space:<br />
+<span class="math inline">\(\mathcal{B}(X)\)</span> Borel <span class="math inline">\(\sigma\)</span>-algebra on X (the <span class="math inline">\(\sigma\)</span>-algebra generated by the open sets) <span class="math inline">\(\mathcal{B}(X):=\sigma(\mathcal{T})\)</span><br />
+Borel <span class="math inline">\(\sigma\)</span>-algebra is not the power set</p>
+<p><strong>Definition</strong>: <span class="math inline">\((X, \mathcal{A})\)</span> measurable space (a <span class="math inline">\(\sigma\)</span>-algebra in set X)<br />
+A map <span class="math inline">\(\mathcal{M}:\mathcal{A}\)</span> -&gt; <span class="math inline">\([0,\infty]\)</span> is called a measure if it satisfies</p>
+<ul>
+<li><span class="math inline">\(\mathcal{M}(\phi)=0\)</span><br />
+</li>
+<li><span class="math inline">\(\mathcal{M}(\bigcup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} \mathcal{M}(A_i)\)</span>, with <span class="math inline">\(A_i \bigcap A_j = \phi\)</span> (<strong>additive</strong>)</li>
+</ul>
+<p><span class="math inline">\((X, \mathcal{A}, \mathcal{M})\)</span> measure space</p>
+<p><strong>Examples</strong>: <span class="math inline">\(X\)</span>, <span class="math inline">\(\mathcal{A}= \mathcal{P}(X)\)</span></p>
+<ul>
+<li>Counting measure</li>
+<li>Dirac measure</li>
+</ul>
+<p><strong>Measure problem</strong>: Search measure <span class="math inline">\(\mathcal{M}\)</span> on <span class="math inline">\(\mathcal{P}(\mathbb{R})\)</span> with:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{M}([a,b])=b-a\)</span></li>
+<li><span class="math inline">\(\mathcal{M}(X+A) = \mathcal{M}(A)\)</span>, <span class="math inline">\(A \in \mathcal{P}(\mathbb{R})\)</span><br />
+=&gt; <span class="math inline">\(\mathcal{M}\)</span> does not exist.</li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="measurable-maps">Measurable Maps</h3>
+</ins>
+</div>
+<p><strong>Definition</strong>: <span class="math inline">\((\Omega_1, \mathcal{A}_1)\)</span>, <span class="math inline">\((\Omega_2, \mathcal{A}_2)\)</span> measurable space<br />
+<span class="math inline">\(f: \Omega_1 \to \Omega_2\)</span> measurable (w.r.t. <span class="math inline">\(\mathcal{A}_1)\)</span>, <span class="math inline">\(\mathcal{A}_2)\)</span>)</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="lebesgue-integral">Lebesgue Integral</h3>
+</ins>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -370,6 +491,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

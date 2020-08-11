@@ -1,0 +1,232 @@
+---
+title: "Jensen's Inequility"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Jensen's Inequility
+</ins>
+</div>
+
+* If function $f$ is **convex**:   
+  $E[f(x)] \geq f(E[x])$
+
+* If function $f$ is **concave**:   
+  $E[f(x)] \leq f(E[x])$
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Example - Log Transformation
+</ins>
+</div>
+suppose the variable of interest $Y$:
+$$ Y = e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}$$
+where $\epsilon \sim \mathcal{N}(0, \sigma I)$.
+
+To model it, we take the log such that:
+
+$$log(Y) = \beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon$$
+
+Then we do linear regression on $log(Y)$, so we can forecast $E[log(Y)]$, and we forecast $Y$ by taking the exponential transformation:
+$$
+\begin{aligned}
+e^{E[log(Y)]} &= e^{E[\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon]}\\
+&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} \\
+\end{aligned}
+$$
+Whereas, we are interested in
+
+$$
+\begin{aligned}
+E[e^{log(Y)}] &= E[e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}]\\
+&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
+& \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
+\end{aligned}
+$$
+
+The following simulation shows the difference between $E[e^{log(Y)}]$ and $e^{E[log(Y)]}$
+
+
+
+```{r}
+## simulation times
+n=500
+E_forecast <- data.frame(matrix(NA,nrow=n, ncol=1))
+E_forecast_adjusted <- data.frame(matrix(NA,nrow=n, ncol=1))
+colnames(E_forecast) <- 'error'
+colnames(E_forecast_adjusted) <- 'error'
+for(i in 1:n) {
+  b0 <- rep(2,500)
+  b1 <- 2.2
+  b2 <- 2.5
+  x1 <- rnorm(500,1,0.5)
+  x2 <- rnorm(500,-2,0.4)
+  e <- rnorm(500,0,0.6)
+  log_d <- b0+b1*x1+b2*x2+e
+  d <- exp(log_d)
+  variables <- cbind.data.frame(x1,x2,log_d,d)
+  ## regression on log_d
+  lm_logd <- lm(formula = log_d~x1+x2, data = variables[1:500,])
+  summary(lm_logd)
+  d_hat <- exp(lm_logd$fitted.values)
+  d_hat_adjusted <- exp(lm_logd$fitted.values+summary(lm_logd)$sigma^2/2)
+  E_forecast[i,1] <- mean(d[1:500])-mean(d_hat)
+  E_forecast_adjusted[i,1] <- mean(d[1:500])-mean(d_hat_adjusted)
+}
+hist(E_forecast_adjusted[,1], breaks = 30, col = 'red', xlim = c(-0.2,0.9), freq = F, main = '', xlab = 'mean(data) minus mean(model results)')
+hist(E_forecast[,1], breaks = 30, xlim = c(-0.2,0.9), freq = F, add = T, col = 'blue')
+legend('topright', legend = c('unadjusted','residual s.d. adjusted'), col = c('blue','red'), pt.cex=2, pch=15)
+```
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Example - Probabilities
+</ins>
+</div>
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(Rlab)
+library(sqldf)
+alpha <- 2
+beta <- 3.5
+n = 100
+m = 500
+variables <- data.frame(matrix(NA, nrow = n*m, ncol = 1))
+colnames(variables) <- 'x1'
+for(i in 1:n) {
+  x1 <- rep(rnorm(1,0,1),n)
+  e <- rnorm(m,0,3)
+  logOdds <- alpha + beta*x1+e
+  variables$x1[(1+m*(i-1)):(i*m)] <- x1
+  variables$e[(1+m*(i-1)):(i*m)] <- e
+  variables$logOdds[(1+m*(i-1)):(i*m)] <- logOdds
+  variables$p[(1+m*(i-1)):(i*m)] <- exp(logOdds)/(1+exp(logOdds))
+}
+
+
+lm_logOdds <- lm(logOdds~x1, data = variables)
+variables$model_p <- exp(lm_logOdds$fitted.values)/(1+exp(lm_logOdds$fitted.values))
+
+groups <- sqldf("select x1, avg(p), avg(model_p) from variables group by 1")
+
+plot(x = groups$x1, y = groups$`avg(p)`)
+points(x = groups$x1, y = groups$`avg(model_p)`, col = 'red')
+
+```
+
+
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Example - Logistic Regression
+</ins>
+</div>
+The logistic regression is estimated by **maximum likelihood** which is invariant to transformation such that $g(\hat{\theta}_{MLE}) = \widehat{g(\theta)_{MLE}}$.
+
+$$
+\begin{aligned}
+E[p] &= E[\frac{e^{\alpha + \beta x+\epsilon}}{1+e^{\alpha + \beta x+\epsilon}}]\\
+& \neq \frac{e^{E[\alpha + \beta x+\epsilon]}}{1+e^{E[\alpha + \beta x+\epsilon]}}
+\end{aligned}
+$$
+
+
+Compare the simulations of $X = x_{t_1}, x_{t_2},...x_{t_n}$, and for each $x_t$, the noise is simulate 500 times.
+
+Two way to think about the probability of default $p$ and the default event $b$:
+
+* randomness in Bernoulli $b$ and parameter $p$:  
+  $p_{t,i} = \frac{e^{\alpha+\beta x_t+\epsilon_{t,i}}}{1+e^{\alpha+\beta x_t +\epsilon_{t,i}}}$
+* randomness in Bernoulli $b$ but not in parameter $p$ (industry practice):  
+  $p_{t,i} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t }}$ where there is no randeom term (industry practice)
+
+and the default event is a binary variable $b$ follows Bernoulli distribution
+
+$$
+\begin{aligned}
+b_{t,i} \sim \mathcal{B(p_t)}
+\end{aligned}
+$$
+
+
+* $\hat{p}_{\mu_t} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t}}$
+* $E[p_t] = mean(\frac{e^{\alpha+\beta x_t+\epsilon}}{1+e^{\alpha+\beta x_t+\epsilon}})$
+* $\hat{p}_t^{MLE} = e^{\hat{\alpha}+\hat{\beta} x_t}$
+* $g(E[log(Odds)]) = \frac{e^{E[\alpha+\beta x_t+\epsilon]}}{1+e^{E[\alpha+\beta x_t+\epsilon]}}$
+
+
+
+
+
+```{r}
+library(Rlab)
+library(sqldf)
+
+n <- 100
+m <- 300
+
+variables <- data.frame(matrix(NA, nrow = n*m, ncol = 1))
+colnames(variables) <- 'x1'
+variables$e <- NA
+alpha <- -1
+beta = 4
+
+for(i in 1:n) {
+  x1 <- rep(rnorm(1,0,0.6),m)
+  ## for each x1 we simulate m data point to approximate E[p]
+  e <- rnorm(m,0,3)
+  logOdds <- alpha+beta*x1+e
+  logOdds_f <- alpha+beta*x1
+  variables$e[(1+m*(i-1)):(i*m)] <- e
+  variables$x1[(1+m*(i-1)):(i*m)] <- x1
+  variables$E_p[(1+m*(i-1)):(i*m)] <- mean(exp(logOdds)/(1+exp(logOdds)))
+  variables$logOdds[(1+m*(i-1)):(i*m)] <- logOdds
+  variables$p[(1+m*(i-1)):(i*m)] <- exp(logOdds)/(1+exp(logOdds))
+  variables$p_f[(1+m*(i-1)):(i*m)] <- exp(logOdds_f)/(1+exp(logOdds_f))
+  variables$b_f[(1+m*(i-1)):(i*m)] <- rbern(m, exp(logOdds_f)/(1+exp(logOdds_f)))
+  for(j in (1+m*(i-1)):(i*m)) {
+    variables$b[j] <- rbern(1,variables$p[j])
+  }
+}
+#variables$logOdds <- alpha+beta*variables$x1+variables$e
+#variables$p <- exp(variables$logOdds)/(1+exp(variables$logOdds))
+#variables$b <- ifelse(variables$p>0.5, 1,0)
+variables$Odds <- exp(variables$logOdds)
+glm_sim <- glm(formula = b~x1, data = variables, family = binomial)
+glm_sim_f <- glm(formula = b_f~x1, data = variables, family = binomial)
+variables$model_p <- glm_sim$fitted.values
+variables$model_p_f <- glm_sim_f$fitted.values
+variables$model_b <- ifelse(variables$model_p>0.5, 1,0)
+variables$model_b_f <- ifelse(variables$model_p_f>0.5, 1,0)
+variables$model_error <- variables$p-variables$model_p
+variables$p_E <- exp(alpha+beta*variables$x1)/(1+exp(alpha+beta*variables$x1))
+variables$transform_error <- variables$p-variables$E_p
+
+
+groups <- sqldf("select x1, avg(p), avg(p_f),avg(model_p), avg(model_p_f), avg(p_E), avg(E_p), sum(b), sum(model_b), count(*), sum(model_b)/count(*) as model_pd, sum(b)/count(*) as pd, sum(p-model_p) as model_error from variables group by 1")
+
+
+plot(x = groups$x1, y = groups$`avg(model_p)`, ylim = c(0,1), xlab = 'x1', ylab = '')
+lines(x = groups$x1, y = groups$`avg(p)`, col = 'green')
+points(x = groups$x1, y = groups$`avg(E_p)`, col = 'red')
+points(x = groups$x1, y = groups$`avg(p_E)`, col = 'blue')
+print(glm_sim$coefficients)
+```
+
+```{r}
+plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = 'x1', ylab = '')
+lines(x = groups$x1, y = groups$`avg(p_f)`, col = 'brown')
+print(glm_sim_f$coefficients)
+```
+
