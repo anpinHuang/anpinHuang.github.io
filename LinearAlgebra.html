@@ -421,6 +421,54 @@ vectors of span <span class="math inline">\(C(A)\)</span> that are linear indepe
 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(dim(C(A)) = 3\)</span> and <span class="math inline">\(rank(A) = 3\)</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
+<h3 id="matrices-factorizations">Matrices Factorizations</h3>
+</ins>
+</div>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(A = LU\)</span> from eimination</li>
+<li><span class="math inline">\(A = QR\)</span> from orthogonalization</li>
+<li><span class="math inline">\(S = Q\Lambda Q^{T}\)</span> from eigenvectors of a symmetric matrix <span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(A = X\Lambda X^{-1}\)</span> diagonalizeds <span class="math inline">\(A\)</span> by eigenvector matrix <span class="math inline">\(X\)</span>. <span class="math inline">\(A\)</span> is not symmetric</li>
+<li><span class="math inline">\(A = U\Sigma V^{T}\)</span> (orthogonal)(diagonal)(orthogonal) = Singular Value Decomposition</li>
+</ol>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="eigenvalues-eigenvectors">Eigenvalues &amp; Eigenvectors</h3>
+</ins>
+</div>
+<p><span class="math display">\[Ax_i = \lambda_i x_i\]</span></p>
+<p>where <span class="math inline">\(i = 1,...,n\)</span>, <span class="math inline">\(A\)</span> is a n by n matrix, <span class="math inline">\(\lambda\)</span> are the eigenvalue of <span class="math inline">\(A\)</span> and <span class="math inline">\(x\)</span> are the eigenvectors of <span class="math inline">\(A\)</span></p>
+<p>Why do we want this?</p>
+<ul>
+<li><span class="math inline">\(A^2x = A(Ax) = A(\lambda x) = \lambda^2 x\)</span> <span class="math inline">\(\Rightarrow\)</span> we find out that eigenvectors <span class="math inline">\(x\)</span> of <span class="math inline">\(A\)</span> are also the eigenvectors of <span class="math inline">\(A^2\)</span> and the eigenvalues of <span class="math inline">\(A^2\)</span> are <span class="math inline">\(\lambda^2\)</span> where <span class="math inline">\(\lambda\)</span> are the eigenvalues of <span class="math inline">\(A\)</span>. We can then also extend it to</li>
+<li><span class="math inline">\(A^kx = \lambda^kx\)</span></li>
+<li><span class="math inline">\(A^{-1}x = \frac{1}{\lambda}x\)</span>. It’s always true because when <span class="math inline">\(\lambda=0\)</span>, <span class="math inline">\(A\)</span> is not invertible.</li>
+<li><span class="math inline">\(e^{At}x = e^{\lambda t}x\)</span></li>
+</ul>
+<p>Matrix <span class="math inline">\(B\)</span> is <strong>Similar</strong> to <span class="math inline">\(A\)</span> if</p>
+<p><span class="math display">\[B = M^{-1} A M\]</span> where <span class="math inline">\(M\)</span> can be any invertible matrix. <strong>Then <span class="math inline">\(B\)</span> and <span class="math inline">\(A\)</span> have the same eigenvalues.</strong> Eigenvectors are not the same.</p>
+<p>proof: <span class="math display">\[
+\begin{aligned}
+By &amp;= \lambda y \\
+M^{-1}AMy &amp;= \lambda y \\
+AMy &amp;= M\lambda y \\
+A(My) &amp;= \lambda(My)
+\end{aligned}
+\]</span> The eigenvalues are still <span class="math inline">\(\lambda\)</span> and the eigenvectors change to <span class="math inline">\(My\)</span></p>
+<p>Some other properties</p>
+<ul>
+<li>Eigenvalue(A) + Eigenvalue(B) <span class="math inline">\(\neq\)</span> Eigenvalue(A+B)</li>
+<li><span class="math inline">\(\sum \lambda = trace(A)\)</span> (trace is adding the diagonal values)</li>
+<li><span class="math inline">\(\prod \lambda = \text{det}(A)\)</span></li>
+<li><span class="math inline">\(AX = X\Lambda\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(A = X\Lambda X{-1}\)</span> where <span class="math inline">\(\Lambda\)</span> is the matrix with eigenvalues <span class="math inline">\(\lambda\)</span> at the diagonal.</li>
+</ul>
+<p><strong>Symmetric matrix</strong>:</p>
+<ul>
+<li>Eigenvalues are real</li>
+<li>Eigenvectors are orthogonal: <span class="math inline">\(S = Q\Lambda Q^{-1}\)</span></li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="positive-definite-matrices">Positive Definite Matrices</h3>
 </ins>
 </div>

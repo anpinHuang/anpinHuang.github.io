@@ -45,8 +45,67 @@ The **pivot column** $\overrightarrow{r_1}$, $\overrightarrow{r_2}$, and $\overr
 $\Rightarrow$ $\overrightarrow{a_1}$, $\overrightarrow{a_2}$, and $\overrightarrow{a_4}$ are also linear independent  
 $\Rightarrow$ $\overrightarrow{a_1}$, $\overrightarrow{a_2}$, and $\overrightarrow{a_4}$ form the basis for $C(A)$  
 $\Rightarrow$ $dim(C(A)) = 3$ and $rank(A) = 3$
+ 
+ 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Matrices Factorizations
+</ins>
+</div> 
+
+1. $A = LU$ from eimination
+2. $A = QR$ from orthogonalization 
+3. $S = Q\Lambda Q^{T}$ from eigenvectors of a symmetric matrix $S$
+4. $A = X\Lambda X^{-1}$ diagonalizeds $A$ by eigenvector matrix $X$. $A$ is not symmetric
+5. $A = U\Sigma V^{T}$ (orthogonal)(diagonal)(orthogonal) = Singular Value Decomposition
+
+ 
   
-  
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Eigenvalues & Eigenvectors
+</ins>
+</div>  
+
+$$Ax_i = \lambda_i x_i$$
+
+where $i = 1,...,n$, $A$ is a n by n matrix, $\lambda$ are the eigenvalue of $A$ and $x$ are the eigenvectors of $A$
+
+Why do we want this?
+
+* $A^2x = A(Ax) = A(\lambda x) = \lambda^2 x$ $\Rightarrow$ we find out that eigenvectors $x$ of $A$ are also the eigenvectors of $A^2$ and the eigenvalues of $A^2$ are $\lambda^2$ where $\lambda$ are the eigenvalues of $A$. We can then also extend it to 
+* $A^kx = \lambda^kx$
+* $A^{-1}x = \frac{1}{\lambda}x$. It's always true because when $\lambda=0$, $A$ is not invertible.
+* $e^{At}x = e^{\lambda t}x$
+
+
+Matrix $B$ is **Similar** to $A$ if
+
+$$B = M^{-1} A M$$
+where $M$ can be any invertible matrix. **Then $B$ and $A$ have the same eigenvalues.** Eigenvectors are not the same.
+
+proof:
+$$
+\begin{aligned}
+By &= \lambda y \\
+M^{-1}AMy &= \lambda y \\
+AMy &= M\lambda y \\
+A(My) &= \lambda(My)
+\end{aligned}
+$$
+The eigenvalues are still $\lambda$ and the eigenvectors change to $My$
+
+Some other properties
+
+* Eigenvalue(A) + Eigenvalue(B) $\neq$ Eigenvalue(A+B)
+* $\sum \lambda = trace(A)$ (trace is adding the diagonal values)
+* $\prod \lambda = \text{det}(A)$
+* $AX = X\Lambda$ $\Rightarrow$ $A = X\Lambda X{-1}$ where $\Lambda$ is the matrix with eigenvalues $\lambda$ at the diagonal.
+
+**Symmetric matrix**:
+
+* Eigenvalues are real
+* Eigenvectors are orthogonal: $S = Q\Lambda Q^{-1}$
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
