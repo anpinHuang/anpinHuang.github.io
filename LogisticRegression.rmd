@@ -61,7 +61,7 @@ c(\beta_0, \beta) =
 $$
 logistic regression cost function:
 $$l(\beta_0, \beta) = -\frac{1}{n}\sum_{i=1}^{n}[y_ilog(\hat p)+(1-y_i)log(1-\hat p)]$$
-It's similar to the log likelihood function, where we can define the likelihood function as: 
+It's similar to the log likelihood function, where we can define the likelihood function as the equation below, assuming the likelihood of obvervations are independent of each other given explanatory variables $X$: 
 
 $$ L(\beta_0, \beta) = \prod_{i=1}^{n}p(x_i)^{y_i}(1-p(x_i)^{1-y_i})$$
 then **log-likelihood function** is:
