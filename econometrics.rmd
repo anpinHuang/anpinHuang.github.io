@@ -16,3 +16,4 @@ title: "Econometrics"
 * [Central Limit Theorem](CLM.html)  
 * [Poisson Distribution](PoissonDistribution.html)  
 * [Jensen's Inequility](jensenineq.html)  
+* [Linear Algebra](LinearAlgebra.html)  
