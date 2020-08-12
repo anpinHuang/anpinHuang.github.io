@@ -11,7 +11,7 @@
 
 
 
-<title>Jensen’s Inequility</title>
+<title>Basic Linear Algebra</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,172 +383,163 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Jensen’s Inequility</h1>
+<h1 class="title toc-ignore">Basic Linear Algebra</h1>
 
 </div>
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="jensens-inequility">Jensen’s Inequility</h3>
+<h3 id="column-space-rank">Column Space &amp; Rank</h3>
 </ins>
 </div>
 <ul>
-<li><p>If function <span class="math inline">\(f\)</span> is <strong>convex</strong>:<br />
-<span class="math inline">\(E[f(x)] \geq f(E[x])\)</span></p></li>
-<li><p>If function <span class="math inline">\(f\)</span> is <strong>concave</strong>:<br />
-<span class="math inline">\(E[f(x)] \leq f(E[x])\)</span></p></li>
+<li>Column space<br />
+<span class="math inline">\(C(A) = span(\overrightarrow{a_1},\overrightarrow{a_2},\overrightarrow{a_3},\overrightarrow{a_4},\overrightarrow{a_5})\)</span></li>
+<li>Basis for <span class="math inline">\(C(A)\)</span>:<br />
+vectors of span <span class="math inline">\(C(A)\)</span> that are linear independent</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="example---log-transformation">Example - Log Transformation</h3>
-</ins>
-</div>
-<p>suppose the variable of interest <span class="math inline">\(Y\)</span>: <span class="math display">\[ Y = e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}\]</span> where <span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma I)\)</span>.</p>
-<p>To model it, we take the log such that:</p>
-<p><span class="math display">\[log(Y) = \beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon\]</span></p>
-<p>Then we do linear regression on <span class="math inline">\(log(Y)\)</span>, so we can forecast <span class="math inline">\(E[log(Y)]\)</span>, and we forecast <span class="math inline">\(Y\)</span> by taking the exponential transformation: <span class="math display">\[
-\begin{aligned}
-e^{E[log(Y)]} &amp;= e^{E[\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon]}\\
-&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} \\
-\end{aligned}
-\]</span> Whereas, we are interested in</p>
-<p><span class="math display">\[
-\begin{aligned}
-E[e^{log(Y)}] &amp;= E[e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}]\\
-&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
-&amp; \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
-\end{aligned}
+<p><span class="math display">\[A = 
+\begin{bmatrix}
+1 &amp; 0 &amp; -1 &amp; 0 &amp; 4 \\
+2 &amp; 1 &amp; 0 &amp; 0 &amp; 9 \\
+-1 &amp; 2 &amp; 5 &amp; 1&amp; -5\\
+1 &amp; -1 &amp; -3 &amp; -2 &amp; 9 \\
+\end{bmatrix}
 \]</span></p>
-<p>The following simulation shows the difference between <span class="math inline">\(E[e^{log(Y)}]\)</span> and <span class="math inline">\(e^{E[log(Y)]}\)</span></p>
-<pre class="r"><code>## simulation times
-n=500
-E_forecast &lt;- data.frame(matrix(NA,nrow=n, ncol=1))
-E_forecast_adjusted &lt;- data.frame(matrix(NA,nrow=n, ncol=1))
-colnames(E_forecast) &lt;- &#39;error&#39;
-colnames(E_forecast_adjusted) &lt;- &#39;error&#39;
-for(i in 1:n) {
-  b0 &lt;- rep(2,500)
-  b1 &lt;- 2.2
-  b2 &lt;- 2.5
-  x1 &lt;- rnorm(500,1,0.5)
-  x2 &lt;- rnorm(500,-2,0.4)
-  e &lt;- rnorm(500,0,0.6)
-  log_d &lt;- b0+b1*x1+b2*x2+e
-  d &lt;- exp(log_d)
-  variables &lt;- cbind.data.frame(x1,x2,log_d,d)
-  ## regression on log_d
-  lm_logd &lt;- lm(formula = log_d~x1+x2, data = variables[1:500,])
-  summary(lm_logd)
-  d_hat &lt;- exp(lm_logd$fitted.values)
-  d_hat_adjusted &lt;- exp(lm_logd$fitted.values+summary(lm_logd)$sigma^2/2)
-  E_forecast[i,1] &lt;- mean(d[1:500])-mean(d_hat)
-  E_forecast_adjusted[i,1] &lt;- mean(d[1:500])-mean(d_hat_adjusted)
-}
-hist(E_forecast_adjusted[,1], breaks = 30, col = &#39;red&#39;, xlim = c(-0.2,0.9), freq = F, main = &#39;&#39;, xlab = &#39;mean(data) minus mean(model results)&#39;)
-hist(E_forecast[,1], breaks = 30, xlim = c(-0.2,0.9), freq = F, add = T, col = &#39;blue&#39;)
-legend(&#39;topright&#39;, legend = c(&#39;unadjusted&#39;,&#39;residual s.d. adjusted&#39;), col = c(&#39;blue&#39;,&#39;red&#39;), pt.cex=2, pch=15)</code></pre>
-<p><img src="JensenIneq_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><strong>Reduced row echelon form</strong> by row operation: <span class="math display">\[rref(A) = R = 
+\begin{bmatrix}
+1 &amp; 0 &amp; -1 &amp; 0 &amp; 4 \\
+0 &amp; 1 &amp; 2 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1&amp; -3\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\end{bmatrix}
+\]</span></p>
+<p>The <strong>pivot column</strong> <span class="math inline">\(\overrightarrow{r_1}\)</span>, <span class="math inline">\(\overrightarrow{r_2}\)</span>, and <span class="math inline">\(\overrightarrow{r_4}\)</span> of matix <span class="math inline">\(R\)</span> are linear independent<br />
+<span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\overrightarrow{a_1}\)</span>, <span class="math inline">\(\overrightarrow{a_2}\)</span>, and <span class="math inline">\(\overrightarrow{a_4}\)</span> are also linear independent<br />
+<span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\overrightarrow{a_1}\)</span>, <span class="math inline">\(\overrightarrow{a_2}\)</span>, and <span class="math inline">\(\overrightarrow{a_4}\)</span> form the basis for <span class="math inline">\(C(A)\)</span><br />
+<span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(dim(C(A)) = 3\)</span> and <span class="math inline">\(rank(A) = 3\)</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="example---probabilities">Example - Probabilities</h3>
+<h3 id="positive-definite-matrices">Positive Definite Matrices</h3>
 </ins>
 </div>
-<p><img src="JensenIneq_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="example---logistic-regression">Example - Logistic Regression</h3>
-</ins>
-</div>
-<p>The logistic regression is estimated by <strong>maximum likelihood</strong> which is invariant to transformation such that <span class="math inline">\(g(\hat{\theta}_{MLE}) = \widehat{g(\theta)_{MLE}}\)</span>.</p>
-<p>Compare the simulations of <span class="math inline">\(X = x_{t_1}, x_{t_2},...x_{t_n}\)</span>, and for each <span class="math inline">\(x_t\)</span>, the noise is simulate 500 times.</p>
-<p>Two way to think about the probability of default <span class="math inline">\(p\)</span> and the default event <span class="math inline">\(b\)</span>:</p>
+<p>Positive Definite Matrix: Symmetric matrices that has positive eigenvalues</p>
+<p>The following 5 tests can be used for determining if the mattrix is symmetric positive definite. All of them are testing the same property but from a different point of view, so fulfilling one test means all others are also fulfilled.</p>
+<ol style="list-style-type: decimal">
+<li>All <span class="math inline">\(\lambda_i &gt; 0\)</span></li>
+<li>Energy <span class="math inline">\(X^TSX &gt; 0\)</span> (all <span class="math inline">\(x \neq 0\)</span>)</li>
+<li><span class="math inline">\(S = A^TA\)</span> (independent columns in <span class="math inline">\(A\)</span>)</li>
+<li>All leading determinants &gt; 0</li>
+<li>All pivots in elimination &gt; 0</li>
+</ol>
+<p>The following content shows these 5 tests for matrix <span class="math inline">\(S\)</span></p>
+<p><span class="math display">\[ S = 
+\begin{bmatrix}
+3 &amp; 4\\
+4 &amp; 6\\
+\end{bmatrix}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>skip</li>
+<li>given the matrix is 2 by 2, we can assume <span class="math display">\[X=\begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+\]</span> <span class="math display">\[
+\begin{bmatrix}
+x &amp; y\\
+\end{bmatrix}
+\begin{bmatrix}
+3 &amp; 4\\
+4 &amp; 6\\
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+\end{bmatrix} = 2x^2+6y^2+8xy
+\]</span>
 <ul>
-<li>randomness in Bernoulli <span class="math inline">\(b\)</span> and parameter <span class="math inline">\(p\)</span>:<br />
-<span class="math inline">\(p_{t,i} = \frac{e^{\alpha+\beta x_t+\epsilon_{t,i}}}{1+e^{\alpha+\beta x_t +\epsilon_{t,i}}}\)</span></li>
-<li>randomness in Bernoulli <span class="math inline">\(b\)</span> but not in parameter <span class="math inline">\(p\)</span> (industry practice):<br />
-<span class="math inline">\(p_{t,i} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t }}\)</span><br />
-In this case:<br />
-<span class="math display">\[
-\begin{aligned}
-E[p] &amp;= E[\frac{e^{\alpha + \beta x+\epsilon}}{1+e^{\alpha + \beta x+\epsilon}}]\\
-&amp; \neq \frac{e^{E[\alpha + \beta x+\epsilon]}}{1+e^{E[\alpha + \beta x+\epsilon]}}
-\end{aligned}
+<li>This can be a loss function <span class="math inline">\(f(x,y)\)</span>, and we need <span class="math inline">\(S\)</span> to be positive definite so that <span class="math inline">\(f(x,y)&gt;0\)</span> (convex, or bowl shape).</li>
+<li>Gradient descent can be used for finding the minimum. <span class="math display">\[\bigtriangledown f = 
+ \begin{bmatrix} 
+ \frac{\partial f}{\partial x} \\
+ \frac{\partial f}{\partial y} \\ 
+ \end{bmatrix}\]</span></li>
+<li>If the one eigenvalue is very large and the other is very small, then the gradient descent would look like zig-zaging down the mountain instead of going down by straight line.</li>
+</ul></li>
+<li>skip</li>
+<li>1st leading determinant = 3, 2nd leading determinant = <span class="math inline">\((3 \cdot 6)-(4 \cdot 4) = 2\)</span></li>
+<li>The pivots are <span class="math inline">\(3\)</span> and <span class="math inline">\(\frac{2}{3}\)</span> <span class="math display">\[ S = 
+\begin{bmatrix}
+3 &amp; 4\\
+4 &amp; 6\\
+\end{bmatrix} \sim \begin{bmatrix}
+3 &amp; 4\\
+0 &amp; \frac{2}{3}\\
+\end{bmatrix}
 \]</span></li>
-</ul>
-<p>and the default event is a binary variable <span class="math inline">\(b\)</span> follows Bernoulli distribution</p>
-<p><span class="math display">\[
-\begin{aligned}
-b_{t,i} \sim \mathcal{B(p_t)}
-\end{aligned}
+</ol>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="positive-semidefinite-matrices">Positive Semidefinite Matrices</h3>
+</ins>
+</div>
+<ol style="list-style-type: decimal">
+<li>All <span class="math inline">\(\lambda_i \geq 0\)</span></li>
+<li>Energy <span class="math inline">\(X^TSX \geq 0\)</span> (all <span class="math inline">\(x \neq 0\)</span>)</li>
+<li><span class="math inline">\(S = A^TA\)</span> (dependent columns in allowed)</li>
+<li>All leading determinants <span class="math inline">\(\geq 0\)</span></li>
+<li><span class="math inline">\(r\)</span> pivots in elimination &gt; 0, <span class="math inline">\(r \leq n\)</span></li>
+</ol>
+<p>example 1:</p>
+<p><span class="math display">\[ S&#39; = 
+\begin{bmatrix}
+3 &amp; 4\\
+4 &amp; \frac{16}{3}\\
+\end{bmatrix}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\hat{p}_{\mu_t} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t}}\)</span></li>
-<li><span class="math inline">\(E[p_t] = mean(\frac{e^{\alpha+\beta x_t+\epsilon}}{1+e^{\alpha+\beta x_t+\epsilon}})\)</span></li>
-<li><span class="math inline">\(\hat{p}_t^{MLE} = e^{\hat{\alpha}+\hat{\beta} x_t}\)</span></li>
-<li><span class="math inline">\(g(E[log(Odds)]) = \frac{e^{E[\alpha+\beta x_t+\epsilon]}}{1+e^{E[\alpha+\beta x_t+\epsilon]}}\)</span></li>
+<li>The determinant <span class="math inline">\(det(S&#39;) = 0\)</span> <span class="math inline">\(\Rightarrow\)</span> it has a 0 eigenvalue</li>
+<li>but how do we know the other eigenvalue is 0? By <strong>trace</strong>, Sum of <span class="math inline">\(\lambda\)</span>s must be <span class="math inline">\(3+\frac{16}{3} = \frac{25}{3}\)</span>. Therefore <span class="math inline">\(\lambda\)</span>s must be <span class="math inline">\(0\)</span> and <span class="math inline">\(\frac{25}{3}\)</span></li>
 </ul>
-<pre class="r"><code>library(Rlab)
-library(sqldf)
-
-n &lt;- 100
-m &lt;- 300
-
-variables &lt;- data.frame(matrix(NA, nrow = n*m, ncol = 1))
-colnames(variables) &lt;- &#39;x1&#39;
-variables$e &lt;- NA
-alpha &lt;- -1
-beta = 4
-
-for(i in 1:n) {
-  x1 &lt;- rep(rnorm(1,0,0.6),m)
-  ## for each x1 we simulate m data point to approximate E[p]
-  e &lt;- rnorm(m,0,3)
-  logOdds &lt;- alpha+beta*x1+e
-  logOdds_f &lt;- alpha+beta*x1
-  variables$e[(1+m*(i-1)):(i*m)] &lt;- e
-  variables$x1[(1+m*(i-1)):(i*m)] &lt;- x1
-  variables$E_p[(1+m*(i-1)):(i*m)] &lt;- mean(exp(logOdds)/(1+exp(logOdds)))
-  variables$logOdds[(1+m*(i-1)):(i*m)] &lt;- logOdds
-  variables$p[(1+m*(i-1)):(i*m)] &lt;- exp(logOdds)/(1+exp(logOdds))
-  variables$p_f[(1+m*(i-1)):(i*m)] &lt;- exp(logOdds_f)/(1+exp(logOdds_f))
-  variables$b_f[(1+m*(i-1)):(i*m)] &lt;- rbern(m, exp(logOdds_f)/(1+exp(logOdds_f)))
-  for(j in (1+m*(i-1)):(i*m)) {
-    variables$b[j] &lt;- rbern(1,variables$p[j])
-  }
-}
-#variables$logOdds &lt;- alpha+beta*variables$x1+variables$e
-#variables$p &lt;- exp(variables$logOdds)/(1+exp(variables$logOdds))
-#variables$b &lt;- ifelse(variables$p&gt;0.5, 1,0)
-variables$Odds &lt;- exp(variables$logOdds)
-glm_sim &lt;- glm(formula = b~x1, data = variables, family = binomial)
-glm_sim_f &lt;- glm(formula = b_f~x1, data = variables, family = binomial)
-variables$model_p &lt;- glm_sim$fitted.values
-variables$model_p_f &lt;- glm_sim_f$fitted.values
-variables$model_b &lt;- ifelse(variables$model_p&gt;0.5, 1,0)
-variables$model_b_f &lt;- ifelse(variables$model_p_f&gt;0.5, 1,0)
-variables$model_error &lt;- variables$p-variables$model_p
-variables$p_E &lt;- exp(alpha+beta*variables$x1)/(1+exp(alpha+beta*variables$x1))
-variables$transform_error &lt;- variables$p-variables$E_p
-
-
-groups &lt;- sqldf(&quot;select x1, avg(p), avg(p_f),avg(model_p), avg(model_p_f), avg(p_E), avg(E_p), sum(b), sum(model_b), count(*), sum(model_b)/count(*) as model_pd, sum(b)/count(*) as pd, sum(p-model_p) as model_error from variables group by 1&quot;)
-
-
-plot(x = groups$x1, y = groups$`avg(model_p)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
-lines(x = groups$x1, y = groups$`avg(p)`, col = &#39;green&#39;)
-points(x = groups$x1, y = groups$`avg(E_p)`, col = &#39;red&#39;)
-points(x = groups$x1, y = groups$`avg(p_E)`, col = &#39;blue&#39;)</code></pre>
-<p><img src="JensenIneq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>print(glm_sim$coefficients)</code></pre>
-<pre><code>## (Intercept)          x1 
-##  -0.4867213   1.8705659</code></pre>
-<pre class="r"><code>plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
-lines(x = groups$x1, y = groups$`avg(p_f)`, col = &#39;brown&#39;)</code></pre>
-<p><img src="JensenIneq_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>print(glm_sim_f$coefficients)</code></pre>
-<pre><code>## (Intercept)          x1 
-##   -1.009647    4.076452</code></pre>
+<p>example 2:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p>It is a positive semidefinite matrix, with the eigenvalues 3,0,0 because:</p>
+<ul>
+<li>It is a singular matrix</li>
+<li>with rank=1 <span class="math inline">\(\Rightarrow\)</span> there is only 1 non-zero eigenvalue</li>
+<li>The trace is 3 <span class="math inline">\(\Rightarrow\)</span> the only non-zero eigenvalue is 3</li>
+</ul>
+<p>Now, we try to decompose the matrix to <span class="math inline">\(A^TA\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+\end{bmatrix} &amp;= \lambda_1q_1q_1^T+\lambda_2q_2q_2^T+\lambda_3q_3q_3^T = Q\Lambda Q^T \\
+&amp;= 3 \begin{bmatrix}
+1/\sqrt{3} \\
+1/\sqrt{3} \\
+1/\sqrt{3} \\
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{3}} &amp; \frac{1}{\sqrt{3}} &amp; \frac{1}{\sqrt{3}}\\
+\end{bmatrix} + 0 + 0
+\end{aligned}
+\]</span></p>
+<p>Since a covariance matrix is derived by <span class="math inline">\(A^TA\)</span>, it is by definition a positive semidefinite a matrix. However, there are circumstances that the “covariance/correlation matrix” is not positive semidefinite when they are not derive by <span class="math inline">\(A^TA\)</span></p>
+<ul>
+<li><strong>pairwise estimation</strong>: It is common that when there are missing values in the sample data, analyst would estimate the covariance matrix by pairwise estimation, which is easy to do in R.</li>
+<li><strong>pairwise forecast</strong>: The analyst can also forecast pairwise correlation of more than 2 variables, then in this case the matrix is not positive semidefinite and is not technically a covariance/correlation matrix.</li>
+</ul>
 
 
 

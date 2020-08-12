@@ -134,12 +134,7 @@ points(x = groups$x1, y = groups$`avg(model_p)`, col = 'red')
 </div>
 The logistic regression is estimated by **maximum likelihood** which is invariant to transformation such that $g(\hat{\theta}_{MLE}) = \widehat{g(\theta)_{MLE}}$.
 
-$$
-\begin{aligned}
-E[p] &= E[\frac{e^{\alpha + \beta x+\epsilon}}{1+e^{\alpha + \beta x+\epsilon}}]\\
-& \neq \frac{e^{E[\alpha + \beta x+\epsilon]}}{1+e^{E[\alpha + \beta x+\epsilon]}}
-\end{aligned}
-$$
+
 
 
 Compare the simulations of $X = x_{t_1}, x_{t_2},...x_{t_n}$, and for each $x_t$, the noise is simulate 500 times.
@@ -149,7 +144,14 @@ Two way to think about the probability of default $p$ and the default event $b$:
 * randomness in Bernoulli $b$ and parameter $p$:  
   $p_{t,i} = \frac{e^{\alpha+\beta x_t+\epsilon_{t,i}}}{1+e^{\alpha+\beta x_t +\epsilon_{t,i}}}$
 * randomness in Bernoulli $b$ but not in parameter $p$ (industry practice):  
-  $p_{t,i} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t }}$ where there is no randeom term (industry practice)
+  $p_{t,i} = \frac{e^{\alpha+\beta x_t}}{1+e^{\alpha+\beta x_t }}$  
+  In this case:  
+  $$
+  \begin{aligned}
+  E[p] &= E[\frac{e^{\alpha + \beta x+\epsilon}}{1+e^{\alpha + \beta x+\epsilon}}]\\
+  & \neq \frac{e^{E[\alpha + \beta x+\epsilon]}}{1+e^{E[\alpha + \beta x+\epsilon]}}
+  \end{aligned}
+  $$
 
 and the default event is a binary variable $b$ follows Bernoulli distribution
 
