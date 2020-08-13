@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -306,6 +388,11 @@ $(document).ready(function () {
 </div>
 
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="introduction">Introduction</h3>
+</ins>
+</div>
 <p>To solve a classification problem, <span class="math inline">\(y_i\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we want to estimate the probability of <span class="math inline">\(y_i=1\)</span> by a set of explanatory variable <span class="math inline">\(X\)</span>, denoted as <span class="math inline">\(p(x)\)</span>. However, we cannot simply model the probability by the linear regression model as <span class="math inline">\(p(x) = \beta_0 + x \beta\)</span> since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.</p>
 <p>By transforming the probability to log odds ratio, the target variable becomes unbounded and can be expressed as iinear function of the explanatory variables: <span class="math display">\[log\frac{p(x)}{1-p(x)} = \beta_0 + x\beta\]</span> Now the equation looks like an OLS. When transforming the data to log(odds), the target variable becomes positive and negative infinity, and therefore the residuals cannot be calculated. To estimate the <span class="math inline">\(\beta\)</span>s, we can use the maximum likelihood or gradient descent.</p>
 <!-- However, we cannot model the log odds ratio using OLS because of Jenson's Inequility ($E[f(X)] \neq f(E[X])$). In this case, we want to know $E[p(x)]$, but by using OLS on log odds ratio, we can only get $E[log \frac{p(x)}{1-p(x)}]$.  -->
@@ -372,11 +459,16 @@ c(\beta_0, \beta) =
 </ul>
 <p>Logistic regression is a special case where we can ingnore the saturated model when calculating the R swuare as the <span class="math inline">\(LL(Saturated \ Model)=0\)</span>.</p>
 <p>The glm function in R for logistic regression returns residual deviance and null deviance which can be used for calculating the McFadden’s psuedo <span class="math inline">\(R^2\)</span></p>
+<p><strong>Wald Statistics</strong> The wald test in logistic regression is the test analogic to the t-test for coefficients in linear regression.</p>
+<p><span class="math display">\[w = (\hat{\theta}-\hat{\theta}_0)^{T}[Var(\hat{\theta})]^{-1}(\hat{\theta}-\hat{\theta}_0)\]</span></p>
+<p>To better illustrate the intuition, we assume <span class="math inline">\(\hat{\theta}\)</span> is one-dimensional, then under the Null hypothesis:</p>
+<p><span class="math display">\[w = \frac{(\hat{\theta}-\theta_0)^2}{Var(\hat{\theta})} \sim \chi_1^2\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="information-value-iv-and-weight-of-evidence">Information Value (IV) and Weight of Evidence</h3>
+<h3 id="information-value-iv-and-woe">Information Value (IV) and WOE</h3>
 </ins>
 </div>
+<p>Information Value (IV) and Weight of Evidence (WOE)</p>
 <p><strong>Weight of evidence (WOE):</strong> <span class="math display">\[WOE = ln(\frac{\% \ of \ non-event}{\% \ of \ event})\]</span></p>
 <p>Steps:</p>
 <ol style="list-style-type: decimal">
@@ -389,6 +481,8 @@ c(\beta_0, \beta) =
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -421,6 +515,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

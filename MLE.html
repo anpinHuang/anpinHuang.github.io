@@ -11,7 +11,7 @@
 
 
 
-<title>Econometrics</title>
+<title>Maximum Likelihood (MLE)</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -301,47 +383,35 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Econometrics</h1>
+<h1 class="title toc-ignore">Maximum Likelihood (MLE)</h1>
 
 </div>
 
 
+<p>The MLE estimator is normally distributed asymtotically: <span class="math display">\[\hat{\theta} \sim AN(\theta, \frac{1}{I(\theta)})\]</span></p>
+<p>Definition of the Fisher Information Matrix, also called curvature matrix:</p>
+<p><span class="math display">\[
+\begin{aligned}
+I(\theta) &amp;= E[\frac{\partial}{\partial\theta} \mathcal{l}(\theta)]^2 \\
+&amp;= -E[\frac{\partial^2}{\partial^2\theta} \mathcal{l}(\theta)] \\
+\end{aligned}
+\]</span></p>
 <ul>
-<li><a href="deriveOLS.html">Derive OLS Estimaors in Matrix Form</a><br />
-</li>
-<li><a href="autocorrelation.html">OLS and GLS with Autocorrelation Error Terms</a><br />
-</li>
-<li><a href="heteroskedasticity.html">OLS and GLS with Heteroskedasiticity</a><br />
-</li>
-<li><a href="AssumptionTestOLS.html">OLS Assumptions Test</a><br />
-</li>
-<li><a href="BiasVarianceTradeoff.html">Bias &amp; Variance Tradeoff</a><br />
-</li>
-<li><a href="RidgeLassoRegression.html">Ridge &amp; Lasso Regression</a><br />
-</li>
-<li><a href="PCA.html">Principal Component Analysis (PCA)</a><br />
-</li>
-<li><a href="PanelData.html">Panel Data Regression</a><br />
-</li>
-<li><a href="HealthcareEconomics.html">Healthcare Economics</a></li>
+<li>Cramer-Rao Lower Bound (lowest variance an unbiased estimator can have): <span class="math inline">\(Var(\theta) \geq I(\theta)^{-1}\)</span></li>
+<li>MLE reaches the lower bound asymptotically. MLE may be biased in small sample but bias vanishes asymptotically and MLE is consistent and efficient.</li>
 </ul>
-<div id="probability-math-fundementals" class="section level4">
-<h4>Probability &amp; Math Fundementals</h4>
-<ul>
-<li><a href="CLM.html">Central Limit Theorem</a><br />
-</li>
-<li><a href="PoissonDistribution.html">Poisson Distribution</a><br />
-</li>
-<li><a href="jensenineq.html">Jensen’s Inequility</a><br />
-</li>
-<li><a href="LinearAlgebra.html">Linear Algebra</a><br />
-</li>
-<li><a href="MLE.html">Maximum Likelihood Estimation</a></li>
-</ul>
+<p><span class="math inline">\(\Rightarrow\)</span> The asymtotic covariance matrix of <span class="math inline">\(\hat{\theta}_{MLE}\)</span>:<br />
+<span class="math display">\[
+\begin{aligned}
+Var(\hat{\theta}_{MLE}) &amp;\approx -E[\frac{\partial^2Log\mathcal{l}(\theta)}{\partial\theta \ \partial\theta^T}]^{-1} \\
+&amp;= E[\frac{\partial Log\mathcal{l}(\theta)}{\partial \theta} \cdot (\frac{\partial Log\mathcal{l}(\theta)}{\partial \theta})^T]
+\end{aligned}
+\]</span></p>
+
+
+
 </div>
-
-
-
+</div>
 
 </div>
 
@@ -374,6 +444,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

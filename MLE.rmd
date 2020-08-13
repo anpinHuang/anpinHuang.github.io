@@ -1,0 +1,41 @@
+---
+title: "Maximum Likelihood Estimation (MLE)"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+The MLE estimator is normally distributed asymtotically: 
+$$\hat{\theta} \sim AN(\theta, \frac{1}{I(\theta)})$$
+
+Definition of the Fisher Information Matrix, also called curvature matrix:
+
+$$
+\begin{aligned}
+I(\theta) &= E[\frac{\partial}{\partial\theta} \mathcal{l}(\theta)]^2 \\
+&= -E[\frac{\partial^2}{\partial^2\theta} \mathcal{l}(\theta)] \\
+\end{aligned}
+$$
+
+
+
+* Cramer-Rao Lower Bound (lowest variance an unbiased estimator can have):
+  $Var(\theta) \geq I(\theta)^{-1}$
+* MLE reaches the lower bound asymptotically. MLE may be biased in small sample but bias vanishes asymptotically and MLE is consistent and efficient.
+
+$\Rightarrow$ The asymtotic covariance matrix of $\hat{\theta}_{MLE}$:  
+$$
+\begin{aligned}
+Var(\hat{\theta}_{MLE}) &\approx -E[\frac{\partial^2Log\mathcal{l}(\theta)}{\partial\theta \ \partial\theta^T}]^{-1} \\
+&= E[\frac{\partial Log\mathcal{l}(\theta)}{\partial \theta} \cdot (\frac{\partial Log\mathcal{l}(\theta)}{\partial \theta})^T]
+\end{aligned}
+$$
+
+
+
+
+
+

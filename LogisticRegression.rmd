@@ -1,6 +1,19 @@
 ---
 title: "Logistic Regression & Information Value (IV)"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Introduction
+</ins>
+</div>
 
 To solve a classification problem, $y_i$ is either $0$ or $1$, we want to estimate the probability of $y_i=1$ by a set of explanatory variable $X$, denoted as $p(x)$. However, we cannot simply model the probability by the linear regression model as $p(x) = \beta_0 + x   \beta$ since the probability is bound between [0,1] whereas the linear function of the explanatory variables is unbounded.
 
@@ -119,11 +132,23 @@ Logistic regression is a special case where we can ingnore the saturated model w
 
 The glm function in R for logistic regression returns residual deviance and null deviance which can be used for calculating the McFadden's psuedo $R^2$
 
+**Wald Statistics**
+The wald test in logistic regression is the test analogic to the t-test for coefficients in linear regression.
+
+$$w = (\hat{\theta}-\hat{\theta}_0)^{T}[Var(\hat{\theta})]^{-1}(\hat{\theta}-\hat{\theta}_0)$$
+
+To better illustrate the intuition, we assume $\hat{\theta}$ is one-dimensional, then under the Null hypothesis:
+
+$$w = \frac{(\hat{\theta}-\theta_0)^2}{Var(\hat{\theta})} \sim \chi_1^2$$
+
+
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Information Value (IV) and Weight of Evidence
+### Information Value (IV) and WOE
 </ins>
 </div>
+
+Information Value (IV) and Weight of Evidence (WOE)
 
 **Weight of evidence (WOE):**
 $$WOE = ln(\frac{\% \ of \ non-event}{\% \ of \ event})$$

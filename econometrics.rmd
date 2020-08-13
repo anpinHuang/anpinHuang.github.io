@@ -17,3 +17,4 @@ title: "Econometrics"
 * [Poisson Distribution](PoissonDistribution.html)  
 * [Jensen's Inequility](jensenineq.html)  
 * [Linear Algebra](LinearAlgebra.html)  
+* [Maximum Likelihood Estimation](MLE.html)  
