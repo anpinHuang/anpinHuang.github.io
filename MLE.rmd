@@ -11,7 +11,7 @@ output:
 The MLE estimator is normally distributed asymtotically: 
 $$\hat{\theta} \sim AN(\theta, \frac{1}{I(\theta)})$$
 
-Definition of the Fisher Information Matrix, also called curvature matrix:
+Definition of the **Fisher Information Matrix**, also called **curvature matrix**:
 
 $$
 \begin{aligned}

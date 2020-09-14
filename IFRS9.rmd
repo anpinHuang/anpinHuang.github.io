@@ -1,9 +1,18 @@
 ---
 title: "Notes on IFRS 9"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Overview
+</ins>
 </div>
 Under the IFRS 9, published by ISAB, the lender should reserve for the loan loss based on different stages the loans are in.
 
@@ -14,8 +23,12 @@ Under the IFRS 9, published by ISAB, the lender should reserve for the loan loss
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### [Significant Increase in Credit Risk](http://archive.ifrs.org/Meetings/MeetingDocs/Other%20Meeting/2015/September/AP1-Significant-increases-in-credit-risk.pdf)
+<ins>
+### Significant PD increase
+</ins>
 </div>
+
+See the details in regulatory document: [Significant Increase in Credit Risk](http://archive.ifrs.org/Meetings/MeetingDocs/Other%20Meeting/2015/September/AP1-Significant-increases-in-credit-risk.pdf)
 
 * Significant increase in the **Lifetime Default Risk** as opposed to lifetime expected credit loss. As per [Moody's Intrepretation](https://www.moodysanalytics.com/risk-perspectives-magazine/risk-finance-accounting-converge-ifrs9/spotlight-ifrs-9/complying-with-ifrs-9-impairment-calculations), when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.
 * **B5.5.23:** An entity may use its internal credit risk ratings or other methodologies that are consistent with a globally understood definition of low credit risk and that consider the risks and the type of financial instruments that are being assessed. An external rating of **Investment Grade** is an example of a financial instrument that may be considered as having low credit risk. However, financial instruments are not required to be externally rated to be considered to have low credit risk. 
@@ -61,7 +74,11 @@ economic incentive to make scheduled contractual payments. Credit quality enhanc
   * changes in the entity’s credit management approach in relation to the financial instrument; ie based on emerging indicators of changes in the credit risk of the financial instrument, the entity’s credit risk management practice is expected to become more active or to be focused on managing the instrument, including the instrument becoming more closely monitored or controlled, or the entity specifically intervening with the borrower.
   * past due information, including the rebuttable presumption as set out in paragraph **5.5.11.**
   
-  
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Probability Weighted Scenarios
+</ins>
+</div>
   
   
   

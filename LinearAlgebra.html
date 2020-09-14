@@ -388,6 +388,7 @@ div.tocify {
 </div>
 
 
+<p>This page is a study notes of the course <a href="https://ocw.mit.edu/courses/mathematics/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/">Matrix Methods in Data Analysis, Signal Processing, and Machine Learning</a> by professor Gilbert Strang.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="column-space-rank">Column Space &amp; Rank</h3>
@@ -419,18 +420,124 @@ vectors of span <span class="math inline">\(C(A)\)</span> that are linear indepe
 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\overrightarrow{a_1}\)</span>, <span class="math inline">\(\overrightarrow{a_2}\)</span>, and <span class="math inline">\(\overrightarrow{a_4}\)</span> are also linear independent<br />
 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\overrightarrow{a_1}\)</span>, <span class="math inline">\(\overrightarrow{a_2}\)</span>, and <span class="math inline">\(\overrightarrow{a_4}\)</span> form the basis for <span class="math inline">\(C(A)\)</span><br />
 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(dim(C(A)) = 3\)</span> and <span class="math inline">\(rank(A) = 3\)</span></p>
+<p><strong>Understanding the matrix multiplication</strong></p>
+<p><span class="math display">\[A = 
+\begin{bmatrix}
+2 &amp; 1 &amp; 3\\
+3 &amp; 1 &amp; 4\\
+5 &amp; 7 &amp; 12\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+\end{bmatrix}
+= x_1 \begin{bmatrix}
+2 \\
+3 \\
+5 \\
+\end{bmatrix}
++x_2 \begin{bmatrix}
+1 \\
+1 \\
+7 \\
+\end{bmatrix}
++ x_3 \begin{bmatrix}
+3 \\
+4 \\
+12 \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(A_{3x3} = C_{3x2} \ R_{2x3}\)</span> where <span class="math inline">\(C\)</span> is the column space of matrix <span class="math inline">\(A\)</span> and <span class="math inline">\(R\)</span> is the row space of matrix <span class="math inline">\(A\)</span></p>
+<p><span class="math display">\[
+\begin{bmatrix}
+2 &amp; 1 &amp; 3\\
+3 &amp; 1 &amp; 4\\
+5 &amp; 7 &amp; 12\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+2 &amp; 1\\
+3 &amp; 1\\
+5 &amp; 7\\
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 &amp; 1\\
+0 &amp; 1 &amp; 1\\
+\end{bmatrix}
+\]</span></p>
+<p><strong>column rank <span class="math inline">\(r=2\)</span> = row rank</strong></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="matrices-factorizations">Matrices Factorizations</h3>
 </ins>
 </div>
 <ol style="list-style-type: decimal">
-<li><span class="math inline">\(A = LU\)</span> from eimination</li>
+<li><span class="math inline">\(A = LU\)</span> from eimination we get the the upper matrix <span class="math inline">\(U\)</span> <span class="math display">\[
+\begin{bmatrix}
+2 &amp; 3\\
+4 &amp; 7\\
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+2 &amp; 3\\
+0 &amp; 1\\
+\end{bmatrix}
+\]</span> then <span class="math inline">\(A = LU\)</span><br />
+<span class="math display">\[
+\begin{bmatrix}
+2 &amp; 3\\
+4 &amp; 7\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp; 0\\
+2 &amp; 1\\
+\end{bmatrix}
+\begin{bmatrix}
+2 &amp; 3\\
+0 &amp; 1\\
+\end{bmatrix}
+\]</span></li>
 <li><span class="math inline">\(A = QR\)</span> from orthogonalization</li>
 <li><span class="math inline">\(S = Q\Lambda Q^{T}\)</span> from eigenvectors of a symmetric matrix <span class="math inline">\(S\)</span></li>
 <li><span class="math inline">\(A = X\Lambda X^{-1}\)</span> diagonalizeds <span class="math inline">\(A\)</span> by eigenvector matrix <span class="math inline">\(X\)</span>. <span class="math inline">\(A\)</span> is not symmetric</li>
 <li><span class="math inline">\(A = U\Sigma V^{T}\)</span> (orthogonal)(diagonal)(orthogonal) = Singular Value Decomposition</li>
 </ol>
+<p><strong>4 Fundamental Subspaces A m by n rank r</strong></p>
+<ul>
+<li>Column space <span class="math inline">\(C(A)\)</span>: dim = r</li>
+<li>Row space <span class="math inline">\(C(A^T)\)</span>: dim = r (same as dim of column space)</li>
+<li>Null space of the matrix <span class="math inline">\(N(A)\)</span>: dim = n-r</li>
+<li>Null space of transpose of A <span class="math inline">\(N(A^T)\)</span>: dim = m-r</li>
+<li><span class="math inline">\(C(A)\)</span> is orthogonal to <span class="math inline">\(N(A)\)</span> (1st column of <span class="math inline">\(A\)</span> is orthogonal to x, 2nd column of <span class="math inline">\(A\)</span> is orthogonal to x,…)</li>
+<li><span class="math inline">\(C(A^T)\)</span> is orthogonal to <span class="math inline">\(N(A^T)\)</span></li>
+</ul>
+<p>Null space is all solutions of <span class="math inline">\(Ax = 0\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="orthonormal-orthogonal">Orthonormal &amp; Orthogonal</h3>
+</ins>
+</div>
+<p><strong>Orthonormal Columns <span class="math inline">\(Q\)</span>:</strong></p>
+<ul>
+<li><span class="math inline">\(Q^TQ = I\)</span></li>
+<li><span class="math inline">\(QQ^T = I\)</span>? Sometimes yes, sometimes no. Yes when Q is a square matrix, and <span class="math inline">\(Q\)</span> is called orthogonal matix
+<ul>
+<li><strong>example 1</strong>: rotation matrix <span class="math display">\[Q = 
+\begin{bmatrix}
+cos \theta &amp;  -sin \theta\\
+sin \theta &amp; cos \theta\\
+\end{bmatrix}
+\]</span></li>
+<li><strong>example 2</strong>: reflection matrix <span class="math display">\[Q = 
+\begin{bmatrix}
+cos \theta &amp;  sin \theta\\
+sin \theta &amp; -cos \theta\\
+\end{bmatrix}
+\]</span></li>
+</ul></li>
+</ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="eigenvalues-eigenvectors">Eigenvalues &amp; Eigenvectors</h3>
@@ -587,6 +694,63 @@ y \\
 <ul>
 <li><strong>pairwise estimation</strong>: It is common that when there are missing values in the sample data, analyst would estimate the covariance matrix by pairwise estimation, which is easy to do in R.</li>
 <li><strong>pairwise forecast</strong>: The analyst can also forecast pairwise correlation of more than 2 variables, then in this case the matrix is not positive semidefinite and is not technically a covariance/correlation matrix.</li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="singular-value-decomposition">Singular Value Decomposition</h3>
+</ins>
+</div>
+<p>Compared with <span class="math inline">\(S = Q\Lambda Q^T\)</span>.<br />
+Now <span class="math inline">\(A = U\Sigma V^T\)</span>. <span class="math inline">\(Ax = U\Sigma V^Tx\)</span> can be viewed as as rotation, stretch, rotation of vector <span class="math inline">\(x\)</span>.</p>
+<p>Now the matrix <span class="math inline">\(A\)</span> is rectengular</p>
+<p><span class="math inline">\(A^TA\)</span> is n by n semidefinite positive <span class="math inline">\(\rightarrow A^TA = V\Lambda V^T\)</span> <span class="math inline">\(AA^T\)</span> is m by m semidefinite positive <span class="math inline">\(\rightarrow AA^T = U\Lambda U^T\)</span></p>
+<ul>
+<li>Recall when looking for eigenvalue <span class="math inline">\(Ax = \lambda x\)</span></li>
+<li><strong>Now for SVD, we are looking for a set of orthogonal vectors <span class="math inline">\(v\)</span> mutiply by <span class="math inline">\(A\)</span>, we get a set of orthogonal <span class="math inline">\(u\)</span> mutiply by singular values</strong> <span class="math inline">\(\sigma\)</span>: <span class="math inline">\(Av_i = \sigma u_i\)</span> for <span class="math inline">\(i = 1,...r\)</span> where <span class="math inline">\(r\)</span> is the rank<br />
+<span class="math display">\[
+\begin{aligned}
+\rightarrow AV &amp;= U\Sigma \\
+A &amp;= U\Sigma V^T \\
+A^TA &amp;= V\Sigma^TU^TU\Sigma V^T \\
+A^TA &amp;= V(\Sigma^T\Sigma)V^T
+\end{aligned}
+\]</span></li>
+</ul>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(U\)</span> is the eigenvectors of <span class="math inline">\(AA^T\)</span> and</li>
+<li><span class="math inline">\(V\)</span> is the eigenvectors of <span class="math inline">\(A^TA\)</span></li>
+</ul>
+<p>We know that <span class="math inline">\(v\)</span>s are orthogonal eigenvectors of <span class="math inline">\(A^TA\)</span>. Want to show <span class="math inline">\(u_1^Tu_2 =0\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+u_1^Tu_2 &amp;= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
+&amp;= \frac{v_1^TA^TAv_2}{\sigma_1\sigma_2}\\
+&amp;= \frac{v_1^T\sigma_2^2v_2}{\sigma_1\sigma_2}\\
+&amp;= 0 \\
+&amp;\rightarrow u_1,u_2 \text{ are also orthogonal}
+\end{aligned}
+\]</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="eckart-young">Eckart-Young</h3>
+</ins>
+</div>
+<p><span class="math display">\[A = U\Sigma V^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ru_rv_r^T\]</span> <span class="math display">\[A_k = U_k\Sigma_k V_k^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ku_kv_k^T\]</span></p>
+<p><strong>Eckart-Young Statement</strong>: If B has rank k then <span class="math inline">\(||A-B|| \geq||A-A_k||\)</span></p>
+<p>About norms for vectors:</p>
+<ul>
+<li><span class="math inline">\(L^2\)</span> norm: <span class="math inline">\(||v||_2 = \sqrt{|v_1|^2+ ...+|v_n|^2}\)</span></li>
+<li><span class="math inline">\(L^1\)</span> norm: <span class="math inline">\(||v||_1 = |v_1| +...+ |v_n|\)</span></li>
+<li><span class="math inline">\(L^{\infty}\)</span> norm: <span class="math inline">\(||v||_{\infty} = \text{max|v_i|}\)</span></li>
+<li><span class="math inline">\(||cv|| = |c| \ ||v||\)</span></li>
+<li><span class="math inline">\(||v+w|| \leq ||v||+||w||\)</span></li>
+</ul>
+<p>Below norms for matrix <span class="math inline">\(A\)</span> satisfy Eckart-Young statement:</p>
+<ul>
+<li><span class="math inline">\(||A||_2 = \sigma_1\)</span></li>
+<li>Frobenious norm: <span class="math inline">\(||A||_F = \sqrt{|a_{11}|^2+ ...|a_{1n}|^2+|a_{b1}|^2+...+|a_{mn}|^2}\)</span></li>
+<li>Nuclear norm: <span class="math inline">\(||A||_N = \sigma_1+\sigma_2+...+\sigma_r\)</span></li>
 </ul>
 
 

@@ -446,10 +446,10 @@ A_t &amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 <p>Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="asrf-model">ASRF model</h3>
+<h3 id="asrf-model">ASRF Model</h3>
 </ins>
 </div>
-<p>The Merton’s model can be extended to Asymptotic Single Risk Factor (ASRF) model, assuming the assets value any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant.</p>
+<p>The Merton’s model can be extended to <strong>Asymptotic Single Risk Factor model (ASRF)</strong>, assuming the assets value of any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant.</p>
 <p>The asset value of company <span class="math inline">\(i\)</span> is driven by a single factor <span class="math inline">\(Z\)</span> that represents the systemic credit risk. The idiosyncretic risk should already diversified.</p>
 <p><span class="math display">\[X_i = aZ+b \epsilon_i\]</span> where both <span class="math inline">\(Z\)</span> and <span class="math inline">\(\epsilon\)</span> follow standard normal distribution and <span class="math inline">\(Z\)</span> is independent of <span class="math inline">\(\epsilon\)</span> and each of <span class="math inline">\(\epsilon_i\)</span> for <span class="math inline">\(i=1,...,n\)</span> is independent of each other</p>
 <p>To find <span class="math inline">\(a\)</span>:</p>
@@ -517,7 +517,7 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 <h3 id="irb-approaches">IRB Approaches</h3>
 </ins>
 </div>
-<p>Alternative to the Standard Approach (SA), the Basel II also allows banks to use Internal Ratings-Based (IRB) approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.</p>
+<p>Alternative to the <strong>Standard Approach (SA)</strong>, the Basel II also allows banks to use <strong>Internal Ratings-Based (IRB)</strong> approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.</p>
 <ul>
 <li><strong>Foundation IRB Approach</strong>: The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)</li>
 <li><strong>Advanded IRB Approach</strong>: The bank uses its own estimaed PD, EAD, LGD and effective duration (M).</li>

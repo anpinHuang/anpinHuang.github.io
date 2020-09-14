@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -248,6 +251,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -255,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -307,7 +389,9 @@ $(document).ready(function () {
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="cecl-requirements">CECL Requirements</h3>
+</ins>
 </div>
 <p>Current Expected Credit Loss, or <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected “lifetime” credit loss for the loan as early as when the loan is originated as opposed to the “incurred” loss under the old standard. The main ideas of the CECL are</p>
 <ul>
@@ -321,16 +405,25 @@ $(document).ready(function () {
 <li>Whereas under CECL, the reserve would be <span class="math inline">\(100K \cdot 3\% + 90K \cdot 3\% + ...+ 10K \cdot 3\% = 16.5K\)</span>.</li>
 </ul>
 <p>Although it’s unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.</p>
+<p>Another point of the CECL implementation is the allowance should consider not only the unpaid principal balance but the net <strong>amortized cost</strong>:</p>
+<p><span class="math display">\[\text{Amortized cost} = \text{Principal} + \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued interest &amp; other adjustments}\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="line-of-credit-unconditionally-cancellable">Line of Credit &amp; Unconditionally Cancellable</h3>
+<ins>
+<h3 id="unconditionally-cancellable">Unconditionally Cancellable</h3>
+</ins>
 </div>
 <p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specificies the lender’s authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="the-paydown-curve-of-reporting-dates-upb---pd-ead-view">The Paydown Curve of Reporting Date’s UPB - PD &amp; EAD View</h3>
+<ins>
+<h3 id="paydown-curve">Paydown Curve</h3>
+</ins>
 </div>
+<p>The Paydown Curve of Reporting Date’s UPB - PD &amp; EAD View.</p>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -363,6 +456,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

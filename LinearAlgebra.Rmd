@@ -9,6 +9,9 @@ output:
       smooth_scroll: true
 ---
 
+This page is a study notes of the course [Matrix Methods in Data Analysis, Signal Processing, and Machine Learning](https://ocw.mit.edu/courses/mathematics/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/) by professor Gilbert Strang.
+
+
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 ### Column Space & Rank
@@ -30,6 +33,7 @@ output:
 
 
 
+
 **Reduced row echelon form** by row operation:
 \[rref(A) = R = 
 \begin{bmatrix}
@@ -47,17 +51,134 @@ $\Rightarrow$ $\overrightarrow{a_1}$, $\overrightarrow{a_2}$, and $\overrightarr
 $\Rightarrow$ $dim(C(A)) = 3$ and $rank(A) = 3$
  
  
+
+**Understanding the matrix multiplication**
+
+\[A = 
+\begin{bmatrix}
+2 & 1 & 3\\
+3 & 1 & 4\\
+5 & 7 & 12\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+\end{bmatrix}
+= x_1 \begin{bmatrix}
+2 \\
+3 \\
+5 \\
+\end{bmatrix}
++x_2 \begin{bmatrix}
+1 \\
+1 \\
+7 \\
+\end{bmatrix}
++ x_3 \begin{bmatrix}
+3 \\
+4 \\
+12 \\
+\end{bmatrix}
+\] 
+
+$A_{3x3} = C_{3x2} \ R_{2x3}$ where $C$ is the column space of matrix $A$ and $R$ is the row space of matrix $A$
+
+\[
+\begin{bmatrix}
+2 & 1 & 3\\
+3 & 1 & 4\\
+5 & 7 & 12\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+2 & 1\\
+3 & 1\\
+5 & 7\\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 1\\
+0 & 1 & 1\\
+\end{bmatrix}
+\]
+ 
+**column rank $r=2$ = row rank** 
+ 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 ### Matrices Factorizations
 </ins>
 </div> 
 
-1. $A = LU$ from eimination
+1. $A = LU$ from eimination we get the the upper matrix $U$
+  \[
+\begin{bmatrix}
+2 & 3\\
+4 & 7\\
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+2 & 3\\
+0 & 1\\
+\end{bmatrix}
+\]
+then $A = LU$  
+  \[
+\begin{bmatrix}
+2 & 3\\
+4 & 7\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0\\
+2 & 1\\
+\end{bmatrix}
+\begin{bmatrix}
+2 & 3\\
+0 & 1\\
+\end{bmatrix}
+\]
 2. $A = QR$ from orthogonalization 
 3. $S = Q\Lambda Q^{T}$ from eigenvectors of a symmetric matrix $S$
 4. $A = X\Lambda X^{-1}$ diagonalizeds $A$ by eigenvector matrix $X$. $A$ is not symmetric
 5. $A = U\Sigma V^{T}$ (orthogonal)(diagonal)(orthogonal) = Singular Value Decomposition
+
+**4 Fundamental Subspaces A m by n rank r**
+
+* Column space $C(A)$: dim = r
+* Row space $C(A^T)$: dim = r (same as dim of column space)
+* Null space of the matrix $N(A)$: dim = n-r
+* Null space of transpose of A $N(A^T)$: dim = m-r
+* $C(A)$ is orthogonal to $N(A)$ (1st column of $A$ is orthogonal to x, 2nd column of $A$ is orthogonal to x,...)
+* $C(A^T)$ is orthogonal to $N(A^T)$
+
+
+Null space is all solutions of $Ax = 0$
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Orthonormal & Orthogonal
+</ins>
+</div> 
+
+**Orthonormal Columns $Q$:**
+
+* $Q^TQ = I$
+* $QQ^T = I$? Sometimes yes, sometimes no. Yes when Q is a square matrix, and $Q$ is called orthogonal matix  
+  * **example 1**: rotation matrix \[Q = 
+\begin{bmatrix}
+cos \theta &  -sin \theta\\
+sin \theta & cos \theta\\
+\end{bmatrix}
+\]
+  * **example 2**: reflection matrix \[Q = 
+\begin{bmatrix}
+cos \theta &  sin \theta\\
+sin \theta & -cos \theta\\
+\end{bmatrix}
+\]
 
  
   
@@ -239,6 +360,81 @@ Since a covariance matrix is derived by $A^TA$, it is by definition a positive s
 
 * **pairwise estimation**: It is common that when there are missing values in the sample data, analyst would estimate the covariance matrix by pairwise estimation, which is easy to do in R.
 * **pairwise forecast**: The analyst can also forecast pairwise correlation of more than 2 variables, then in this case the matrix is not positive semidefinite and is not technically a covariance/correlation matrix.
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Singular Value Decomposition
+</ins>
+</div>  
+
+Compared with $S = Q\Lambda Q^T$.  
+Now $A = U\Sigma V^T$. $Ax = U\Sigma V^Tx$ can be viewed as as rotation, stretch, rotation of vector $x$.
+
+Now the matrix $A$ is rectengular
+
+$A^TA$ is n by n semidefinite positive $\rightarrow A^TA = V\Lambda V^T$
+$AA^T$ is m by m semidefinite positive $\rightarrow AA^T = U\Lambda U^T$
+
+
+
+* Recall when looking for eigenvalue $Ax = \lambda x$
+* **Now for SVD, we are looking for a set of orthogonal vectors $v$ mutiply by $A$, we get a set of orthogonal $u$ mutiply by singular values** $\sigma$:  $Av_i = \sigma u_i$ for $i = 1,...r$ where $r$ is the rank  
+$$
+\begin{aligned}
+\rightarrow AV &= U\Sigma \\
+A &= U\Sigma V^T \\
+A^TA &= V\Sigma^TU^TU\Sigma V^T \\
+A^TA &= V(\Sigma^T\Sigma)V^T
+\end{aligned}
+$$
+
+where 
+
+* $U$ is the eigenvectors of $AA^T$ and 
+* $V$ is the eigenvectors of $A^TA$
+
+We know that $v$s are orthogonal eigenvectors of $A^TA$. Want to show $u_1^Tu_2 =0$
+
+$$
+\begin{aligned}
+u_1^Tu_2 &= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
+&= \frac{v_1^TA^TAv_2}{\sigma_1\sigma_2}\\
+&= \frac{v_1^T\sigma_2^2v_2}{\sigma_1\sigma_2}\\
+&= 0 \\
+&\rightarrow u_1,u_2 \text{ are also orthogonal}
+\end{aligned}
+$$
+
+
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Eckart-Young
+</ins>
+</div>  
+
+$$A = U\Sigma V^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ru_rv_r^T$$
+$$A_k = U_k\Sigma_k V_k^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ku_kv_k^T$$
+
+**Eckart-Young Statement**: If B has rank k then $||A-B|| \geq||A-A_k||$
+
+About norms for vectors:
+
+* $L^2$ norm: $||v||_2 = \sqrt{|v_1|^2+ ...+|v_n|^2}$
+* $L^1$ norm: $||v||_1 = |v_1| +...+ |v_n|$
+* $L^{\infty}$ norm: $||v||_{\infty} = \text{max|v_i|}$
+* $||cv|| = |c| \ ||v||$
+* $||v+w|| \leq ||v||+||w||$
+
+
+Below norms for matrix $A$ satisfy Eckart-Young statement:
+
+* $||A||_2 = \sigma_1$
+* Frobenious norm: $||A||_F = \sqrt{|a_{11}|^2+ ...|a_{1n}|^2+|a_{b1}|^2+...+|a_{mn}|^2}$
+* Nuclear norm: $||A||_N = \sigma_1+\sigma_2+...+\sigma_r$
 
 
 

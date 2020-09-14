@@ -1,9 +1,18 @@
 ---
 title: "CECL for Line of Credit"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### CECL Requirements
+</ins>
 </div>
 
 Current Expected Credit Loss, or [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected "lifetime" credit loss for the loan as early as when the loan is originated as opposed to the "incurred" loss under the old standard. The main ideas of the CECL are 
@@ -20,19 +29,28 @@ For example, a loan $100K, 10 year loan, annual principal payment as 10K and has
 
 Although it's unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.
 
+Another point of the CECL implementation is the allowance should consider not only the unpaid principal balance but the net **amortized cost**:
+
+$$\text{Amortized cost} = \text{Principal} + \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued interest & other adjustments}$$
+
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Line of Credit & Unconditionally Cancellable
+<ins>
+### Unconditionally Cancellable
+</ins>
 </div>
 
 In this section, we specifically discuss the line of credit under the CECL regulation. As specified in **326-20-30-11** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true), the lender shall estimate the expected loss over the contractual period unless the obligation is **"Unconditionally Cancellable"**. The credit card normally falls into this category as the 'term & conditions' often specificies the lender's authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding principal & interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in **326-20-55-54** to **326-20-55-56** of [CECL](https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&acceptedDisclaimer=true).
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### The Paydown Curve of Reporting Date's UPB - PD & EAD View
+<ins>
+### Paydown Curve
+</ins>
 </div>
 
+The Paydown Curve of Reporting Date's UPB - PD & EAD View.
 
 
 

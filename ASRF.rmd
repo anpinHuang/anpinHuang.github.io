@@ -79,10 +79,10 @@ Note that unlike Black-Scholes which is under the risk-neutral measure, the Mert
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-###  ASRF model
+###  ASRF Model
 </ins>
 </div>
-The Merton's model can be extended to Asymptotic Single Risk Factor (ASRF) model, assuming the assets value any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
+The Merton's model can be extended to **Asymptotic Single Risk Factor model (ASRF)**, assuming the assets value of any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
 
 The asset value of company $i$ is driven by a single factor $Z$ that represents the systemic credit risk. The idiosyncretic risk should already diversified.
 
@@ -177,7 +177,7 @@ In practice,
 ### IRB Approaches
 </ins>
 </div>
-Alternative to the Standard Approach (SA), the Basel II also allows banks to use Internal Ratings-Based (IRB) approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.
+Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to use **Internal Ratings-Based (IRB)** approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.
 
 
 * **Foundation IRB Approach**: 
