@@ -369,7 +369,7 @@ Since a covariance matrix is derived by $A^TA$, it is by definition a positive s
 </div>  
 
 Compared with $S = Q\Lambda Q^T$.  
-Now $A = U\Sigma V^T$. $Ax = U\Sigma V^Tx$ can be viewed as as rotation, stretch, rotation of vector $x$.
+Now $A = U\Sigma V^T$. $Ax = U\Sigma V^Tx$ can be viewed as **rotation, stretch, and then rotation** of vector $x$.
 
 Now the matrix $A$ is rectengular
 
@@ -394,7 +394,7 @@ where
 * $U$ is the eigenvectors of $AA^T$ and 
 * $V$ is the eigenvectors of $A^TA$
 
-We know that $v$s are orthogonal eigenvectors of $A^TA$. Want to show $u_1^Tu_2 =0$
+We know that vestors $V$ are orthogonal eigenvectors of $A^TA$. We want to show $u_1^Tu_2 =0$
 
 $$
 \begin{aligned}
@@ -421,20 +421,78 @@ $$A_k = U_k\Sigma_k V_k^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ku_
 
 **Eckart-Young Statement**: If B has rank k then $||A-B|| \geq||A-A_k||$
 
-About norms for vectors:
+About **norms** for vectors:
 
 * $L^2$ norm: $||v||_2 = \sqrt{|v_1|^2+ ...+|v_n|^2}$
 * $L^1$ norm: $||v||_1 = |v_1| +...+ |v_n|$
-* $L^{\infty}$ norm: $||v||_{\infty} = \text{max|v_i|}$
+* $L^{\infty}$ norm: $||v||_{\infty} = \text{max}|v_i|$
 * $||cv|| = |c| \ ||v||$
 * $||v+w|| \leq ||v||+||w||$
 
 
-Below norms for matrix $A$ satisfy Eckart-Young statement:
+Below **norms** for matrix $A$ satisfy Eckart-Young statement:
 
 * $||A||_2 = \sigma_1$
 * Frobenious norm: $||A||_F = \sqrt{|a_{11}|^2+ ...|a_{1n}|^2+|a_{b1}|^2+...+|a_{mn}|^2}$
 * Nuclear norm: $||A||_N = \sigma_1+\sigma_2+...+\sigma_r$
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Norms of Vectors and Matrices
+</ins>
+</div> 
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 4 Ways to Solve Least Squares
+</ins>
+</div> 
+
+$Ax=b$
+
+where $A$ is $m$ by $n$ and rank $r$
+
+
+1. Solve $A^TAx = A^Tb$ to minimize $||Ax-b||^2$
+if $A$ has independent columns then $A^TA$ is invertible
+2. Gram-Schmidt $A = QR$ leads to $x = R^{-1}Q^Tb$
+
+
+
+3. The pseudoinverse directly multiplies $b$ to give $x = A^{+}b$
+
+$A = U\Sigma V^T$, if A is invertible, then $A^{-1} = V\Sigma^{-1}U^T$.
+If A is not invertible:
+$A^{+} = V\Sigma^{+}U^T$
+
+
+
+4. THe best $x$ is the limit of $(A^TA + \delta I)^{-1}A^Tb$ as $\delta \to 0$
+
+
+**Claim: $A^{+}b = (A^TA)^{-1}A^Tb$ **
+when $N(A) = 0$, $r=n$
+
+$A^{+} = V\Sigma^{+}U^T = (A^TA)^{-1}A^T$
+
+Notice that  
+
+* $(A^TA)^{-1}A^TA=I$ 
+* while $A(A^TA)^{-1}A^T \neq I$ 
+Note that for $(A^TA)^{-1}A^T$ to be the inverse of $A$, we need $(A^TA)^{-1}A^TA=I$ and $A(A^TA)^{-1}A^T = I$
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Difficulties with Ax = b
+</ins>
+</div> 
+$Ax=b$
+
+0. $x = A^{+}b$ The pseudoinverse
+1.
+2. $m>n=\text{rank}$, then $(A^TA)^{-1} \hat{x}=A^Tb$ the linear regression
+3. $m<n$, then minimize the norm
 
 

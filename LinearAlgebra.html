@@ -701,7 +701,7 @@ y \\
 </ins>
 </div>
 <p>Compared with <span class="math inline">\(S = Q\Lambda Q^T\)</span>.<br />
-Now <span class="math inline">\(A = U\Sigma V^T\)</span>. <span class="math inline">\(Ax = U\Sigma V^Tx\)</span> can be viewed as as rotation, stretch, rotation of vector <span class="math inline">\(x\)</span>.</p>
+Now <span class="math inline">\(A = U\Sigma V^T\)</span>. <span class="math inline">\(Ax = U\Sigma V^Tx\)</span> can be viewed as <strong>rotation, stretch, and then rotation</strong> of vector <span class="math inline">\(x\)</span>.</p>
 <p>Now the matrix <span class="math inline">\(A\)</span> is rectengular</p>
 <p><span class="math inline">\(A^TA\)</span> is n by n semidefinite positive <span class="math inline">\(\rightarrow A^TA = V\Lambda V^T\)</span> <span class="math inline">\(AA^T\)</span> is m by m semidefinite positive <span class="math inline">\(\rightarrow AA^T = U\Lambda U^T\)</span></p>
 <ul>
@@ -721,7 +721,7 @@ A^TA &amp;= V(\Sigma^T\Sigma)V^T
 <li><span class="math inline">\(U\)</span> is the eigenvectors of <span class="math inline">\(AA^T\)</span> and</li>
 <li><span class="math inline">\(V\)</span> is the eigenvectors of <span class="math inline">\(A^TA\)</span></li>
 </ul>
-<p>We know that <span class="math inline">\(v\)</span>s are orthogonal eigenvectors of <span class="math inline">\(A^TA\)</span>. Want to show <span class="math inline">\(u_1^Tu_2 =0\)</span></p>
+<p>We know that vestors <span class="math inline">\(V\)</span> are orthogonal eigenvectors of <span class="math inline">\(A^TA\)</span>. We want to show <span class="math inline">\(u_1^Tu_2 =0\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 u_1^Tu_2 &amp;= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
@@ -738,20 +738,53 @@ u_1^Tu_2 &amp;= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
 </div>
 <p><span class="math display">\[A = U\Sigma V^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ru_rv_r^T\]</span> <span class="math display">\[A_k = U_k\Sigma_k V_k^T = \sigma_1u_1v_1^T + \sigma_2u_2v_2^T + ... \sigma_ku_kv_k^T\]</span></p>
 <p><strong>Eckart-Young Statement</strong>: If B has rank k then <span class="math inline">\(||A-B|| \geq||A-A_k||\)</span></p>
-<p>About norms for vectors:</p>
+<p>About <strong>norms</strong> for vectors:</p>
 <ul>
 <li><span class="math inline">\(L^2\)</span> norm: <span class="math inline">\(||v||_2 = \sqrt{|v_1|^2+ ...+|v_n|^2}\)</span></li>
 <li><span class="math inline">\(L^1\)</span> norm: <span class="math inline">\(||v||_1 = |v_1| +...+ |v_n|\)</span></li>
-<li><span class="math inline">\(L^{\infty}\)</span> norm: <span class="math inline">\(||v||_{\infty} = \text{max|v_i|}\)</span></li>
+<li><span class="math inline">\(L^{\infty}\)</span> norm: <span class="math inline">\(||v||_{\infty} = \text{max}|v_i|\)</span></li>
 <li><span class="math inline">\(||cv|| = |c| \ ||v||\)</span></li>
 <li><span class="math inline">\(||v+w|| \leq ||v||+||w||\)</span></li>
 </ul>
-<p>Below norms for matrix <span class="math inline">\(A\)</span> satisfy Eckart-Young statement:</p>
+<p>Below <strong>norms</strong> for matrix <span class="math inline">\(A\)</span> satisfy Eckart-Young statement:</p>
 <ul>
 <li><span class="math inline">\(||A||_2 = \sigma_1\)</span></li>
 <li>Frobenious norm: <span class="math inline">\(||A||_F = \sqrt{|a_{11}|^2+ ...|a_{1n}|^2+|a_{b1}|^2+...+|a_{mn}|^2}\)</span></li>
 <li>Nuclear norm: <span class="math inline">\(||A||_N = \sigma_1+\sigma_2+...+\sigma_r\)</span></li>
 </ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="norms-of-vectors-and-matrices">Norms of Vectors and Matrices</h3>
+</ins>
+</div>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="ways-to-solve-least-squares">4 Ways to Solve Least Squares</h3>
+</ins>
+</div>
+<p><span class="math inline">\(Ax=b\)</span></p>
+<p>where <span class="math inline">\(A\)</span> is <span class="math inline">\(m\)</span> by <span class="math inline">\(n\)</span> and rank <span class="math inline">\(r\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Solve <span class="math inline">\(A^TAx = A^Tb\)</span> to minimize <span class="math inline">\(||Ax-b||^2\)</span> if <span class="math inline">\(A\)</span> has independent columns then <span class="math inline">\(A^TA\)</span> is invertible</li>
+<li><p>Gram-Schmidt <span class="math inline">\(A = QR\)</span> leads to <span class="math inline">\(x = R^{-1}Q^Tb\)</span></p></li>
+<li><p>The pseudoinverse directly multiplies <span class="math inline">\(b\)</span> to give <span class="math inline">\(x = A^{+}b\)</span></p></li>
+</ol>
+<p><span class="math inline">\(A = U\Sigma V^T\)</span>, if A is invertible, then <span class="math inline">\(A^{-1} = V\Sigma^{-1}U^T\)</span>. If A is not invertible: <span class="math inline">\(A^{+} = V\Sigma^{+}U^T\)</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>THe best <span class="math inline">\(x\)</span> is the limit of <span class="math inline">\((A^TA + \delta I)^{-1}A^Tb\)</span> as <span class="math inline">\(\delta \to 0\)</span></li>
+</ol>
+<p><strong>Claim: <span class="math inline">\(A^{+}b = (A^TA)^{-1}A^Tb\)</span> </strong> when <span class="math inline">\(N(A) = 0\)</span>, <span class="math inline">\(r=n\)</span></p>
+<p><span class="math inline">\(A^{+} = V\Sigma^{+}U^T = (A^TA)^{-1}A^T\)</span></p>
+<p>Notice that</p>
+<ul>
+<li><span class="math inline">\((A^TA)^{-1}A^TA=I\)</span></li>
+<li>while <span class="math inline">\(A(A^TA)^{-1}A^T \neq I\)</span> Note that for <span class="math inline">\((A^TA)^{-1}A^T\)</span> to be the inverse of <span class="math inline">\(A\)</span>, we need <span class="math inline">\((A^TA)^{-1}A^TA=I\)</span> and <span class="math inline">\(A(A^TA)^{-1}A^T = I\)</span></li>
+</ul>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="difficulties-with-ax-b">Difficulties with Ax = b</h3>
+</ins>
+</div>
 
 
 

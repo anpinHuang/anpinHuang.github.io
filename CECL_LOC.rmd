@@ -32,6 +32,7 @@ Although it's unlikely for a loan to have uniform distribution of PD accross the
 Another point of the CECL implementation is the allowance should consider not only the unpaid principal balance but the net **amortized cost**:
 
 $$\text{Amortized cost} = \text{Principal} + \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued interest & other adjustments}$$
+There are two ways that are common used in the industry. First is to directly model the credit loss based on the amortised cost. Another way, a simpler way, is to model the credit loss based on unpaid principal balance and make adjustment on top of that. For simplicity, the following content are based on unpaid principal balance only.
 
 
 

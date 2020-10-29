@@ -1,0 +1,22 @@
+---
+title: "Basic Calculus"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### u substitution
+</ins>
+</div>
+
+* Theory  
+$$\int f(g(x))g^'(x)dx = \int fudu$$
+where $u = g(x)$
+
+

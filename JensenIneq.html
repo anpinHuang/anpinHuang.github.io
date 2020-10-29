@@ -542,13 +542,13 @@ points(x = groups$x1, y = groups$`avg(p_E)`, col = &#39;blue&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.4867213   1.8705659</code></pre>
+##  -0.4773908   1.9180603</code></pre>
 <pre class="r"><code>plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
 lines(x = groups$x1, y = groups$`avg(p_f)`, col = &#39;brown&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim_f$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##   -1.009647    4.076452</code></pre>
+##  -0.9691813   3.9640858</code></pre>
 
 
 
