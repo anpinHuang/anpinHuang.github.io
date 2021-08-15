@@ -509,6 +509,31 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
+<h3 id="estimate-the-asset-correlation-rho">Estimate the asset correlation <span class="math inline">\(\rho\)</span></h3>
+</ins>
+</div>
+<p>The asset correlation <span class="math inline">\(\rho\)</span> can be estimated from the default rate. Following the equation above:</p>
+<p><span class="math display">\[
+\begin{aligned}
+PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
+&amp;=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+\]</span></p>
+<p>again, the <span class="math inline">\(PD_{i}^*\)</span> is the <span class="math inline">\(PD_{TtC}\)</span>.</p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Phi^{-1}(PD_{PiT}) &amp;= \frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}} \\
+ Var [\Phi^{-1}(PD_{PiT})]&amp;=  Var[\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}] \\
+ Var [\Phi^{-1}(PD_{PiT})] &amp;= \frac{1}{1-\rho} Var[\Phi^{-1}(PD_i^{*})] + \frac{\rho}{1-\rho} \cdot 1 \\
+ Var [\Phi^{-1}(PD_{PiT})] &amp;=  \frac{\rho}{1-\rho} \\
+ Var [\Phi^{-1}(PD_{PiT})] - \rho Var [\Phi^{-1}(PD_{PiT})] &amp;=  \rho \\
+  \rho (1+ Var[\Phi^{-1}(PD_{PiT})]) &amp;= Var [\Phi^{-1}(PD_{PiT})]\\
+  \rho &amp;= \frac{Var [\Phi^{-1}(PD_{PiT})]}{1+Var [\Phi^{-1}(PD_{PiT})]} \\
+\end{aligned}
+\]</span> assuming the <span class="math inline">\(PD_{TtC}\)</span> (or <span class="math inline">\(PD_i^{*}\)</span>) is constant, then <span class="math inline">\(Var[\Phi^{-1}(PD_{TtC})]=0\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 <h3 id="portfolio-invariance">Portfolio Invariance</h3>
 </ins>
 </div>

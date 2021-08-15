@@ -11,7 +11,7 @@
 
 
 
-<title>Basic Calculus</title>
+<title>Calculus Integration Techniques</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,20 +383,59 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Basic Calculus</h1>
+<h1 class="title toc-ignore">Calculus Integration Techniques</h1>
 
 </div>
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="u-substitute">u substitute</h3>
+<h3 id="u-substitution">u Substitution</h3>
 </ins>
 </div>
-<ul>
-<li>Theory<br />
-<span class="math display">\[ \int f(g(x))g^&#39;(x)dx = \int fudu \]</span> where <span class="math inline">\(u = g(x)\)</span></li>
-</ul>
+<p><strong>Theorem:</strong><br />
+<span class="math display">\[\int f(g(x))g&#39;(x)dx = \int fudu\]</span> where <span class="math inline">\(u = g(x)\)</span></p>
+<p><strong>Proof:</strong><br />
+Let <span class="math inline">\(F(u)\)</span> be an antiderivative for <span class="math inline">\(f(u)\)</span> and <span class="math inline">\(u = g(x)\)</span> then <span class="math inline">\(\frac{dF(u)}{du} = f(u)\)</span>, and <span class="math inline">\(\frac{dF(u)}{dx} = \frac{dF(u)}{du} \cdot \frac{du}{dx} = f(g(x))g&#39;(x)\)</span> <span class="math inline">\(\Rightarrow \int \frac{dF(u)}{dx} dx = \int f(g(x))g&#39;(x) dx\)</span></p>
+<p><strong>Example 1.</strong> <span class="math inline">\(\int (x^2-1)^42xdx\)</span><br />
+Let <span class="math inline">\(u = x^2-1\)</span>, then <span class="math inline">\(\frac{du}{dx} = 2x\)</span>,<br />
+then <span class="math inline">\(\int (x^2-1)^42xdx = \int u^4 \frac{du}{dx}dx = \int u^4du = \frac{1}{5}u^5 = \frac{1}{5}(x^2-1)^5+C\)</span></p>
+<p><strong>Example 2.</strong> <span class="math inline">\(\int sin(x)cos(x)dx\)</span><br />
+Let <span class="math inline">\(u = sin(x)\)</span>, then <span class="math inline">\(\frac{du}{dx} = cos(x)\)</span>,<br />
+then <span class="math inline">\(\int u\frac{du}{dx} = \int u \ du = \frac{1}{2}u^2+C = \frac{1}{2}sin^2(x)+C\)</span></p>
+<p><strong>Example 3.</strong> <span class="math inline">\(\int \frac{1}{(3+5x)^2}dx\)</span><br />
+Let <span class="math inline">\(u = 3+5x\)</span>, then <span class="math inline">\(\frac{du}{dx} = 5\)</span>,<br />
+then <span class="math inline">\(\int \frac{1}{(3+5x)^2}dx = \frac{1}{5} \int \frac{1}{u^2}\frac{du}{dx}dx = \frac{1}{5}\cdot (-1) u^{-1}+C=\frac{-1}{5}\cdot \frac{1}{3+5x}+C\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="integration-by-parts">Integration by Parts</h3>
+</ins>
+</div>
+<p><strong>Theorem:</strong><br />
+<span class="math display">\[\int_a^b f(x)g&#39;(x)dx = f(x)g(x)\ |_a^b-\int_a^b f&#39;(x)g(x)dx\]</span></p>
+<p><strong>Proof:</strong><br />
+This is derived from the rule of multiplication of taking derivatives</p>
+<p><span class="math inline">\(\because[f(x)g(x)]&#39; = f&#39;(x)g(x)+f(x)g&#39;(x)\)</span> <span class="math inline">\(\therefore \int f(x)g&#39;(x)dx = f(x)g(x)-\int f&#39;(x)g(x)dx\)</span></p>
+<p><strong>Example 1.</strong> <span class="math inline">\(\int xe^x\ dx\)</span><br />
+Let <span class="math inline">\(f(x) = x\)</span> and <span class="math inline">\(g&#39;(x) = e^x\)</span><br />
+then <span class="math inline">\(\int xe^x\ dx = xe^x - \int 1 \cdot e^x\ dx = xe^x - e^x +C\)</span></p>
+<p><strong>Example 2.</strong> <span class="math inline">\(\int x^3ln(x)\ dx\)</span><br />
+Let <span class="math inline">\(f(x) = x^3\)</span> and <span class="math inline">\(g&#39;(x) = ln(x)\)</span><br />
+then <span class="math inline">\(\int x^3ln(x)\ dx = \int ln(x)x^3\ dx = ln(x)\cdot\frac{1}{4}x^4 - \int \frac{1}{x} \frac{1}{4}x^4\ dx = \frac{1}{4}ln(x)x^4 - \frac{1}{20}x^5 + C\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="trigonometric-substitution">Trigonometric Substitution</h3>
+</ins>
+</div>
+<p>Integrals involving <span class="math inline">\(\sqrt{a^2+x^2}\)</span> or <span class="math inline">\(\sqrt{x^2-a^2}\)</span>, use trigonometric substitution</p>
+<p><strong>Example 1.</strong> <span class="math inline">\(\int \frac{1}{(9-x^2)^{3/2}}\ dx\)</span><br />
+Let <span class="math inline">\(x = 3sin(u)\)</span>, then <span class="math inline">\(\frac{dx}{du} = 3cos(u)\)</span> and<br />
+<span class="math inline">\(\int \frac{1}{(9-x^2)^{3/2}}\ dx = \int \frac{1}{(9sin^2(u))^{3/2}}\cdot 3cos(u)\ du = \frac{1}{9}tan(u)+C = \frac{1}{9}\frac{x}{\sqrt{9-x^2}}+C\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="partial-fractions">Partial Fractions</h3>
+</ins>
+</div>
 
 
 

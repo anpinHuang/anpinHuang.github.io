@@ -164,6 +164,39 @@ In practice,
 0.24 × [1 – (1 – EXP(-50 × PD)) / (1 – EXP(-50))] $$
 * To derive $PD_i^{*}$ we need $\mu$ the instantenious expected rate of return of the asset value of company $i$
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+###  Estimate the asset correlation $\rho$
+</ins>
+</div>
+
+
+The asset correlation $\rho$ can be estimated from the default rate. Following the equation above:
+
+$$
+\begin{aligned}
+PD_{PiT} &= \mathcal{P}(A_i(T)<L_i)\\
+&=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+$$
+
+again, the $PD_{i}^*$ is the $PD_{TtC}$.
+
+Then, 
+
+$$
+\begin{aligned}
+\Phi^{-1}(PD_{PiT}) &= \frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}} \\
+ Var [\Phi^{-1}(PD_{PiT})]&=  Var[\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}] \\
+ Var [\Phi^{-1}(PD_{PiT})] &= \frac{1}{1-\rho} Var[\Phi^{-1}(PD_i^{*})] + \frac{\rho}{1-\rho} \cdot 1 \\
+ Var [\Phi^{-1}(PD_{PiT})] &=  \frac{\rho}{1-\rho} \\
+ Var [\Phi^{-1}(PD_{PiT})] - \rho Var [\Phi^{-1}(PD_{PiT})] &=  \rho \\
+  \rho (1+ Var[\Phi^{-1}(PD_{PiT})]) &= Var [\Phi^{-1}(PD_{PiT})]\\
+  \rho &= \frac{Var [\Phi^{-1}(PD_{PiT})]}{1+Var [\Phi^{-1}(PD_{PiT})]} \\
+\end{aligned}
+$$
+assuming the $PD_{TtC}$ (or $PD_i^{*}$) is constant, then $Var[\Phi^{-1}(PD_{TtC})]=0$
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>

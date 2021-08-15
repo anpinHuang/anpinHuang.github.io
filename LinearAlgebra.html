@@ -766,12 +766,10 @@ u_1^Tu_2 &amp;= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
 <p>where <span class="math inline">\(A\)</span> is <span class="math inline">\(m\)</span> by <span class="math inline">\(n\)</span> and rank <span class="math inline">\(r\)</span></p>
 <ol style="list-style-type: decimal">
 <li>Solve <span class="math inline">\(A^TAx = A^Tb\)</span> to minimize <span class="math inline">\(||Ax-b||^2\)</span> if <span class="math inline">\(A\)</span> has independent columns then <span class="math inline">\(A^TA\)</span> is invertible</li>
-<li><p>Gram-Schmidt <span class="math inline">\(A = QR\)</span> leads to <span class="math inline">\(x = R^{-1}Q^Tb\)</span></p></li>
-<li><p>The pseudoinverse directly multiplies <span class="math inline">\(b\)</span> to give <span class="math inline">\(x = A^{+}b\)</span></p></li>
-</ol>
-<p><span class="math inline">\(A = U\Sigma V^T\)</span>, if A is invertible, then <span class="math inline">\(A^{-1} = V\Sigma^{-1}U^T\)</span>. If A is not invertible: <span class="math inline">\(A^{+} = V\Sigma^{+}U^T\)</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>THe best <span class="math inline">\(x\)</span> is the limit of <span class="math inline">\((A^TA + \delta I)^{-1}A^Tb\)</span> as <span class="math inline">\(\delta \to 0\)</span></li>
+<li><p><strong>Gram-Schmidt</strong> <span class="math inline">\(A = QR\)</span> leads to <span class="math inline">\(x = R^{-1}Q^Tb\)</span></p></li>
+<li><p>The pseudoinverse directly multiplies <span class="math inline">\(b\)</span> to give <span class="math inline">\(x = A^{+}b\)</span><br />
+<span class="math inline">\(A = U\Sigma V^T\)</span>, if A is invertible, then <span class="math inline">\(A^{-1} = V\Sigma^{-1}U^T\)</span>. If A is not invertible: <span class="math inline">\(A^{+} = V\Sigma^{+}U^T\)</span></p></li>
+<li><p>THe best <span class="math inline">\(x\)</span> is the limit of <span class="math inline">\((A^TA + \delta I)^{-1}A^Tb\)</span> as <span class="math inline">\(\delta \to 0\)</span></p></li>
 </ol>
 <p><strong>Claim: <span class="math inline">\(A^{+}b = (A^TA)^{-1}A^Tb\)</span> </strong> when <span class="math inline">\(N(A) = 0\)</span>, <span class="math inline">\(r=n\)</span></p>
 <p><span class="math inline">\(A^{+} = V\Sigma^{+}U^T = (A^TA)^{-1}A^T\)</span></p>
@@ -785,6 +783,18 @@ u_1^Tu_2 &amp;= (\frac{Av_1}{\sigma_1})^T(\frac{Av_2}{\sigma_2}) \\
 <h3 id="difficulties-with-ax-b">Difficulties with Ax = b</h3>
 </ins>
 </div>
+<p><span class="math inline">\(Ax=b\)</span></p>
+<ol start="0" style="list-style-type: decimal">
+<li><span class="math inline">\(x = A^{+}b\)</span> The <strong>pseudoinverse</strong></li>
+<li>Sign ok, condition <span class="math inline">\(\frac{\sigma_1}{\sigma_n}\)</span> ok, x = A\b (matlab command of elimination)</li>
+<li><span class="math inline">\(m&gt;n=\text{rank}\)</span>, then <span class="math inline">\((A^TA)^{-1} \hat{x}=A^Tb\)</span> the linear regression, where m is the number of equations</li>
+<li><span class="math inline">\(m&lt;n\)</span>, then minimize the norm</li>
+<li>Columns in bad condition -&gt; Gram-Schmidt normal or column pivoting</li>
+<li>Near singular -&gt; inverse problem -&gt; add penality:<br />
+<span class="math inline">\(\text{min} ||Ax-b||^2+\delta^2x^2\)</span><br />
+</li>
+<li></li>
+</ol>
 
 
 

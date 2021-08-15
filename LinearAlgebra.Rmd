@@ -456,15 +456,14 @@ where $A$ is $m$ by $n$ and rank $r$
 
 1. Solve $A^TAx = A^Tb$ to minimize $||Ax-b||^2$
 if $A$ has independent columns then $A^TA$ is invertible
-2. Gram-Schmidt $A = QR$ leads to $x = R^{-1}Q^Tb$
+2. **Gram-Schmidt** $A = QR$ leads to $x = R^{-1}Q^Tb$
 
 
 
-3. The pseudoinverse directly multiplies $b$ to give $x = A^{+}b$
-
-$A = U\Sigma V^T$, if A is invertible, then $A^{-1} = V\Sigma^{-1}U^T$.
-If A is not invertible:
-$A^{+} = V\Sigma^{+}U^T$
+3. The pseudoinverse directly multiplies $b$ to give $x = A^{+}b$  
+  $A = U\Sigma V^T$, if A is invertible, then $A^{-1} = V\Sigma^{-1}U^T$.
+  If A is not invertible:
+  $A^{+} = V\Sigma^{+}U^T$
 
 
 
@@ -490,9 +489,14 @@ Note that for $(A^TA)^{-1}A^T$ to be the inverse of $A$, we need $(A^TA)^{-1}A^T
 </div> 
 $Ax=b$
 
-0. $x = A^{+}b$ The pseudoinverse
-1.
-2. $m>n=\text{rank}$, then $(A^TA)^{-1} \hat{x}=A^Tb$ the linear regression
+0. $x = A^{+}b$ The **pseudoinverse**
+1. Sign ok, condition $\frac{\sigma_1}{\sigma_n}$ ok, x = A\\b (matlab command of elimination)
+2. $m>n=\text{rank}$, then $(A^TA)^{-1} \hat{x}=A^Tb$ the linear regression, where m is the number of equations
 3. $m<n$, then minimize the norm
+4. Columns in bad condition -> Gram-Schmidt normal or column pivoting
+5. Near singular -> inverse problem -> add penality:  
+  $\text{min} ||Ax-b||^2+\delta^2x^2$  
+6. Too big  -> iterative method
+7. Way too big -> randomize linear algebra
 
 
