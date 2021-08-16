@@ -200,6 +200,72 @@ assuming the $PD_{TtC}$ (or $PD_i^{*}$) is constant, then $Var[\Phi^{-1}(PD_{TtC
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
+### $\rho$ and PiT PD distribution shape
+</ins>
+</div>
+
+The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
+
+```{r}
+rho <- c(0.02,0.07,0.18)
+ttc <- 0.05
+n <- 2000
+z <- rnorm(n, mean=0, sd=1)
+pit <- matrix(nrow=n,ncol=3)
+for(i in 1:n){
+  pit[i,1] <- pnorm((qnorm(ttc)-sqrt(rho[1])*z[i])/sqrt(1-rho[1]),0,1)
+  pit[i,2] <- pnorm((qnorm(ttc)-sqrt(rho[2])*z[i])/sqrt(1-rho[2]),0,1)
+  pit[i,3] <- pnorm((qnorm(ttc)-sqrt(rho[3])*z[i])/sqrt(1-rho[3]),0,1)
+}
+
+hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 2%')
+hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 7%')
+hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 18%')
+
+```
+
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### $PD_{TtC}$ and variability
+</ins>
+</div>
+
+The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$.
+
+```{r}
+rho <- 0.075
+ttc <- c(0.02,0.05,0.24)
+n <- 2000
+z <- rnorm(n, mean=0, sd=1)
+pit <- matrix(nrow=n,ncol=3)
+for(i in 1:n){
+  pit[i,1] <- pnorm((qnorm(ttc[1])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
+  pit[i,2] <- pnorm((qnorm(ttc[2])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
+  pit[i,3] <- pnorm((qnorm(ttc[3])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
+}
+
+hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab='PiT PD', main = 'TtC = 2.5%')
+hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,20), xlim=c(0,0.25), xlab='PiT PD', main = 'TtC = 5%')
+hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab='PiT PD', main = 'TtC = 12.5%')
+
+```
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### PiT adjustment for non-default rating migration
+</ins>
+</div>
+
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
 ### Portfolio Invariance
 </ins>
 </div>
