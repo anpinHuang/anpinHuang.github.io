@@ -560,7 +560,7 @@ hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT 
 <h3 id="pd_ttc-and-variability"><span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 </ins>
 </div>
-<p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>.</p>
+<p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>. Therefore, for different PD rating <span class="math inline">\(r_{i}\)</span> (different <span class="math inline">\(PD_{TtC}\)</span>), the <span class="math inline">\(\rho_{r_i}\)</span> should be different to have the same shape.</p>
 <pre class="r"><code>rho &lt;- 0.075
 ttc &lt;- c(0.02,0.05,0.24)
 n &lt;- 2000
@@ -583,6 +583,16 @@ hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab=&#39;PiT
 <h3 id="pit-adjustment-for-non-default-rating-migration">PiT adjustment for non-default rating migration</h3>
 </ins>
 </div>
+<p>With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.</p>
+<p><span class="math display">\[MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\]</span> * where <span class="math inline">\(r\)</span> is the rating, <span class="math inline">\(d\)</span> is the default state (rating) and <span class="math inline">\(MP^{PiT}_{r \to d}\)</span> is the PiT migration probability from rating <span class="math inline">\(r\)</span> to default <span class="math inline">\(d\)</span>, and is therefore also <span class="math inline">\(PD_{PiT}\)</span>. * <span class="math inline">\(F^{-1}_{PD}\)</span> is the inverse of Vasick distribution. recall that $() $ * <span class="math inline">\(MP^{TtC}_{r \to d}\)</span> refers to the <span class="math inline">\(PD_i^{*}\)</span> in the previous equation * <span class="math inline">\(PiC\)</span> refers to the standard normal <span class="math inline">\(Z\)</span> in the previous equation, but in here, it would be an actual number between 0 and 1 presribed by the economic scenario.</p>
+<p>We can then derive the migration probability from <span class="math inline">\(r\)</span> to one rating above default <span class="math inline">\(d-1\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
+ &amp;= F^{-1}_{PD}(MP^{TtC}_{r \to \{d, d-1\}};\rho_r;PiC) - F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\\
+\end{aligned}
+\]</span></p>
+<p>so on and so forth, we can derive the migration probability of <span class="math inline">\(r \to c\)</span> where <span class="math inline">\(c\)</span> is any non-default rating.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="portfolio-invariance">Portfolio Invariance</h3>

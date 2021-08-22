@@ -50,11 +50,11 @@ This approch of approximating the $f$ by solving the discretized system of equat
 
 Alternative difference quotients:
 
-* Forward difference  
+* **Forward difference**  
   $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\delta ,x)-f(t,x)}{\delta}$
-* Backward difference  
+* **Backward difference**  
   $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t,x)-f(t-\delta,x)}{\delta}$
-* Central difference  
+* **Central difference**  
   $\frac{\partial f(t,x)}{\partial t} \approx \frac{f(t+\frac{\delta}{2},x)-f(t-\frac{\delta}{2},x)}{\delta}$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">

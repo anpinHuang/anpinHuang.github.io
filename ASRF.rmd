@@ -261,6 +261,28 @@ hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab='PiT PD', 
 </ins>
 </div>
 
+With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.
+
+$$MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)$$
+* where $r$ is the rating, $d$ is the default state (rating) and $MP^{PiT}_{r \to d}$ is the PiT migration probability from rating $r$ to default $d$, and is therefore also $PD_{PiT}$.
+* $F^{-1}_{PD}$ is the inverse of Vasick distribution. recall that $\Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) $
+* $MP^{TtC}_{r \to d}$ refers to the $PD_i^{*}$ in the previous equation
+* $PiC$ refers to the standard normal $Z$ in the previous equation, but in here, it would be an actual number between 0 and 1 presribed by the economic scenario.
+
+We can then derive the migration probability from $r$ to one rating above default $d-1$:
+
+$$
+\begin{aligned}
+MP^{PiT}_{r \to d-1} &=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
+ &= F^{-1}_{PD}(MP^{TtC}_{r \to \{d, d-1\}};\rho_r;PiC) - F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\\
+\end{aligned}
+$$
+
+so on and so forth, we can derive the migration probability of $r \to c$ where $c$ is any non-default rating.
+
+
+
+
 
 
 
