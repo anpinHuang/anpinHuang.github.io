@@ -197,7 +197,7 @@ $$
 $$
 assuming the $PD_{TtC}$ (or $PD_i^{*}$) is constant, then $Var[\Phi^{-1}(PD_{TtC})]=0$
 
-If there are multiple ratings in the pool, then $PD_{TtC}$ of the portfolio is not constant (portfolio changes over time). Therefore, $\rho$ would be to be estimated by maximum likelihood in this case. 
+If there are multiple ratings in the pool, then $PD_{TtC}$ of the portfolio is not constant (portfolio changes over time). Therefore, $\rho$ would need to be estimated by maximum likelihood in this case. 
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
