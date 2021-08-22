@@ -2,13 +2,9 @@
 title: ''
 ---
 
-#### An-Pin (Ben) Huang
+#### Ben Huang
 <img src="suitUp.jpeg" width="150" height="150" />
   
-#### <ins>Education</ins>
-* ***Boston University***, MS in Mathematical Finance
-* ***National Tsing Hua University***, BS in Quantitative Finance
-
 #### <ins>Experience</ins>
 * ***ING***  Amsterdam, North Holland, NL  (11/2020-present)  
   Research & Advice Professional, Financial Risk Model Development - IFRS 9
@@ -28,6 +24,10 @@ title: ''
   Technology Associate, Quality Assurance
   * Software testing for Financial Derivatives Systems
   * Interest rate swaps, Swaptions, Equity Derivatives.
+  
+#### <ins>Education</ins>
+* ***Boston University***, MS in Mathematical Finance
+* ***National Tsing Hua University***, BS in Quantitative Finance
 
 #### <ins>Contact me</ins>
 * Email: anpin@bu.edu
