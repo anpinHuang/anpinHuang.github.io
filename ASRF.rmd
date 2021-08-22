@@ -233,7 +233,7 @@ hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD'
 </ins>
 </div>
 
-The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$.
+The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$. Therefore, for different PD rating $r_{i}$ (different $PD_{TtC}$), the $\rho_{r_i}$ should be different to have the same shape.
 
 ```{r}
 rho <- 0.075

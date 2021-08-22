@@ -8,7 +8,7 @@ title: "Financial Mathematics & Risk"
 * [SABR Model (for Fixed Income Derivatives)](SABR.html)  
 * [Notes on Basel II & ASRF Model](ASRF.html)  
 * [CECL for Line of Credit](CECL_LOC.html) 
-* [Notes on IFRS 9](IFRS9.html) 
+* [Notes on IFRS 9 Requirements](IFRS9.html) 
 * [Credit Risk Models Comparison](CreditRiskModels.html)  
 * [Bond Analytics - Python](BondAnalytics.html) 
 * [Efficient Frontier - return and variance](EfficientFrontier.html)    

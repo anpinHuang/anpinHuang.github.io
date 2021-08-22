@@ -39,7 +39,7 @@ Then we do linear regression on $log(Y)$, so we can forecast $E[log(Y)]$, and we
 $$
 \begin{aligned}
 e^{E[log(Y)]} &= e^{E[\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon]}\\
-&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} \\
+&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2} \\
 \end{aligned}
 $$
 Whereas, we are interested in
@@ -47,8 +47,8 @@ Whereas, we are interested in
 $$
 \begin{aligned}
 E[e^{log(Y)}] &= E[e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}]\\
-&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
-& \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
+&= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
+& \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
 \end{aligned}
 $$
 

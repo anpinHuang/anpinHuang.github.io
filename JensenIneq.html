@@ -410,14 +410,14 @@ div.tocify {
 <p>Then we do linear regression on <span class="math inline">\(log(Y)\)</span>, so we can forecast <span class="math inline">\(E[log(Y)]\)</span>, and we forecast <span class="math inline">\(Y\)</span> by taking the exponential transformation: <span class="math display">\[
 \begin{aligned}
 e^{E[log(Y)]} &amp;= e^{E[\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon]}\\
-&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} \\
+&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2} \\
 \end{aligned}
 \]</span> Whereas, we are interested in</p>
 <p><span class="math display">\[
 \begin{aligned}
 E[e^{log(Y)}] &amp;= E[e^{\beta_0 + \beta_1X_1  + \beta_2X_2 + \epsilon}]\\
-&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
-&amp; \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1++\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
+&amp;= e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2+ \frac{\sigma^2}{2}}  \\
+&amp; \neq e^{\beta_0^{(OLS)}+\beta_1^{(OLS)}X_1+\beta_2^{(OLS)}X_2} = e^{E[log(Y)]}\\
 \end{aligned}
 \]</span></p>
 <p>The following simulation shows the difference between <span class="math inline">\(E[e^{log(Y)}]\)</span> and <span class="math inline">\(e^{E[log(Y)]}\)</span></p>
@@ -542,13 +542,13 @@ points(x = groups$x1, y = groups$`avg(p_E)`, col = &#39;blue&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.4773908   1.9180603</code></pre>
+##  -0.4937436   1.9091422</code></pre>
 <pre class="r"><code>plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
 lines(x = groups$x1, y = groups$`avg(p_f)`, col = &#39;brown&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim_f$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.9691813   3.9640858</code></pre>
+##  -0.9939712   4.0766411</code></pre>
 
 
 
