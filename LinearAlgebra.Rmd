@@ -1,5 +1,5 @@
 ---
-title: "Basic Linear Algebra"
+title: "Basic Linear Algebra for Machine Learning"
 output:
   html_document:
     toc: true

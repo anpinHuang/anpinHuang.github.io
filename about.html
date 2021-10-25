@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -83,7 +83,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +231,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -243,18 +243,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -279,7 +267,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -317,43 +305,45 @@ $(document).ready(function () {
 </div>
 
 
-<div id="an-pin-ben-huang" class="section level4">
-<h4>An-Pin (Ben) Huang</h4>
+<div id="ben-huang" class="section level4">
+<h4>Ben Huang</h4>
 <p><img src="suitUp.jpeg" width="150" height="150" /></p>
-</div>
-<div id="education" class="section level4">
-<h4><ins>Education</ins></h4>
-<ul>
-<li><strong><em>Boston University</em></strong>, MS in Mathematical Finance</li>
-<li><strong><em>National Tsing Hua University</em></strong>, BS in Quantitative Finance</li>
-</ul>
 </div>
 <div id="experience" class="section level4">
 <h4><ins>Experience</ins></h4>
 <ul>
-<li><strong><em>OnDeck Capital</em></strong><br />
-NY, NY, US (08/2019-present)<br />
+<li><strong><em>ING</em></strong> Amsterdam, North Holland, NL (11/2020-present)<br />
+Research &amp; Advice Professional, Financial Risk Model Development - IFRS 9
+<ul>
+<li>IFRS 9 -compliant model for Commercial Property Finance portfolio (wholesale)</li>
+</ul></li>
+<li><strong><em>OnDeck Capital</em></strong> NY, NY, US (08/2019-10/2020)<br />
 Senior Risk Analyst, Credit Loss Forecasting
 <ul>
 <li>CECL-compliant model for credit line product</li>
-<li>Roll rate model for term loan</li>
-<li>Quarterly reporting for Allowance for Loan and Lease Losses (ALLL)</li>
+<li>Roll rate model for term loan portfolio</li>
+<li>Quarterly reporting and analysis for Allowance for Loan and Lease Losses (ALLL)</li>
 </ul></li>
-<li><strong><em>UBS</em></strong><br />
-NY, NY, US (10/2016-08/2019)<br />
+<li><strong><em>UBS</em></strong> NY, NY, US (10/2016-08/2019)<br />
 Quantitative Risk Specialist, Associate Director
 <ul>
 <li>Scenario expansion models for economic variables, OOP model implementation</li>
 <li>Model risk monitoring automation, and automated soundess checks on model forecasts</li>
 <li>Pension risk stress testing model for UBS defined benefit plans</li>
 </ul></li>
-<li><strong><em>Wellington Management Company</em></strong><br />
-Boston, MA, US (04/2015-09/2016)<br />
+<li><strong><em>Wellington Management Company</em></strong> Boston, MA, US (04/2015-09/2016)<br />
 Technology Associate, Quality Assurance
 <ul>
 <li>Software testing for Financial Derivatives Systems</li>
 <li>Interest rate swaps, Swaptions, Equity Derivatives.</li>
 </ul></li>
+</ul>
+</div>
+<div id="education" class="section level4">
+<h4><ins>Education</ins></h4>
+<ul>
+<li><strong><em>Boston University</em></strong>, MS in Mathematical Finance</li>
+<li><strong><em>National Tsing Hua University</em></strong>, BS in Quantitative Finance</li>
 </ul>
 </div>
 <div id="contact-me" class="section level4">
@@ -381,6 +371,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

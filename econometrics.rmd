@@ -13,9 +13,9 @@ title: "Econometrics"
 * [Healthcare Economics](HealthcareEconomics.html)  
 
 #### Probability & Math Fundementals
+* [Linear Algebra for Machine Learning](LinearAlgebra.html) 
+* [Jensen's Inequility](jensenineq.html) 
 * [Central Limit Theorem](CLM.html)  
 * [Poisson Distribution](PoissonDistribution.html)  
-* [Jensen's Inequility](jensenineq.html)  
 * [Maximum Likelihood Estimation](MLE.html)  
-* [Linear Algebra](LinearAlgebra.html)  
 * [Calculus - Integration Techniques](IntegralSkills.html)  

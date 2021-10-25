@@ -1,0 +1,94 @@
+---
+title: "Minimum Edit Distance"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+  
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Backtrace for Computing Alignment
+</ins>
+</div>  
+  
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Introduction to N-grams
+</ins>
+</div>  
+
+Goal: assign a probability to a sentence
+
+* Machine translation
+* Spell correction
+* Speech recognition
+
+$$P(W) = P(w_1, w_2, ...,w_n)$$
+related task: compute the probability of upcoming word
+
+$$P(w_5 | w_1, w_2, w_3, w_4)$$
+Probability of chain rule:
+$$P(A,B,C,D) = P(A)P(B|A)P(C|A,B)P(D|A,B,C)$$
+For example,
+
+
+$$
+\begin{aligned}
+P("its\ water\ is\ so\ transparent") &= P(its) \cdot P(water | its) \cdot P(is |its\ water) \\
+&\cdot P(so|its\ water\ is) \cdot P(transparent|its\ water\ is\ so) \\
+
+\end{aligned}
+$$
+ 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Markov assumption
+</ins>
+</div> 
+ 
+ 
+ * Could we just count and divide?
+ 
+ $$P(the|its\ water \ is\ so\ transparent\ that)=\frac{count(its\ water\ is\ so\ transparant\ that\ the)}{count(its\ water\ is\ so\ transparant\ that)} $$
+ 
+ * No, there are too many possible sentence
+ * Simplify assumption
+ $$ P(the|its\ water \ is\ so\ transparent\ that) \approx P(the|that)$$
+ * Or maybe 
+$$ P(the|its\ water \ is\ so\ transparent\ that) \approx P(the|transparent\ that)$$
+ * generalize
+ $$P(w_i| w_1,...w_{i-1}) \approx P(w_i|w_{i-k},...w_{i-1})$$
+ * Bigram model
+ $$P(w_i|w_1,w_2,...w_{i-1}) \approx P(w_i|w_{i-1})$$
+ * In general, n-gram is an insufficient model because laugugaes have long distance dependency.
+ 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Evaluation: How good is our model
+</ins>
+</div> 
+* Extrinsic valuation - Best evaluation for comparing language models
+  * put each model in task - 
+  * 
+* Intrinsic evaluation: perplexity
+  * The Shannon Game - how well can we predict the next word?
+  * Unigrams are terrible at this game
+  * Perplexity is the probability of the test set, normalized by the number of words
+$$PP(W) = P(w_1,...w_n)^{\frac{1}{N}}$$
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### Generalization and Zeros
+</ins>
+</div> 
+
+
+
+
+
+  
