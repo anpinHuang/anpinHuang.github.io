@@ -199,6 +199,7 @@ assuming the $PD_{TtC}$ (or $PD_i^{*}$) is constant, then $Var[\Phi^{-1}(PD_{TtC
 
 If there are multiple ratings in the pool, then $PD_{TtC}$ of the portfolio is not constant (portfolio changes over time). Therefore, $\rho$ would need to be estimated by maximum likelihood in this case. 
 
+
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 ### IFRS9 requirement and the application of ASRF model
@@ -240,7 +241,6 @@ binomial_bounds(static_size=1000)
 binomial_bounds(static_size=20000)
 
 ```
-
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
@@ -314,6 +314,7 @@ $$MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)$$
 * $d$ is the default state (rating) and 
 * $MP^{PiT}_{r \to d}$ is the PiT migration probability from rating $r$ to default $d$, and is therefore also $PD_{PiT}$.
 * $F^{-1}_{PD}$ is the inverse of Vasick distribution. recall that $\Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}})$
+
 * $MP^{TtC}_{r \to d}$ refers to the $PD_i^{*}$ in the previous equation
 * $PiC$ refers to the standard normal $Z$ in the previous equation, but in here, it would be an actual number between 0 and 1 presribed by the economic scenario.
 
