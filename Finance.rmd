@@ -2,14 +2,20 @@
 title: "Financial Mathematics & Risk"
 ---
 
-* [Ito's Lemma & Stochastic Calculus](ItoLemma.html) 
-* [Derive Black-Scholes Model](BSM.html)  
-* [Finite Difference for PDEs](FiniteDifferencesPDE.html)  
-* [SABR Model (for Fixed Income Derivatives)](SABR.html) 
-* [Notes on IFRS 9 Requirements](IFRS9.html) 
+#### Risk modeling
+
+ 
+* [IFRS 9 Requirements](IFRS9.html) 
 * [Basel II, ASRF Model & IFRS9 Application](ASRF.html)  
 * [CECL for Line of Credit](CECL_LOC.html) 
 * [Credit Risk Models Comparison](CreditRiskModels.html)  
+* [SABR Model (for Fixed Income Derivatives)](SABR.html) 
+
+#### Financial mathematics
+
+* [Ito's Lemma & Stochastic Calculus](ItoLemma.html) 
+* [Derive Black-Scholes Model](BSM.html)  
+* [Finite Difference for PDEs](FiniteDifferencesPDE.html) 
 * [Bond Analytics - Python](BondAnalytics.html) 
 * [Efficient Frontier - return and variance](EfficientFrontier.html)    
 

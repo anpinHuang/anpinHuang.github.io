@@ -349,7 +349,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -395,40 +395,46 @@ div.tocify {
 <h3 id="gb-for-continuous-variable">GB for Continuous Variable</h3>
 </ins>
 </div>
-<p>Steps for Gradient Boosting for continuous target variable</p>
+<p>Steps for Gradient Boosting for continuous target variable (gradient boost for regression).</p>
 <ol style="list-style-type: decimal">
 <li>Make initial estimation - all sample average of target variable</li>
-<li>Build a regression tree (industry practice is to have ~8 leaf nodes)</li>
-<li>Make predictions based on the regression tree and the learning rate</li>
-<li>Calculate the error of the predictions</li>
-<li>Build another regression tree based on the errors</li>
+<li>Build a regression tree (industry practice is to have ~8 leaf nodes) on pseudo residuals</li>
+<li>Make predictions based on the regression tree and the <strong><em>learning rate</em></strong> <span class="math inline">\(\nu\)</span></li>
+<li>Calculate the pseudo residuals of the predictions</li>
+<li>Build another regression tree based on the pseudo residuals</li>
 <li>Make predictions based on the all regression trees above and the learning rate. see prediction formula below.</li>
 <li>Repeat 4-6 iteratively until we reach the maximum number of iterations or building a new tree does not reduce the residuals.</li>
 </ol>
 <p>The idea of the learning is that for each tree that was build, we make a small steps toward (hopefully) to the true value.</p>
-<p>When making the prediction using the tree, the predicted is the sample average of the target variable in the node. It can be shown by the formula below.</p>
+<p>When making the first prediction, the predicted value is the sample average of the target variable in the node. It can be shown by the formula below.</p>
 <p><strong>Loss Function</strong></p>
 <p><span class="math display">\[L(y_i, F(x)) = \sum_{i=1}^{n} \frac{1}{2} (y_i-\hat{y})^2\]</span></p>
-<ol style="list-style-type: decimal">
-<li><strong>Step 1:</strong> initialize the model with constant value <span class="math display">\[F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)\]</span></li>
-</ol>
-<p>where <span class="math inline">\(\gamma\)</span> here is the predicted value. Taking the first derivative solve for the <span class="math inline">\(\gamma\)</span> such that first derivative of the loss function equals 0. We get that the <span class="math inline">\(\gamma\)</span> is the average of sample.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>Step 2:</strong> for m = 1 to M: (M trees)</p>
+<p><strong>Step 1:</strong> initialize the model with constant value <span class="math display">\[F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)\]</span></p>
+<p>where <span class="math inline">\(\gamma\)</span> here is the predicted value. By taking the first derivative of the loss function and find <span class="math inline">\(\gamma\)</span> such that first derivative of the loss function equals 0. We get that the <strong><em><span class="math inline">\(\gamma\)</span> is the average of the sample</em></strong>.</p>
+<p><strong>Step 2:</strong> for m = 1 to M: (M trees)</p>
+<p><strong>2.1 Compute Pseudo Residuals </strong> <span class="math display">\[r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\]</span> <span style="color: red;"> <strong><em>note that this derivative <span class="math inline">\([\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]\)</span> is the gradient that the gradient boosting is named after </em></strong> </span></p>
+<p><strong>2.2 Fit a regression tree to the Pseudo Residuals <span class="math inline">\(r_{i,m}\)</span> and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span> </strong></p>
+<p><strong>2.3 Again, Find the <span class="math inline">\(\gamma\)</span> (output value) that minimize the loss function</strong><br />
+<span class="math display">\[\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)\]</span> for <span class="math inline">\(j=1...J_m\)</span>. This can be solved analytically. Given our chose of loss function, the <span class="math inline">\(\gamma\)</span> is always the average of the (pseudo) residuals in the same leaf.</p>
+<p>where</p>
 <ul>
-<li><p>Compute <span class="math inline">\(r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\)</span></p></li>
-<li><p>Fit a regression tree to the <span class="math inline">\(r_{i,m}\)</span> values and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span></p></li>
-<li><p>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)\)</span> This can be solved analytically. The <span class="math inline">\(\gamma\)</span> would be the average of the residual in the leaf.</p></li>
-<li><p>Make new predictions: update <span class="math inline">\(F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})\)</span></p></li>
-</ul></li>
-</ol>
+<li><span class="math inline">\(m\)</span> indicates the m-th number of tree and</li>
+<li><span class="math inline">\(j\)</span> indicates the j-th number of leave (of the m-th number of tree)</li>
+</ul>
+<p><strong>2.4 Make new predictions for each sample: </strong> <span class="math display">\[F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})\]</span></p>
+<p>where <span class="math inline">\(\nu\)</span> is the <strong><em>Learning Rate</em></strong> and is a value between 0 and 1. A small learning rate reduce the effect of each tree on the final production and improve the accurary in the long run.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="gb-for-binary-variable">GB for Binary Variable</h3>
 </ins>
 </div>
-<p>Gradient Boosting for binary target variable is similar to that for continunous target variable, but the loss function is different <strong>Loss function</strong> <span class="math display">\[-\sum_{i=1}^{n} y_i \cdot log(\hat{p})+(1-y_i) \cdot log(1-\hat{p}) \]</span></p>
-<p>Now, we want to make it a function of predicted log-odd ratio, and then simply it.</p>
+<p>Gradient Boosting for binary target variable is similar to that for continunous target variable, but</p>
+<ul>
+<li>with different <strong><em>Loss function</em></strong> and</li>
+<li><strong><em>The <span class="math inline">\(\gamma\)</span> here is the <span class="math inline">\(log(odds)\)</span>. </em></strong></li>
+</ul>
+<p><span class="math display">\[-\sum_{i=1}^{n} y_i \cdot log(\hat{p})+(1-y_i) \cdot log(1-\hat{p}) \]</span></p>
+<p>Now, we want to make it a function of predicted log-odd ratio, and then simplify it.</p>
 <p><span class="math display">\[
 \begin{aligned}
 -[y_i \cdot log(\hat{p_i})+(1-y_i) \cdot log(1-\hat{p_i})] &amp;=  -y_i \cdot log(\hat{p_i})-(1-y_i) \cdot log(1-\hat{p_i})\\
@@ -442,43 +448,55 @@ div.tocify {
 &amp;= -y_i \cdot log(odds)+log({1+e^{log(odds)}})] \\
 \end{aligned}
 \]</span></p>
-<p>Now take the first derivative of the loss function <span class="math display">\[
+<p>Now take the first derivative of the loss function with respect to <span class="math inline">\(log(odds)\)</span> <span class="math display">\[
 \begin{aligned}
 \frac{d}{d log(odds)} L &amp;= -y_i+ \frac{e^{log(odds)}}{1+e^{log(odds)}} \\
 &amp;= -y_i + \hat{p_i}
 \end{aligned}
 \]</span></p>
-<p>Now we can do the 1. Step 1: Initialize model with constant value <span class="math display">\[F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)\]</span> where the initial <span class="math inline">\(\hat{p_i}\)</span> for all the samples <span class="math inline">\(i= 1,...,n\)</span> is the sum of <span class="math inline">\(y_i\)</span> divided by the number of observations. The <span class="math inline">\(\gamma\)</span> here is the log(odds).</p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Step 2:</strong> for m = 1 to M: (M trees)
-<ul>
-<li><p>Compute <span class="math inline">\(r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\)</span> for <span class="math inline">\(i = 1,...,n\)</span>. We know from above that <span class="math inline">\(\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)} = -y_i + \hat{p}\)</span>, so <span class="math inline">\(r_{i,m}\)</span> is just the residuals: <span class="math inline">\(y_i- \hat{p}\)</span></p></li>
-<li><p>Fit a regression tree to the <span class="math inline">\(r_{i,m}\)</span> values and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span></p></li>
-<li><p>For <span class="math inline">\(j=1...J_m\)</span> compute <span class="math inline">\(\gamma_{j,m}\)</span></p></li>
-</ul></li>
-</ol>
+<p>Now we can do the</p>
+<p><strong>Step 1:</strong> Initialize the model with constant value <span class="math display">\[F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)\]</span> where the initial <span class="math inline">\(\hat{p_i}\)</span> for all the samples <span class="math inline">\(i= 1,...,n\)</span> is the sum of <span class="math inline">\(y_i\)</span> divided by the number of observations.</p>
+<p><strong>Step 2:</strong> for m = 1 to M: (M trees)</p>
+<p><strong>2.1 Compute Pseudo Residuals</strong> <span class="math display">\[r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}\]</span> for <span class="math inline">\(i = 1,...,n\)</span>. We know from above that <span class="math inline">\(\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)} = -y_i + \hat{p}\)</span>, so <span class="math inline">\(r_{i,m}\)</span> is just the residuals: <span class="math inline">\(y_i- \hat{p}\)</span></p>
+<p><strong>2.2 Fit a regression tree to the Pseudo Residuals <span class="math inline">\(r_{i,m}\)</span> and create terminal regions (leaves) <span class="math inline">\(R_{j,m}\)</span> for <span class="math inline">\(j= 1...J_m\)</span></strong></p>
+<p><strong>2.3 Again, Find the <span class="math inline">\(\gamma\)</span> (<span class="math inline">\(log(odds)\)</span>) for each termial leaves that minimize the loss function</strong></p>
 <p><span class="math display">\[
 \begin{aligned}
-\gamma_{j,m} &amp;= \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma) \\
-&amp;= \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}-y_i \cdot [F_{m-1}(x_i)+ \gamma]+log({1+e^{F_{m-1}(x_i)+\gamma}})]
+\gamma_{j,m} &amp;= \underset{\gamma}{\operatorname{argmin}} \sum_{x_i\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma) \\
+&amp;= \underset{\gamma}{\operatorname{argmin}} \sum_{x_i\in{R_{i,j}}}-y_i \cdot [F_{m-1}(x_i)+ \gamma]+log({1+e^{F_{m-1}(x_i)+\gamma}})]
 \end{aligned}
 \]</span></p>
-<p>solve for this analytically is difficult, therefore we approximate the loss function with second order of Taylor Polynomial</p>
+<p>for <span class="math inline">\(j=1...J_m\)</span>. Solving for this analytically is difficult, therefore we approximate the loss function with second order of Taylor’s expansion</p>
 <p><span class="math display">\[
-L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2
+L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)\gamma) + \frac{1}{2} \frac{d^2}{d\gamma^2}L(y_i, F_{m-1}(x_i))\gamma^2
 \]</span></p>
 <p>Now we take the derivative:</p>
 <p><span class="math display">\[
-\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma
+\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{d\gamma}L(y_i, F_{m-1}(x)) + \frac{d^2}{d\gamma^2}L(y_i, F_{m-1})\gamma
 \]</span> Now set it to 0 and solve for <span class="math inline">\(\gamma\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\gamma_{i,j} &amp;= \frac{-1 \cdot \sum_{i=1}^{n}\frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x))}{\sum_{i=1}^{n}\frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma} \\
-&amp;= \frac{\sum_{i=1}^{n} (y_i-\hat{p_i})}{\sum_{i=1}^{n}[\hat{p_i} \cdot (1-\hat{p_i})]}
+\gamma_{j,m} &amp;= \frac{-1 \cdot \sum_{x_i \in R_{ij}}\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i))}{\sum_{x_i \in R_{ij}}\frac{d^2}{d\gamma^2}L(y_i, F_{m-1})\gamma} \\
+&amp;= \frac{\sum_{x_i \in R_{ij}} (y_i-\hat{p_i})}{\sum_{x_i \in R_{ij}}[\hat{p_i} \cdot (1-\hat{p_i})]}
 \end{aligned}
 \]</span></p>
-<p>where <span class="math inline">\(\hat{p_i}\)</span> is the estimated probability from the previous tree. * Update <span class="math inline">\(F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})\)</span></p>
-<p>3.<strong>Step 3:</strong> Output <span class="math inline">\(F_{M}(x)\)</span></p>
+<p>where <span class="math inline">\(\hat{p_i}\)</span> is the estimated probability from the previous tree.</p>
+<p><strong>2.4 Update the prediction:</strong> <span class="math display">\[F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})\]</span></p>
+<p><strong>Step 3:</strong> Output <span class="math inline">\(F_{M}(x)\)</span></p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="xgboost---extreme-gradient-boosting">XGBoost - Extreme Gradient Boosting</h3>
+</ins>
+</div>
+<p>XGBoost stands for extreme gradient boosting. It is different from the original gradient boost by</p>
+<ul>
+<li>The XGBoost does regression with its <strong><em>unique trees</em></strong></li>
+<li><span class="math inline">\(\lambda\)</span> here stands for the <strong><em>regularization parameter</em></strong> (usually default to 0) and</li>
+<li><span class="math inline">\(\epsilon\)</span> refers to the <strong><em>learning rate</em></strong> (usually default to 0.3)</li>
+<li>The initial prediction starts at 0.5</li>
+</ul>
+<p><span class="math display">\[\underset{O_{value}}{\operatorname{argmin}}[\sum_{i=1}^{n}L(y_i, F_{m-1}(x)+O_{value})+\gamma T+\frac{1}{2}\lambda O_{value}^2]\]</span> The term <span class="math inline">\(\lambda T\)</span></p>
+<p>2nd order Taylor approximation for both regression &amp; classification <span class="math display">\[L(y, )\]</span></p>
 
 
 

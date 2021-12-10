@@ -1,0 +1,72 @@
+location,metro,state,logistics_route
+NA-CA-AB-Calgary-6702 Fairmount Drive SE,Calgary,AB,Canada West
+NA-CA-BC-Vancouver-Powell Street,Vancouver,BC,Canada West
+NA-CA-BC-Vancouver-Temp Hub,Vancouver,BC,Canada West
+NA-CA-BC-Vancouver-West 4th Avenue,Vancouver,BC,Canada West
+NA-CA-ON-Mississauga-International Centre Temp Hub,Toronto,ON,Canada East
+NA-CA-ON-Toronto-International Centre,Toronto,ON,Canada East
+NA-CA-ON-Toronto-Lawrence Avenue,Toronto,ON,Canada East
+NA-CA-ON-Toronto-Oakville,Toronto,ON,Canada East
+NA-CA-QC-Montreal-Ferrier,Montreal,QC,Canada East
+NA-US-AZ-Tempe-E. University Drive,Phoenix,AZ,West US Truck
+NA-US-CA-Buena Park,Orange County,CA,SoCal
+NA-US-CA-Burbank-S. San Fernando Blvd.,Los Angeles,CA,SoCal
+NA-US-CA-Costa Mesa-3020 Pullman Street,Orange County,CA,SoCal
+NA-US-CA-Fremont Delivery Hub,Bay Area,CA,NorCal
+NA-US-CA-Fremont-47400 Kato Road,Bay Area,CA,NorCal
+NA-US-CA-Fremont-Direct Delivery,Bay Area,CA,NorCal
+NA-US-CA-JPLogistics-Hub,Los Angeles,CA,SoCal
+NA-US-CA-Los Angeles-Centinela,Los Angeles,CA,SoCal
+NA-US-CA-Los Angeles-Office,Los Angeles,CA,SoCal
+NA-US-CA-Marina Del Rey-Alla Road,Los Angeles,CA,SoCal
+NA-US-CA-Palm Springs-Cathedral City,Los Angeles,CA,SoCal
+NA-US-CA-Sacramento-Rocklin,Bay Area,CA,NorCal
+NA-US-CA-San Diego-6495 Marindustry Place,San Diego,CA,SoCal
+NA-US-CA-San Diego-Miramar,San Diego,CA,SoCal
+NA-US-CA-San Francisco-Port of San Francisco,Bay Area,CA,NorCal
+NA-US-CA-Santa Barbara-Hitchcock Way,Los Angeles,CA,SoCal
+NA-US-CO-Littleton-Broadway,Denver,CO,West US Truck
+NA-US-FL-Dania Beach,Miami,FL,Florida
+NA-US-FL-Jacksonville,Jacksonville,FL,Florida
+NA-US-FL-Miami-Coral Gables,Miami,FL,Florida
+NA-US-FL-Orlando-Eatonville,Orlando,FL,Florida
+NA-US-FL-Tampa,Tampa,FL,Florida
+NA-US-FL-West Palm Beach,Miami,FL,Florida
+NA-US-GA-Alpharetta-Roswell,Atlanta,GA,Southeast
+NA-US-GA-Atlanta-Decatur,Atlanta,GA,Southeast
+NA-US-HI-Honolulu-746 Auahi Street,Honolulu,HI,Hawaii
+NA-US-IL-Chicago-Highland Park,Chicago,IL,Midwest
+NA-US-IL-Chicago-West Grand Avenue,Chicago,IL,Midwest
+NA-US-IL-Chicago-Westmont,Chicago,IL,Midwest
+NA-US-IN-Indianapolis,Indianapolis,IN,Midwest
+NA-US-MA-Dedham,Boston,MA,Northeast
+NA-US-MD-Baltimore-Owings Mills,Washington DC,MD,Southeast
+NA-US-MD-Rockville,Washington DC,MD,Southeast
+NA-US-MN-Minneapolis-Eden Prairie,Minneapolis,MN,Midwest
+NA-US-MO-Kansas City-Manchester,Kansas City,MO,Midwest
+NA-US-MO-St. Louis-University City,St. Louis,MO,Midwest
+NA-US-NC-Charlotte-Matthews,Charlotte,NC,Southeast
+NA-US-NC-Raleigh-8800 Westgate Park Drive,Raleigh,NC,Southeast
+NA-US-NJ-Cherry Hill,Philadelphia,NJ,Northeast
+NA-US-NJ-Paramus-Route 17,NY Metro,NJ,Northeast
+NA-US-NJ-Springfield,NY Metro,NJ,Northeast
+NA-US-NV-Las Vegas-W. Sahara Ave,Las Vegas,NV,West US Truck
+NA-US-NY-Brooklyn-Van Brunt Street,NY Metro,NY,Northeast
+NA-US-NY-Manhasset-Americana Manhasset,NY Metro,NY,Northeast
+NA-US-NY-Westchester-Mt Kisco,NY Metro,NY,Northeast
+NA-US-OH-Cincinnati,Cincinnati,OH,Midwest
+NA-US-OH-Cleveland-Lyndhurst,Cleveland,OH,Midwest
+NA-US-OH-Columbus-Morse Road,Columbus,OH,Midwest
+NA-US-OR-Portland-SW Macadam Ave,Portland,OR,Northwest
+NA-US-PA-Devon,Philadelphia,PA,Northeast
+NA-US-PA-Pittsburgh-Wexford,Pittsburgh,PA,Midwest
+NA-US-TN-Nashville-Brentwood,Nashville,TN,Southeast
+NA-US-TX-Austin-Pond Springs,Austin,TX,Texas
+NA-US-TX-Dallas-Cedar Springs Road,Dallas,TX,Texas
+NA-US-TX-Houston-North,Houston,TX,Texas
+NA-US-TX-San Antonio-Dominion,Austin,TX,Texas
+NA-US-UT-Salt Lake City-South 300 West,Salt Lake City,UT,West US Truck
+NA-US-VA-Richmond-Glen Allen,Washington DC,VA,Southeast
+NA-US-VA-Tysons Corner-Tyco Road,Washington DC,VA,Southeast
+NA-US-WA-Bellevue-20th Street,Seattle,WA,Northwest
+NA-US-WA-Seattle-SoDo,Seattle,WA,Northwest

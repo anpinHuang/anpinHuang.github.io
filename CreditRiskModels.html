@@ -349,7 +349,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -389,9 +389,8 @@ div.tocify {
 
 
 <p>This page is for comparison of different credit risk models that used for Allowance for loan and lease losses (ALLL) purposes and if they can also be used for other regulatory purposes.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="roll-rate-model">Roll Rate Model</h3>
-</div>
+<div id="roll-rate-model" class="section level3">
+<h3>1. Roll rate model</h3>
 <p>Pros:</p>
 <ul>
 <li>Can see the evolution of the balance rolling for 1 bucket to the next which can be useful for understanding how the delinquency rate will move in the forecast.</li>
@@ -405,9 +404,9 @@ div.tocify {
 <li>The property of the transition matrix is memoryless. The DPD state information already contains all the information. How the balance changed before it become the current DPD state is irrelevant. This might not be true, since intuitively, a balance that is cured from 60+ to 30+ should be different from a balance that went from current to 30+.</li>
 <li>Needs segregation of product charastistics and risk. There might be a lot of transition matrics needed to be calibrated and there might not be enough data.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="cox-proportional-hazard-ratio">Cox Proportional Hazard Ratio</h3>
 </div>
+<div id="cox-proportional-hazard-ratio" class="section level3">
+<h3>2. Cox proportional hazard ratio</h3>
 <p>Pros:</p>
 <ul>
 <li>The model gives the whole PD curve as a function of age so it’s easy to get the 12-month PD and lifetime PD which is an advantage for IFRS 9.</li>
@@ -419,9 +418,9 @@ div.tocify {
 <li>The assumption of constant hazard ratio (such that the shape of the curve should be similar when changing explanatory variables) is likely to be breached if the left censor point is the reporting date and day past due is one of the explanatory variable. It should work better for forecasting at the origination date.</li>
 <li>Difficult to incorporate economic indicator.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="discrete-time-survival-model">Discrete Time Survival Model</h3>
 </div>
+<div id="discrete-time-survival-model" class="section level3">
+<h3>3. Discrete time survival model</h3>
 <p>Pros:</p>
 <ul>
 <li>Don’t need the assumption of constant hazard ratio like the CoxPH model, so it can forecast at the reporting date and use delinquency information.</li>
@@ -433,6 +432,20 @@ div.tocify {
 <li>Needs a separate EAD model.</li>
 <li>Needs some heavy lifting in coding to build models for each period since reporting date.</li>
 </ul>
+</div>
+<div id="rating-migration-odel" class="section level3">
+<h3>4. Rating migration odel</h3>
+<p>Pros:</p>
+<ul>
+<li>Since most of the large financial institution build the IRB model for Basel, it can leverage rating from the IRB rating system.</li>
+<li>The model framework is the classical PD * EAD * LGD</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Require separate PD, EAD and LGD models</li>
+<li>Need to adjust for conservatism if the IRB model for Basel is used as the underlying rating system.</li>
+</ul>
+</div>
 
 
 

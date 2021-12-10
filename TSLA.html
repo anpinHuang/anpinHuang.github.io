@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Untitled</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Untitled</h1>
+
+</div>
+
+
+<p>load data</p>
+<pre class="r"><code>vehicle &lt;- read.csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv&quot;)
+location &lt;- read.csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/location.csv&quot;)
+orders &lt;- read.csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv&quot;)</code></pre>
+<ol style="list-style-type: decimal">
+<li>How many vehicles have a match available across all geographies?</li>
+</ol>
+<pre class="r"><code>library(sqldf)</code></pre>
+<pre><code>## Loading required package: gsubfn</code></pre>
+<pre><code>## Loading required package: proto</code></pre>
+<pre><code>## Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object &#39;/Library/Frameworks/R.framework/Resources/modules//R_X11.so&#39;:
+##   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
+##   Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/modules/R_X11.so
+##   Reason: image not found</code></pre>
+<pre><code>## Could not load tcltk.  Will use slower R code instead.</code></pre>
+<pre><code>## Loading required package: RSQLite</code></pre>
+<pre class="r"><code>vehicle_group &lt;- sqldf(&quot;
+select stage, wheels, paint, seats, count(*) as model_count 
+from vehicle 
+where is_available_for_match=1 
+group by 1,2,3,4&quot;)
+order_group &lt;- sqldf(&quot;
+select stage, wheels, paint, seats, count(*) as model_count 
+from orders 
+where is_available_for_match=1 
+group by 1,2,3,4&quot;)
+
+combind_group &lt;- sqldf(&quot;
+select a.stage, a.wheels, a.paint, a.seats, a.model_count as vehicle_count, b.model_count as order_count , min(a.model_count,b.model_count) as match_count 
+from vehicle_group as a 
+inner join order_group as b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats&quot;)
+
+answer_1 &lt;- sqldf(&quot;select sum(match_count) from combind_group&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>How many vehicles have a match available without moving cars between logistics routes?</li>
+</ol>
+<pre class="r"><code>library(sqldf)
+vehicle_group_loc &lt;- sqldf(&quot;
+select stage, wheels, paint, seats, location, count(*) as model_count 
+from vehicle 
+where is_available_for_match=1 
+group by 1,2,3,4,5&quot;)
+order_group_loc &lt;- sqldf(&quot;
+select stage, wheels, paint, seats, location, count(*) as model_count 
+from orders 
+where is_available_for_match=1 
+group by 1,2,3,4,5&quot;)
+
+combind_group_loc &lt;- sqldf(&quot;
+select a.stage, a.wheels, a.paint, a.seats, a.location, a.model_count as vehicle_count, b.model_count as order_count , min(a.model_count,b.model_count) as match_count 
+from vehicle_group_loc as a 
+inner join order_group_loc as b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats
+and a.location=b.location&quot;)
+
+answer_2 &lt;- sqldf(&quot;select sum(match_count) from combind_group_loc&quot;)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Provide an optimized list of mutually exclusive matches without moving cars between locations</li>
+</ol>
+<pre class="r"><code>library(sqldf)
+vehicle_3 &lt;- sqldf(&quot;
+select a.stage, a.wheels, a.paint, a.seats, a.location, a.is_available_for_match
+, a.vin, row_number() over (partition by a.stage, a.wheels, a.paint, a.seats, a.location order by factory_gate_date asc) as v_row
+from vehicle a
+where a.is_available_for_match=1&quot;)
+
+order_3 &lt;- sqldf(&quot;
+select a.stage, a.wheels, a.paint, a.seats, a.location,a.is_available_for_match
+, a.id, row_number() over (partition by a.stage, a.wheels, a.paint, a.seats, a.location order by reservation_date asc)
+as o_row
+from orders a
+where a.is_available_for_match=1&quot;)
+
+answer_3 &lt;- sqldf(&quot;
+select a.vin,b.id as order_id
+from vehicle_3 a
+inner join order_3 b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats
+and a.location=b.location
+and a.v_row=b.o_row
+&quot;)
+write.csv(answer_3,&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv&quot;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>In Python, load in the Excel table of vehicles and the Excel table of orders which are still unmatched after question 3. Filter down the list of vehicles and orders by excluding records in Canadian locations, as well as any records with Stage1 or Stage2 in their configuration.</li>
+</ol>
+<pre class="python"><code>## the records remained unmatched from question 3
+import pandas as pd
+import numpy as np
+matched_v = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv&quot;)
+vehicle = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv&quot;)
+orders = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv&quot;)
+Can_loc = [&#39;NA-CA-AB-Calgary-6702 Fairmount Drive SE&#39;,&#39;NA-CA-BC-Vancouver-Powell Street&#39;,&#39;NA-CA-BC-Vancouver-Temp Hub&#39;,&#39;NA-CA-BC-Vancouver-West 4th Avenue&#39;,&#39;NA-CA-ON-Mississauga-International Centre Temp Hub&#39;,&#39;NA-CA-ON-Toronto-International Centre&#39;,&#39;NA-CA-ON-Toronto-Lawrence Avenue&#39;,&#39;NA-CA-ON-Toronto-Oakville&#39;,&#39;NA-CA-QC-Montreal-Ferrier&#39;]
+
+answer_4_vehicle= vehicle.loc[~vehicle[&#39;vin&#39;].isin(matched_v[&#39;vin&#39;]) &amp; vehicle[&#39;is_available_for_match&#39;]==1 &amp; ~vehicle[&#39;location&#39;].isin(Can_loc) &amp; ~vehicle[&#39;stage&#39;].isin([&#39;stage 1&#39;,&#39;stage 2&#39;]),:]
+
+answer_4_orders= orders.loc[~orders[&#39;id&#39;].isin(matched_v[&#39;order_id&#39;]) &amp; orders[&#39;is_available_for_match&#39;]==1 &amp; ~orders[&#39;location&#39;].isin(Can_loc) &amp; ~orders[&#39;stage&#39;].isin([&#39;stage 1&#39;,&#39;stage 2&#39;]),:]
+
+answer_4_vehicle.to_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_vehicle.csv&quot;,index=False)
+answer_4_orders.to_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_orders.csv&quot;,index=False)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>To maximize matches, leadership teams are considering to launch a sales campaign that offers Stage RWD orders to upgrade to Stage 0 vehicles. In doing so, Stage RWD orders will be eligible to receive a complimentary seats upgrade on a Stage 0 vehicle. Using Python, provide an optimized list of mutually exclusive matches which could be eligible for this sales campaign. An order with S3PB matched to a vehicle with S3PW is considered a seats upgrade. Completely disregard location for this exercise.</li>
+</ol>
+<pre class="python"><code>import pandas as pd
+import numpy as np
+answer_4_vehicle = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_vehicle.csv&quot;)
+answer_4_orders = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_orders.csv&quot;)
+
+eli_vehicle = answer_4_vehicle.loc[answer_4_vehicle[&#39;stage&#39;]==&#39;stage 0&#39;,:]
+eli_orders = answer_4_orders.loc[answer_4_orders[&#39;stage&#39;]==&#39;RWD&#39;,:]
+</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Remove any matched vehicles and orders from previous exercises. For every remaining vehicle, use python to find the most similar order. Make sure the list is mutually exclusive and pairs are at the same location.</li>
+</ol>
+<pre class="python"><code>## the records remained unmatched from question 3
+import pandas as pd
+import numpy as np
+matched_v = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv&quot;)
+vehicle = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv&quot;)
+orders = pd.read_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv&quot;)
+v_remain = vehicle.loc[~vehicle[&#39;vin&#39;].isin(matched_v[&#39;vin&#39;]) &amp; vehicle[&#39;is_available_for_match&#39;]==1 ,:]
+o_remain = orders.loc[~orders[&#39;id&#39;].isin(matched_v[&#39;order_id&#39;]) &amp; orders[&#39;is_available_for_match&#39;]==1 ,:]
+v_remain.to_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle_remain.csv&quot;)
+o_remain.to_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders_remain.csv&quot;)</code></pre>
+<pre class="python"><code>## define dynamic programming function (per location)
+def optCars(cars, orders):
+  cars.reset_index(drop=True,inplace=True)
+  orders.reset_index(drop=True,inplace=True)
+  if len(cars)&lt;=0 or len(orders)&lt;=0:
+    r = list(zip([0],[0],[0],[0],[0],[0],[0]))
+    r = pd.DataFrame(r, columns=[&#39;vin&#39;,&#39;id&#39;,&#39;total_diff&#39;,&#39;same_stage&#39;,&#39;same_wheels&#39;,&#39;same_paint&#39;,&#39;same_seats&#39;])
+    return r
+  shortlist = {}
+  cost = pd.DataFrame({&#39;cost&#39; : np.tile(0,len(orders))})
+  same_stage=1
+  same_wheels=1
+  same_paint=1
+  same_seats=1
+  for o in range(len(orders)):
+    # calculate the cost (loss function)
+    cost_o = 0
+    if cars.stage.iloc[0] != orders.stage.iloc[o]:
+      cost_o = cost_o+1
+      same_stage=0
+    if cars.wheels.iloc[0]!=orders.wheels.iloc[o]:
+      cost_o = cost_o+1
+      same_wheels=0
+    if cars.paint.iloc[0]!=orders.paint.iloc[o]:
+      cost_o = cost_o+1
+      same_paint=0
+    if cars.seats.iloc[0]!=orders.seats.iloc[o]:
+      cost_o = cost_o+1
+      same_seats=0
+    #print(cost_o)
+    cost.cost.iloc[o] = cost_o
+    pseudo_match_o = list(zip([cars.vin.iloc[0]],[orders.id.iloc[o]],[cost_o],[same_stage],[same_wheels],[same_paint],[same_seats]))
+    pseudo_match_o = pd.DataFrame(pseudo_match_o, columns=[&#39;vin&#39;,&#39;id&#39;,&#39;total_diff&#39;,&#39;same_stage&#39;,&#39;same_wheels&#39;,&#39;same_paint&#39;,&#39;same_seats&#39;])
+    cars_o = cars.iloc[1:,:]
+    order_o = orders.drop([o],axis=0,inplace=False)
+    cars_o.reset_index(drop=True,inplace=True)
+    order_o.reset_index(drop=True,inplace=True)
+    pseudo_match_o = pseudo_match_o.append(optCars(cars_o, order_o), ignore_index=True)
+    shortlist[o] = pseudo_match_o
+  #cost_df = pd.DataFrame(cost)
+  cost_col = cost[&quot;cost&quot;]
+  min_cost_i = cost_col.idxmin()
+  pseudo_match = shortlist[min_cost_i]
+  return pseudo_match</code></pre>
+<pre class="python"><code>## run the defined function for every location</code></pre>
+<pre class="python"><code>## try the function on NA-CA-ON-Mississauga-International Centre Temp Hub
+v_try = v_remain.loc[v_remain.location==&#39;NA-CA-ON-Mississauga-International Centre Temp Hub&#39;,:]
+o_try = o_remain.loc[o_remain.location==&#39;NA-CA-ON-Mississauga-International Centre Temp Hub&#39;,:]
+
+try_opt = optCars(cars=v_try, orders=o_try)
+try_opt.to_csv(&quot;/Users/smartboyben/documents/git/anpinHuang.github.io/data/try_opt.csv&quot;,index=False)
+print(try_opt)</code></pre>
+<pre><code>##                  vin           id  ...  same_paint  same_seats
+## 0  5YJ3E1EB5JF109548  RN109154869  ...           0           1
+## 1  5YJ3E1EB7JF107446  RN109133452  ...           0           1
+## 2  5YJ3E1EB5JF110314  RN108562989  ...           0           1
+## 3  5YJ3E1EB4JF109493  RN108968719  ...           0           0
+## 4  5YJ3E1EA8JF095717  RN108000166  ...           0           0
+## 5                  0            0  ...           0           0
+## 
+## [6 rows x 7 columns]</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -20,46 +20,55 @@ In this page we discuss fundementals of building gradient boosting trees for con
 
 
 
-Steps for Gradient Boosting for continuous target variable
+Steps for Gradient Boosting for continuous target variable (gradient boost for regression).
 
 1. Make initial estimation - all sample average of target variable
-2. Build a regression tree (industry practice is to have ~8 leaf nodes)
-3. Make predictions based on the regression tree and the learning rate
-4. Calculate the error of the predictions
-5. Build another regression tree based on the errors
+2. Build a regression tree (industry practice is to have ~8 leaf nodes) on pseudo residuals
+3. Make predictions based on the regression tree and the ***learning rate*** $\nu$
+4. Calculate the pseudo residuals of the predictions
+5. Build another regression tree based on the pseudo residuals
 6. Make predictions based on the all regression trees above and the learning rate. see prediction formula below.
 7. Repeat 4-6 iteratively until we reach the maximum number of iterations or building a new tree does not reduce the residuals.
 
 The idea of the learning is that for each tree that was build, we make a small steps toward (hopefully) to the true value.
 
 
-When making the prediction using the tree, the predicted is the sample average of the target variable in the node. It can be shown by the formula below.
+When making the first prediction, the predicted value is the sample average of the target variable in the node. It can be shown by the formula below.
 
 **Loss Function**
 
 $$L(y_i, F(x)) = \sum_{i=1}^{n} \frac{1}{2} (y_i-\hat{y})^2$$
 
-1. **Step 1:** initialize the model with constant value
+**Step 1:** initialize the model with constant value
 $$F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)$$
 
-where $\gamma$ here is the predicted value. Taking the first derivative solve for the $\gamma$ such that first derivative of the loss function equals 0. We get that the $\gamma$ is the average of sample.
+where $\gamma$ here is the predicted value. By taking the first derivative of the loss function and find $\gamma$ such that first derivative of the loss function equals 0. We get that the ***$\gamma$ is the average of the sample***.
 
-2. **Step 2:** for m = 1 to M: (M trees)
+**Step 2:** for m = 1 to M: (M trees)
 
-    * Compute 
-$r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}$
+**2.1 Compute Pseudo Residuals **
+$$r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}$$
+<span style="color: red;">
+***note that this derivative $[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]$ is the gradient that the gradient boosting is named after ***
+</span>
 
-    * Fit a regression tree to the 
-$r_{i,m}$ values and create terminal regions (leaves) 
-$R_{j,m}$ for $j= 1...J_m$
+**2.2 Fit a regression tree to the Pseudo Residuals $r_{i,m}$ and create terminal regions (leaves) $R_{j,m}$ for $j= 1...J_m$ **
 
-    * For 
-$j=1...J_m$ compute 
-$\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)$
-    This can be solved analytically. The $\gamma$ would be the average of the residual in the leaf.
+**2.3 Again, Find the $\gamma$ (output value) that minimize the loss function**  
+$$\gamma_{j,m} = \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma)$$
+for $j=1...J_m$. This can be solved analytically. Given our chose of loss function, the $\gamma$ is always the average of the (pseudo) residuals in the same leaf.
+    
+where  
 
-    * Make new predictions: update 
-$F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$
+* $m$ indicates the m-th number of tree and 
+* $j$ indicates the j-th number of leave (of the m-th number of tree)  
+    
+
+**2.4 Make new predictions for each sample: **
+$$F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$$
+
+where $\nu$ is the ***Learning Rate*** and is a value between 0 and 1. A small learning rate reduce the effect of each tree on the final production and improve the accurary in the long run.
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -67,11 +76,14 @@ $F_m(x) = F_{m-1}(x)+ \nu \sum_{j=1}^{J_m} \gamma_{j,m}I(x\in R_{j,m})$
 </ins>
 </div>
 
-Gradient Boosting for binary target variable is similar to that for continunous target variable, but the loss function is different
-**Loss function**
+Gradient Boosting for binary target variable is similar to that for continunous target variable, but 
+
+* with different ***Loss function*** and
+* ***The $\gamma$ here is the $log(odds)$. ***
+
 $$-\sum_{i=1}^{n} y_i \cdot log(\hat{p})+(1-y_i) \cdot log(1-\hat{p}) $$
 
-Now, we want to make it a function of predicted log-odd ratio, and then simply it.
+Now, we want to make it a function of predicted log-odd ratio, and then simplify it.
 
 
 $$
@@ -88,7 +100,7 @@ $$
 \end{aligned}
 $$
 
-Now take the first derivative of the loss function
+Now take the first derivative of the loss function with respect to $log(odds)$
 $$
 \begin{aligned}
 \frac{d}{d log(odds)} L &= -y_i+ \frac{e^{log(odds)}}{1+e^{log(odds)}} \\
@@ -97,52 +109,77 @@ $$
 $$
 
 Now we can do the 
-1. Step 1: Initialize model with constant value 
-$$F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)$$
-where the initial $\hat{p_i}$ for all the samples $i= 1,...,n$ is the sum of $y_i$ divided by the number of observations. The $\gamma$ here is the log(odds).
 
-2. **Step 2:** for m = 1 to M: (M trees)
-    * Compute 
-$r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}$
+**Step 1:** Initialize the model with constant value
+$$F_0(x) = \underset{\gamma}{\operatorname{argmin}} \sum_{i=1}^{n} L(y_i,\gamma)$$
+where the initial $\hat{p_i}$ for all the samples $i= 1,...,n$ is the sum of $y_i$ divided by the number of observations.
+
+**Step 2:** for m = 1 to M: (M trees)
+
+**2.1 Compute Pseudo Residuals**
+$$r_{i,m} = -[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}]_{F(x)=F_{m-1}(x)}$$
  for $i = 1,...,n$. We know from above that $\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)} = -y_i + \hat{p}$, so $r_{i,m}$ is just the residuals: $y_i- \hat{p}$
 
-    * Fit a regression tree to the 
-$r_{i,m}$ values and create terminal regions (leaves) 
-$R_{j,m}$ for $j= 1...J_m$
+**2.2 Fit a regression tree to the Pseudo Residuals $r_{i,m}$ and create terminal regions (leaves) $R_{j,m}$ for $j= 1...J_m$**
 
-    * For 
-    $j=1...J_m$ compute 
-    $\gamma_{j,m}$
+**2.3 Again, Find the $\gamma$ ($log(odds)$) for each termial leaves that minimize the loss function** 
 
 $$
 \begin{aligned}
-\gamma_{j,m} &= \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma) \\
-&= \underset{\gamma}{\operatorname{argmin}} \sum_{x\in{R_{i,j}}}-y_i \cdot [F_{m-1}(x_i)+ \gamma]+log({1+e^{F_{m-1}(x_i)+\gamma}})]
+\gamma_{j,m} &= \underset{\gamma}{\operatorname{argmin}} \sum_{x_i\in{R_{i,j}}}L(y_i, F_{m-1}(x_i)+\gamma) \\
+&= \underset{\gamma}{\operatorname{argmin}} \sum_{x_i\in{R_{i,j}}}-y_i \cdot [F_{m-1}(x_i)+ \gamma]+log({1+e^{F_{m-1}(x_i)+\gamma}})]
 \end{aligned}
 $$
 
-solve for this analytically is difficult, therefore we approximate the loss function with second order of Taylor Polynomial
+for $j=1...J_m$. Solving for this analytically is difficult, therefore we approximate the loss function with **second order of Taylor's expansion**
 
 $$
-L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)\gamma) + \frac{1}{2} \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma^2
+L(y_i, F_{m-1}(x_i)+\gamma) \approx L(y_i, F_{m-1}(x_i) + \frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)\gamma) + \frac{1}{2} \frac{d^2}{d\gamma^2}L(y_i, F_{m-1}(x_i))\gamma^2
 $$
  
 Now we take the derivative:
 
 $$
-\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x)) + \frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma
+\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i)+\gamma) \approx \frac{d}{d\gamma}L(y_i, F_{m-1}(x)) + \frac{d^2}{d\gamma^2}L(y_i, F_{m-1})\gamma
 $$
 Now set it to 0 and solve for $\gamma$:
 
 $$
 \begin{aligned}
-\gamma_{i,j} &= \frac{-1 \cdot \sum_{i=1}^{n}\frac{d}{dF_{m-1}(x_i)}L(y_i, F_{m-1}(x))}{\sum_{i=1}^{n}\frac{d^2}{dF_{m-1}(x_i)^2}L(y_i, F_{m-1})\gamma} \\
-&= \frac{\sum_{i=1}^{n} (y_i-\hat{p_i})}{\sum_{i=1}^{n}[\hat{p_i} \cdot (1-\hat{p_i})]}
+\gamma_{j,m} &= \frac{-1 \cdot \sum_{x_i \in R_{ij}}\frac{d}{d\gamma}L(y_i, F_{m-1}(x_i))}{\sum_{x_i \in R_{ij}}\frac{d^2}{d\gamma^2}L(y_i, F_{m-1})\gamma} \\
+&= \frac{\sum_{x_i \in R_{ij}} (y_i-\hat{p_i})}{\sum_{x_i \in R_{ij}}[\hat{p_i} \cdot (1-\hat{p_i})]}
 \end{aligned}
 $$
 
 where $\hat{p_i}$ is the estimated probability from the previous tree.
-    * Update $F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})$
+
+**2.4 Update the prediction:**
+    $$F_m(x) = F_{m-1}(x) + \nu \sum_{j=1}^{Jm}\gamma I(x \in R_{jm})$$
 
 
-3.**Step 3:** Output $F_{M}(x)$
+**Step 3:** Output $F_{M}(x)$
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### XGBoost - Extreme Gradient Boosting
+</ins>
+</div>
+
+XGBoost stands for extreme gradient boosting. It is different from the original gradient boost by 
+
+* The XGBoost does regression with its ***unique trees***
+* $\lambda$ here stands for the ***regularization parameter*** (usually default to 0) and
+* $\epsilon$ refers to the ***learning rate*** (usually default to 0.3)
+* The initial prediction starts at 0.5
+
+
+$$\underset{O_{value}}{\operatorname{argmin}}[\sum_{i=1}^{n}L(y_i, F_{m-1}(x)+O_{value})+\gamma T+\frac{1}{2}\lambda O_{value}^2]$$
+The term $\lambda T$ 
+
+2nd order Taylor approximation for both regression & classification
+$$L(y, )$$
+
+
+
+

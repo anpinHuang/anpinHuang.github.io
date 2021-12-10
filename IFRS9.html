@@ -11,7 +11,7 @@
 
 
 
-<title>Notes on IFRS 9</title>
+<title>IFRS 9 Requirements</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,69 +383,99 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Notes on IFRS 9</h1>
+<h1 class="title toc-ignore">IFRS 9 Requirements</h1>
 
 </div>
 
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="overview">Overview</h3>
-</ins>
-</div>
+<div id="overview" class="section level3">
+<h3>1. Overview</h3>
 <p>Under the IFRS 9, published by ISAB, the lender should reserve for the loan loss based on different stages the loans are in.</p>
 <ul>
 <li><strong>Stage 1:</strong> Initial recognition. Lender is required to reserve for the expected credit loss (ECL) that are expected to occur over the next <strong>12-month</strong> period.</li>
 <li><strong>Stage 2:</strong> If a loan’s credit risk has increased significantly since initial recognition and is not considered low anymore, <strong>lifetime</strong> ECL should be recognised. The calculation of interest revenue is the same as for Stage 1. To emphasize, the wording ‘increase significantly’ is a comparison of the default risk at reporting date <strong>relative</strong> to initianl recognition date.</li>
 <li><strong>Stage 3:</strong> If the loan’s credit risk increases to the point where it is considered <strong>credit-impaired</strong>, interest revenue is calculated based on the loan’s <strong>amortised cost</strong> (gross carrying amount minus loss allowance). Lifetime ECLs are recognised.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="significant-pd-increase">Significant PD increase</h3>
-</ins>
 </div>
-<p>See the details in regulatory document: <a href="http://archive.ifrs.org/Meetings/MeetingDocs/Other%20Meeting/2015/September/AP1-Significant-increases-in-credit-risk.pdf">Significant Increase in Credit Risk</a></p>
+<div id="significant-increase-in-credit-risk-sicr" class="section level3">
+<h3>2. Significant increase in credit risk (SICR)</h3>
+<p>The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory document and references.</p>
 <ul>
-<li>Significant increase in the <strong>Lifetime Default Risk</strong> as opposed to lifetime expected credit loss. As per <a href="https://www.moodysanalytics.com/risk-perspectives-magazine/risk-finance-accounting-converge-ifrs9/spotlight-ifrs-9/complying-with-ifrs-9-impairment-calculations">Moody’s Intrepretation</a>, when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.</li>
-<li><strong>B5.5.23:</strong> An entity may use its internal credit risk ratings or other methodologies that are consistent with a globally understood definition of low credit risk and that consider the risks and the type of financial instruments that are being assessed. An external rating of <strong>Investment Grade</strong> is an example of a financial instrument that may be considered as having low credit risk. However, financial instruments are not required to be externally rated to be considered to have low credit risk.</li>
-<li>How the instruments were grouped if expected credit losses were measured on a <strong>collective basis</strong>?</li>
-<li><p>Expected <strong>performance/behaviours</strong> and forecasts of <strong>future conditions</strong> must also be taken into account to the extent appropriate. The following behaviour indicators are NOT forward looking in nature and consequently they may NOT result in the <strong>timely identification</strong> of significant increases in credit risk.:</p>
+<li><p>Significant increase in the <strong>Lifetime Default Risk</strong> as opposed to lifetime expected credit loss.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(IFRS Foundation <a href="#ref-IFRS9">2021</a>)</span> 5.5.9: <em>“At each reporting date, an entity shall assess whether the credit risk on a financial instrument has increased significantly since initial recognition. When making the assessment, an entity shall use the change in the risk of a default occurring over the expected life of the financial instrument instead of the change in the amount of expected credit losses. To make that assessment, an entity shall compare the risk of a default occurring on the financial instrument as at the reporting date with the risk of a default occurring on the financial instrument as at the date of initial recognition and consider reasonable and supportable information, that is available without undue cost or effort, that is indicative of significant increases in credit risk since initial recognition.”</em></p>
+<p><span class="math inline">\(\to\)</span> As per <span class="citation">(Black, Chinchalkar, and Licari <a href="#ref-Moody16">2016</a>)</span>, when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.</p></li>
+<li><p><strong>Low credit risk simplification</strong>, i.e. the entity can still be classified as stage 1 if it is considered low risk provided the credit risk has increased since initial recognision.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(IFRS Foundation <a href="#ref-IFRS9">2021</a>)</span> 5.5.10: “<em>An entity may assume that the credit risk on a financial instrument has not increased significantly since initial recognition if the financial instrument is determined to have low credit risk at the reporting date (see paragraphs B5.5.22<code>–</code>B5.5.24</em>).”</p></li>
+<li><p><strong>Regular monitoring and review</strong> should be performed for the criteria for SICR (stage 2 classification).</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(IFRS Foundation <a href="#ref-IFRS9">2021</a>)</span> B5.5.52: “<em>Historical information is an important anchor or base from which to measure expected credit losses…. An entity shall regularly review the methodology and assumptions used for estimating expected credit losses to reduce any differences between estimates and actual credit loss experience.</em>”</p></li>
+<li><p><strong>Timely recognision</strong> of significant increase in credit risk.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(IFRS Foundation <a href="#ref-IFRS9">2021</a>)</span> B5.5.7:“<em>The assessment of whether lifetime expected credit losses should be recognised is based on significant increases in the likelihood or risk of a default occurring since initial recognition (irrespective of whether a financial instrument has been repriced to reflect an increase in credit risk) instead of on evidence of a financial asset being credit-impaired at the reporting date or an actual default occurring. Generally, there will be a significant increase in credit risk before a financial asset becomes credit-impaired or an actual default occurs.</em>”</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1706">2017</a>)</span> 92: “<em>Where a credit institution originates high-credit-risk exposures (which should not be understood, in the context of this paragraph, as meaning the opposite of ‘low credit risk’ exposures as described by IFRS 9, paragraph 5.5.10) and their allowances are initially measured at 12-month ECL, the credit institution should monitor these exposures closely for significant increases in credit risk to ensure a timely movement of the exposure to lifetime ECL measurement, in order to take into account that high risk exposures are likely to exhibit greater volatility and to experience a more rapid increase in credit risk</em>”</p>
+<p><span class="math inline">\(\to\)</span> this can be interpreted by how well the stage 2 classification predict the future default (e.g. in the next 12 months if the economic outlook does not deteriorate mainly on the period beyond 12 months). If the thresholds for SICR work well, the majority of the default (stage 3) should come from stage 2.</p></li>
+<li><p><strong>Relevant information in assessing changes in credit risk may pertain:</strong> price indicators, changes in offer, external market indicators, external credit rating, actual or expected internal credit rating downgrade, significant change in collaterial value, past due information and etc.</p>
+<span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1706">2017</a>)</span> B5.5.17:
+<details>
+<summary> <a class="btnfire small stroke"><em class="fas fa-chevron-circle-down"></em>  Show All Details of B5.5.17</a><br />
+</summary> &quot;<em>The following non-exhaustive list of information may be relevant in assessing changes in credit risk</em>:
 <ul>
-<li>where a customer has made only the minimum monthly repayment for a specified number of months;</li>
-<li>where a customer has failed to make a payment on a loan with a different lender; or</li>
-<li>where a customer has failed to make a specified number of minimum monthly repayments.</li>
-</ul></li>
-<li>A smaller absolute change in the risk of default occurring will be more significant for a high quality asset than for a low quality one. (in a probability of default sense it takes a smaller movement to cause a high quality asset to move to a lifetime expected credit loss measure than a low quality one)</li>
-<li><p><strong>B5.5.17</strong> The following non-exhaustive list of information may be relevant in assessing changes in credit risk:</p>
+<li><em>Significant changes in internal <strong>price indicators</strong> of credit risk as a result of a change in credit risk since inception, including, but not limited to, the credit spread that would result if a particular financial instrument or similar financial instrument with the same terms and the same counterparty were newly originated or issued at the reporting date.</em></li>
+<li><em>Other <strong>changes in offer</strong> such as the rates or terms of an existing financial instrument that would be significantly different if the instrument was newly originated or issued at the reporting date (such as more stringent covenants, increased amounts of collateral or guarantees, or higher income coverage) because of changes in the credit risk of the financial instrument since initial recognition</em></li>
+<li><p><em>significant changes in <strong>external market indicators</strong> of credit risk for a particular financial instrument or similar financial instruments with the same expected life. Changes in market indicators of credit risk include, but are not limited to:</em></p>
 <ul>
-<li>Significant changes in internal <strong>price indicators</strong> of credit risk as a result of a change in credit risk since inception, including, but not limited to, the credit spread that would result if a particular financial instrument or similar financial instrument with the same terms and the same counterparty were newly originated or issued at the reporting date.</li>
-<li>Other <strong>changes in offer</strong> such as the rates or terms of an existing financial instrument that would be significantly different if the instrument was newly originated or issued at the reporting date (such as more stringent covenants, increased amounts of collateral or guarantees, or higher income coverage) because of changes in the credit risk of the financial instrument since initial recognition</li>
-<li><p>significant changes in <strong>external market indicators</strong> of credit risk for a particular financial instrument or similar financial instruments with the same expected life. Changes in market indicators of credit risk include, but are not limited to:</p>
-<ul>
-<li>the credit spread;</li>
-<li>the credit default swap prices for the borrower;</li>
-<li>the length of time or the extent to which the fair value of a financial asset has been less than its amortised cost;</li>
+<li><em>the credit spread;</em></li>
+<li><em>the credit default swap prices for the borrower;</em></li>
+<li><em>the length of time or the extent to which the fair value of a financial asset has been less than its amortised cost; </em></li>
 <li>other market information related to the borrower, such as changes in the price of a borrower’s debt (e.g. <strong>bond</strong>) and <strong>equity instruments</strong>.</li>
 </ul></li>
-<li>an actual or expected significant change in the financial instrument’s <strong>external credit rating</strong>.</li>
-<li>an actual or expected internal credit rating downgrade for the borrower or decrease in behavioural scoring used to assess credit risk internally. Internal credit ratings and internal behavioural scoring are more reliable when they are mapped to external ratings or supported by default studies.</li>
-<li>existing or forecast adverse changes in business, financial or economic conditions that are expected to cause a significant change in the borrower’s ability to meet its debt obligations, such as an actual or expected increase in <strong>interest rates</strong> or an actual or expected significant increase in <strong>unemployment rates</strong></li>
-<li>an actual or expected significant change in the <strong>operating results</strong> of the borrower. Examples include actual or expected declining revenues or margins, increasing operating risks, working capital deficiencies, decreasing asset quality, increased balance sheet leverage, liquidity, management problems or changes in the scope of business or organisational structure (such as the discontinuance of a segment of the business) that results in a significant change in the borrower’s ability to meet its debt obligations.</li>
-<li>significant increases in credit risk on other financial instruments of the same borrower</li>
-<li>an actual or expected significant adverse change in the <strong>regulatory</strong>, economic, or <strong>technological environment</strong> of the borrower that results in a significant change in the borrower’s ability to meet its debt obligations, such as a decline in the demand for the borrower’s sales product because of a shift in technology.</li>
-<li>significant changes in the value of the <strong>collateral</strong> supporting the obligation or in the quality of third-party guarantees or credit enhancements, which are expected to reduce the borrower’s economic incentive to make scheduled contractual payments or to otherwise have an effect on the probability of a default occurring. <strong>For example, if the value of collateral declines because house prices decline, borrowers in some jurisdictions have a greater incentive to default on their mortgages.</strong></li>
-<li>a significant change in the quality of the guarantee provided by a shareholder (or an individual’s parents) if the shareholder (or parents) have an incentive and financial ability to prevent default by capital or cash infusion</li>
-<li>significant changes, such as reductions in financial support from a parent entity or other affiliate or an actual or expected significant change in the quality of credit enhancement, that are expected to reduce the borrower’s economic incentive to make scheduled contractual payments. Credit quality enhancements or support include the consideration of the financial condition of the guarantor and/or, for interests issued in securitisations, whether subordinated interests are expected to be capable of absorbing expected credit losses (for example, on the loans underlying the security).</li>
-<li>expected changes in the loan documentation including an expected breach of contract that may lead to covenant waivers or amendments, interest payment holidays, interest rate step-ups, requiring additional collateral or guarantees, or other changes to the contractual framework of the instrument.</li>
-<li>significant changes in the expected performance and behaviour of the borrower, including changes in the payment status of borrowers in the <strong>group</strong> (for example, an increase in the expected number or extent of delayed contractual payments or significant increases in the expected number of credit card borrowers who are expected to approach or exceed their credit limit or who are expected to be paying the minimum monthly amount).</li>
-<li>changes in the entity’s credit management approach in relation to the financial instrument; ie based on emerging indicators of changes in the credit risk of the financial instrument, the entity’s credit risk management practice is expected to become more active or to be focused on managing the instrument, including the instrument becoming more closely monitored or controlled, or the entity specifically intervening with the borrower.</li>
-<li><p>past due information, including the rebuttable presumption as set out in paragraph <strong>5.5.11.</strong></p></li>
+<li><em>an actual or expected significant change in the financial instrument’s <strong>external credit rating</strong></em>.</li>
+<li><em>an actual or expected <strong>internal credit rating downgrade</strong> for the borrower or decrease in behavioural scoring used to assess credit risk internally. Internal credit ratings and internal behavioural scoring are more reliable when they are mapped to external ratings or supported by default studies.</em></li>
+<li><em>existing or forecast adverse changes in business, financial or economic conditions that are expected to cause a significant change in the borrower’s ability to meet its debt obligations, such as an actual or expected increase in <strong>interest rates</strong> or an actual or expected significant increase in <strong>unemployment rates</strong></em></li>
+<li><em>an actual or expected significant change in the <strong>operating results</strong> of the borrower. Examples include actual or expected declining revenues or margins, increasing operating risks, working capital deficiencies, decreasing asset quality, increased balance sheet leverage, liquidity, management problems or changes in the scope of business or organisational structure (such as the discontinuance of a segment of the business) that results in a significant change in the borrower’s ability to meet its debt obligations.</em></li>
+<li><em>significant increases in credit risk on other financial instruments of the same borrower</em></li>
+<li><em>an actual or expected significant adverse change in the <strong>regulatory</strong>, economic, or <strong>technological environment</strong> of the borrower that results in a significant change in the borrower’s ability to meet its debt obligations, such as a decline in the demand for the borrower’s sales product because of a shift in technology.</em></li>
+<li><em>significant changes in the value of the <strong>collateral</strong> supporting the obligation or in the quality of third-party guarantees or credit enhancements, which are expected to reduce the borrower’s economic incentive to make scheduled contractual payments or to otherwise have an effect on the probability of a default occurring. <strong>For example, if the value of collateral declines because house prices decline, borrowers in some jurisdictions have a greater incentive to default on their mortgages.</strong></em></li>
+<li><em>a significant change in the quality of the guarantee provided by a shareholder (or an individual’s parents) if the shareholder (or parents) have an incentive and financial ability to prevent default by capital or cash infusion</em></li>
+<li><em>significant changes, such as reductions in financial support from a parent entity or other affiliate or an actual or expected significant change in the quality of credit enhancement, that are expected to reduce the borrower’s economic incentive to make scheduled contractual payments. Credit quality enhancements or support include the consideration of the financial condition of the guarantor and/or, for interests issued in securitisations, whether subordinated interests are expected to be capable of absorbing expected credit losses (for example, on the loans underlying the security).</em></li>
+<li><em>expected changes in the loan documentation including an expected breach of contract that may lead to covenant waivers or amendments, interest payment holidays, interest rate step-ups, requiring additional collateral or guarantees, or other changes to the contractual framework of the instrument.</em></li>
+<li><em>significant changes in the expected performance and behaviour of the borrower, including changes in the payment status of borrowers in the <strong>group</strong> (for example, an increase in the expected number or extent of delayed contractual payments or significant increases in the expected number of credit card borrowers who are expected to approach or exceed their credit limit or who are expected to be paying the minimum monthly amount).</em></li>
+<li><em>changes in the entity’s credit management approach in relation to the financial instrument; ie based on emerging indicators of changes in the credit risk of the financial instrument, the entity’s credit risk management practice is expected to become more active or to be focused on managing the instrument, including the instrument becoming more closely monitored or controlled, or the entity specifically intervening with the borrower.</em></li>
+<li><p><em><strong>past due information</strong>, including the rebuttable presumption as set out in paragraph</em>&quot;</p></li>
 </ul></li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="probability-weighted-scenarios">Probability Weighted Scenarios</h3>
-</ins>
+</details>
+</div>
+<div id="probability-weighted-scenarios" class="section level3">
+<h3>3. Probability Weighted Scenarios</h3>
+<ul>
+<li><p>The ECL should be based on a range of possible outcomes weighted by the unbiased probability of occurance.</p>
+<span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1706">2017</a>)</span> 5.5.17:&quot; An entity shall measure expected credit losses of a financial instrument in a way that reflects:
+<ul>
+<li>an unbiased and probability‑weighted amount that is determined by evaluating a range of possible outcomes;</li>
+<li>the time value of money; and</li>
+<li>reasonable and supportable information that is available without undue cost or effort at the reporting date about past events, current conditions and forecasts of future economic conditions.&quot;</li>
+</ul></li>
+</ul>
+</div>
+<div id="other-points" class="section level3">
+<h3>4. Other points</h3>
+<ul>
+<li><p>The remaining lifetime cannot exceed the contractual maturity. Essentially, the multi-year ECL is 0 beyond the contractual maturity.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1706">2017</a>)</span> 5.5.19: The maximum period to consider when measuring expected credit losses is the maximum contractual period (including extension options) over which the entity is exposed to credit risk and not a longer period, even if that longer period is consistent with business practice.</p></li>
+</ul>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>6. References</h3>
+<div id="refs" class="references">
+<div id="ref-Moody16">
+<p>Black, B., S. Chinchalkar, and J.M. Licari. 2016. <em>Complying with Ifrs 9 Impairment Calculations for Retail Portfolios</em>. Moody’s Analytics. <a href="https://www.moodysanalytics.com/">https://www.moodysanalytics.com/</a>.</p>
+</div>
+<div id="ref-EBA1706">
+<p>European Banking Association. 2017. <em>Guidelines on Credit Institutions’ Credit Risk Management Practices and Accounting for Expected Credit Losses</em>.</p>
+</div>
+<div id="ref-IFRS9">
+<p>IFRS Foundation. 2021. <em>Iternational Financial Reporting Standard 9 - Financial Instruments</em>. <a href="https://www.ifrs.org">https://www.ifrs.org</a>.</p>
+</div>
+</div>
 </div>
 
 

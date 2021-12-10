@@ -11,9 +11,8 @@ output:
 
 This page is for comparison of different credit risk models that used for Allowance for loan and lease losses (ALLL) purposes and if they can also be used for other regulatory purposes.
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Roll Rate Model
-</div>
+
+### 1. Roll rate model
 
 Pros:
 
@@ -30,9 +29,8 @@ Cons:
 * Needs segregation of product charastistics and risk. There might be a lot of transition matrics needed to be calibrated and there might not be enough data.
 
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Cox Proportional Hazard Ratio
-</div>
+### 2. Cox proportional hazard ratio
+
 
 Pros:
 
@@ -46,9 +44,9 @@ Cons:
 * The assumption of constant hazard ratio (such that the shape of the curve should be similar when changing explanatory variables) is likely to be breached if the left censor point is the reporting date and day past due is one of the explanatory variable. It should work better for forecasting at the origination date.
 * Difficult to incorporate economic indicator.
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-### Discrete Time Survival Model
-</div>
+
+### 3. Discrete time survival model
+
 
 Pros:
 
@@ -60,5 +58,18 @@ Cons:
 
 * Needs a separate EAD model.
 * Needs some heavy lifting in coding to build models for each period since reporting date.
+
+### 4. Rating migration odel
+
+
+Pros:
+
+* Since most of the large financial institution build the IRB model for Basel, it can leverage rating from the IRB rating system.
+* The model framework is the classical PD * EAD * LGD
+
+Cons:
+
+* Require separate PD, EAD and LGD models
+* Need to adjust for conservatism if the IRB model for Basel is used as the underlying rating system.
 
 

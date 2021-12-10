@@ -1,0 +1,252 @@
+---
+title: "TSLA cases"
+output:
+  html_document: default
+---
+
+load data
+```{r}
+vehicle <- read.csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv")
+location <- read.csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/location.csv")
+orders <- read.csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv")
+```
+
+1. How many vehicles have a match available across all geographies?
+```{r}
+library(sqldf)
+vehicle_group <- sqldf("
+select stage, wheels, paint, seats, count(*) as model_count 
+from vehicle 
+where is_available_for_match=1 
+group by 1,2,3,4")
+order_group <- sqldf("
+select stage, wheels, paint, seats, count(*) as model_count 
+from orders 
+where is_available_for_match=1 
+group by 1,2,3,4")
+
+combind_group <- sqldf("
+select a.stage, a.wheels, a.paint, a.seats, a.model_count as vehicle_count, b.model_count as order_count , min(a.model_count,b.model_count) as match_count 
+from vehicle_group as a 
+inner join order_group as b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats")
+
+answer_1 <- sqldf("select sum(match_count) from combind_group")
+write.csv(answer_1,"/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_1.csv")
+
+
+```
+
+
+2. How many vehicles have a match available without moving cars between logistics routes?
+```{r}
+library(sqldf)
+vehicle_group_loc <- sqldf("
+select stage, wheels, paint, seats, location, count(*) as model_count 
+from vehicle 
+where is_available_for_match=1 
+group by 1,2,3,4,5")
+order_group_loc <- sqldf("
+select stage, wheels, paint, seats, location, count(*) as model_count 
+from orders 
+where is_available_for_match=1 
+group by 1,2,3,4,5")
+
+combind_group_loc <- sqldf("
+select a.stage, a.wheels, a.paint, a.seats, a.location, a.model_count as vehicle_count, b.model_count as order_count , min(a.model_count,b.model_count) as match_count 
+from vehicle_group_loc as a 
+inner join order_group_loc as b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats
+and a.location=b.location")
+
+answer_2 <- sqldf("select sum(match_count) from combind_group_loc")
+write.csv(answer_2,"/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_2.csv")
+
+```
+3. Provide an optimized list of mutually exclusive matches without moving cars between locations
+```{r}
+library(sqldf)
+vehicle_3 <- sqldf("
+select a.stage, a.wheels, a.paint, a.seats, a.location, a.is_available_for_match
+, a.vin, row_number() over (partition by a.stage, a.wheels, a.paint, a.seats, a.location order by factory_gate_date asc) as v_row
+from vehicle a
+where a.is_available_for_match=1")
+
+order_3 <- sqldf("
+select a.stage, a.wheels, a.paint, a.seats, a.location,a.is_available_for_match
+, a.id, row_number() over (partition by a.stage, a.wheels, a.paint, a.seats, a.location order by reservation_date asc)
+as o_row
+from orders a
+where a.is_available_for_match=1")
+
+answer_3 <- sqldf("
+select a.vin,b.id as order_id
+from vehicle_3 a
+inner join order_3 b
+on a.stage=b.stage 
+and a.wheels=b.wheels 
+and a.paint=b.paint 
+and a.seats=b.seats
+and a.location=b.location
+and a.v_row=b.o_row
+")
+write.csv(answer_3,"/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv")
+
+```
+
+
+```{r setup, include=FALSE}
+#install.packages("reticulate")
+library(reticulate)
+py_install("pandas")
+```
+
+4. In Python, load in the Excel table of vehicles and the Excel table of orders which are still unmatched after question 3. Filter down the list of vehicles and orders by excluding records in Canadian locations, as well as any records with Stage1 or Stage2 in their configuration.
+
+```{python}
+## the records remained unmatched from question 3
+import pandas as pd
+import numpy as np
+matched_v = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv")
+vehicle = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv")
+orders = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv")
+Can_loc = ['NA-CA-AB-Calgary-6702 Fairmount Drive SE','NA-CA-BC-Vancouver-Powell Street','NA-CA-BC-Vancouver-Temp Hub','NA-CA-BC-Vancouver-West 4th Avenue','NA-CA-ON-Mississauga-International Centre Temp Hub','NA-CA-ON-Toronto-International Centre','NA-CA-ON-Toronto-Lawrence Avenue','NA-CA-ON-Toronto-Oakville','NA-CA-QC-Montreal-Ferrier']
+
+answer_4_vehicle= vehicle.loc[~vehicle['vin'].isin(matched_v['vin']) & vehicle['is_available_for_match']==1 & ~vehicle['location'].isin(Can_loc) & ~vehicle['stage'].isin(['Stage 1','Stage 2']),:]
+
+answer_4_orders= orders.loc[~orders['id'].isin(matched_v['order_id']) & orders['is_available_for_match']==1 & ~orders['location'].isin(Can_loc) & ~orders['stage'].isin(['Stage 1','Stage 2']),:]
+
+answer_4_vehicle.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_vehicle.csv",index=False)
+answer_4_orders.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_orders.csv",index=False)
+```
+
+
+5. To maximize matches, leadership teams are considering to launch a sales campaign that offers Stage RWD orders to upgrade to Stage 0 vehicles. In doing so, Stage RWD orders will be eligible to receive a complimentary seats upgrade on a Stage 0 vehicle. Using Python, provide an optimized list of mutually exclusive matches which could be eligible for this sales campaign. An order with S3PB matched to a vehicle with S3PW is considered a seats upgrade. Completely disregard location for this exercise.
+
+```{python}
+import pandas as pd
+import numpy as np
+answer_4_vehicle = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_vehicle.csv")
+answer_4_orders = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_4_orders.csv")
+
+eli_vehicle = answer_4_vehicle.loc[answer_4_vehicle['stage']=='Stage 0',:]
+eli_orders = answer_4_orders.loc[answer_4_orders['stage']=='RWD',:]
+eli_vehicle.sort_values(by=['factory_gate_date'],inplace=True,ignore_index=True)
+eli_orders.sort_values(by=['reservation_date'],inplace=True,ignore_index=True)
+eli_vehicle['index1'] = eli_vehicle.index
+eli_orders['index1'] = eli_orders.index
+
+eli_vehicle = eli_vehicle.merge(eli_orders,suffixes=('_v', '_o'),how='inner',left_on='index1',right_on='index1')
+answer_5 = eli_vehicle.loc[:,['vin','id']]
+answer_5.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_5.csv",index=False)
+```
+
+
+
+6. Remove any matched vehicles and orders from previous exercises. For every remaining vehicle, use python to find the most similar order. Make sure the list is mutually exclusive and pairs are at the same location.
+
+```{python}
+## the records remained unmatched from question 3
+import pandas as pd
+import numpy as np
+matched_v = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_3.csv")
+vehicle = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle.csv")
+orders = pd.read_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders.csv")
+v_remain = vehicle.loc[~vehicle['vin'].isin(matched_v['vin']) & vehicle['is_available_for_match']==1 ,:]
+o_remain = orders.loc[~orders['id'].isin(matched_v['order_id']) & orders['is_available_for_match']==1 ,:]
+v_remain.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/vehicle_remain.csv")
+o_remain.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/orders_remain.csv")
+```
+
+
+```{python}
+## define dynamic programming function (per location)
+def optCars(cars, orders, memo={}):
+  cars.reset_index(drop=True,inplace=True)
+  orders.reset_index(drop=True,inplace=True)
+  if len(cars)<=0 or len(orders)<=0:
+    r = list(zip([0],[0],[0],[0],[0],[0],[0]))
+    r = pd.DataFrame(r, columns=['vin','id','total_diff','same_stage','same_wheels','same_paint','same_seats'])
+    return r
+  shortlist = {}
+  cost = pd.DataFrame({'cost' : np.tile(0,len(orders))})
+  same_stage=1
+  same_wheels=1
+  same_paint=1
+  same_seats=1
+  for o in range(len(orders)):
+    # calculate the cost (loss function)
+    cost_o = 0
+    if cars.stage.iloc[0] != orders.stage.iloc[o]:
+      cost_o = cost_o+1
+      same_stage=0
+    if cars.wheels.iloc[0]!=orders.wheels.iloc[o]:
+      cost_o = cost_o+1
+      same_wheels=0
+    if cars.paint.iloc[0]!=orders.paint.iloc[o]:
+      cost_o = cost_o+1
+      same_paint=0
+    if cars.seats.iloc[0]!=orders.seats.iloc[o]:
+      cost_o = cost_o+1
+      same_seats=0
+    #print(cost_o)
+    cost.cost.iloc[o] = cost_o
+    pseudo_match_o = list(zip([cars.vin.iloc[0]],[orders.id.iloc[o]],[cost_o],[same_stage],[same_wheels],[same_paint],[same_seats]))
+    pseudo_match_o = pd.DataFrame(pseudo_match_o, columns=['vin','id','total_diff','same_stage','same_wheels','same_paint','same_seats'])
+    cars_o = cars.drop([0],axis=0,inplace=False)
+    order_o = orders.drop([o],axis=0,inplace=False)
+    cars_o.reset_index(drop=True,inplace=True)
+    order_o.reset_index(drop=True,inplace=True)
+    if (cars_o, order_o) in memo:
+      temp = memo[(cars_o, order_o)]
+    else:
+      temp = optCars(cars_o, order_o, memo)
+      memo[(cars_o, order_o)] = temp
+    if temp.vin.iloc[0]!= 0:
+      pseudo_match_o = pseudo_match_o.append(temp, ignore_index=True)
+    shortlist[o] = pseudo_match_o
+  #cost_df = pd.DataFrame(cost)
+  cost_col = cost["cost"]
+  min_cost_i = cost_col.idxmin()
+  pseudo_match = shortlist[min_cost_i]
+  return pseudo_match
+
+```
+
+```{python}
+## run the defined function for every location
+loc_list = v_remain.location.unique()
+opt = pd.DataFrame(columns = ['vin','id','total_diff','same_stage','same_wheels','same_paint','same_seats'])
+for loc_i in loc_list:
+  print(loc_i)
+  v_i = v_remain.loc[v_remain.location==loc_i,:]
+  o_i = o_remain.loc[o_remain.location==loc_i,:]
+  opt_i = optCars(cars=v_i, orders=o_i)
+  opt = opt.append(opt_i, ignore_index=True)
+opt.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/answer_6.csv")
+
+
+
+```
+
+
+```{python}
+## try the function on NA-US-TX-Houston-North
+v_try = v_remain.loc[v_remain.location=='NA-US-TX-Houston-North',:]
+o_try = o_remain.loc[o_remain.location=='NA-US-TX-Houston-North',:]
+
+try_opt = optCars(cars=v_try, orders=o_try)
+try_opt.to_csv("/Users/smartboyben/documents/git/anpinHuang.github.io/data/try_opt.csv",index=False)
+print(try_opt)
+```
+
+```{python}
+a = 'test'
+print('test1'+a)
+```
