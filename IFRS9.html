@@ -11,7 +11,7 @@
 
 
 
-<title>IFRS 9 Requirements</title>
+<title>IFRS 9 Requirements &amp; Interpretation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,25 +383,31 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">IFRS 9 Requirements</h1>
+<h1 class="title toc-ignore">IFRS 9 Requirements &amp; Interpretation</h1>
 
 </div>
 
 
 <div id="overview" class="section level3">
 <h3>1. Overview</h3>
-<p>Under the IFRS 9, published by ISAB, the lender should reserve for the loan loss based on different stages the loans are in.</p>
+<p>Under the IFRS 9, the loan loss provisioning (ECL) are different from the Basel requirements in the following 3 aspects.</p>
+<ul>
+<li>Best estimate, without conservatism.</li>
+<li>Lifetime ECL (as opposed to 12-month), if the credit exposure is considered to have significantly increased since initial recognition.</li>
+<li>Point-in-time (PiT) as opposed to through-the-cycle (TtC).</li>
+</ul>
+<p>Futhermore, the lender should reserve for the loan loss based on different stages the loans are in.</p>
 <ul>
 <li><strong>Stage 1:</strong> Initial recognition. Lender is required to reserve for the expected credit loss (ECL) that are expected to occur over the next <strong>12-month</strong> period.</li>
-<li><strong>Stage 2:</strong> If a loan’s credit risk has increased significantly since initial recognition and is not considered low anymore, <strong>lifetime</strong> ECL should be recognised. The calculation of interest revenue is the same as for Stage 1. To emphasize, the wording ‘increase significantly’ is a comparison of the default risk at reporting date <strong>relative</strong> to initianl recognition date.</li>
+<li><strong>Stage 2:</strong> If a loan’s credit risk has increased significantly since initial recognition and is not considered low anymore, <strong>lifetime ECL</strong> should be recognised. The calculation of interest revenue is the same as for Stage 1. To emphasize, the wording ‘increase significantly’ is a comparison of the default risk at reporting date <strong>relative</strong> to initianl recognition date.</li>
 <li><strong>Stage 3:</strong> If the loan’s credit risk increases to the point where it is considered <strong>credit-impaired</strong>, interest revenue is calculated based on the loan’s <strong>amortised cost</strong> (gross carrying amount minus loss allowance). Lifetime ECLs are recognised.</li>
 </ul>
 </div>
 <div id="significant-increase-in-credit-risk-sicr" class="section level3">
 <h3>2. Significant increase in credit risk (SICR)</h3>
-<p>The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory document and references.</p>
+<p>The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and references.</p>
 <ul>
-<li><p>Significant increase in the <strong>Lifetime Default Risk</strong> as opposed to lifetime expected credit loss.</p>
+<li><p><strong>Lifetime default risk</strong> as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss.</p>
 <p><span class="math inline">\(\to\)</span> see <span class="citation">(IFRS Foundation <a href="#ref-IFRS9">2021</a>)</span> 5.5.9: <em>“At each reporting date, an entity shall assess whether the credit risk on a financial instrument has increased significantly since initial recognition. When making the assessment, an entity shall use the change in the risk of a default occurring over the expected life of the financial instrument instead of the change in the amount of expected credit losses. To make that assessment, an entity shall compare the risk of a default occurring on the financial instrument as at the reporting date with the risk of a default occurring on the financial instrument as at the date of initial recognition and consider reasonable and supportable information, that is available without undue cost or effort, that is indicative of significant increases in credit risk since initial recognition.”</em></p>
 <p><span class="math inline">\(\to\)</span> As per <span class="citation">(Black, Chinchalkar, and Licari <a href="#ref-Moody16">2016</a>)</span>, when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.</p></li>
 <li><p><strong>Low credit risk simplification</strong>, i.e. the entity can still be classified as stage 1 if it is considered low risk provided the credit risk has increased since initial recognision.</p>
@@ -445,7 +451,7 @@ div.tocify {
 </details>
 </div>
 <div id="probability-weighted-scenarios" class="section level3">
-<h3>3. Probability Weighted Scenarios</h3>
+<h3>3. Probability weighted scenarios</h3>
 <ul>
 <li><p>The ECL should be based on a range of possible outcomes weighted by the unbiased probability of occurance.</p>
 <span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1706">2017</a>)</span> 5.5.17:&quot; An entity shall measure expected credit losses of a financial instrument in a way that reflects:

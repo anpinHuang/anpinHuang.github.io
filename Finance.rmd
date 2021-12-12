@@ -5,7 +5,7 @@ title: "Financial Mathematics & Risk"
 #### Risk modeling
 
  
-* [IFRS 9 Requirements](IFRS9.html) 
+* [IFRS 9 Requirements & Interpretation](IFRS9.html) 
 * [Basel II, ASRF Model & IFRS9 Application](ASRF.html)  
 * [CECL for Line of Credit](CECL_LOC.html) 
 * [Credit Risk Models Comparison](CreditRiskModels.html)  
