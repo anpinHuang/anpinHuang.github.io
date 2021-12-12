@@ -396,22 +396,17 @@ div.tocify {
 </li>
 <li><a href="https://www.bis.org/publ/bcbs128.pdf">International Convergence of Capital Measurement and Capital Standards</a></li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="basel-requirements">Basel Requirements</h3>
-</ins>
-</div>
+<div id="basel-requirements" class="section level3">
+<h3>1. Basel Requirements</h3>
 <p>Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the <strong>yearly (12-month)</strong> loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires <strong>through-the-cycle (TTC)</strong> loss forecast over the next 12 months. <strong>Portfolio-invariant</strong> is required under the Basel rule.</p>
 <ul>
 <li><strong>Expected Loss (EL)</strong>: The expected value of the loss over the next 12 month</li>
 <li><strong>Unexpected Loss (UL)</strong>: Losses above the Expected Loss (EL)</li>
 <li><strong>Value-at-Risk (VaR)</strong>: EL + UL</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="the-mertons-model">The Merton’s Model</h3>
-</ins>
 </div>
+<div id="the-mertons-model" class="section level3">
+<h3>2. The Merton’s Model</h3>
 <p>The Merton’s model leverage the <strong>Black-Scholes</strong> model used in option pricing. Similar to option pricing that the option’s value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company’s total assets and its total liabilities. The logic is that the loan defaults when the company’s total assets cannot support its total liabilities. The evolution of the asset value <span class="math inline">\(A\)</span> is log-normmally distributed as the stock price in Black Scholes. The industry practice is to use Merton’s model to estimate PD for corporation, and use logistic regression type model to estimate PD for retail exposures.</p>
 <p>Stochastic differential equation (SDE) of a firm’s assets: <span class="math display">\[dA = (\mu A )dt + \sigma AdW(t)\]</span></p>
 <p>Apply <a href="ItoLemma.html"><strong>Ito’s lemma</strong></a> for <span class="math inline">\(g(x) = ln(x)\)</span>:</p>
@@ -444,11 +439,9 @@ A_t &amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 \]</span> where <span class="math inline">\(L_i\)</span> is the total liabilities of company <span class="math inline">\(i\)</span>, and</p>
 <p><span class="math display">\[d_2 = \frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}\]</span></p>
 <p>Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="asrf-model">ASRF Model</h3>
-</ins>
 </div>
+<div id="asrf-model" class="section level3">
+<h3>3. ASRF Model</h3>
 <p>The Merton’s model can be extended to <strong>Asymptotic Single Risk Factor model (ASRF)</strong>, assuming the assets value of any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant.</p>
 <p>The asset value of company <span class="math inline">\(i\)</span> is driven by a single factor <span class="math inline">\(Z\)</span> that represents the systemic credit risk. The idiosyncretic risk should already diversified.</p>
 <p><span class="math display">\[X_i = aZ+b \epsilon_i\]</span> where both <span class="math inline">\(Z\)</span> and <span class="math inline">\(\epsilon\)</span> follow standard normal distribution and <span class="math inline">\(Z\)</span> is independent of <span class="math inline">\(\epsilon\)</span> and each of <span class="math inline">\(\epsilon_i\)</span> for <span class="math inline">\(i=1,...,n\)</span> is independent of each other</p>
@@ -507,11 +500,9 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 0.24 × [1 – (1 – EXP(-50 × PD)) / (1 – EXP(-50))] \]</span></li>
 <li><p>To derive <span class="math inline">\(PD_i^{*}\)</span> we need <span class="math inline">\(\mu\)</span> the instantenious expected rate of return of the asset value of company <span class="math inline">\(i\)</span></p></li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="estimate-the-asset-correlation-rho">Estimate the asset correlation <span class="math inline">\(\rho\)</span></h3>
-</ins>
 </div>
+<div id="estimate-the-asset-correlation-rho" class="section level3">
+<h3>4. Estimate the asset correlation <span class="math inline">\(\rho\)</span></h3>
 <p>The asset correlation <span class="math inline">\(\rho\)</span> can be estimated from the default rate. Following the equation above:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -533,17 +524,13 @@ PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
 \end{aligned}
 \]</span> assuming the <span class="math inline">\(PD_{TtC}\)</span> (or <span class="math inline">\(PD_i^{*}\)</span>) is constant, then <span class="math inline">\(Var[\Phi^{-1}(PD_{TtC})]=0\)</span></p>
 <p>If there are multiple ratings in the pool, then <span class="math inline">\(PD_{TtC}\)</span> of the portfolio is not constant (portfolio changes over time). Therefore, <span class="math inline">\(\rho\)</span> would need to be estimated by maximum likelihood in this case.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="ifrs9-requirement-and-the-application-of-asrf-model">IFRS9 requirement and the application of ASRF model</h3>
-</ins>
 </div>
+<div id="ifrs9-requirement-and-the-application-of-asrf-model" class="section level3">
+<h3>5. IFRS9 requirement and the application of ASRF model</h3>
 <p>The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current &amp; future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as <span class="math inline">\(z\)</span> (standard normal distribution) represents the single systemetic credit risk factor.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="binomial-confidence-bound-of-irb-pd">Binomial confidence bound of IRB PD</h3>
-</ins>
 </div>
+<div id="binomial-confidence-bound-of-irb-pd" class="section level3">
+<h3>6. Binomial confidence bound of IRB PD</h3>
 <p>To make the PiT adjustment for PD, we have to first assume that the functuation of the observed default rate is a reflection of the economic condition as opposed to the random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.</p>
 <p>The figures below show the binomial confidence bound for n=1000 and n=20000. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. It’s likely not achievable for wholesale portfolio where the number of observations is limited and the expert judgement is required macroeconomic PiT adjustment.</p>
 <p>The below example is an simplied case. The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.</p>
@@ -567,11 +554,9 @@ binomial_bounds(static_size=1000)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>binomial_bounds(static_size=20000)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="rho-and-pit-pd-distribution-shape"><span class="math inline">\(\rho\)</span> and PiT PD distribution shape</h3>
-</ins>
 </div>
+<div id="rho-and-pit-pd-distribution-shape" class="section level3">
+<h3>7. <span class="math inline">\(\rho\)</span> and PiT PD distribution shape</h3>
 <p>The histagrams shows that as the <span class="math inline">\(\rho\)</span> increase, the distribution becomes more flat tailed.</p>
 <pre class="r"><code>rho &lt;- c(0.02,0.07,0.18)
 ttc &lt;- 0.05
@@ -590,11 +575,9 @@ hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT 
 <p><img src="ASRF_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 18%&#39;)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="pd_ttc-and-variability"><span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
-</ins>
 </div>
+<div id="pd_ttc-and-variability" class="section level3">
+<h3>8. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 <p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>. Therefore, for different PD rating <span class="math inline">\(r_{i}\)</span> (different <span class="math inline">\(PD_{TtC}\)</span>), the <span class="math inline">\(\rho_{r_i}\)</span> should be different to have the same shape.</p>
 <pre class="r"><code>rho &lt;- 0.075
 ttc &lt;- c(0.02,0.05,0.24)
@@ -613,11 +596,9 @@ hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab=&#39;PiT
 <p><img src="ASRF_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 12.5%&#39;)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="pit-adjustment-for-non-default-rating-migration">PiT adjustment for non-default rating migration</h3>
-</ins>
 </div>
+<div id="pit-adjustment-for-non-default-rating-migration" class="section level3">
+<h3>9. PiT adjustment for non-default rating migration</h3>
 <p>With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.</p>
 <p><span class="math display">\[MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\]</span></p>
 <ul>
@@ -636,21 +617,18 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 \end{aligned}
 \]</span></p>
 <p>so on and so forth, we can derive the migration probability of <span class="math inline">\(r \to c\)</span> where <span class="math inline">\(c\)</span> is any non-default rating.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="portfolio-invariance">Portfolio Invariance</h3>
-</ins>
 </div>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="irb-approaches">IRB Approaches</h3>
-</ins>
+<div id="portfolio-invariance" class="section level3">
+<h3>10. Portfolio Invariance</h3>
 </div>
+<div id="irb-approaches" class="section level3">
+<h3>11. IRB Approaches</h3>
 <p>Alternative to the <strong>Standard Approach (SA)</strong>, the Basel II also allows banks to use <strong>Internal Ratings-Based (IRB)</strong> approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.</p>
 <ul>
-<li><strong>Foundation IRB Approach</strong>: The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)</li>
-<li><strong>Advanded IRB Approach</strong>: The bank uses its own estimaed PD, EAD, LGD and effective duration (M).</li>
+<li><strong>Foundation IRB Approach (FIRB)</strong>: The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)</li>
+<li><strong>Advanded IRB Approach (AIRB)</strong>: The bank uses its own estimaed PD, EAD, LGD and effective duration (M).</li>
 </ul>
+</div>
 
 
 
