@@ -9,11 +9,8 @@ output:
       smooth_scroll: true
 ---
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-### Derive Ito's Lemma
-</ins>
-</div>
+### 1. Derive Ito's Lemma
+
 Recall that the **Chain Rule** for non-stochastic functions:
 
 $$
@@ -58,17 +55,17 @@ $$
 
 The 3rd step of the above equation is an important property of the Wiener process and will be shown in the following paragraph.
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-### Wiener Process
-</ins>
-</div>
+
+### 2. Wiener Process
+
 
 Properties of Wiener Process:
 
 * $W_0 = 0$
 * $W_n = W_0 + \sum_{t=1}^n \Delta W_t$
 * Increments $\Delta W_t$ are i.i.d. and $W_t-W_s \sim \mathcal{N}(0,t-s)$ where $t-s$ is the variance
+
+### 3. $(dW_t)^2 = dt$
 
 Given that $t_0 = 0 < t_1 < t_2 < ...t_n = t$ and $t_{i}-t_{i-1} = \frac{t}{n}$ and $n \to \infty$
 then
@@ -80,7 +77,7 @@ $$\int_0^tdW_{t_i} = \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})$$
 $$
 \begin{aligned}
 \int_0^t(dW_s)^2 &= \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})^2 \\
-& \overrightarrow{n \to \infty} \ \ n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
+ when \ \ {n \to \infty} \ \ & =n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
 &= n \cdot Var(W_{t_i}-W_{t_{i-1}}) \\
 &= n \cdot \frac{t}{n} = t\\
 \end{aligned}

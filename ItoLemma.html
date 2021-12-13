@@ -349,7 +349,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -388,11 +388,8 @@ div.tocify {
 </div>
 
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="derive-itos-lemma">Derive Ito’s Lemma</h3>
-</ins>
-</div>
+<div id="derive-itos-lemma" class="section level3">
+<h3>1. Derive Ito’s Lemma</h3>
 <p>Recall that the <strong>Chain Rule</strong> for non-stochastic functions:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -420,28 +417,30 @@ d(f(g(t))) &amp;= f(g(t)+dg(t)) - f(g(t)) \\
 \end{aligned}
 \]</span></p>
 <p>The 3rd step of the above equation is an important property of the Wiener process and will be shown in the following paragraph.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="wiener-process">Wiener Process</h3>
-</ins>
 </div>
+<div id="wiener-process" class="section level3">
+<h3>2. Wiener Process</h3>
 <p>Properties of Wiener Process:</p>
 <ul>
 <li><span class="math inline">\(W_0 = 0\)</span></li>
 <li><span class="math inline">\(W_n = W_0 + \sum_{t=1}^n \Delta W_t\)</span></li>
 <li>Increments <span class="math inline">\(\Delta W_t\)</span> are i.i.d. and <span class="math inline">\(W_t-W_s \sim \mathcal{N}(0,t-s)\)</span> where <span class="math inline">\(t-s\)</span> is the variance</li>
 </ul>
+</div>
+<div id="dw_t2-dt" class="section level3">
+<h3>3. <span class="math inline">\((dW_t)^2 = dt\)</span></h3>
 <p>Given that <span class="math inline">\(t_0 = 0 &lt; t_1 &lt; t_2 &lt; ...t_n = t\)</span> and <span class="math inline">\(t_{i}-t_{i-1} = \frac{t}{n}\)</span> and <span class="math inline">\(n \to \infty\)</span> then <span class="math display">\[W_{t_i}-W_{t_{i-1}} \sim \mathcal{N}(0,\frac{t}{n})\]</span></p>
 <p><span class="math display">\[\int_0^tdW_{t_i} = \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})\]</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 \int_0^t(dW_s)^2 &amp;= \sum_{i=0}^{n}(W_{t_i}-W_{t_{i-1}})^2 \\
-&amp; \overrightarrow{n \to \infty} \ \ n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
+ when \ \ {n \to \infty} \ \ &amp; =n \cdot E[(W_{t_i}-W_{t_{i-1}})^2]\\
 &amp;= n \cdot Var(W_{t_i}-W_{t_{i-1}}) \\
 &amp;= n \cdot \frac{t}{n} = t\\
 \end{aligned}
 \]</span></p>
 <p>By taking the derivative, we can derive that <span class="math inline">\((dW_t)^2 = dt\)</span></p>
+</div>
 
 
 

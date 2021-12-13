@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -83,7 +86,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +234,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -244,20 +247,77 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
 
 
 
@@ -267,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -279,7 +349,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -296,7 +366,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -319,16 +389,16 @@ $(document).ready(function () {
 
 
 <p>Decision tree is a classification algorithm by dividing the data set into different subsets by the explanatory variables. The content presented in this section is mainly based on the knowledge learned from <a href="https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO">Decision Tree Youtube tutorials playlist</a> by <a href="https://www.youtube.com/user/victorlavrenko/featured">Victor Lavrenko</a>.</p>
-<p>The highlevel idea is grow the tree (segment the population into buckets such that the each bucket (leaf) has the same target variable). At each node, the it can only be segment into 2 child-nodes. When the explanatory variable is categorical, we try all the combinations (<span class="math inline">\(C^{m}_{1}, C^{m}_{2}, ...C^{m}_{m/2}\)</span>) to find the one combination that miniize the impurity.</p>
+<p>The highlevel idea is grow the tree (segment the population into buckets such that the each bucket (leaf) has the same target variable). At each node, the it can only be segment into 2 child-nodes. When the explanatory variable is categorical, we try all the combinations (<span class="math inline">\(C^{m}_{1}, C^{m}_{2}, ...C^{m}_{m/2}\)</span>) to find the one combination that miniize the impurity (or has the highest the information gain as explained in the following paragraph.</p>
 <div id="entropy---measure-the-impurity" class="section level3">
-<h3>Entropy - measure the impurity</h3>
+<h3>1. Entropy - measure the impurity</h3>
 <p>Entropy is a measure to measure the uncertainty of the outcome. If the outcome is certain (either all positive or all negative), then the entropy is 0. The highest entropy value is 1 when the probablity of outcome is 50-50.</p>
 <p><span class="math display">\[ H(S) = - p{(+)}log_2p_{(+)} - p_{(-)}log_2p_{(-)} \]</span> impure (5 positive, 5 negative): <span class="math display">\[ H(S) = -\frac{5}{10}log_2 \frac{5}{10} - \frac{5}{10}log_2 \frac{5}{10} = 1  \]</span> pure set (5 positive, 0 negative): <span class="math display">\[ H(S) = -\frac{5}{5}log_2 \frac{5}{5} - \frac{0}{5}log_2 \frac{0}{5} = 0  \]</span> (note that <span class="math inline">\(log_2 \frac{0}{5}\)</span> is mathematically undefined. In this case, <span class="math inline">\(0log_20\)</span> is taken as 0.)</p>
 <p><strong><span class="math inline">\(\Rightarrow\)</span> The smaller the entropy the better!</strong></p>
 <hr />
 </div>
 <div id="information-gain" class="section level3">
-<h3>Information Gain</h3>
+<h3>2. Information Gain</h3>
 <p><span class="math display">\[  Gain(S,A) = H(S) - \sum \frac{|S_V|}{|S|}H(S_V) \]</span></p>
 <p>where <span class="math inline">\(V\)</span> is the possible value of <span class="math inline">\(A\)</span>, <span class="math inline">\(S\)</span> is the set of examples <span class="math inline">\(X\)</span> and <span class="math inline">\(S_V\)</span> is the subset where <span class="math inline">\(X_A = V\)</span></p>
 <p>e.g. set <span class="math inline">\(A\)</span> has 10 positive and 6 negative and can be devided to subset <span class="math inline">\(B\)</span> (8 positive, 4 negative)and subset <span class="math inline">\(C\)</span> (2 positive, 2 negative)</p>
@@ -343,19 +413,19 @@ IG &amp;= H(S_A) - \frac{12}{16}H(S_B) - \frac{4}{16}H(S_C) \\
 <hr />
 </div>
 <div id="problem-of-overfitting---bias-towards-multi-valued-attributes." class="section level3">
-<h3>Problem of overfitting - bias towards multi-valued attributes.</h3>
+<h3>3. Problem of overfitting - bias towards multi-valued attributes.</h3>
 <p>The algorithm will keep splitting data until each node is a pure set. (Assuming that the data is splitable. That is, there is no two data points with all x variables that are identical, but different y.) Hence the size of the tree will become too deep (with lots of layers and lots of nodes) and become too specific to the training data.</p>
 <p>Moreover, when there is a new data comes in and it is different from any of the historica data, then the algorithm doesn’t know how to classify it.</p>
 <hr />
 </div>
 <div id="gain-ratio" class="section level3">
-<h3>Gain ratio</h3>
+<h3>4. Gain ratio</h3>
 <p>There is one drawback of the information gain. That is, it tends to choose the feature that has many tiny subsets. The most extreme case is that if each data point has an unique ID, and then the entropy after spliting would be: <span class="math display">\[H(S) = \sum \frac{1}{n}0 = 0 \]</span> To penalize choosing a feature of a large number of distinct values, the Information gain ratio (<span class="math inline">\(IGR\)</span>) is prefered than the information gain (<span class="math inline">\(IG\)</span>).<br />
 Information gain ratio: <span class="math display">\[ IGR = \frac{IG}{IV} \]</span> Where <span class="math inline">\(IV\)</span> is the Intrinsic value: <span class="math display">\[  IV(S,A) = -\sum \frac{|S_V|}{|S|}log_2\frac{|S_V|}{|S|} \]</span></p>
 <hr />
 </div>
 <div id="continuous-explanatory-variable" class="section level3">
-<h3>Continuous explanatory variable</h3>
+<h3>5. Continuous explanatory variable</h3>
 <p>When the explanatory variable is continuous (numeric data), then it has to be transform to catergorical data by setting some thresold.</p>
 <ul>
 <li>rank order the numeric variable</li>
@@ -366,12 +436,14 @@ Information gain ratio: <span class="math display">\[ IGR = \frac{IG}{IV} \]</sp
 <hr />
 </div>
 <div id="continuous-target-variable---regression-tree" class="section level3">
-<h3>Continuous target variable - Regression tree</h3>
+<h3>6. Continuous target variable - Regression tree</h3>
 <p>In the case where the target variable is not binary, but a continuous variable, we can use regression tree. Similar to the classification tree, we are trying to segment the popuation into 2 child-node for each node. The predicted value of the child-node is the average of the samples in the node. In this case, as opposed to finding the segmentation that minimize the impurity (in classification problem), we are trying to find the segmentation that minizie the sum of square errors.</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -386,6 +458,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
