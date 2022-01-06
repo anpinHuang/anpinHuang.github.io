@@ -157,7 +157,7 @@ tran_ext <- tran_ext[,setdiff(colnames(tran_ext),exclude_list)]
 
 
 ###  3. Information value
-```{r IV}
+```{r IV-1}
 library(Information)
 library(gridExtra)
 
@@ -165,12 +165,23 @@ library(gridExtra)
 IV <- create_infotables(data=tran_ext[tran_train,],y="TARGET")
 #head(IV$Summary, 50)
 grid.table(head(IV$Summary, 10), rows=NULL)
-grid.table(IV$Summary[c(11:20),], rows=NULL)
-grid.table(IV$Summary[c(21:30),], rows=NULL)
-grid.table(IV$Summary[c(31:40),], rows=NULL)
-grid.table(IV$Summary[c(41:50),], rows=NULL)
 ```
 
+```{r IV-2}
+grid.table(IV$Summary[c(11:20),], rows=NULL)
+```
+
+```{r IV-3}
+grid.table(IV$Summary[c(21:30),], rows=NULL)
+```
+
+```{r IV-4}
+grid.table(IV$Summary[c(31:40),], rows=NULL)
+```
+
+```{r IV-5}
+grid.table(IV$Summary[c(41:50),], rows=NULL)
+```
 
 ```{r, echo=FALSE,eval = FALSE}
 library(Information)
