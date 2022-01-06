@@ -158,7 +158,8 @@ Steps:
 1. For continuous variable, split the data into n bucket. If the variable is categorical , nothing needs to be done for this step.
 2. Apply the formula above for each bucket.
 
-Note that WOE is usually positive as non-event is usually less than event.
+* Note that WOE is usually positive as non-event is usually less than event.
+* The greater the value of WOE, the higher the chance of observing Y=1.
 
 **Information Value (IV):**
 
