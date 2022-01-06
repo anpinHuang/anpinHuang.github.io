@@ -48,7 +48,7 @@ The $P$ is defined as the real positive cases in the data and $N$ is defined as 
 * True Negative (TN): Predict 0 (negative) and the prediction is correct (true)
 * False Negative (FN): Predict 0 (negative) and the prediction is incorrect (false)
 
-<img src="ConfusionMatrix.png" height="600px" width="600px" />
+<img src="ConfusionMatrix.png" height="350px" width="600px" />
   
 Above ratios can also be linked through **Baye's Rule**:  
 $$
