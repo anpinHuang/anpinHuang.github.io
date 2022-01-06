@@ -105,6 +105,7 @@ write.csv(answer_3,"/Users/smartboyben/documents/git/anpinHuang.github.io/data/a
 #install.packages("reticulate")
 library(reticulate)
 py_install("pandas")
+py_install("matplotlib")
 ```
 
 4. In Python, load in the Excel table of vehicles and the Excel table of orders which are still unmatched after question 3. Filter down the list of vehicles and orders by excluding records in Canadian locations, as well as any records with Stage1 or Stage2 in their configuration.

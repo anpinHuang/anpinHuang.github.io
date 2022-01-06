@@ -531,7 +531,7 @@ PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
 </div>
 <div id="binomial-confidence-bound-of-irb-pd" class="section level3">
 <h3>6. Binomial confidence bound of IRB PD</h3>
-<p>To make the PiT adjustment for PD, we have to first assume that the functuation of the observed default rate is a reflection of the economic condition as opposed to the random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.</p>
+<p>To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.</p>
 <p>The figures below show the binomial confidence bound for n=1000 and n=20000. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. It’s likely not achievable for wholesale portfolio where the number of observations is limited and the expert judgement is required macroeconomic PiT adjustment.</p>
 <p>The below example is an simplied case. The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.</p>
 <pre class="r"><code>binomial_bounds &lt;- function(static_size) {

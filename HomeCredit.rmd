@@ -45,7 +45,7 @@ tran[which(tran[,'DAYS_EMPLOYED']==365243),'DAYS_EMPLOYED'] <- NA
 tran[which(tran[,'DAYS_BIRTH']==365243),'DAYS_BIRTH'] <- NA
 ```
 
-```{r}
+```{r easy-features}
 tran$VTL <- tran$AMT_GOODS_PRICE/tran$AMT_CREDIT
 tran$ITL <- tran$AMT_INCOME_TOTAL/tran$AMT_CREDIT
 tran$ITA <- tran$AMT_INCOME_TOTAL/tran$AMT_ANNUITY
@@ -75,7 +75,6 @@ from bureau
 group by 1")
 
 ```
-
 
 
 Derive features from credit card balance
@@ -165,7 +164,11 @@ library(gridExtra)
 ### Ranking variables using penalized IV  
 IV <- create_infotables(data=tran_ext[tran_train,],y="TARGET")
 #head(IV$Summary, 50)
-grid.table(head(IV$Summary, 50), rows=NULL)
+grid.table(head(IV$Summary, 10), rows=NULL)
+grid.table(IV$Summary[c(11:20),], rows=NULL)
+grid.table(IV$Summary[c(21:30),], rows=NULL)
+grid.table(IV$Summary[c(31:40),], rows=NULL)
+grid.table(IV$Summary[c(41:50),], rows=NULL)
 ```
 
 
@@ -186,7 +189,7 @@ IV$Tables$NAME_INCOME_TYPE
 ```
 
 
-###  Correlation analysis of X
+###  4. Correlation analysis 
 
 To avoid including strongly correlated variables in the explanatory variable set, the following correlation analysis is performed. 
 
@@ -202,12 +205,12 @@ cor(tran_ext[tran_train,c('c_utilization_mean','c_AMT_BALANCE_mean')],method="sp
 ```
 
 
-### 4. Strategy-driven vars
+### 5. Strategy-driven variables
 
 Variables that are related to the loan amount (credit) or the payment (strategy) can be strategy-driven and thus are not ideal variables for predicting the default risk. For example, if the company's lending costs or operational costs have decreased and therefore can take on more risk and increase the credit it is extending. This change does not directly provide the casual effect on the default risk of the client. 
 
 
-### 5. Logistic regression 
+### 6. Logistic regression with WOEs
 
 The explanatory variables are transformed to WOE before serving as the independent variables for the logistic regression. Highly correlated variables are excluded from the previous step.
 
@@ -238,7 +241,7 @@ auc(tran_ext[tran_test,"TARGET"], predicted_logistic_test)
 ```
 
 
-### 6. Decision tree
+### 7. Decision tree
 
 ```{r tree,eval = FALSE}
 library(rpart)
@@ -255,7 +258,7 @@ auc(tran[tran_test,"TARGET"], predicted_tree_test[,'1'])
 ```
 
 
-### 7. Gradient boosting
+### 8. Gradient boosting
 
 ```{r,eval = FALSE}
 library(gbm)

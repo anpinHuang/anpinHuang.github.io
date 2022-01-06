@@ -349,7 +349,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -390,15 +390,16 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="cecl-requirements">CECL Requirements</h3>
+<h3 id="cecl-requirements">1. CECL Requirements</h3>
 </ins>
 </div>
-<p>Current Expected Credit Loss, or <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, is the latest guidelines, publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected “lifetime” credit loss for the loan as early as when the loan is originated as opposed to the “incurred” loss under the old standard. The main ideas of the CECL are</p>
+<p>Current Expected Credit Loss, or CECL, see <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>, is the latest guidelines publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected “lifetime” credit loss for the loan as early as when the loan is originated as opposed to the “incurred” loss under the old standard. The main ideas of the CECL are</p>
 <ul>
-<li>Expected</li>
-<li>Lifetime</li>
+<li>forward-looking</li>
+<li>lifetime</li>
 </ul>
-<p>The first point requires the <strong>forward-looking</strong> forecast for the <strong>foreseable future</strong>. Beyond the foreseable future (2 years as common industry practice), it’s plausible to assume the <strong>through-the-cycle (TTC)</strong> probability of default (PD). A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the economic indicators projected by internal economists or senior management. Another approach would be to model the through-the-cycle (TTC) loss rate and then add model overlay on top of it based on the forward economic forecast. The 2nd major difference is the requirement to reserve against the lifetime credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future.</p>
+<p>The first point requires the <strong>forward-looking</strong> forecast for the <strong>foreseable future</strong>. Beyond the foreseable future (2 years as common industry practice), it’s plausible to assume the <strong>through-the-cycle (TtC)</strong> probability of default (PD). A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the projection of economic indicators made by internal and/or external economists or senior management. Another approach would be to model the through-the-cycle (TTC) loss rate and then add model overlay based on the forward economic projection on top of the model forecast.</p>
+<p>The 2nd major difference is the requirement to reserve against the <strong>lifetime</strong> credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future.</p>
 <p>For example, a loan $100K, 10 year loan, annual principal payment as 10K and has annual probability of default (PB) = 3%,</p>
 <ul>
 <li>The reserve under incurred loss for the following 12 months would be <span class="math inline">\(100K \cdot 3\% = 3K\)</span>,</li>
@@ -409,16 +410,24 @@ div.tocify {
 <p><span class="math display">\[\text{Amortized cost} = \text{Principal} + \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued interest &amp; other adjustments}\]</span> There are two ways that are common used in the industry. First is to directly model the credit loss based on the amortised cost. Another way, a simpler way, is to model the credit loss based on unpaid principal balance and make adjustment on top of that. For simplicity, the following content are based on unpaid principal balance only.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="unconditionally-cancellable">Unconditionally Cancellable</h3>
+<h3 id="unconditionally-cancellable">2. Unconditionally Cancellable</h3>
 </ins>
 </div>
-<p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specificies the lender’s authority to unconditionally cancel the credit line provided that the borrower still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">CECL</a>.</p>
+<p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specifies the lender’s authority to unconditionally cancel the credit line provided that the borrower is still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="paydown-curve">Paydown Curve</h3>
+<h3 id="paydown-curve">3. Paydown Curve</h3>
 </ins>
 </div>
 <p>The Paydown Curve of Reporting Date’s UPB - PD &amp; EAD View.</p>
+<div id="references" class="section level3 unnumbered">
+<h3>4. References</h3>
+<div id="refs" class="references">
+<div id="ref-CECL16">
+<p>Financial Accounting Standards Board. 2016. <em>Measurement of Credit Losses on Financial Instruments</em>. <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true</a>.</p>
+</div>
+</div>
+</div>
 
 
 
