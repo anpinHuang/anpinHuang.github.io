@@ -10,7 +10,7 @@ navbar:
       href: econometrics.html
     - text: "Data Science"
       href: dataScienceML.html
-    - text: "Financial Math & Risk"
+    - text: "Financial Math & Risk Models"
       href: Finance.html
     - text: "Programming"
       href: Programming.html

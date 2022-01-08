@@ -1,5 +1,5 @@
 ---
-title: "Financial Mathematics & Risk"
+title: "Financial Mathematics & Risk Models"
 ---
 
 #### Risk modeling
