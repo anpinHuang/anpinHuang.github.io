@@ -16,10 +16,9 @@ link-citations: yes
 The goal of this page is to explore how different machine algorithms work for predicting the default probability of a credit position (loan).
 
 The datasets that are being used are
-
-* The information of the loan application, including the borrower's income, the credit amount, the annuity (yearly payment), income source and etc.
-* The information from the credit bureau regarding the loan applicants, e.g. credit inquiry, days past due information.
-* The credit card information that the borrower's has with the lender.
+* *Application data*: The information of the loan application, including the borrower's income, the credit amount, the annuity (yearly payment), income source and etc.
+* *Credit bureau data*: The information from the credit bureau regarding the loan applicants, e.g. credit inquiry, days past due information.
+* *Credit card information*: The credit card information that the borrower's has with the lender.
 
 ```{r load-data, echo=FALSE, eval = FALSE}
 tran <- read.csv("/Users/smartboyben/documents/Data/home-credit-default-risk/application_train.csv")

@@ -1,5 +1,5 @@
 ---
-title: "CECL for Line of Credit"
+title: "CECL for Credit Cards"
 output:
   html_document:
     toc: true
@@ -51,12 +51,36 @@ In this section, we specifically discuss the line of credit under the CECL regul
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### 3. Paydown Curve
+### 3. Lifetime of the Balance
 </ins>
 </div>
 
-The Paydown Curve of Reporting Date's UPB - PD & EAD View.
+( O ) Lifetime of the outstanding balance  
+( X ) Lifetime of the credit card account
 
+The unconditionally cancellable would lead to the conclusion that, it's the outstanding balance that the lender should reserve against, instead of the credit card account itself. The implication is that not only the credit risk of uncommitted balance doesn't need to be covered by the ALLL, but also that the ALLL should only concern the lifetime of the outstanding balance at the reporting date instead of the lifetime of the credit card account.
+
+That leads us to the next question: how we estimate the paydown of the balance and the behavioural maturity of the balance given 
+
+* there is no fixed payment amount for credit card, and
+* the customer is not only paying, but also drawing money before the account hits zero balance.
+
+The Moody's report, see [@Moody18], gives clear demonstration of different approaches on how to estimate the balance paydown curve. Here, I would like to illustrate, by using the FIFO approach, how the balance paydown curve impact the estimation of PD & EAD in the training dataset.
+
+<span style="text-decoration:underline">***Case 1: Default after balance paydown***</span>
+
+* PD: not considered default for the initial balance in the dataset
+* EAD: EAD is 0 for the initial balance
+
+<img src="paydown1.png" />
+
+
+<span style="text-decoration:underline">***Case 2: Default before balance paydown***</span>
+
+* PD: it is considered default in the dataset
+* EAD: the remaining initial balance instead 15 of the account balance 80
+
+<img src="paydown2.png" />
 
 ### 4. References
 

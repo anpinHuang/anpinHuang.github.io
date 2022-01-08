@@ -1,9 +1,18 @@
 ---
 title: "Healthcare Economics"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+bibliography: references.bib
+link-citations: yes
 ---
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Healthcare Market
+### 1. Healthcare Market
 </div>
 Free Market
 
@@ -28,7 +37,7 @@ Healthcare Market
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Health Insurance
+### 2. Health Insurance
 </div>
 
 Buyer: 
@@ -59,7 +68,7 @@ Determing expected payout $E$
 * Community rating
 
 
-**Moral Hazard:**
+**3. Moral Hazard:**
 
 * Change of the behaviour of the consumer when he/she has the insurance coverage.
 * Orginally, the person who bought the insurance is risk adverse, but once he/she has insurance, he/she can become more risk taking.
@@ -72,20 +81,20 @@ Determing expected payout $E$
     * **Pre-certification or pre-approval** from insurance company in case of high cost service.
     * **Stop loss provision** (a form of deductible). The deductible has several layer/threshold, and stop loss provision only has 1 threshold.
 
-**Adverse selection:**
+**4. Adverse selection:**
 
 * Within the segment that the insurance company pooled, the difference in purchasing the insurance due to different characteristics from an average person within the segment. This means the price (premium) is wrong for those individuals.
 * Migitant 1: Direct pay (in some way similar to experience rating)
 * Migitant 2: Community rating (In practice it doesn't work according to empirical stury)
 
 
-**Employer health insurance:**
+**5. Employer health insurance:**
 
 * Advantage| Employer may have policy that help the insureance company to have more homogeneious characteristics within the segment/pool and therefore the insurance company can offer community rating, addressing the issue of adverse selection
 * Disadvandage| No job no insurance. Thus the U.S. government implemented COBRA (1985)
 * Disadvantage| Job lock: changing the job become difficult because you are flagged as less healthy person. 
 
-**Integration between insurance company and provider.** Different from other markets, the insurance company is setting 2 prices where it's setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).
+**6. Integration between insurance company and provider.** Different from other markets, the insurance company is setting 2 prices where it's setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).
 
 
 3 types of negotiation between insurance company & healthcare provider
@@ -105,7 +114,7 @@ Determing expected payout $E$
 Real cost of treatment: Monetary cost + time cost. The higher income people value time more than money, willing to pay more premium and therefore bring up the price. In the end, the insurance would cater only to this group and the lower income group would become uninsured.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Market Theory
+### 7. Market Theory
 </div>
 
 * **Perfect Competition:** It is the most efficient. It is also hypothetical.
@@ -137,7 +146,7 @@ Real cost of treatment: Monetary cost + time cost. The higher income people valu
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Hospital Industry
+### 8. Hospital Industry
 </div>
 
 Hospital history
@@ -185,7 +194,7 @@ Degree of competition
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Physician Market
+### 9. Physician Market
 </div>
 
 Demand:
@@ -205,7 +214,7 @@ Supply:
 * Monopolist Competition Market. Physicians compete in terms of quality but not price.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### Healthcare Systems
+### 10. Healthcare Systems
 </div>
 
 * Centralized: Government make the decision

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -83,7 +86,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -232,6 +234,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -244,20 +247,77 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
 
 
 
@@ -267,6 +327,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -279,7 +349,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -296,7 +366,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Finance</a>
+  <a href="Finance.html">Financial Math &amp; Risk</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -319,7 +389,7 @@ $(document).ready(function () {
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="healthcare-market">Healthcare Market</h3>
+<h3 id="healthcare-market">1. Healthcare Market</h3>
 </div>
 <p>Free Market</p>
 <ul>
@@ -341,7 +411,7 @@ $(document).ready(function () {
 <li>Induced demand: supplier (healthcare provider) side factor on the demand. It is observed when there is an increase of supply (upshift of supply curve), it always accompanied with upshit of demand curve.</li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="health-insurance">Health Insurance</h3>
+<h3 id="health-insurance">2. Health Insurance</h3>
 </div>
 <p>Buyer:</p>
 <ul>
@@ -370,7 +440,7 @@ $(document).ready(function () {
 <li>Experience rating: more narrow</li>
 <li>Community rating</li>
 </ul>
-<p><strong>Moral Hazard:</strong></p>
+<p><strong>3. Moral Hazard:</strong></p>
 <ul>
 <li>Change of the behaviour of the consumer when he/she has the insurance coverage.</li>
 <li>Orginally, the person who bought the insurance is risk adverse, but once he/she has insurance, he/she can become more risk taking.</li>
@@ -385,19 +455,19 @@ $(document).ready(function () {
 <li><strong>Stop loss provision</strong> (a form of deductible). The deductible has several layer/threshold, and stop loss provision only has 1 threshold.</li>
 </ul></li>
 </ul>
-<p><strong>Adverse selection:</strong></p>
+<p><strong>4. Adverse selection:</strong></p>
 <ul>
 <li>Within the segment that the insurance company pooled, the difference in purchasing the insurance due to different characteristics from an average person within the segment. This means the price (premium) is wrong for those individuals.</li>
 <li>Migitant 1: Direct pay (in some way similar to experience rating)</li>
 <li>Migitant 2: Community rating (In practice it doesn’t work according to empirical stury)</li>
 </ul>
-<p><strong>Employer health insurance:</strong></p>
+<p><strong>5. Employer health insurance:</strong></p>
 <ul>
 <li>Advantage| Employer may have policy that help the insureance company to have more homogeneious characteristics within the segment/pool and therefore the insurance company can offer community rating, addressing the issue of adverse selection</li>
 <li>Disadvandage| No job no insurance. Thus the U.S. government implemented COBRA (1985)</li>
 <li>Disadvantage| Job lock: changing the job become difficult because you are flagged as less healthy person.</li>
 </ul>
-<p><strong>Integration between insurance company and provider.</strong> Different from other markets, the insurance company is setting 2 prices where it’s setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).</p>
+<p><strong>6. Integration between insurance company and provider.</strong> Different from other markets, the insurance company is setting 2 prices where it’s setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).</p>
 <p>3 types of negotiation between insurance company &amp; healthcare provider</p>
 <ul>
 <li><strong>Separate entities:</strong> 0 integration, called Indemnity plan or FFS. The insurance company has no say in terms of which provider you go to.</li>
@@ -417,7 +487,7 @@ $(document).ready(function () {
 </ul>
 <p>Real cost of treatment: Monetary cost + time cost. The higher income people value time more than money, willing to pay more premium and therefore bring up the price. In the end, the insurance would cater only to this group and the lower income group would become uninsured.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="market-theory">Market Theory</h3>
+<h3 id="market-theory">7. Market Theory</h3>
 </div>
 <ul>
 <li><strong>Perfect Competition:</strong> It is the most efficient. It is also hypothetical.
@@ -454,7 +524,7 @@ $(document).ready(function () {
 </ul></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="hospital-industry">Hospital Industry</h3>
+<h3 id="hospital-industry">8. Hospital Industry</h3>
 </div>
 <p>Hospital history</p>
 <ul>
@@ -508,7 +578,7 @@ $(document).ready(function () {
 <li>We conclude that it is a low competition market, and therefore it is not efficient and produce less welfare.</li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="physician-market">Physician Market</h3>
+<h3 id="physician-market">9. Physician Market</h3>
 </div>
 <p>Demand:</p>
 <ul>
@@ -529,7 +599,7 @@ $(document).ready(function () {
 <li>Monopolist Competition Market. Physicians compete in terms of quality but not price.</li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="healthcare-systems">Healthcare Systems</h3>
+<h3 id="healthcare-systems">10. Healthcare Systems</h3>
 </div>
 <ul>
 <li>Centralized: Government make the decision
@@ -590,6 +660,8 @@ $(document).ready(function () {
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -604,6 +676,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

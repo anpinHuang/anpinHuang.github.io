@@ -11,7 +11,7 @@
 
 
 
-<title>CECL for Line of Credit</title>
+<title>CECL for Credit Cards</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,7 +383,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">CECL for Line of Credit</h1>
+<h1 class="title toc-ignore">CECL for Credit Cards</h1>
 
 </div>
 
@@ -416,13 +416,36 @@ div.tocify {
 <p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specifies the lender’s authority to unconditionally cancel the credit line provided that the borrower is still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally concallable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="paydown-curve">3. Paydown Curve</h3>
+<h3 id="lifetime-of-the-balance">3. Lifetime of the Balance</h3>
 </ins>
 </div>
-<p>The Paydown Curve of Reporting Date’s UPB - PD &amp; EAD View.</p>
+<p>( O ) Lifetime of the outstanding balance<br />
+( X ) Lifetime of the credit card account</p>
+<p>The unconditionally cancellable would lead to the conclusion that, it’s the outstanding balance that the lender should reserve against, instead of the credit card account itself. The implication is that not only the credit risk of uncommitted balance doesn’t need to be covered by the ALLL, but also that the ALLL should only concern the lifetime of the outstanding balance at the reporting date instead of the lifetime of the credit card account.</p>
+<p>That leads us to the next question: how we estimate the paydown of the balance and the behavioural maturity of the balance given</p>
+<ul>
+<li>there is no fixed payment amount for credit card, and</li>
+<li>the customer is not only paying, but also drawing money before the account hits zero balance.</li>
+</ul>
+<p>The Moody’s report, see <span class="citation">(Fieldhouse <a href="#ref-Moody18">2018</a>)</span>, gives clear demonstration of different approaches on how to estimate the balance paydown curve. Here, I would like to illustrate, by using the FIFO approach, how the balance paydown curve impact the estimation of PD &amp; EAD in the training dataset.</p>
+<p><span style="text-decoration:underline"><strong><em>Case 1: Default after balance paydown</em></strong></span></p>
+<ul>
+<li>PD: not considered default for the initial balance in the dataset</li>
+<li>EAD: EAD is 0 for the initial balance</li>
+</ul>
+<p><img src="paydown1.png" /></p>
+<p><span style="text-decoration:underline"><strong><em>Case 2: Default before balance paydown</em></strong></span></p>
+<ul>
+<li>PD: it is considered default in the dataset</li>
+<li>EAD: the remaining initial balance instead 15 of the account balance 80</li>
+</ul>
+<p><img src="paydown2.png" /></p>
 <div id="references" class="section level3 unnumbered">
 <h3>4. References</h3>
 <div id="refs" class="references">
+<div id="ref-Moody18">
+<p>Fieldhouse, D. 2018. <em>Modeling Credit Card Losses Under Cecl</em>. Moody’s Analytics. <a href="https://www.moodysanalytics.com/">https://www.moodysanalytics.com/</a>.</p>
+</div>
 <div id="ref-CECL16">
 <p>Financial Accounting Standards Board. 2016. <em>Measurement of Credit Losses on Financial Instruments</em>. <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true</a>.</p>
 </div>
