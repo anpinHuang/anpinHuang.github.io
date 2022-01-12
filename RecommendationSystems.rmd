@@ -1,0 +1,57 @@
+---
+title: "Recommendation Systems"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+bibliography: references.bib
+link-citations: yes
+---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 1. Similarilities
+</ins>
+</div>
+
+
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 2. Matrix Factorization
+</ins>
+</div>
+
+goal: Find Feedback matrix $A$
+
+* user $U \in \mathbb{R}^{m {\times} d}$
+* item $V \in \mathbb{R}^{n {\times} d}$
+
+Matrix factorization, $UV^T$ is a simple embedding model
+
+Choosing the Objective Function
+
+* Observing only MF
+* Weighted MF
+* Singular Value Decomposition (SVD)
+
+Minimizing the Objective Function
+
+* Stochastic gradient descent (SGD) 
+* Weighted Alternating Least Squares (WALS)
+
+$\to$ cold-start problem
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 4. References
+</ins>
+</div>
+
+
+
+
+

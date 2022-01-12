@@ -58,16 +58,16 @@ g_top <- graph_from_data_frame(relations_top, directed=TRUE)
 rank_top <- page.rank(g_top)
 rank_top$vector <- rank_top$vector[order(rank_top$vector, decreasing = T)]
 as.data.frame(head(rank_top$vector,20))
-#top$fighter <- rownames(top)
+top$fighter <- rownames(top)
 
-MJ <- sqldf("select r.* 
-            from raw_fights_top r 
-            where B_fighter = 'Michael Johnson' or R_fighter = 'Michael Johnson'
-            and weight_class = 'Featherweight'")
-MJ[,1:8]
-
-KN <- sqldf("select r.* 
-            from raw_fights_top r 
-            where B_fighter = 'Khabib Nurmagomedov' or R_fighter = 'Khabib Nurmagomedov'
-            ")
-KN[,1:8]
+# MJ <- sqldf("select r.* 
+#             from raw_fights_top r 
+#             where B_fighter = 'Michael Johnson' or R_fighter = 'Michael Johnson'
+#             and weight_class = 'Featherweight'")
+# MJ[,1:8]
+# 
+# KN <- sqldf("select r.* 
+#             from raw_fights_top r 
+#             where B_fighter = 'Khabib Nurmagomedov' or R_fighter = 'Khabib Nurmagomedov'
+#             ")
+# KN[,1:8]
