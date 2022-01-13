@@ -29,8 +29,10 @@ The following machine learning algorithm are used:
 
 Before building the model, please note the following limitations
 
-* If the interest rate to the clients are not competitative compared to the peer, the model might suffer from adverse selection. If the interest rates that this company offers decrease in general, the charasteristic of the applicants might change, and thus impact the representitativeness of the historical data
-* If the model includes variables that are controlled by the company strategy, then a strategy change would impact the relationship between the default rate & the explanatory variable.
+* If the interest rate to the clients are not competitative compared to the peer, the model might suffer from **adverse selection**. Therefore, if the interest rates that this company offers decrease in general, the charasteristic of the applicants might change, and thus impact the representitativeness of the historical data
+* If the model includes variables that are controlled by the company (**strategy-driven**), then a strategy change could impact the relationship between the default rate & the explanatory variable. This is again applicable to the interest rate charged to the loan applicant. Since the interest rate is a function of both the borrower's characteristic and the lender's risk appetite. If the company is able to decrease the interest charge because it just obtained a cheaper source of capital, then the model might "think" the new origination that bears lower interest rate to have better risk characteristic (lower risk) when the risk characteristics are exact the same as before.
+* The **period** when the default occured is not in the dataset. Therefore, the calibrated default probability can only be considered as "through-the-cycle" probability of default.
+* The **age** of the loan when it defaults is not in the dataset. Therefore, so important insights such as the expect credit loss, or the value of the loan cannot be measured.
 
 ```{r load-data, echo=FALSE, eval = FALSE}
 tran <- read.csv("/Users/smartboyben/documents/Data/home-credit-default-risk/application_train.csv")
@@ -49,7 +51,6 @@ The bar-plot below shows the percentage of defaults (label=1) compared to the pe
 par(mfrow=c(1,2))
 barplot(prop.table(table(tran[tran_train,"TARGET"])), main = "default flag in training set")
 barplot(prop.table(table(tran[tran_test,"TARGET"])), main = "default flag in testing set")
-#summary(tran[,"TARGET"])
 ```
 
 ### 2. Data treatment
