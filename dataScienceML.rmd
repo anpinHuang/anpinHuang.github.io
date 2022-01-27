@@ -13,7 +13,3 @@ title: "Data Science & Machine Learning"
 * [Example: Predict Credit Default Risk](HomeCredit.html)  
 * [Ecample: Predict Churns](Churn.html)  
 
-#### Data Manipulation Practices
-
-* [Merge, Aggregate and Count in R](mergeAggregateCount.html)    
-

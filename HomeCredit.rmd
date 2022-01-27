@@ -188,7 +188,7 @@ tran_ext <- tran_ext[,setdiff(colnames(tran_ext),exclude_list)]
 ```
 
 
-### 4. Data visualization
+### 4. Exploratory Data Analysis
 
 
 ```{r explore-independent1}
@@ -274,8 +274,9 @@ IV$Tables$NAME_INCOME_TYPE
 
 To avoid including strongly correlated variables in the explanatory variable set, the following correlation analysis is performed. 
 
-```{r correlation}
+```{r correlation, echo=FALSE,eval = FALSE}
 ## correlation analysis of X's
+
 cor(tran_ext[tran_train,c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3')], use="pairwise.complete.obs",method="spearman")
 cor(tran_ext[tran_train,c('DAYS_BIRTH','DAYS_EMPLOYED','IncomeToDaysEmployed','DaysEmployedRatio')],method="spearman",use='pairwise.complete.obs')
 cor(tran_ext[tran_train,c('InquiryRatio12M','b_CreditInquiry12M','b_CreditInquiry24M')],method="spearman",use='pairwise.complete.obs')
@@ -285,7 +286,41 @@ cor(tran_ext[tran_train,c('b_AMT_CREDIT_SUM_DEBT','CreditIncreaseMult','AMT_CRED
 cor(tran_ext[tran_train,c('c_utilization_mean','c_AMT_BALANCE_mean')],method="spearman",use='pairwise.complete.obs')
 ```
 
+```{r correlation2}
+library(ggplot2)
+library(reshape2)
+corX <- c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3','DAYS_BIRTH','DAYS_EMPLOYED','IncomeToDaysEmployed','DaysEmployedRatio','InquiryRatio12M','b_CreditInquiry12M','b_CreditInquiry24M','b_AMT_CREDIT_SUM_DEBT','CreditIncreaseMult','AMT_CREDIT','PaymentStress','b_AMT_ANNUITY','c_utilization_mean','c_AMT_BALANCE_mean')
 
+### Get lower triangle of the correlation matrix
+get_lower_tri <- function(cormat){
+  cormat[upper.tri(cormat)] <- NA
+  return(cormat)
+}
+### Get upper triangle of the correlation matrix
+get_upper_tri <- function(cormat){
+  cormat[lower.tri(cormat)]<- NA
+  return(cormat)
+}
+
+corX_matrix <- cor(tran_ext[tran_train,corX],method="spearman",use='pairwise.complete.obs')
+upper_tri <- abs(get_upper_tri(corX_matrix))
+melted_cormat <- melt(upper_tri, na.rm = TRUE)
+
+### Heatmap
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
+ geom_tile(color = "white")+
+ scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+   midpoint = 0, limit = c(0,1), space = "Lab", 
+   name="Spearman\nCorrelation") +
+  theme_minimal()+ 
+ theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 8, hjust = 1))+
+ coord_fixed()
+```
+```{r correlation3}
+kable(round(corX_matrix,2)) %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+```
 
 ### 7. Strategy-driven variables
 
@@ -314,6 +349,7 @@ summary(model)
 
 ```{r, message=FALSE, include=FALSE}
 library(pROC)
+library(scorecard)
 predicted_logistic <- predict(model, var_woes, type="response")
 
 var_woes_test <- woebin_ply(dt = tran_ext[tran_test,c('TARGET',vars_logistic)], bins = woes, to = "woe", no_cores = 2, print_step = 0)
@@ -364,6 +400,7 @@ gbm_tree <- gbm.fit <- gbm(
 ```
 
 ```{r, message=FALSE}
+library(gbm)
 predicted_gbm_train <- predict(gbm_tree, n.trees = gbm_tree$n.trees, tran_ext[tran_train,], type="response")                             
 auc_gbm_train <- auc(tran_ext[tran_train,"TARGET"], predicted_gbm_train)   
 predicted_gbm_test <- predict(gbm_tree, n.trees = gbm_tree$n.trees, tran_ext[tran_test,], type="response")  
@@ -374,6 +411,7 @@ cat(paste0("Training AUC: ", auc_gbm_train,"\n", "Testing AUC: ", auc_gbm_test,"
 
 ### 11. Conclusion
 
+to be continued...
 
 ```{r, echo=FALSE, eval = FALSE}
 ## code to create the html, run it in console

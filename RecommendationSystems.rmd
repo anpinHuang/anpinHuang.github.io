@@ -51,7 +51,13 @@ $\to$ cold-start problem
 </ins>
 </div>
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 5. Terminology 
+</ins>
+</div>
 
-
-
+* Item = Items to be recommended
+* Query = The information a system uses to make recommendations. e.g. items previously interact with, time of day, the user's device
+* Embedding = A mapping from a discrete set (in this case, the set of queries, or the set of items to recommend) to a vector space called the embedding space. 
 
