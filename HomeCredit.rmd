@@ -118,6 +118,7 @@ Derive features from credit card balance
 * standard deviation of the limit
 * average of the utilization rate
 * standard deviation of the utilication rate
+* z-score of the last utilization rate
 ```{r credit-card-data}
 library(sqldf)
 ## combined card information if 1 customer has more than 1 credit card
@@ -129,6 +130,7 @@ select SK_ID_CURR, MONTHS_BALANCE
 from card
 group by 1,2")
 
+
 CardFeatures <- sqldf("
 select SK_ID_CURR
 , avg(AMT_BALANCE) as c_AMT_BALANCE_mean
@@ -138,8 +140,19 @@ select SK_ID_CURR
 , avg(AMT_BALANCE/AMT_CREDIT_LIMIT_ACTUAL) c_utilization_mean
 , stdev(AMT_BALANCE/AMT_CREDIT_LIMIT_ACTUAL) c_utilization_sd
 , max(SK_DPD) as c_SK_DPD_max
+, max(MONTHS_BALANCE) as last_month
 from CardPerPerson
 group by 1
+")
+
+CardFeatures <- sqldf("
+select 
+a.*
+, (b.AMT_BALANCE/b.AMT_CREDIT_LIMIT_ACTUAL-a.c_utilization_mean)/a.c_utilization_sd as c_last_utl_zscore
+from CardFeatures a
+left join CardPerPerson b
+on a.last_month = b.MONTHS_BALANCE
+and a.SK_ID_CURR = b.SK_ID_CURR
 ")
 ```
 
@@ -162,6 +175,7 @@ a.*
 , c.c_AMT_LIMIT_sd
 , c.c_utilization_mean
 , c.c_utilization_sd
+, c.c_last_utl_zscore
 , c.c_SK_DPD_max
 from tran a
 left join bureau_groupbyID b
@@ -289,7 +303,7 @@ cor(tran_ext[tran_train,c('c_utilization_mean','c_AMT_BALANCE_mean')],method="sp
 ```{r correlation2}
 library(ggplot2)
 library(reshape2)
-corX <- c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3','DAYS_BIRTH','DAYS_EMPLOYED','IncomeToDaysEmployed','DaysEmployedRatio','InquiryRatio12M','b_CreditInquiry12M','b_CreditInquiry24M','b_AMT_CREDIT_SUM_DEBT','CreditIncreaseMult','AMT_CREDIT','PaymentStress','b_AMT_ANNUITY','c_utilization_mean','c_AMT_BALANCE_mean')
+corX <- c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3','DAYS_BIRTH','DAYS_EMPLOYED','IncomeToDaysEmployed','DaysEmployedRatio','InquiryRatio12M','b_CreditInquiry12M','b_CreditInquiry24M','b_AMT_CREDIT_SUM_DEBT','CreditIncreaseMult','AMT_CREDIT','PaymentStress','b_AMT_ANNUITY','c_utilization_mean','c_AMT_BALANCE_mean','c_last_utl_zscore')
 
 ### Get lower triangle of the correlation matrix
 get_lower_tri <- function(cormat){
@@ -303,12 +317,13 @@ get_upper_tri <- function(cormat){
 }
 
 corX_matrix <- cor(tran_ext[tran_train,corX],method="spearman",use='pairwise.complete.obs')
-upper_tri <- abs(get_upper_tri(corX_matrix))
+upper_tri <- round(abs(get_upper_tri(corX_matrix)),2)
 melted_cormat <- melt(upper_tri, na.rm = TRUE)
 
 ### Heatmap
 ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
  geom_tile(color = "white")+
+ geom_text(aes(label = value),  color = 'black', size = 2) +
  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
    midpoint = 0, limit = c(0,1), space = "Lab", 
    name="Spearman\nCorrelation") +
@@ -316,10 +331,6 @@ ggplot(data = melted_cormat, aes(Var2, Var1, fill = value))+
  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
     size = 8, hjust = 1))+
  coord_fixed()
-```
-```{r correlation3}
-kable(round(corX_matrix,2)) %>%
-  kable_styling(full_width = FALSE, position = "float_left")
 ```
 
 ### 7. Strategy-driven variables
@@ -333,7 +344,7 @@ The explanatory variables are transformed to WOE before serving as the independe
 
 ```{r WOE, eval = FALSE}
 library(scorecard)
-vars_logistic <- c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3','InquiryRatio12M','DAYS_BIRTH','DAYS_EMPLOYED','OCCUPATION_TYPE','VTL','ORGANIZATION_TYPE','NAME_INCOME_TYPE','AMT_GOODS_PRICE','NAME_EDUCATION_TYPE','c_utilization_mean','b_CreditInquiry24M','REGION_RATING_CLIENT_W_CITY','b_AMT_CREDIT_SUM_DEBT','DAYS_LAST_PHONE_CHANGE','PaymentStress','c_utilization_sd','HOUSETYPE_MODE','NAME_FAMILY_STATUS','b_AMT_ANNUITY','OWN_CAR_AGE','REG_CITY_NOT_LIVE_CITY','DAYS_REGISTRATION','CODE_GENDER','FLAG_EMP_PHONE','FLAG_DOCUMENT_3')
+vars_logistic <- c('EXT_SOURCE_1','EXT_SOURCE_2','EXT_SOURCE_3','InquiryRatio12M','DAYS_BIRTH','DAYS_EMPLOYED','OCCUPATION_TYPE','VTL','ORGANIZATION_TYPE','NAME_INCOME_TYPE','AMT_GOODS_PRICE','NAME_EDUCATION_TYPE','c_utilization_mean','c_last_utl_zscore','b_CreditInquiry24M','REGION_RATING_CLIENT_W_CITY','b_AMT_CREDIT_SUM_DEBT','DAYS_LAST_PHONE_CHANGE','PaymentStress','HOUSETYPE_MODE','NAME_FAMILY_STATUS','b_AMT_ANNUITY','OWN_CAR_AGE','REG_CITY_NOT_LIVE_CITY','DAYS_REGISTRATION','CODE_GENDER','FLAG_EMP_PHONE','FLAG_DOCUMENT_3')
 
 ## the binning & woe is created using training set and will later be applied to testing set to create clean out-of-sample testing
 woes <- woebin(dt = tran_ext[tran_train,c('TARGET',vars_logistic)], y='TARGET')
