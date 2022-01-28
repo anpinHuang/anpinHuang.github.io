@@ -10,6 +10,9 @@ title: "Data Science & Machine Learning"
 * [Gradient Boosting](GradientBoosting.html) 
 * [ROC Curve](ROC.html) 
 * [Cox Proportional Hazard Model](CoxPH.html) 
+
+#### Examples
+
 * [Example: Predict Credit Default Risk](HomeCredit.html)  
 * [Ecample: Predict Churns](Churn.html)  
 
