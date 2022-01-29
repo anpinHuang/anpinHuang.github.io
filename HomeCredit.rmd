@@ -342,6 +342,7 @@ grid.arrange(p_EXT_SOURCE_3, p_DAYS_EMPLOYED, nrow = 1)
 grid.arrange(p_b_CreditInquiry12M, p_c_utilization_mean, nrow = 1)
 
 ```
+
 ###  6. Correlation analysis 
 
 To avoid including strongly correlated variables in the explanatory variable set, the following correlation analysis is performed. 
