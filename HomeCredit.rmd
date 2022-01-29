@@ -61,7 +61,7 @@ tran[which(tran[,'DAYS_EMPLOYED']==365243),'DAYS_EMPLOYED'] <- NA
 tran[which(tran[,'DAYS_BIRTH']==365243),'DAYS_BIRTH'] <- NA
 ```
 
-```{r}
+```{r outlier}
 #quantile(tran[,"AMT_INCOME_TOTAL"], probs = c(0.9,0.99))
 mean_income <- mean(tran[,"AMT_INCOME_TOTAL"], na.rm = TRUE)
 sd_income <- sd(tran[,"AMT_INCOME_TOTAL"], na.rm = TRUE)
@@ -192,7 +192,15 @@ tran_ext$InquiryRatio12M <- tran_ext$b_CreditInquiry12M/tran_ext$b_CreditInquiry
 tran_ext$DaysEmployedRatio <- tran_ext$DAYS_EMPLOYED/tran_ext$DAYS_BIRTH
 tran_ext$IncomeToDaysEmployed <- tran_ext$AMT_INCOME_TOTAL/tran_ext$DAYS_EMPLOYED
 tran_ext$IncomePerPerson <- tran_ext$AMT_INCOME_TOTAL/tran_ext$CNT_FAM_MEMBERS
+
 ```
+
+Data treatment again
+```{r DQ}
+tran_ext$c_utilization_mean[tran_ext$c_utilization_mean>1] <- 1
+
+```
+
 
 Exclude building variables due to large amount of missing
 ```{r}
@@ -284,6 +292,56 @@ IV$Tables$NAME_INCOME_TYPE
 ```
 
 
+```{r IV-EDA-ggplot}
+library(plyr)
+library(ggplot2)
+library(gridExtra)
+tran_ext$TARGET_char <- as.character(tran_ext$TARGET)
+mu_EXT_SOURCE_3 <- ddply(tran_ext, "TARGET_char", summarise, grp.mean=mean(EXT_SOURCE_3, na.rm = TRUE))
+mu_DAYS_EMPLOYED <- ddply(tran_ext, "TARGET_char", summarise, grp.mean=mean(DAYS_EMPLOYED, na.rm = TRUE))
+mu_b_CreditInquiry12M <- ddply(tran_ext, "TARGET_char", summarise, grp.mean=mean(b_CreditInquiry12M, na.rm = TRUE))
+mu_c_utilization_mean <- ddply(tran_ext, "TARGET_char", summarise, grp.mean=mean(c_utilization_mean, na.rm = TRUE))
+
+
+p_EXT_SOURCE_3 <- ggplot(tran_ext[tran_train,], aes(x=EXT_SOURCE_3, fill=TARGET_char, color=TARGET_char)) +
+  geom_histogram(aes(y = ..density..), position="identity", alpha=0.5,na.rm = TRUE) +
+  scale_color_manual(values=c('blue','red'))+
+  scale_fill_manual(values=c('blue','red'))+
+  theme(legend.position="bottom")+
+  geom_vline(data=mu_EXT_SOURCE_3, aes(xintercept=grp.mean, color=TARGET_char),
+             linetype="dashed")
+
+p_DAYS_EMPLOYED <- ggplot(tran_ext[tran_train,], aes(x=DAYS_EMPLOYED, fill=TARGET_char, color=TARGET_char)) +
+  geom_histogram(aes(y = ..density..), position="identity", alpha=0.5,na.rm = TRUE) +
+  xlim(c(-15000, 0))+
+  scale_color_manual(values=c('blue','red'))+
+  scale_fill_manual(values=c('blue','red'))+
+  theme(legend.position="bottom")+
+  geom_vline(data=mu_DAYS_EMPLOYED, aes(xintercept=grp.mean, color=TARGET_char),
+             linetype="dashed")
+
+p_b_CreditInquiry12M <- ggplot(tran_ext[tran_train,], aes(x=b_CreditInquiry12M, fill=TARGET_char, color=TARGET_char)) +
+  geom_histogram(aes(y = ..density..), position="identity", alpha=0.5,na.rm = TRUE) +
+  xlim(c(0, 10))+
+  scale_color_manual(values=c('blue','red'))+
+  scale_fill_manual(values=c('blue','red'))+
+  theme(legend.position="bottom")+
+  geom_vline(data=mu_b_CreditInquiry12M, aes(xintercept=grp.mean, color=TARGET_char),
+             linetype="dashed")
+
+p_c_utilization_mean <- ggplot(tran_ext[tran_train,], aes(x=c_utilization_mean, fill=TARGET_char, color=TARGET_char)) +
+  geom_histogram(aes(y = ..density..), position="identity", alpha=0.5, na.rm = TRUE) +
+  scale_color_manual(values=c('blue','red'))+
+  scale_fill_manual(values=c('blue','red'))+
+  theme(legend.position="bottom")+
+  geom_vline(data=mu_c_utilization_mean, aes(xintercept=grp.mean, color=TARGET_char),
+             linetype="dashed")
+
+
+grid.arrange(p_EXT_SOURCE_3, p_DAYS_EMPLOYED, nrow = 1)
+grid.arrange(p_b_CreditInquiry12M, p_c_utilization_mean, nrow = 1)
+
+```
 ###  6. Correlation analysis 
 
 To avoid including strongly correlated variables in the explanatory variable set, the following correlation analysis is performed. 
