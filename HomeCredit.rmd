@@ -49,8 +49,16 @@ The bar-plot below shows the percentage of defaults (label=1) compared to the pe
 
 ```{r explore-dependent}
 par(mfrow=c(1,2))
-barplot(prop.table(table(tran[tran_train,"TARGET"])), main = "default flag in training set")
-barplot(prop.table(table(tran[tran_test,"TARGET"])), main = "default flag in testing set")
+barplot(prop.table(table(tran[,"TARGET"])), main = "default flag ratio")
+# Pie Chart with Percentages
+target_pct <- sqldf("select target, count(*) as target_count from tran group by 1 order by 1 desc")
+slices <- target_pct[,'target_count']
+lbls <- target_pct[,'TARGET']
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(c("deft.","perform"), pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(slices,labels = lbls, col=rainbow(length(lbls)),
+   main="Default percentage")
 ```
 
 ### 2. Data treatment
@@ -212,23 +220,23 @@ tran_ext <- tran_ext[,setdiff(colnames(tran_ext),exclude_list)]
 
 ### 4. Exploratory Data Analysis
 
+```{r explore-indep-ggplot}
+barplot(prop.table(table(tran[tran_train,"OCCUPATION_TYPE"])), horiz=T , las=1, main='Occupation type',cex.names=.5)
+barplot_IncomeType <- ggplot(tran_ext[tran_train,], aes(x=factor(NAME_INCOME_TYPE)),)+
+  geom_bar(aes(y = (..count..)/sum(..count..)))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 8, hjust = 1))
 
-```{r explore-independent1}
-ocu_type <- sqldf("
-select OCCUPATION_TYPE
-, count(*) as ocu_count
-from tran
-group by 1
-order by ocu_count desc")
-library(knitr)
-t1 <- head(head(ocu_type,10))
-kable(t1, caption = 'Occupation type')
-barplot(prop.table(table(tran[tran_train,"OCCUPATION_TYPE"])),las=2, main='Occupation type',cex.names=.5)
-barplot(prop.table(table(tran[tran_train,"NAME_INCOME_TYPE"])),las=2, main='Income type',cex.names=.5)
-barplot(prop.table(table(tran[tran_train,"NAME_EDUCATION_TYPE"])),las=2, main='Education type',cex.names=.5)
+barplot_EduType <- ggplot(tran_ext[tran_train,], aes(x=factor(NAME_EDUCATION_TYPE)),)+
+  geom_bar(aes(y = (..count..)/sum(..count..)))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+    size = 8, hjust = 1))
+
+grid.arrange(barplot_IncomeType, barplot_EduType, nrow = 1)
 par(mfrow=c(1,2))
-hist(tran[tran_train,"DAYS_EMPLOYED"], main='Days employed')
-hist(tran[tran_train,"DAYS_BIRTH"], main='Days birth')
+hist(tran[tran_train,"DAYS_EMPLOYED"], main='Days employed', xlab = 'Days employed')
+hist(tran[tran_train,"DAYS_BIRTH"], main='Days birth', xlab = 'Days birth')
+
 ```
 
 ```{r explore-independent2}
