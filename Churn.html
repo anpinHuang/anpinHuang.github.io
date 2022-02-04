@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -69,9 +72,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -85,13 +86,18 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -107,7 +113,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -127,6 +132,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -148,19 +190,153 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -173,7 +349,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -188,6 +364,12 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -207,7 +389,11 @@ $(document).ready(function () {
 
 
 <p>The purpose of this section is to use tree-based algorithm to predict churn of a customr based on some explanatory variable. The data I use is the Customer Support data from <a href="https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/">IBM Watson Analytics</a>.</p>
-<pre class="r"><code>churnAnalysis &lt;- fread(&quot;WA_Fn-UseC_-Telco-Customer-Churn.csv&quot;) 
+<pre class="r"><code>library(survival)
+library(ggfortify)
+library(rpart)
+library(dplyr)</code></pre>
+<pre class="r"><code>churnAnalysis &lt;- read.csv(&quot;WA_Fn-UseC_-Telco-Customer-Churn.csv&quot;) 
 churnAnalysis &lt;- as.data.frame(churnAnalysis)
 head(churnAnalysis)</code></pre>
 <pre><code>##   customerID gender SeniorCitizen Partner Dependents tenure PhoneService
@@ -264,6 +450,34 @@ head(churnAnalysis)</code></pre>
 ##                0</code></pre>
 <pre class="r"><code>churnAnalysis &lt;- churnAnalysis[which(!is.na(churnAnalysis[,&quot;TotalCharges&quot;])),]</code></pre>
 <p>Then we look at what variables are continuous, and they are: “tenure”, “MonthlyCharges” and “TotalCharges”</p>
+</div>
+<div id="kaplan-meier-analysis" class="section level3">
+<h3>Kaplan Meier Analysis</h3>
+<pre class="r"><code>library(survival)
+library(ggfortify)
+churnAnalysis &lt;- churnAnalysis %&gt;% mutate(Churn_flag = ifelse(Churn==&quot;Yes&quot;, 1, 0) )
+km_churn &lt;- with(churnAnalysis, Surv(tenure, Churn_flag))
+km_fit &lt;- survfit(Surv(tenure, Churn_flag) ~ 1, data=churnAnalysis)
+autoplot(km_fit)</code></pre>
+<p><img src="Churn_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>km_fit_bill &lt;- survfit(Surv(tenure, Churn_flag) ~ PaperlessBilling, data=churnAnalysis)
+autoplot(km_fit_bill)</code></pre>
+<p><img src="Churn_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>km_fit_senior &lt;- survfit(Surv(tenure, Churn_flag) ~ SeniorCitizen, data=churnAnalysis)
+autoplot(km_fit_senior)</code></pre>
+<p><img src="Churn_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>km_fit_pay &lt;- survfit(Surv(tenure, Churn_flag) ~ PaymentMethod, data=churnAnalysis)
+autoplot(km_fit_pay)</code></pre>
+<p><img src="Churn_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="information-value" class="section level3">
+<h3>Information value</h3>
+</div>
+<div id="logistic-regression-with-woes" class="section level3">
+<h3>logistic regression with WOEs</h3>
+</div>
+<div id="decision-tree" class="section level3">
+<h3>Decision tree</h3>
 <p>To use decision tree, we need to convert the continuous variables to categorical variables be setting some thresold. But first, let’s split the data into training, validation and test sets.</p>
 <pre class="r"><code>## randomize the data first
 churnAnalysis &lt;- churnAnalysis[sample(1:nrow(churnAnalysis)),]
@@ -272,16 +486,16 @@ churnAnalysisTraining &lt;- churnAnalysis[1:(nrow(churnAnalysis)/2),]
 churnAnalysisValidation &lt;- churnAnalysis[(nrow(churnAnalysis)/2+1): (3*nrow(churnAnalysis)/4),]
 churnAnalysisTest &lt;- churnAnalysis[(3*nrow(churnAnalysis)/4+1),nrow(churnAnalysis),]</code></pre>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;MonthlyCharges&quot;],breaks=40)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <pre class="r"><code>MonthlyChargesClass &lt;- ifelse(churnAnalysis[,&quot;MonthlyCharges&quot;]&lt;=30,&quot;&lt;=$30&quot;,&quot;&gt;30$&quot;)</code></pre>
 <p>As the distribtion of “MonthlyCharges” does look like normal distribution and there seems to be a spike for monthly charges under 30. Hence, I try to split the data into 2:<br />
 1. monthly charges $ 30 $<br />
 2. monthly charges $ &gt; 30 $</p>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;TotalCharges&quot;],breaks=40)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>TotalChargesClass &lt;- ifelse(churnAnalysis[,&quot;TotalCharges&quot;]&lt;=500,&quot;&lt;=$500&quot;,&quot;&gt;500$&quot;)</code></pre>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;tenure&quot;],breaks=80)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>TenureClass &lt;- churnAnalysis[,&quot;tenure&quot;]
 TenureClass[which(churnAnalysis[,&quot;tenure&quot;] &gt;=70)] &lt;- &quot;&gt;=70&quot;
 TenureClass[which(churnAnalysis[,&quot;tenure&quot;] &lt;=5)] &lt;- &quot;&lt;=5&quot;
@@ -294,44 +508,216 @@ churnAnalysisTraining &lt;- churnAnalysis[1:(nrow(churnAnalysis)/2),]
 churnAnalysisValidation &lt;- churnAnalysis[(nrow(churnAnalysis)/2+1): floor(3*nrow(churnAnalysis)/4),]
 churnAnalysisTest &lt;- churnAnalysis[floor(3*nrow(churnAnalysis)/4+1):nrow(churnAnalysis),]</code></pre>
 <hr />
-</div>
-<div id="use-the-ctree-function-from-packageparty" class="section level3">
-<h3>Use the ctree function from package:party</h3>
-<p>run the decision tree using ctree from package:party</p>
-<pre class="r"><code>library(party)
-tree &lt;- ctree(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
-pred_tree &lt;- predict(tree, churnAnalysisTest)
-table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
-<pre><code>##          Actual
-## Predicted   No  Yes
-##       No  1149  249
-##       Yes  128  232</code></pre>
-<p>   </p>
 <hr />
 </div>
 <div id="use-the-rpart-function-from-package-rpart" class="section level3">
 <h3>Use the rpart function from package: rpart</h3>
 <p>use rpart to run decision tree from package:rpart</p>
 <pre class="r"><code>library(rpart)
-fitTree &lt;- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
+## xval determine how many data points you want in the validation set.
+fitTree &lt;- rpart(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining,xval=0) 
 pred_fitTree &lt;- predict(fitTree, churnAnalysisTest,type=&quot;class&quot;)
 table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
 <pre><code>##          Actual
 ## Predicted   No  Yes
-##       No  1146  253
-##       Yes  131  228</code></pre>
+##       No  1171  253
+##       Yes  138  196</code></pre>
 <pre class="r"><code>plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>printcp(fitTree) ## cp : complexity parameter</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774</code></pre>
+<p>The cp at row one is the (rel error at row 2 - rel error at row 1)/nsplit in row 2. The “rel error” is the relative error = absolute error/root node error</p>
 <hr />
 </div>
 <div id="prune-the-tree-using-validation-set" class="section level3">
 <h3>Prune the tree using validation set</h3>
 <p>now prune the tree using the validation set</p>
+<pre class="r"><code>TreeDepth &lt;- nrow(fitTree$cptable)
+for(i in 2:TreeDepth)
+
+
+printcp(fitTree)</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  MultipleLines    PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 938/3516 = 0.26678
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.056503      0   1.00000
+## 2 0.053305      2   0.88699
+## 3 0.043710      3   0.83369
+## 4 0.015991      4   0.78998
+## 5 0.012793      5   0.77399
+## 6 0.010661      7   0.74840
+## 7 0.010000      8   0.73774</code></pre>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -346,6 +732,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

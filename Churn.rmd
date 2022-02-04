@@ -1,13 +1,27 @@
 ---
 title: "Predicting Churns"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+bibliography: references.bib
+link-citations: yes
 ---
 
 The purpose of this section is to use tree-based algorithm to predict churn of a customr based on some explanatory variable. The data I use is the Customer Support data from [IBM Watson Analytics](https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/).
 
-
+```{r, message=FALSE}
+library(survival)
+library(ggfortify)
+library(rpart)
+library(dplyr)
+```
 
 ```{r}
-churnAnalysis <- fread("WA_Fn-UseC_-Telco-Customer-Churn.csv") 
+churnAnalysis <- read.csv("WA_Fn-UseC_-Telco-Customer-Churn.csv") 
 churnAnalysis <- as.data.frame(churnAnalysis)
 head(churnAnalysis)
 ```
@@ -24,6 +38,44 @@ churnAnalysis <- churnAnalysis[which(!is.na(churnAnalysis[,"TotalCharges"])),]
 
 Then we look at what variables are continuous, and they are:
 "tenure", "MonthlyCharges" and "TotalCharges"
+
+
+### Kaplan Meier Analysis
+
+
+
+```{r}
+library(survival)
+library(ggfortify)
+churnAnalysis <- churnAnalysis %>% mutate(Churn_flag = ifelse(Churn=="Yes", 1, 0) )
+km_churn <- with(churnAnalysis, Surv(tenure, Churn_flag))
+km_fit <- survfit(Surv(tenure, Churn_flag) ~ 1, data=churnAnalysis)
+autoplot(km_fit)
+```
+
+
+```{r}
+km_fit_bill <- survfit(Surv(tenure, Churn_flag) ~ PaperlessBilling, data=churnAnalysis)
+autoplot(km_fit_bill)
+```
+
+```{r}
+km_fit_senior <- survfit(Surv(tenure, Churn_flag) ~ SeniorCitizen, data=churnAnalysis)
+autoplot(km_fit_senior)
+```
+
+
+```{r}
+km_fit_pay <- survfit(Surv(tenure, Churn_flag) ~ PaymentMethod, data=churnAnalysis)
+autoplot(km_fit_pay)
+```
+
+
+### Information value 
+
+### logistic regression with WOEs
+
+### Decision tree
 
 To use decision tree, we need to convert the continuous variables to categorical variables be setting some thresold. But first, let's split the data into training, validation and test sets.
 
@@ -81,18 +133,7 @@ for(i in 1:ncol(churnAnalysisTraining)) {
 ```
      
 ********    
-     
-### Use the ctree function from package:party
 
-run the decision tree using ctree from package:party
-```{r}
-library(party)
-tree <- ctree(Churn~gender+SeniorCitizen+Partner+Dependents+tenure+PhoneService+MultipleLines+InternetService+OnlineSecurity+OnlineBackup+DeviceProtection+TechSupport+StreamingTV+StreamingMovies+Contract+PaperlessBilling+PaymentMethod+MonthlyCharges+TotalCharges, churnAnalysisTraining)
-pred_tree <- predict(tree, churnAnalysisTest)
-table(Predicted = pred_tree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree
-```
-&nbsp;
-&nbsp;
     
 ********
     
