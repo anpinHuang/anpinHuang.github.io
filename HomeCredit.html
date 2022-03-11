@@ -1890,6 +1890,17 @@ div.tocify {
 <li>The <strong>period</strong> when the default occured is not in the dataset. Therefore, the calibrated default probability can only be considered as “through-the-cycle” probability of default.</li>
 <li>The <strong>age</strong> of the loan when it defaults is not in the dataset. Therefore, so important insights such as the expect credit loss, or the value of the loan cannot be measured.</li>
 </ul>
+<pre class="r"><code>library(sqldf)
+library(Information)
+library(gridExtra)
+library(kableExtra)
+library(ggplot2)
+library(reshape2)
+library(pROC)
+library(scorecard)
+library(rpart)
+library(gbm)
+library(plyr)</code></pre>
 <p>The bar-plot below shows the percentage of defaults (label=1) compared to the percentage of non-defaults (label=0).</p>
 <pre class="r"><code>par(mfrow=c(1,2))
 barplot(prop.table(table(tran[,&quot;TARGET&quot;])), main = &quot;default flag ratio&quot;)

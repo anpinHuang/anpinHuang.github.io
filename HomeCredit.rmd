@@ -34,7 +34,7 @@ Before building the model, please note the following limitations
 * The **period** when the default occured is not in the dataset. Therefore, the calibrated default probability can only be considered as "through-the-cycle" probability of default.
 * The **age** of the loan when it defaults is not in the dataset. Therefore, so important insights such as the expect credit loss, or the value of the loan cannot be measured.
 
-```{r, echo=FALSE}
+```{r, message=FALSE}
 library(sqldf)
 library(Information)
 library(gridExtra)
