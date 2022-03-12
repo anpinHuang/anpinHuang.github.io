@@ -35,6 +35,17 @@
   gtag('config', 'G-DH9DRW0BMM');
 </script>
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-222711575-1');
+</script>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -551,13 +562,13 @@ points(x = groups$x1, y = groups$`avg(p_E)`, col = &#39;blue&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.4901692   1.9096769</code></pre>
+##  -0.4914875   1.9224766</code></pre>
 <pre class="r"><code>plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
 lines(x = groups$x1, y = groups$`avg(p_f)`, col = &#39;brown&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim_f$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.9915007   3.9989076</code></pre>
+##  -0.9932173   4.0073045</code></pre>
 
 
 

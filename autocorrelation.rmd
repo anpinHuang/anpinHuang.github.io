@@ -1,9 +1,14 @@
 ---
 title: "Autocorrelation"
-output: 
+output:
   html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     includes:
-       in_header: GA_Script.html
+      in_header: GA_Script.html
 ---
 The purpose of this section is to show that OLS is not an efficient estimator when there is autocorrelation in the error term; instead, the GLS is better.
 
@@ -27,7 +32,7 @@ yt <- 1.2 + x %*% c(2.2,2.3)+et
 *******
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### OLS
+### 1. OLS
 </div>
 
 Then we do regress $y$ on $x$ using OLS:
@@ -47,7 +52,7 @@ ar.ols(resi)
 ********
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
-### GLS
+### 2. GLS
 </div>
 
 GLS with AR(1) residuals is actually OLS on the below equation:
@@ -107,9 +112,11 @@ CochraneOrcuttIteration <- function(y,x,tolerance) {
 
 ********
 
-### Run n times to observe the sampling distribution of OLS and GLS estimators
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### 3. Run n times 
+</div>
 
-We redo the above steps for n times:
+We redo the above steps for n times to observe the sampling distribution of OLS and GLS estimators:
 ```{r}
 n=2000
 OLS_coefs <- matrix(nrow=n,ncol=3)

@@ -1,6 +1,19 @@
 ---
 title: "Poisson Distribution"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    includes:
+      in_header: GA_Script.html
 ---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+#### Introduction & Derivation
+</div>
 
 Poisson distribution describe the probability of $x$ times of arrivals in a given time interval, denoted as $P(X=x)$. Poisson distribution has a parameter $\lambda$, called the **arrival rate** or **intensity**.
 

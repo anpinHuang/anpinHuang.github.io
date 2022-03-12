@@ -1,9 +1,14 @@
 ---
 title: "Ridge & Lasso Regression"
-output: 
+output:
   html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     includes:
-       in_header: GA_Script.html
+      in_header: GA_Script.html
 ---
 
 
@@ -18,4 +23,6 @@ subjected to $\sum_{j=1}^{k}(\beta_j)^2 \leq t$. There is one-to-one mapping bet
 
 To ensure that variables' coefficients are penalized fairly, standardization of the variables are required before running the regression.
 
+
+### Lasso Regression ###
 

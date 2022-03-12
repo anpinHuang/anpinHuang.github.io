@@ -7,6 +7,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
+    includes:
+       in_header: GA_Script.html
 ---
 Decision tree is a classification algorithm by dividing the data set into different subsets by the explanatory variables. The content presented in this section is mainly based on the knowledge learned from [Decision Tree Youtube tutorials playlist](https://www.youtube.com/playlist?list=PLBv09BD7ez_4temBw7vLA19p3tdQH6FYO) by [Victor Lavrenko](https://www.youtube.com/user/victorlavrenko/featured).
 

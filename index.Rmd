@@ -1,5 +1,9 @@
 ---
 title: "Ben Huang"
+output:
+  html_document:
+    includes:
+      in_header: GA_Script.html
 ---
   
 The purpose of this website is to serve as notes for some of the topics that I find interesting and important from schools and from online sources. The subjects include:  

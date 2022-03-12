@@ -1,6 +1,19 @@
 ---
 title: "Principal Component Analysis (PCA)"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    includes:
+      in_header: GA_Script.html
 ---
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+### Introduction
+</div>
 
 Principal Component Analysis (PCA) is often used for dimensionality reduction. PCA finds the linear combination of the variables (dimension) to form the new dimensions that keeps the greatest variables and the dimensions are orthogonal.
 

@@ -1,9 +1,14 @@
 ---
 title: "Bias & Variance Tradeoff"
-output: 
+output:
   html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     includes:
-       in_header: GA_Script.html
+      in_header: GA_Script.html
 ---
 
 ### Bias & Variance Tradeoff ###
@@ -32,4 +37,5 @@ $$
 
 where the bias is defined as $bias[\hat f(x)] = E[\hat f(x)] - f(x)$ and variance is defined as $Var(\hat f(x)) = E[(\hat f(x)-E[\hat f(x)])^2]$ Therefore,
 $$E[(y-\hat{f} (x))^2] = bias[\hat f(x)]^2 + Var(\hat f(x)) + \sigma^2$$
+
 
