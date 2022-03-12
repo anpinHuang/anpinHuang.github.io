@@ -7,6 +7,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
+    includes:
+      in_header: GA_Script.html
 ---
 
 This page is for comparison of different credit risk models that used for Allowance for loan and lease losses (ALLL) purposes and if they can also be used for other regulatory purposes.

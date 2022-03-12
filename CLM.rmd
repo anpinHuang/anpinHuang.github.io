@@ -1,5 +1,9 @@
 ---
 title: "Central Limit Theorem"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 $D$ is a random variable and $S = \frac{D_1 + D_2 + ...D_n}{n}$. Then $\sqrt{n}(S_n-\mu) \overset{p}{\to} N(0,\sigma^2)$

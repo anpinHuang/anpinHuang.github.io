@@ -7,6 +7,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
+    includes:
+       in_header: GA_Script.html
 ---
 
 This page is a study notes of the course [Matrix Methods in Data Analysis, Signal Processing, and Machine Learning](https://ocw.mit.edu/courses/mathematics/18-065-matrix-methods-in-data-analysis-signal-processing-and-machine-learning-spring-2018/) by professor Gilbert Strang.

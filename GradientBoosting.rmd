@@ -7,6 +7,8 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
+    includes:
+      in_header: GA_Script.html
 ---
 
 In this page we discuss fundementals of building gradient boosting trees for continunous target variable and binary target variable. This is a study note from [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)

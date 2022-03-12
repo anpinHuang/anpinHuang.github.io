@@ -1,5 +1,9 @@
 ---
 title: "Receiver Operating Characteristic (ROC) Curve "
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR, or fall-out) and the y-axis is the true positive rate (TPR, or recall). **The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain? As we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count also increases at the same time.**

@@ -1,5 +1,9 @@
 ---
 title: "Data Science & Machine Learning"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
     
 

@@ -1,6 +1,11 @@
 ---
 title: "Ridge & Lasso Regression"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
+
 
 ### Ridge Regression ###
 

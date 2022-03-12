@@ -1,5 +1,9 @@
 ---
 title: "Heteroskedasticity"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 The purpose of this section is to show that OLS is not an efficient estimator when there is heteroskedasticity in the error term; instead, the GLS (In this case also called weighted least square) is better.

@@ -1,5 +1,9 @@
 ---
 title: "Financial Mathematics & Risk Models"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
 #### Risk modeling
