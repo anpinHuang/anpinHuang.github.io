@@ -410,7 +410,7 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="jensens-inequility">Jensen’s Inequility</h3>
+<h3 id="jensens-inequility-gex-neq-egx">Jensen’s Inequility <span class="math inline">\(g(E[X]) \neq E[g(X)]\)</span></h3>
 </ins>
 </div>
 <ul>
@@ -474,6 +474,31 @@ legend(&#39;topright&#39;, legend = c(&#39;unadjusted&#39;,&#39;residual s.d. ad
 <h3 id="example---probabilities">Example - Probabilities</h3>
 </ins>
 </div>
+<pre class="r"><code>library(Rlab)
+library(sqldf)
+alpha &lt;- 2
+beta &lt;- 3.5
+n = 100
+m = 500
+variables &lt;- data.frame(matrix(NA, nrow = n*m, ncol = 1))
+colnames(variables) &lt;- &#39;x1&#39;
+for(i in 1:n) {
+  x1 &lt;- rep(rnorm(1,0,1),n)
+  e &lt;- rnorm(m,0,3)
+  logOdds &lt;- alpha + beta*x1+e
+  variables$x1[(1+m*(i-1)):(i*m)] &lt;- x1
+  variables$e[(1+m*(i-1)):(i*m)] &lt;- e
+  variables$logOdds[(1+m*(i-1)):(i*m)] &lt;- logOdds
+  variables$p[(1+m*(i-1)):(i*m)] &lt;- exp(logOdds)/(1+exp(logOdds))
+}
+
+lm_logOdds &lt;- lm(logOdds~x1, data = variables)
+variables$model_p &lt;- exp(lm_logOdds$fitted.values)/(1+exp(lm_logOdds$fitted.values))
+
+groups &lt;- sqldf(&quot;select x1, avg(p), avg(model_p) from variables group by 1&quot;)
+
+plot(x = groups$x1, y = groups$`avg(p)`)
+points(x = groups$x1, y = groups$`avg(model_p)`, col = &#39;red&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -562,13 +587,13 @@ points(x = groups$x1, y = groups$`avg(p_E)`, col = &#39;blue&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.4914875   1.9224766</code></pre>
+##  -0.4501502   1.8746231</code></pre>
 <pre class="r"><code>plot(x = groups$x1, y = groups$`avg(model_p_f)`, ylim = c(0,1), xlab = &#39;x1&#39;, ylab = &#39;&#39;)
 lines(x = groups$x1, y = groups$`avg(p_f)`, col = &#39;brown&#39;)</code></pre>
 <p><img src="JensenIneq_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>print(glm_sim_f$coefficients)</code></pre>
 <pre><code>## (Intercept)          x1 
-##  -0.9932173   4.0073045</code></pre>
+##  -0.9644351   3.9634952</code></pre>
 
 
 

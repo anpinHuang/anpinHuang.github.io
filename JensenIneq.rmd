@@ -13,7 +13,7 @@ output:
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### Jensen's Inequility
+### Jensen's Inequility $g(E[X]) \neq E[g(X)]$
 </ins>
 </div>
 
@@ -95,7 +95,7 @@ legend('topright', legend = c('unadjusted','residual s.d. adjusted'), col = c('b
 </div>
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(Rlab)
 library(sqldf)
 alpha <- 2
@@ -113,7 +113,6 @@ for(i in 1:n) {
   variables$logOdds[(1+m*(i-1)):(i*m)] <- logOdds
   variables$p[(1+m*(i-1)):(i*m)] <- exp(logOdds)/(1+exp(logOdds))
 }
-
 
 lm_logOdds <- lm(logOdds~x1, data = variables)
 variables$model_p <- exp(lm_logOdds$fitted.values)/(1+exp(lm_logOdds$fitted.values))
