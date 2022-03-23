@@ -35,6 +35,17 @@
   gtag('config', 'G-DH9DRW0BMM');
 </script>
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-222711575-1');
+</script>
+
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
   pre:not([class]) {
@@ -469,15 +480,22 @@ km_churn &lt;- with(churnAnalysis, Surv(tenure, Churn_flag))
 km_fit &lt;- survfit(Surv(tenure, Churn_flag) ~ 1, data=churnAnalysis)
 autoplot(km_fit)</code></pre>
 <p><img src="Churn_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The figure below shows the conditional churn probability given that the account “survived” the last period. We can see that the churn rate is the highest in the first time unit and gradually reverts to the mean at around 10th time unit.</p>
+<pre class="r"><code># Conditional churn probability
+s0 &lt;- c(1,km_fit$surv[1:71])
+c &lt;- (1-km_fit$surv)/s0
+c &lt;- (s0-km_fit$surv)/s0
+plot(c, type=&#39;l&#39;)</code></pre>
+<p><img src="Churn_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>km_fit_bill &lt;- survfit(Surv(tenure, Churn_flag) ~ PaperlessBilling, data=churnAnalysis)
 autoplot(km_fit_bill)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>km_fit_senior &lt;- survfit(Surv(tenure, Churn_flag) ~ SeniorCitizen, data=churnAnalysis)
 autoplot(km_fit_senior)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>km_fit_pay &lt;- survfit(Surv(tenure, Churn_flag) ~ PaymentMethod, data=churnAnalysis)
 autoplot(km_fit_pay)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="information-value" class="section level3">
 <h3>Information value</h3>
@@ -495,16 +513,16 @@ churnAnalysisTraining &lt;- churnAnalysis[1:(nrow(churnAnalysis)/2),]
 churnAnalysisValidation &lt;- churnAnalysis[(nrow(churnAnalysis)/2+1): (3*nrow(churnAnalysis)/4),]
 churnAnalysisTest &lt;- churnAnalysis[(3*nrow(churnAnalysis)/4+1),nrow(churnAnalysis),]</code></pre>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;MonthlyCharges&quot;],breaks=40)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>MonthlyChargesClass &lt;- ifelse(churnAnalysis[,&quot;MonthlyCharges&quot;]&lt;=30,&quot;&lt;=$30&quot;,&quot;&gt;30$&quot;)</code></pre>
 <p>As the distribtion of “MonthlyCharges” does look like normal distribution and there seems to be a spike for monthly charges under 30. Hence, I try to split the data into 2:<br />
 1. monthly charges $ 30 $<br />
 2. monthly charges $ &gt; 30 $</p>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;TotalCharges&quot;],breaks=40)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>TotalChargesClass &lt;- ifelse(churnAnalysis[,&quot;TotalCharges&quot;]&lt;=500,&quot;&lt;=$500&quot;,&quot;&gt;500$&quot;)</code></pre>
 <pre class="r"><code>hist(churnAnalysisTraining[,&quot;tenure&quot;],breaks=80)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>TenureClass &lt;- churnAnalysis[,&quot;tenure&quot;]
 TenureClass[which(churnAnalysis[,&quot;tenure&quot;] &gt;=70)] &lt;- &quot;&gt;=70&quot;
 TenureClass[which(churnAnalysis[,&quot;tenure&quot;] &lt;=5)] &lt;- &quot;&lt;=5&quot;
@@ -529,11 +547,11 @@ pred_fitTree &lt;- predict(fitTree, churnAnalysisTest,type=&quot;class&quot;)
 table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
 <pre><code>##          Actual
 ## Predicted   No  Yes
-##       No  1173  274
-##       Yes  100  211</code></pre>
+##       No  1126  246
+##       Yes  148  238</code></pre>
 <pre class="r"><code>plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)</code></pre>
-<p><img src="Churn_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="Churn_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>printcp(fitTree) ## cp : complexity parameter</code></pre>
 <pre><code>## 
 ## Classification tree:
@@ -545,19 +563,20 @@ text(fitTree,use.n=T,all=T)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract        InternetService OnlineSecurity  PaymentMethod  
-## [5] TechSupport     tenure         
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 926/3516 = 0.26337
+## Root node error: 935/3516 = 0.26593
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.050216      0   1.00000
-## 2 0.033477      3   0.84773
-## 3 0.023758      4   0.81425
-## 4 0.012959      5   0.79050
-## 5 0.010000      6   0.77754</code></pre>
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578</code></pre>
 <p>The cp at row one is the (rel error at row 2 - rel error at row 1)/nsplit in row 2. The “rel error” is the relative error = absolute error/root node error</p>
 <hr />
 </div>
@@ -579,19 +598,20 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract        InternetService OnlineSecurity  PaymentMethod  
-## [5] TechSupport     tenure         
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 926/3516 = 0.26337
+## Root node error: 935/3516 = 0.26593
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.050216      0   1.00000
-## 2 0.033477      3   0.84773
-## 3 0.023758      4   0.81425
-## 4 0.012959      5   0.79050
-## 5 0.010000      6   0.77754
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578
 ## 
 ## Classification tree:
 ## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
@@ -602,19 +622,20 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract        InternetService OnlineSecurity  PaymentMethod  
-## [5] TechSupport     tenure         
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 926/3516 = 0.26337
+## Root node error: 935/3516 = 0.26593
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.050216      0   1.00000
-## 2 0.033477      3   0.84773
-## 3 0.023758      4   0.81425
-## 4 0.012959      5   0.79050
-## 5 0.010000      6   0.77754
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578
 ## 
 ## Classification tree:
 ## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
@@ -625,19 +646,20 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract        InternetService OnlineSecurity  PaymentMethod  
-## [5] TechSupport     tenure         
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 926/3516 = 0.26337
+## Root node error: 935/3516 = 0.26593
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.050216      0   1.00000
-## 2 0.033477      3   0.84773
-## 3 0.023758      4   0.81425
-## 4 0.012959      5   0.79050
-## 5 0.010000      6   0.77754
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578
 ## 
 ## Classification tree:
 ## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
@@ -648,19 +670,44 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract        InternetService OnlineSecurity  PaymentMethod  
-## [5] TechSupport     tenure         
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 926/3516 = 0.26337
+## Root node error: 935/3516 = 0.26593
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.050216      0   1.00000
-## 2 0.033477      3   0.84773
-## 3 0.023758      4   0.81425
-## 4 0.012959      5   0.79050
-## 5 0.010000      6   0.77754</code></pre>
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578
+## 
+## Classification tree:
+## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
+##     tenure + PhoneService + MultipleLines + InternetService + 
+##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
+##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
+##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
+##     xval = 0)
+## 
+## Variables actually used in tree construction:
+## [1] Contract         InternetService  OnlineSecurity   PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
+## 
+## Root node error: 935/3516 = 0.26593
+## 
+## n= 3516 
+## 
+##         CP nsplit rel error
+## 1 0.048663      0   1.00000
+## 2 0.047059      2   0.90267
+## 3 0.027807      3   0.85561
+## 4 0.011765      5   0.80000
+## 5 0.010695      7   0.77647
+## 6 0.010000      8   0.76578</code></pre>
 </div>
 
 

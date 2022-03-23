@@ -55,6 +55,18 @@ km_fit <- survfit(Surv(tenure, Churn_flag) ~ 1, data=churnAnalysis)
 autoplot(km_fit)
 ```
 
+The figure below shows the conditional churn probability given that the account "survived" the last period. We can see that the churn rate is the highest in the first time unit and gradually reverts to the mean at around 10th time unit.
+
+
+```{r}
+# Conditional churn probability
+s0 <- c(1,km_fit$surv[1:71])
+c <- (1-km_fit$surv)/s0
+c <- (s0-km_fit$surv)/s0
+plot(c, type='l')
+```
+
+
 
 ```{r}
 km_fit_bill <- survfit(Surv(tenure, Churn_flag) ~ PaperlessBilling, data=churnAnalysis)
@@ -74,6 +86,25 @@ autoplot(km_fit_pay)
 
 
 ### Information value 
+```{r IV-1, include=FALSE}
+library(Information)
+library(gridExtra)
+### Ranking variables using penalized IV  
+IV <- create_infotables(data=churnAnalysis[,-c(which(colnames(churnAnalysis)%in% c('customerID','Churn')))],y="Churn_flag")
+```
+
+```{r IV-2, echo = FALSE}
+## require "brew install freetype" in ios terminal
+library(kableExtra)
+IV_Summary <- IV$Summary
+rownames(IV_Summary) <- NULL
+kable(IV_Summary[c(1:10),]) %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+kable(IV_Summary[c(11:20),]) %>%
+  kable_styling(full_width = FALSE, position = "left")
+```
+
+
 
 ### logistic regression with WOEs
 
