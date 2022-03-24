@@ -18,7 +18,7 @@ output:
 
 #### Probability & Math Fundementals
 * [Linear Algebra for Machine Learning](LinearAlgebra.html) 
-* [Jensen's Inequility $g(E[X]) \neq E[g(X)]$](jensenIneq.html) 
+* [Jensen's Inequility $g(E[X]) \neq E[g(X)]$](JensenIneq.html) 
 * [Central Limit Theorem](CLM.html)  
 * [Poisson Distribution](PoissonDistribution.html)  
 * [Maximum Likelihood Estimation](MLE.html)  
