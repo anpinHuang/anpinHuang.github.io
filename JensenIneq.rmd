@@ -94,18 +94,28 @@ legend('topright', legend = c('unadjusted','residual s.d. adjusted'), col = c('b
 </ins>
 </div>
 
+Assuming a probability function follows:
+$$ p = \frac{1}{e^{-(\alpha + x\beta + \epsilon)}} $$
+
+In other words, the log-odd ratio can be modelled by linear regression:
+$$ log(\frac{p}{1-p}) = \alpha + x\beta + \epsilon $$
+
+Then, when we observed data p, we can transform to the log-odds ratio and perform the linear regression to estimate $\alpha$ and $\beta$. However, the best estimates of $\alpha$ and $\beta$ will give biased estimates of the probability $p$ as:
+
+$$E[p] = E[\frac{1}{1+e^{-(\alpha + x\beta + \epsilon)}}] \neq \frac{1}{1+e^{-E[\alpha+x \beta+\epsilon]}}$$
+
 
 ```{r message=FALSE, warning=FALSE}
 library(Rlab)
 library(sqldf)
 alpha <- 2
 beta <- 3.5
-n = 100
+n = 150
 m = 500
 variables <- data.frame(matrix(NA, nrow = n*m, ncol = 1))
 colnames(variables) <- 'x1'
 for(i in 1:n) {
-  x1 <- rep(rnorm(1,0,1),n)
+  x1 <- rep(rnorm(1,0,1),m)
   e <- rnorm(m,0,3)
   logOdds <- alpha + beta*x1+e
   variables$x1[(1+m*(i-1)):(i*m)] <- x1
@@ -113,19 +123,78 @@ for(i in 1:n) {
   variables$logOdds[(1+m*(i-1)):(i*m)] <- logOdds
   variables$p[(1+m*(i-1)):(i*m)] <- exp(logOdds)/(1+exp(logOdds))
 }
-
 lm_logOdds <- lm(logOdds~x1, data = variables)
 variables$model_p <- exp(lm_logOdds$fitted.values)/(1+exp(lm_logOdds$fitted.values))
 
 groups <- sqldf("select x1, avg(p), avg(model_p) from variables group by 1")
 
-plot(x = groups$x1, y = groups$`avg(p)`)
+plot(x = groups$x1, y = groups$`avg(p)`, ylab = "probability estimate", xlab="x1")
 points(x = groups$x1, y = groups$`avg(model_p)`, col = 'red')
+legend(x=1,y=0.2,c("E[P|X1]","1/(1+E[logOdds|X1])"),cex=.8,col=c("black","red"),pch=c(1,1))
 
 ```
 
+Now we know they are different, but how can we adjust it? For example, given the first obervation $x_1 = c$, how do we correctly forecast the $p$ using the estimated parameters?
+
+$$
+\begin{aligned}
+E[P|x=c] &=  E[\frac{1}{1+e^{-(\alpha + x\beta + \epsilon)}}|x=c]\\
+ &= \int \frac{1}{1+e^{\alpha+\beta c + \epsilon}} \frac{1}{\sqrt{\sigma}\sqrt{2\pi}} \cdot e^{\frac{1}{2}(\frac{x}{\sqrt{\sigma}})^2} dx \\
+\end{aligned}
+$$
+
+To solve this analytically seems difficulty if not impossible (at least for me...). So, here I would like to do a simulation to estimate it.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+cat(paste0("Given x = c = ",variables$x1[1]),"\n")
+cat(paste0("E[P|x=c]: ",mean(variables[which(variables$x1==variables$x1[1]),"p"])),"\n")
+cat(paste0("1/(1+E[logOdds|x=c]): ",mean(variables[which(variables$x1==variables$x1[1]),"model_p"])))
+```
+
+```{r message=FALSE, warning=FALSE}
+sigma <- sd(variables$e)
+c <- variables$x1[1]
+sim_e <- rnorm(1000,0,sigma)
+p_adjusted <- mean(1/(1+exp(-alpha-beta*c-sim_e)))
+cat(paste0("With the estimated alpha, beta and sd(e), the probability p can estimated by simulation:",p_adjusted))
+```
 
 
+```{r eval=FALSE, echo=FALSE}
+## MLE method
+variables <- data.frame(matrix(NA, nrow = n*m, ncol = 1))
+colnames(variables) <- 'x1'
+x1 <- rnorm(m*n,0,1)
+e <- rnorm(m*n,0,3)
+logOdds <- alpha + beta*x1+e
+variables$x1 <- x1
+variables$e <- e
+variables$logOdds <- logOdds
+variables$p <- exp(logOdds)/(1+exp(logOdds))
+
+alpha_N <- seq(1,3,0.1)
+beta_N <- seq(3,4,0.1)
+MLE_estimation <- as.data.frame(matrix(nrow=length(alpha_N)*length(beta_N),ncol=3))
+row <- 1
+p <- variables$p
+N <- length(variables$p)
+for(i in 1:length(alpha_N)) {
+  alpha_i <- alpha_N[i]
+  for(j in 1:length(beta_N)) {
+  beta_j <- beta_N[j]
+  sigma <- sqrt( sum( ( (log( p/(1-p) )-alpha_i-beta_j*x1)^2) ) /(N-1) )
+  likelihood <- 1/(sigma*sqrt(2*3.14)) * exp(-1/2* ( (log(p/(1-p))-alpha_i-beta_j*x1)/ sigma )^2 )
+  loglikelihood <- log(likelihood)
+  e_MLE_i_j <- sum(loglikelihood)
+  MLE_estimation[row,1] <- alpha_i
+  MLE_estimation[row,2] <- beta_j
+  MLE_estimation[row,3] <- e_MLE_i_j
+  row <- row+1  
+  }
+}
+MLE_estimation[which(MLE_estimation[,3]==max(MLE_estimation[,3])),]
+colnames(MLE_estimation) <- c("alpha",'beta','Maximum log likelihood')
+```
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
