@@ -139,11 +139,11 @@ Now we know they are different, but how can we adjust it? For example, given the
 $$
 \begin{aligned}
 E[P|x=c] &=  E[\frac{1}{1+e^{-(\alpha + x\beta + \epsilon)}}|x=c]\\
- &= \int \frac{1}{1+e^{\alpha+\beta c + \epsilon}} \frac{1}{\sqrt{\sigma}\sqrt{2\pi}} \cdot e^{\frac{1}{2}(\frac{x}{\sqrt{\sigma}})^2} dx \\
+ &= \int \frac{1}{1+e^{\alpha+\beta c + \epsilon}} \frac{1}{\sigma\sqrt{2\pi}} \cdot e^{\frac{1}{2}(\frac{x}{\sigma})^2} dx \\
 \end{aligned}
 $$
 
-To solve this analytically seems difficulty if not impossible (at least for me...). So, here I would like to do a simulation to estimate it.
+To solve this analytically seems difficult if not impossible (at least for me...). So, here I would like to do a simulation to estimate it.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 cat(paste0("Given x = c = ",variables$x1[1]),"\n")

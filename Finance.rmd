@@ -1,5 +1,5 @@
 ---
-title: "Financial Mathematics & Risk Models"
+title: "Financial Mathematics & Credit Models"
 output: 
   html_document:
     includes:

@@ -11,7 +11,7 @@ output:
   
 #### <ins>**Experience **</ins>
 ***ING***  Amsterdam, North Holland, NL  (11/2020-present)  
-  Research & Advice Professional, Financial Risk Model Development - IFRS 9  
+  Credit Risk Model Developer, IFRS 9 Methodology
   
   * IFRS 9-compliant model for Commercial Property Finance portfolio (wholesale portfolio)
   * Enhanced methodology standard to fulfill Recommendation R issued by KNF, the Polish regulator

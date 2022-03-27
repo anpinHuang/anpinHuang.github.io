@@ -9,6 +9,8 @@ output:
       smooth_scroll: true
     includes:
        in_header: GA_Script.html
+bibliography: references.bib
+link-citations: yes
 ---
 
 This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures including the regulatory documents: 
@@ -21,7 +23,10 @@ This page is my summary of notes on Basel II and the ASRF model from various ext
 
 ### 1. Basel Requirements
 
-Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the **yearly (12-month)** loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires **through-the-cycle (TTC)** loss forecast over the next 12 months. **Portfolio-invariant** is required under the Basel rule.
+Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the **yearly (12-month)** loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires **through-the-cycle (TTC)** loss forecast over the next 12 months. **Portfolio-invariant** is required under the Basel rule. 
+
+
+As mentioned in [@BASEL2], "one of the functions of bank capital is to provide a buffer to protect a bank’s debt holders against peak losses that exceed expected levels", i.e. the Unexpected Loss (UL).
 
 * **Expected Loss (EL)**: The expected value of the loss over the next 12 month
 * **Unexpected Loss (UL)**: Losses above the Expected Loss (EL)
@@ -78,8 +83,8 @@ Note that unlike Black-Scholes which is under the risk-neutral measure, the Mert
 
 ###  3. ASRF Model
 
-The Merton's model can be extended to **Asymptotic Single Risk Factor model (ASRF)**, assuming the assets value of any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant.
-
+The Merton's model can be extended to **Asymptotic Single Risk Factor model (ASRF)**, assuming the assets value of any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant. [@ASRF16] provides the derivation of ASRF model (also show in below).
+ 
 The asset value of company $i$ is driven by a single factor $Z$ that represents the systemic credit risk. The idiosyncretic risk should already diversified.
 
 $$X_i = aZ+b \epsilon_i$$
@@ -161,7 +166,7 @@ In practice,
 * To derive $PD_i^{*}$ we need $\mu$ the instantenious expected rate of return of the asset value of company $i$
 
 
-###  4. Estimate the asset correlation $\rho$
+###  4. Estimate asset correlation $\rho$
 
 
 
@@ -193,8 +198,46 @@ assuming the $PD_{TtC}$ (or $PD_i^{*}$) is constant, then $Var[\Phi^{-1}(PD_{TtC
 
 If there are multiple ratings in the pool, then $PD_{TtC}$ of the portfolio is not constant (portfolio changes over time). Therefore, $\rho$ would need to be estimated by maximum likelihood in this case. 
 
+```{r}
+avg_IRB_PD <- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
+                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
+                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
+default_rate <- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
+                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
+                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
+empirical_q <- rank(default_rate)/(length(default_rate)+1)
 
-### 5. IFRS9 requirement and the application of ASRF model
+Vasicek_PDF <- function(PiT, IRB, AC) {
+  Vasicek_PDF <- sqrt((1-AC)/AC) * exp(0.5*(qnorm(PiT)^2 - ( ( sqrt(1-AC)*qnorm(PiT)-qnorm(IRB))/sqrt(AC))^2) )
+}
+Vasicek_CDF <- function(PiT, IRB, AC) {
+  Vasicek_CDF <- (1-pnorm(-qnorm(PiT)*sqrt(1-AC)-qnorm(IRB)/sqrt(AC)) )
+}
+Vasicek_ICDF <- function(CI, IRB, AC) {
+  Vasicek_ICDF <- pnorm( (qnorm(IRB)-sqrt(AC)*qnorm(1-CI)) /sqrt(1-AC) )
+}
+rho_candidate <- seq(0.01,0.05,0.0001)
+calibration_process <- as.data.frame(matrix(NA, nrow=length(rho_candidate), ncol=2))
+for(i in 1:length(rho_candidate)) {
+  sum_loglikelihood <- sum(log(Vasicek_PDF(PiT = default_rate, IRB = avg_IRB_PD, rho_candidate[i])))
+  calibration_process[i,1] <- rho_candidate[i]
+  calibration_process[i,2] <- sum_loglikelihood 
+}
+rho <- calibration_process[which(calibration_process[,2]==max(calibration_process[,2])),1]
+PiT_empirical_q <- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
+plot(avg_IRB_PD, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period")
+lines(default_rate, col='red')
+lines(PiT_empirical_q, col='orange')
+legend(x=16, y=0.1, c("IRB TtC PD", "Observed Default rate","PiT empirical quantile"),col=c("black","red","orange"),lty=c(1,1,1))
+cat(paste0("The calibrated asset correlation is: ",rho*100,"% \n"))
+```
+
+
+
+
+
+
+### 5. IFRS9 requirement and use of ASRF model
 
 
 The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current & future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as $z$ (standard normal distribution) represents the single systemetic credit risk factor.
@@ -310,12 +353,6 @@ $$
 so on and so forth, we can derive the migration probability of $r \to c$ where $c$ is any non-default rating.
 
 
-
-
-
-
-
-
 ### 10. Portfolio Invariance
 
 
@@ -332,7 +369,7 @@ Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to
   The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
 
 
-
+### 12. References
 
 
 

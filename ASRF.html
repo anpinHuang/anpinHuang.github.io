@@ -386,7 +386,7 @@ div.tocify {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -419,6 +419,7 @@ div.tocify {
 <div id="basel-requirements" class="section level3">
 <h3>1. Basel Requirements</h3>
 <p>Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the <strong>yearly (12-month)</strong> loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires <strong>through-the-cycle (TTC)</strong> loss forecast over the next 12 months. <strong>Portfolio-invariant</strong> is required under the Basel rule.</p>
+<p>As mentioned in <span class="citation">(Basel Committee on Banking Supervision <a href="#ref-BASEL2">2005</a>)</span>, “one of the functions of bank capital is to provide a buffer to protect a bank’s debt holders against peak losses that exceed expected levels”, i.e. the Unexpected Loss (UL).</p>
 <ul>
 <li><strong>Expected Loss (EL)</strong>: The expected value of the loss over the next 12 month</li>
 <li><strong>Unexpected Loss (UL)</strong>: Losses above the Expected Loss (EL)</li>
@@ -462,7 +463,7 @@ A_t &amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 </div>
 <div id="asrf-model" class="section level3">
 <h3>3. ASRF Model</h3>
-<p>The Merton’s model can be extended to <strong>Asymptotic Single Risk Factor model (ASRF)</strong>, assuming the assets value of any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant.</p>
+<p>The Merton’s model can be extended to <strong>Asymptotic Single Risk Factor model (ASRF)</strong>, assuming the assets value of any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant. <span class="citation">(Juulia Happonen <a href="#ref-ASRF16">2016</a>)</span> provides the derivation of ASRF model (also show in below).</p>
 <p>The asset value of company <span class="math inline">\(i\)</span> is driven by a single factor <span class="math inline">\(Z\)</span> that represents the systemic credit risk. The idiosyncretic risk should already diversified.</p>
 <p><span class="math display">\[X_i = aZ+b \epsilon_i\]</span> where both <span class="math inline">\(Z\)</span> and <span class="math inline">\(\epsilon\)</span> follow standard normal distribution and <span class="math inline">\(Z\)</span> is independent of <span class="math inline">\(\epsilon\)</span> and each of <span class="math inline">\(\epsilon_i\)</span> for <span class="math inline">\(i=1,...,n\)</span> is independent of each other</p>
 <p>To find <span class="math inline">\(a\)</span>:</p>
@@ -521,8 +522,8 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 <li><p>To derive <span class="math inline">\(PD_i^{*}\)</span> we need <span class="math inline">\(\mu\)</span> the instantenious expected rate of return of the asset value of company <span class="math inline">\(i\)</span></p></li>
 </ul>
 </div>
-<div id="estimate-the-asset-correlation-rho" class="section level3">
-<h3>4. Estimate the asset correlation <span class="math inline">\(\rho\)</span></h3>
+<div id="estimate-asset-correlation-rho" class="section level3">
+<h3>4. Estimate asset correlation <span class="math inline">\(\rho\)</span></h3>
 <p>The asset correlation <span class="math inline">\(\rho\)</span> can be estimated from the default rate. Following the equation above:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -544,9 +545,42 @@ PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
 \end{aligned}
 \]</span> assuming the <span class="math inline">\(PD_{TtC}\)</span> (or <span class="math inline">\(PD_i^{*}\)</span>) is constant, then <span class="math inline">\(Var[\Phi^{-1}(PD_{TtC})]=0\)</span></p>
 <p>If there are multiple ratings in the pool, then <span class="math inline">\(PD_{TtC}\)</span> of the portfolio is not constant (portfolio changes over time). Therefore, <span class="math inline">\(\rho\)</span> would need to be estimated by maximum likelihood in this case.</p>
+<pre class="r"><code>avg_IRB_PD &lt;- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
+                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
+                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
+default_rate &lt;- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
+                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
+                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
+empirical_q &lt;- rank(default_rate)/(length(default_rate)+1)
+
+Vasicek_PDF &lt;- function(PiT, IRB, AC) {
+  Vasicek_PDF &lt;- sqrt((1-AC)/AC) * exp(0.5*(qnorm(PiT)^2 - ( ( sqrt(1-AC)*qnorm(PiT)-qnorm(IRB))/sqrt(AC))^2) )
+}
+Vasicek_CDF &lt;- function(PiT, IRB, AC) {
+  Vasicek_CDF &lt;- (1-pnorm(-qnorm(PiT)*sqrt(1-AC)-qnorm(IRB)/sqrt(AC)) )
+}
+Vasicek_ICDF &lt;- function(CI, IRB, AC) {
+  Vasicek_ICDF &lt;- pnorm( (qnorm(IRB)-sqrt(AC)*qnorm(1-CI)) /sqrt(1-AC) )
+}
+rho_candidate &lt;- seq(0.01,0.05,0.0001)
+calibration_process &lt;- as.data.frame(matrix(NA, nrow=length(rho_candidate), ncol=2))
+for(i in 1:length(rho_candidate)) {
+  sum_loglikelihood &lt;- sum(log(Vasicek_PDF(PiT = default_rate, IRB = avg_IRB_PD, rho_candidate[i])))
+  calibration_process[i,1] &lt;- rho_candidate[i]
+  calibration_process[i,2] &lt;- sum_loglikelihood 
+}
+rho &lt;- calibration_process[which(calibration_process[,2]==max(calibration_process[,2])),1]
+PiT_empirical_q &lt;- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
+plot(avg_IRB_PD, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;)
+lines(default_rate, col=&#39;red&#39;)
+lines(PiT_empirical_q, col=&#39;orange&#39;)
+legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,&quot;PiT empirical quantile&quot;),col=c(&quot;black&quot;,&quot;red&quot;,&quot;orange&quot;),lty=c(1,1,1))</code></pre>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
+<pre><code>## The calibrated asset correlation is: 2.61%</code></pre>
 </div>
-<div id="ifrs9-requirement-and-the-application-of-asrf-model" class="section level3">
-<h3>5. IFRS9 requirement and the application of ASRF model</h3>
+<div id="ifrs9-requirement-and-use-of-asrf-model" class="section level3">
+<h3>5. IFRS9 requirement and use of ASRF model</h3>
 <p>The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current &amp; future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as <span class="math inline">\(z\)</span> (standard normal distribution) represents the single systemetic credit risk factor.</p>
 </div>
 <div id="binomial-confidence-bound-of-irb-pd" class="section level3">
@@ -571,9 +605,9 @@ PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
 }
 
 binomial_bounds(static_size=1000)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>binomial_bounds(static_size=20000)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 </div>
 <div id="rho-and-pit-pd-distribution-shape" class="section level3">
 <h3>7. <span class="math inline">\(\rho\)</span> and PiT PD distribution shape</h3>
@@ -590,11 +624,11 @@ for(i in 1:n){
 }
 
 hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 2%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 7%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 18%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 </div>
 <div id="pd_ttc-and-variability" class="section level3">
 <h3>8. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
@@ -611,11 +645,11 @@ for(i in 1:n){
 }
 
 hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 2.5%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,20), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 5%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <pre class="r"><code>hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 12.5%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
 </div>
 <div id="pit-adjustment-for-non-default-rating-migration" class="section level3">
 <h3>9. PiT adjustment for non-default rating migration</h3>
@@ -648,6 +682,17 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 <li><strong>Foundation IRB Approach (FIRB)</strong>: The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)</li>
 <li><strong>Advanded IRB Approach (AIRB)</strong>: The bank uses its own estimaed PD, EAD, LGD and effective duration (M).</li>
 </ul>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>12. References</h3>
+<div id="refs" class="references">
+<div id="ref-BASEL2">
+<p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel Ii Irb Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>
+</div>
+<div id="ref-ASRF16">
+<p>Juulia Happonen. 2016. <em>Theory Behind Regulatory Capital Formulae</em>. <a href="https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y">https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y</a>.</p>
+</div>
+</div>
 </div>
 
 
