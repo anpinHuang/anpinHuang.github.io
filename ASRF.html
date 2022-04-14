@@ -571,9 +571,9 @@ for(i in 1:length(rho_candidate)) {
 }
 rho &lt;- calibration_process[which(calibration_process[,2]==max(calibration_process[,2])),1]
 PiT_empirical_q &lt;- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
-plot(avg_IRB_PD, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;)
-lines(default_rate, col=&#39;red&#39;)
-lines(PiT_empirical_q, col=&#39;orange&#39;)
+plot(avg_IRB_PD, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;, lwd=2)
+lines(default_rate, col=&#39;red&#39;, lwd=2)
+lines(PiT_empirical_q, col=&#39;orange&#39;, lwd=2)
 legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,&quot;PiT empirical quantile&quot;),col=c(&quot;black&quot;,&quot;red&quot;,&quot;orange&quot;),lty=c(1,1,1))</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
@@ -603,10 +603,10 @@ legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,
     down_bound[i] &lt;- qbinom(0.025, static_size,IRB_PD[i])/static_size
     up_bound[i] &lt;- qbinom(0.975, static_size,IRB_PD[i])/static_size
   }
-  plot(IRB_PD, type=&#39;l&#39;, ylim = c(0.01,0.1))
-  lines(odr, col=&#39;red&#39;)
-  lines(down_bound, lty=2)
-  lines(up_bound,lty=2)
+  plot(IRB_PD, type=&#39;l&#39;, ylim = c(0.01,0.1), lwd=2)
+  lines(odr, col=&#39;red&#39;, lwd=2)
+  lines(down_bound, lty=2, lwd=2)
+  lines(up_bound,lty=2, lwd=2)
 }
 
 binomial_bounds(static_size=1000)</code></pre>
@@ -617,7 +617,7 @@ binomial_bounds(static_size=1000)</code></pre>
 <div id="rho-and-pit-distribution-shape" class="section level3">
 <h3>7. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
 <p>The histagrams shows that as the <span class="math inline">\(\rho\)</span> increase, the distribution becomes more flat tailed.</p>
-<pre class="r"><code>rho &lt;- c(0.02,0.07,0.18)
+<pre class="r"><code>rho &lt;- c(0.01,0.05,0.12)
 ttc &lt;- 0.05
 n &lt;- 2000
 z &lt;- rnorm(n, mean=0, sd=1)
@@ -627,19 +627,20 @@ for(i in 1:n){
   pit[i,2] &lt;- pnorm((qnorm(ttc)-sqrt(rho[2])*z[i])/sqrt(1-rho[2]),0,1)
   pit[i,3] &lt;- pnorm((qnorm(ttc)-sqrt(rho[3])*z[i])/sqrt(1-rho[3]),0,1)
 }
-
-hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 2%&#39;)</code></pre>
+par(mfrow=c(2,2))
+hist(pit[,1], breaks=20,freq=FALSE, ylim=c(0,50), xlim=c(0,0.15), xlab=&#39;PiT PD&#39;, main = &#39;rho = 1%&#39;)
+abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)
+hist(pit[,2], breaks=30, freq=FALSE, ylim=c(0,40), xlim=c(0,0.15), xlab=&#39;PiT PD&#39;, main = &#39;rho = 6%&#39;)
+abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)
+hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.15), xlab=&#39;PiT PD&#39;, main = &#39;rho = 10%&#39;)
+abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 7%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<pre class="r"><code>hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;rho = 18%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 </div>
 <div id="pd_ttc-and-variability" class="section level3">
 <h3>8. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 <p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>. Therefore, for different PD rating <span class="math inline">\(r_{i}\)</span> (different <span class="math inline">\(PD_{TtC}\)</span>), the <span class="math inline">\(\rho_{r_i}\)</span> should be different to have the same shape.</p>
-<pre class="r"><code>rho &lt;- 0.075
-ttc &lt;- c(0.02,0.05,0.24)
+<pre class="r"><code>rho &lt;- 0.04
+ttc &lt;- c(0.01,0.06,0.24)
 n &lt;- 2000
 z &lt;- rnorm(n, mean=0, sd=1)
 pit &lt;- matrix(nrow=n,ncol=3)
@@ -648,13 +649,14 @@ for(i in 1:n){
   pit[i,2] &lt;- pnorm((qnorm(ttc[2])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
   pit[i,3] &lt;- pnorm((qnorm(ttc[3])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
 }
-
-hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 2.5%&#39;)</code></pre>
+par(mfrow=c(2,2))
+hist(pit[,1], breaks=30, freq=FALSE, ylim=c(0,100), xlim=c(0,0.05), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 1%&#39;)
+abline(v = ttc[1], col=&quot;red&quot;, lwd=2, lty=2)
+hist(pit[,2], breaks=30, freq=FALSE, ylim=c(0,30), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 6%&#39;)
+abline(v = ttc[2], col=&quot;red&quot;, lwd=2, lty=2)
+hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 24%&#39;)
+abline(v = ttc[3], col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,20), xlim=c(0,0.25), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 5%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
-<pre class="r"><code>hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 12.5%&#39;)</code></pre>
-<p><img src="ASRF_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
 </div>
 <div id="pit-non-default-migration" class="section level3">
 <h3>9. PiT non-default migration</h3>

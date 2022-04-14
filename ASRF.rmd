@@ -225,9 +225,9 @@ for(i in 1:length(rho_candidate)) {
 }
 rho <- calibration_process[which(calibration_process[,2]==max(calibration_process[,2])),1]
 PiT_empirical_q <- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
-plot(avg_IRB_PD, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period")
-lines(default_rate, col='red')
-lines(PiT_empirical_q, col='orange')
+plot(avg_IRB_PD, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period", lwd=2)
+lines(default_rate, col='red', lwd=2)
+lines(PiT_empirical_q, col='orange', lwd=2)
 legend(x=16, y=0.1, c("IRB TtC PD", "Observed Default rate","PiT empirical quantile"),col=c("black","red","orange"),lty=c(1,1,1))
 cat(paste0("The calibrated asset correlation is: ",rho*100,"% \n"))
 ```
@@ -268,10 +268,10 @@ binomial_bounds <- function(static_size) {
     down_bound[i] <- qbinom(0.025, static_size,IRB_PD[i])/static_size
     up_bound[i] <- qbinom(0.975, static_size,IRB_PD[i])/static_size
   }
-  plot(IRB_PD, type='l', ylim = c(0.01,0.1))
-  lines(odr, col='red')
-  lines(down_bound, lty=2)
-  lines(up_bound,lty=2)
+  plot(IRB_PD, type='l', ylim = c(0.01,0.1), lwd=2)
+  lines(odr, col='red', lwd=2)
+  lines(down_bound, lty=2, lwd=2)
+  lines(up_bound,lty=2, lwd=2)
 }
 
 binomial_bounds(static_size=1000)
@@ -287,7 +287,7 @@ binomial_bounds(static_size=200)
 The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
 
 ```{r}
-rho <- c(0.02,0.07,0.18)
+rho <- c(0.01,0.05,0.12)
 ttc <- 0.05
 n <- 2000
 z <- rnorm(n, mean=0, sd=1)
@@ -297,10 +297,13 @@ for(i in 1:n){
   pit[i,2] <- pnorm((qnorm(ttc)-sqrt(rho[2])*z[i])/sqrt(1-rho[2]),0,1)
   pit[i,3] <- pnorm((qnorm(ttc)-sqrt(rho[3])*z[i])/sqrt(1-rho[3]),0,1)
 }
-
-hist(pit[,1], breaks=40,freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 2%')
-hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 7%')
-hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD', main = 'rho = 18%')
+par(mfrow=c(2,2))
+hist(pit[,1], breaks=20,freq=FALSE, ylim=c(0,50), xlim=c(0,0.15), xlab='PiT PD', main = 'rho = 1%')
+abline(v = ttc, col="red", lwd=2, lty=2)
+hist(pit[,2], breaks=30, freq=FALSE, ylim=c(0,40), xlim=c(0,0.15), xlab='PiT PD', main = 'rho = 6%')
+abline(v = ttc, col="red", lwd=2, lty=2)
+hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.15), xlab='PiT PD', main = 'rho = 10%')
+abline(v = ttc, col="red", lwd=2, lty=2)
 
 ```
 
@@ -311,8 +314,8 @@ hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.25), xlab='PiT PD'
 The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$. Therefore, for different PD rating $r_{i}$ (different $PD_{TtC}$), the $\rho_{r_i}$ should be different to have the same shape.
 
 ```{r}
-rho <- 0.075
-ttc <- c(0.02,0.05,0.24)
+rho <- 0.04
+ttc <- c(0.01,0.06,0.24)
 n <- 2000
 z <- rnorm(n, mean=0, sd=1)
 pit <- matrix(nrow=n,ncol=3)
@@ -321,11 +324,13 @@ for(i in 1:n){
   pit[i,2] <- pnorm((qnorm(ttc[2])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
   pit[i,3] <- pnorm((qnorm(ttc[3])-sqrt(rho)*z[i])/sqrt(1-rho),0,1)
 }
-
-hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab='PiT PD', main = 'TtC = 2.5%')
-hist(pit[,2], breaks=40, freq=FALSE, ylim=c(0,20), xlim=c(0,0.25), xlab='PiT PD', main = 'TtC = 5%')
-hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab='PiT PD', main = 'TtC = 12.5%')
-
+par(mfrow=c(2,2))
+hist(pit[,1], breaks=30, freq=FALSE, ylim=c(0,100), xlim=c(0,0.05), xlab='PiT PD', main = 'TtC = 1%')
+abline(v = ttc[1], col="red", lwd=2, lty=2)
+hist(pit[,2], breaks=30, freq=FALSE, ylim=c(0,30), xlim=c(0,0.25), xlab='PiT PD', main = 'TtC = 6%')
+abline(v = ttc[2], col="red", lwd=2, lty=2)
+hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab='PiT PD', main = 'TtC = 24%')
+abline(v = ttc[3], col="red", lwd=2, lty=2)
 ```
 
 
