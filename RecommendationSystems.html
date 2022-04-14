@@ -366,7 +366,7 @@ div.tocify {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -390,19 +390,33 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="similarilities">1. Similarilities</h3>
+<h3 id="similarities">1. Similarities</h3>
 </ins>
 </div>
+<p>For 2 vectors <span class="math inline">\(q\)</span> and <span class="math inline">\(x\)</span></p>
+<ul>
+<li>cosine: <span class="math inline">\(cos(q,x)\)</span></li>
+<li>dot product: <span class="math inline">\(\lVert q \lVert \lVert x \lVert cos(q,x)\)</span></li>
+<li>Euclidean distance: <span class="math inline">\(\lVert q-x \lVert\)</span></li>
+</ul>
+<p>The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
 <h3 id="matrix-factorization">2. Matrix Factorization</h3>
 </ins>
 </div>
-<p>goal: Find Feedback matrix <span class="math inline">\(A\)</span></p>
+<p>When recommending a movie, the algorithm should recommend</p>
+<ul>
+<li>movies similar to the ones that user has liked in the past</li>
+<li>movies that similar users liked</li>
+</ul>
+<p>Again, both movies and users are represented in the same embedding space.</p>
+<p>The goal is to factorize the feedback matrix <span class="math inline">\(A\)</span> into the product of a user embedding matrix <span class="math inline">\(U\)</span> and item (movie) embedding matrix <span class="math inline">\(V\)</span> such that <span class="math inline">\(A \approx UV^T\)</span></p>
 <ul>
 <li>user <span class="math inline">\(U \in \mathbb{R}^{m {\times} d}\)</span></li>
 <li>item <span class="math inline">\(V \in \mathbb{R}^{n {\times} d}\)</span></li>
 </ul>
+<p>where <span class="math inline">\(m\)</span> is the number of user, <span class="math inline">\(n\)</span> is the number of items and <span class="math inline">\(d\)</span> is the number of dimensions (features/variables)</p>
 <p>Matrix factorization, <span class="math inline">\(UV^T\)</span> is a simple embedding model</p>
 <p>Choosing the Objective Function</p>
 <ul>
@@ -421,6 +435,16 @@ div.tocify {
 <h3 id="references">4. References</h3>
 </ins>
 </div>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="terminology">5. Terminology</h3>
+</ins>
+</div>
+<ul>
+<li>Item = Items to be recommended</li>
+<li>Query = The information a system uses to make recommendations. e.g. items previously interact with, time of day, the user’s device</li>
+<li>Embedding = A mapping from a discrete set (in this case, the set of queries, or the set of items to recommend) to a vector space called the embedding space.</li>
+</ul>
 
 
 

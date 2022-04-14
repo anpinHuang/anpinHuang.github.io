@@ -304,7 +304,7 @@ $(document).ready(function () {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR, or fall-out) and the y-axis is the true positive rate (TPR, or recall). <strong>The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain? As we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count also increases at the same time.</strong></p>
+<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR, or fall-out) and the y-axis is the true positive rate (TPR, or recall). <strong>The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain? The rationale is that as we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count also increases at the same time.</strong></p>
 <p>The slope of a point on the ROC curve <span class="math display">\[=\frac{TPR}{FPR} = \frac{\frac{TP}{P}}{\frac{FP}{N}}\]</span></p>
 <p>For a model that has no predicting power (no better than random), the slope of the ROC curve would be 45 degree (slope = 1):</p>
 <p><span class="math display">\[
@@ -366,7 +366,7 @@ $(document).ready(function () {
 <li>True Negative (TN): Predict 0 (negative) and the prediction is correct (true)</li>
 <li>False Negative (FN): Predict 0 (negative) and the prediction is incorrect (false)</li>
 </ul>
-<p><img src="ConfusionMatrix.png" height="300px" width="600px" /></p>
+<p><img src="ConfusionMatrix.png" height="255px" width="600px" /></p>
 <p>Above ratios can also be linked through <strong>Baye’s Rule</strong>:<br />
 <span class="math display">\[
 \begin{aligned}

@@ -1,0 +1,854 @@
+---
+title: "Apparel discount analysis"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    includes:
+      in_header: GA_Script.html
+---
+
+
+```{r}
+scrape <- read.csv("/Users/smartboyben/Documents/Data/adidas/SCRAPE_DATA_adidas.csv")
+View(head(scrape))
+
+```
+
+```{r}
+article_ref<- read.csv("/Users/smartboyben/Documents/Data/adidas/ARTICLE_REFERENCE.csv")
+```
+
+```{r}
+check_arti_ref <- sqldf('
+ select 
+ retailer
+ , retailer_group_article
+ , count(*) as num_count
+ from article_ref
+ where product_division_name <> ""
+ group by 1,2
+ order by num_count desc
+')
+```
+
+
+```{r}
+#unique_time <- sqldf("select distinct date(date_time) from scrape order by date_time asc")
+channel_pct <- sqldf(
+"select 
+retailer
+, date(date_time) 
+, sum(avail_size_cnt*coalesce(IP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)) as total_value
+from scrape 
+where company_name='adidas'
+group by 1,2
+order by 1,2 asc")
+```
+
+```{r}
+discount_pct_adidas <- sqldf(
+"select 
+retailer
+, date(date_time) as date
+, sum((coalesce(MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)+coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ))/2)
+/sum(coalesce(IP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)) as disc_pct
+from scrape 
+where company_name='adidas'
+group by 1,2
+order by 1,2 asc")
+
+#write.csv(discount_pct_adidas, file="/Users/smartboyben/Documents/Data/adidas/adidas_discount_trend.csv")
+```
+
+```{r}
+library(tidyr)
+discount_pct_adidas_w <- reshape(discount_pct_adidas, idvar = "date", timevar = "RETAILER", direction = "wide")
+
+discount_pct_adidas_w_s <- discount_pct_adidas_w %>% dplyr::arrange(date) 
+discount_pct_adidas_w_f <- fill_(discount_pct_adidas_w_s, names(discount_pct_adidas_w_s)[-1])
+
+names(discount_pct_adidas_w_f) <- c('date','Intersport','Sportscheck','Zalando','OwnEcom')
+
+moving_avg_discount_pct <- discount_pct_adidas_w_f %>%
+    dplyr::arrange(date) %>% 
+    dplyr::mutate(Intersport_7a = zoo::rollmean(discount_pct_adidas_w_f$Intersport, k = 7, fill = NA, align='right'))
+    dplyr::mutate(Sportscheck_7a = zoo::rollmean(discount_pct_adidas_w_f$Sportscheck, k = 7, fill = NA, align='right'))
+    #dplyr::mutate(Zalando_7a = zoo::rollmean(discount_pct_adidas_w_f$Zalando, k = 7, fill = NA, align='right'))
+    #dplyr::mutate(OwnEcom_7a = zoo::rollmean(discount_pct_adidas_w_f$OwnEcom, k = 7, fill = NA, align='right'))
+
+moving_avg_discount_pct$Intersport_7a <- zoo::rollmean(discount_pct_adidas_w_f$Intersport, k = 7, fill = NA, align='right')
+moving_avg_discount_pct$Sportscheck_7a <- zoo::rollmean(discount_pct_adidas_w_f$Sportscheck, k = 7, fill = NA, align='right')
+moving_avg_discount_pct$Zalando_7a <- zoo::rollmean(discount_pct_adidas_w_f$Zalando, k = 7, fill = NA, align='right')
+moving_avg_discount_pct$OwnEcom_7a <- zoo::rollmean(discount_pct_adidas_w_f$OwnEcom, k = 7, fill = NA, align='right')
+
+moving_avg_discount_pct <- moving_avg_discount_pct[,c('date','Intersport_7a','Sportscheck_7a','Zalando_7a','OwnEcom_7a')]
+  
+write.csv(moving_avg_discount_pct, file="/Users/smartboyben/Documents/Data/adidas/discount_trend.csv")
+
+```
+
+```{r}
+discount_pct <- sqldf(
+"select 
+retailer
+, date(date_time) 
+, sum((coalesce(MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)+coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ))/2)
+/sum(coalesce(IP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)) as disc_pct
+from scrape 
+group by 1,2
+order by 1,2 asc")
+write.csv(discount_pct, file="/Users/smartboyben/Documents/Data/adidas/discount_trend.csv")
+```
+
+```{r}
+scrape_impute <- sqldf("
+select *
+, coalesce(IP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL) as ori_price
+, (coalesce(MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL,IP_IN_VAT_PRC_CURR_LOCAL)+coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL,IP_IN_VAT_PRC_CURR_LOCAL))/2 as disc_price
+from scrape 
+")
+article_ref$GROUP_ARTICLE <- as.character(article_ref$GROUP_ARTICLE)
+article_ref$GROUP_ARTICLE[which(is.na(article_ref$GROUP_ARTICLE))] <- "missing"
+article_ref$GROUP_ARTICLE <- as.factor(article_ref$GROUP_ARTICLE)
+scrape_impute$disc_flag <- scrape_impute$disc_price!=scrape_impute$ori_price
+scrape_arti <- sqldf('
+select a.*
+, b.PRODUCT_DIVISION_NAME
+, b.PRODUCT_GROUP_NAME
+, b.SPORT
+, b.PRODUCT_TYPE_NAME
+, b.GENDER
+, b.AGE_GROUP
+, b.COLOR_GROUP
+from scrape_impute a 
+left join (select * from article_ref where PRODUCT_DIVISION_NAME <>"") b
+on a.RETAILER_GROUP_ARTICLE = b.RETAILER_GROUP_ARTICLE
+and a.group_article=b.group_article
+and a.RETAILER = b.RETAILER
+and a.company_name=b.company_name
+')
+
+check_arti_ref <- sqldf("
+ select 
+ date_time
+ , retailer
+ , company_name
+ , retailer_group_article
+ , count(*) as num_count
+ from scrape_arti
+ group by 1,2,3,4
+ order by num_count desc
+")
+scrape_arti <- sqldf("
+select *
+, coalesce(avail_size_cnt, site_size_cnt,0) as avail_size_cnt_adj
+, coalesce(site_size_cnt,avail_size_cnt,1) as site_size_cnt_adj
+from 
+scrape_arti
+")
+
+
+scrape_arti$avail_ratio <- scrape_arti$avail_size_cnt_adj/scrape_arti$site_size_cnt_adj
+scrape_arti$disc_flag <- ifelse(scrape_arti$disc_price!=scrape_arti$ori_price,1,0)
+
+
+
+```
+
+```{r IV-1, include=FALSE}
+library(Information)
+library(gridExtra)
+
+scrape_arti <- scrape_arti[which(!is.na(scrape_arti$disc_price)),]
+
+### Ranking variables using penalized IV  
+IV <- create_infotables(data=scrape_arti[,c("PRODUCT_DIVISION_NAME","AGE_GROUP","GENDER","COLOR_GROUP","COMPANY_NAME","RETAILER","SPORT","PRODUCT_TYPE_NAME","disc_flag","avail_ratio")],y="disc_flag")
+```
+
+```{r IV-2, echo = FALSE}
+## require "brew install freetype" in ios terminal
+library(kableExtra)
+IV_Summary <- IV$Summary
+rownames(IV_Summary) <- NULL
+kable(IV_Summary[c(1:10),]) %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+#kable(IV_Summary[c(11:20),]) %>%
+#  kable_styling(full_width = FALSE, position = "left")
+```
+
+```{r, echo=FALSE,eval = FALSE}
+library(Information)
+library(gridExtra)
+### Ranking variables using penalized IV  
+IV$Tables$RETAILER
+IV$Tables$EXT_SOURCE_2
+IV$Tables$EXT_SOURCE_3
+
+IV$Tables$DAYS_EMPLOYED
+IV$Tables$DAYS_BIRTH
+IV$Tables$OCCUPATION_TYPE
+IV$Tables$NAME_INCOME_TYPE
+IV$Tables$NAME_INCOME_TYPE
+#grid.table(IV$Tables$EXT_SOURCE_1, rows=NULL)
+```
+
+```{r}
+inter <- sqldf('
+select a.company_name, a.group_article
+from (select distinct retailer, company_name, group_article from scrape where retailer="Zalando") a
+inner join (select distinct company_name, group_article from scrape where retailer="Sportscheck") b
+on a.group_article=b.group_article
+and a.company_name=b.company_name
+inner join (select distinct company_name, group_article from scrape where retailer="own eCom") c
+on a.group_article=c.group_article
+and a.company_name=c.company_name
+inner join (select distinct company_name, group_article from scrape where retailer="Intersport") d
+on a.group_article=d.group_article
+and a.company_name=d.company_name
+')
+
+```
+
+
+```{r}
+library(sqldf)
+a_Zalando <- sqldf('
+select distinct retailer, group_article from scrape 
+where retailer="Zalando"
+and group_article <> "NA"
+')
+a_Sportscheck <- sqldf('
+select distinct retailer, group_article from scrape 
+where retailer="Sportscheck"
+and group_article <> "NA"
+')
+a_OwnEcom <- sqldf('
+select distinct retailer, group_article from scrape 
+where retailer="own eCom"
+and group_article <> "NA"
+')
+
+a_Intersport <- sqldf('
+select distinct retailer, group_article from scrape 
+where retailer="Intersport"
+and group_article <> "NA"
+')
+
+inter <- sqldf('
+select a.group_article
+from a_Zalando a
+inner join a_OwnEcom b
+on a.group_article=b.group_article
+inner join a_Sportscheck c
+on a.group_article=c.group_article
+inner join a_Intersport d
+on a.group_article=d.group_article
+')
+
+
+```
+
+
+```{r}
+inter_all <- sqldf("
+select a.*
+, date(date_time) as date
+from scrape a
+inner join inter b
+on a.group_article=b.group_article
+")
+
+
+```
+
+```{r}
+all_time <- sqldf('
+select group_article, date, count(*)
+from inter_all
+group by 1,2
+order by 1,2
+')
+scrape_date <- sqldf('
+select *, date(date_time) as date
+from scrape')
+
+scrape_date$day <- wday(scrape_date$date)
+
+day_zalando <- sqldf('
+select day 
+, count(*)
+from scrape_date
+where retailer = "Zalando"
+group by 1
+')
+
+day_ownEcom <- sqldf('
+select day 
+, count(*)
+from scrape_date
+where retailer = "own eCom"
+group by 1
+')
+
+scrape_date_adidas <- sqldf('
+select *, row_number() over (partition by retailer, group_article, date order by date_time desc) as date_time_rank
+from scrape_date
+where company_name="adidas"')
+
+scrape_date_adidas <- sqldf('
+select *
+from scrape_date_adidas
+where date_time_rank=1')
+```
+
+
+
+```{r}
+## fill the missing date
+
+all_time_z <- all_time
+all_time_z$retailer="Zalando"
+
+all_time_zalando <- sqldf('
+select a.date, a.retailer, b.company_name
+, b.country_site, a.group_article, b.retailer_group_article, b.AVAIL_SIZE_CNT, b.SITE_SIZE_CNT
+, b.CURR_LOCAL, b.IP_IN_VAT_PRC_CURR_LOCAL, b.MIN_CP_IN_VAT_PRC_CURR_LOCAL, b.MAX_CP_IN_VAT_PRC_CURR_LOCAL
+, b.CONSUMER_RATING_CNT, b.CONSUMER_RATING_AVG
+from all_time_z a
+left join (select * from scrape_date_adidas where retailer = "Zalando") b
+on a.date = b.date
+and a.group_article = b.group_article
+')
+
+all_time_s <- all_time
+all_time_s$retailer="Sportscheck"
+
+all_time_Sportscheck <- sqldf('
+select a.date, a.retailer, b.company_name
+, b.country_site, a.group_article, b.retailer_group_article, b.AVAIL_SIZE_CNT, b.SITE_SIZE_CNT
+, b.CURR_LOCAL, b.IP_IN_VAT_PRC_CURR_LOCAL, b.MIN_CP_IN_VAT_PRC_CURR_LOCAL, b.MAX_CP_IN_VAT_PRC_CURR_LOCAL
+, b.CONSUMER_RATING_CNT, b.CONSUMER_RATING_AVG
+from all_time_s a
+left join (select * from scrape_date_adidas where retailer = "Sportscheck") b
+on a.date = b.date
+and a.group_article = b.group_article
+')
+
+all_time_In <- all_time
+all_time_In$retailer="Intersport"
+
+all_time_Intersport <- sqldf('
+select a.date, a.retailer, b.company_name
+, b.country_site, a.group_article, b.retailer_group_article, b.AVAIL_SIZE_CNT, b.SITE_SIZE_CNT
+, b.CURR_LOCAL, b.IP_IN_VAT_PRC_CURR_LOCAL, b.MIN_CP_IN_VAT_PRC_CURR_LOCAL, b.MAX_CP_IN_VAT_PRC_CURR_LOCAL
+, b.CONSUMER_RATING_CNT, b.CONSUMER_RATING_AVG
+from all_time_In a
+left join (select * from scrape_date_adidas where retailer = "Intersport") b
+on a.date = b.date
+and a.group_article = b.group_article
+')
+
+all_time_E <- all_time
+all_time_E$retailer="own eCom"
+
+all_time_eCom <- sqldf('
+select a.date, a.retailer, b.company_name
+, b.country_site, a.group_article, b.retailer_group_article, b.AVAIL_SIZE_CNT, b.SITE_SIZE_CNT
+, b.CURR_LOCAL, b.IP_IN_VAT_PRC_CURR_LOCAL, b.MIN_CP_IN_VAT_PRC_CURR_LOCAL, b.MAX_CP_IN_VAT_PRC_CURR_LOCAL
+, b.CONSUMER_RATING_CNT, b.CONSUMER_RATING_AVG
+from all_time_E a
+left join (select * from scrape_date_adidas where retailer = "own eCom") b
+on a.date = b.date
+and a.group_article = b.group_article
+')
+
+
+inter_adidas <- sqldf('
+select * from all_time_zalando
+union
+select * from all_time_Sportscheck
+union
+select * from all_time_Intersport
+union
+select * from all_time_eCom
+order by retailer, group_article, date asc
+')
+
+```
+
+```{r}
+# back fill the missing value of missing date
+library(lubridate)
+library(dbplyr)
+library(tidyr)
+inter_adidas$date_str <- inter_adidas$date
+#library(tidyverse)
+
+inter_adidas_fill <- inter_adidas %>%
+    dplyr::group_by(across(c("retailer","GROUP_ARTICLE"))) %>% 
+    dplyr::arrange(date_str) %>% 
+    fill(COUNTRY_SITE,RETAILER_GROUP_ARTICLE,AVAIL_SIZE_CNT,SITE_SIZE_CNT,CURR_LOCAL,IP_IN_VAT_PRC_CURR_LOCAL,MIN_CP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL,CONSUMER_RATING_CNT,CONSUMER_RATING_AVG)
+
+```
+
+```{r}
+## replace middle value if numbers before & after are the same
+inter_adidas_adj <- sqldf('
+select *
+, lead(MIN_CP_IN_VAT_PRC_CURR_LOCAL) over (partition by retailer, GROUP_ARTICLE order by date_str asc) as next_MIN_disc
+, lead(MIN_CP_IN_VAT_PRC_CURR_LOCAL,2) over (partition by retailer, GROUP_ARTICLE order by date_str asc) as next2_MIN_disc
+, lag(MIN_CP_IN_VAT_PRC_CURR_LOCAL) over (partition by retailer, GROUP_ARTICLE order by date_str asc) as last_MIN_disc
+, lag(MIN_CP_IN_VAT_PRC_CURR_LOCAL,3) over (partition by retailer, GROUP_ARTICLE order by date_str asc) as last3_MIN_disc
+from inter_adidas_fill
+')
+
+inter_adidas_adj <- sqldf('
+select *
+, case when next_MIN_disc = last_MIN_disc then next_MIN_disc else MIN_CP_IN_VAT_PRC_CURR_LOCAL end as adj_min_disc
+from inter_adidas_adj
+')
+
+```
+
+
+
+```{r}
+## add initial price if missing
+inter_adidas_price_change <- sqldf('
+select *
+, AVG(IP_IN_VAT_PRC_CURR_LOCAL) over (partition by group_article, retailer) as avg_init_price
+from inter_adidas_price_change
+')
+
+## add discount flag
+inter_adidas_price_change <- sqldf('
+select *
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL,IP_IN_VAT_PRC_CURR_LOCAL) < (avg_init_price*0.97) then 1 else 0 end as disc_flag
+from inter_adidas_price_change
+')
+
+```
+
+```{r}
+## product discount analysis
+inter_adidas_price_change <- sqldf('
+select *
+, max(disc_flag) over (partition by retailer, group_article) as product_disc_flag
+from inter_adidas_price_change
+')
+
+inter_disc_analysis <- sqldf('
+select retailer, group_article
+, max(disc_flag) as disc_flag
+from inter_adidas_price_change
+group by 1,2
+')
+
+inter_disc_analysis <- sqldf('
+select retailer, disc_flag
+, count(*) as num_record
+from inter_disc_analysis
+group by 1,2
+')
+
+```
+
+```{r}
+## discount range when discounted
+avg_disc_product_flag1 <- sqldf('
+select retailer, group_article
+, avg(coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL)/avg_init_price) as avg_min_disc_product
+, min(coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL)/avg_init_price) as min_min_disc_product
+from inter_adidas_price_change
+where product_disc_flag=1
+group by 1,2
+')
+
+avg_disc_product_flag1 <- sqldf('
+select retailer
+, avg(avg_min_disc_product) as avg_min_disc
+, avg(min_min_disc_product) as avg_min_min_disc
+from avg_disc_product_flag1
+group by 1                            
+')
+
+
+```
+
+
+```{r}
+inter_adidas_price_change <- sqldf('
+select *
+, coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL)/last3_MIN_disc-1 as last_min_3chg_pct
+, next2_MIN_disc/MIN_CP_IN_VAT_PRC_CURR_LOCAL-1 as next_min_2chg_pct
+from inter_adidas_adj
+')
+
+```
+
+
+
+```{r}
+# can price drop from one retailer affect Zalando price?
+zalando_adidas <- sqldf('
+select a.*
+, b.last_min_3chg_pct as chg3_sportscheck
+, c.last_min_3chg_pct as chg3_Intersport
+, d.last_min_3chg_pct as chg3_ecom
+from (select * from inter_adidas_price_change where retailer="Zalando") a
+left join (select * from inter_adidas_price_change where retailer="Sportscheck") b
+on a.group_article=b.group_article
+and a.date_str=b.date_str
+left join (select * from inter_adidas_price_change where retailer="Intersport") c
+on a.group_article=c.group_article
+and a.date_str=c.date_str
+left join (select * from inter_adidas_price_change where retailer="own eCom") d
+on a.group_article=d.group_article
+and a.date_str=d.date_str
+')
+```
+
+```{r}
+lm_zalando <- lm(next_min_2chg_pct~chg3_sportscheck+chg3_Intersport+chg3_ecom, zalando_adidas)
+
+```
+
+```{r}
+# can price drop from one retailer affect Sportscheck price?
+zalando_adidas <- sqldf('
+select a.*
+, b.last_min_3chg_pct as chg3_sportscheck
+, c.last_min_3chg_pct as chg3_Intersport
+, d.last_min_3chg_pct as chg3_ecom
+from (select * from inter_adidas_price_change where retailer="Zalando") a
+left join (select * from inter_adidas_price_change where retailer="Sportscheck") b
+on a.group_article=b.group_article
+and a.date_str=b.date_str
+left join (select * from inter_adidas_price_change where retailer="Intersport") c
+on a.group_article=c.group_article
+and a.date_str=c.date_str
+left join (select * from inter_adidas_price_change where retailer="own eCom") d
+on a.group_article=d.group_article
+and a.date_str=d.date_str
+')
+```
+
+```{r}
+add_max_price <- sqldf("
+select *
+, MAX(coalesce(IP_IN_VAT_PRC_CURR_LOCAL,MAX_CP_IN_VAT_PRC_CURR_LOCAL ,MIN_CP_IN_VAT_PRC_CURR_LOCAL)) over (partition by group_article)
+from inter_all
+")
+
+add_avg_init <- sqldf("
+select *
+, AVG(IP_IN_VAT_PRC_CURR_LOCAL) over (partition by group_article, retailer) as avg_init
+from inter_all
+")
+add_adj_disc_flag <- sqldf("
+select *
+
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL) < (avg_init*0.9) then 1
+       else 0 end as disc_10pct
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL) < (avg_init*0.8) then 1
+       else 0 end as disc_20pct  
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL) < (avg_init*0.7) then 1
+       else 0 end as disc_30pct 
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL) < (avg_init*0.6) then 1
+       else 0 end as disc_40pct 
+, case when coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL) < (avg_init*0.5) then 1
+       else 0 end as disc_50pct 
+       
+from add_avg_init
+")
+
+number_product <- sqldf("select count(*) from (select distinct group_article from add_adj_disc_flag)")
+
+disc_order_10pct <- sqldf('
+select *
+, row_number() over (partition by retailer, group_article order by date asc) as first_disc_date
+from  add_adj_disc_flag
+where date >= "2021-01-03"
+and disc_10pct=1
+')
+disc_rank_10pct <- sqldf('
+select group_article, retailer
+, rank() over (partition by group_article order by date asc) as disc_rank
+from  disc_order_10pct
+where first_disc_date=1
+')
+disc_rank_10pct_retailer <- sqldf('
+select retailer
+, sum(case when disc_rank=1 then 1 else 0 end) as first
+, sum(case when disc_rank=2 then 1 else 0 end) as second
+, sum(case when disc_rank=3 then 1 else 0 end) as third
+, sum(case when disc_rank=4 then 1 else 0 end) as fourth
+from disc_rank_10pct
+group by 1;
+')
+disc_rank_10pct_retailer <- sqldf('
+select *
+, 1118-first-second-third-fourth as never
+from disc_rank_10pct_retailer                               
+')
+
+
+
+```
+
+```{r}
+## time to market
+to_market_date <- sqldf('
+select *
+, row_number() over (partition by retailer, group_article order by date asc) as to_market_date
+from inter_adidas_price_change
+where date >= "2021-01-03"
+and RETAILER_GROUP_ARTICLE <> "NA"
+')
+avg_days_to_market <- sqldf('
+select *
+from to_market_date
+where to_market_date=1
+')
+
+
+disc_rank_20pct_retailer <- sqldf('
+select retailer
+, sum(case when disc_rank=1 then 1 else 0 end) as first
+, sum(case when disc_rank=2 then 1 else 0 end) as second
+, sum(case when disc_rank=3 then 1 else 0 end) as third
+, sum(case when disc_rank=4 then 1 else 0 end) as fourth
+from disc_rank_20pct
+group by 1;
+')
+disc_rank_20pct_retailer <- sqldf('
+select *
+, 1118-first-second-third-fourth as never
+from disc_rank_20pct_retailer                               
+')
+```
+
+
+
+
+```{r}
+
+disc_order_20pct <- sqldf('
+select *
+, row_number() over (partition by retailer, group_article order by date asc) as first_disc_date
+from  add_adj_disc_flag
+where date >= "2021-01-03"
+and disc_20pct=1
+')
+disc_rank_20pct <- sqldf('
+select group_article, retailer
+, rank() over (partition by group_article order by date asc) as disc_rank
+from  disc_order_20pct
+where first_disc_date=1
+')
+disc_rank_20pct_retailer <- sqldf('
+select retailer
+, sum(case when disc_rank=1 then 1 else 0 end) as first
+, sum(case when disc_rank=2 then 1 else 0 end) as second
+, sum(case when disc_rank=3 then 1 else 0 end) as third
+, sum(case when disc_rank=4 then 1 else 0 end) as fourth
+from disc_rank_20pct
+group by 1;
+')
+disc_rank_20pct_retailer <- sqldf('
+select *
+, 1118-first-second-third-fourth as never
+from disc_rank_20pct_retailer                               
+')
+
+```
+
+
+
+```{r}
+
+disc_order_30pct <- sqldf('
+select *
+, row_number() over (partition by retailer, group_article order by date asc) as first_disc_date
+from  add_adj_disc_flag
+where date >= "2021-01-03"
+and disc_30pct=1
+')
+disc_rank_30pct <- sqldf('
+select group_article, retailer
+, rank() over (partition by group_article order by date asc) as disc_rank
+from  disc_order_30pct
+where first_disc_date=1
+')
+disc_rank_30pct_retailer <- sqldf('
+select retailer
+, sum(case when disc_rank=1 then 1 else 0 end) as first
+, sum(case when disc_rank=2 then 1 else 0 end) as second
+, sum(case when disc_rank=3 then 1 else 0 end) as third
+, sum(case when disc_rank=4 then 1 else 0 end) as fourth
+from disc_rank_30pct
+group by 1;
+')
+disc_rank_30pct_retailer <- sqldf('
+select *
+, 1118-first-second-third-fourth as never
+from disc_rank_30pct_retailer                               
+')
+
+```
+
+
+```{r}
+
+disc_order_40pct <- sqldf('
+select *
+, row_number() over (partition by retailer, group_article order by date asc) as first_disc_date
+from  add_adj_disc_flag
+where date >= "2021-01-03"
+and disc_40pct=1
+')
+disc_rank_40pct <- sqldf('
+select group_article, retailer
+, rank() over (partition by group_article order by date asc) as disc_rank
+from  disc_order_40pct
+where first_disc_date=1
+')
+disc_rank_40pct_retailer <- sqldf('
+select retailer
+, sum(case when disc_rank=1 then 1 else 0 end) as first
+, sum(case when disc_rank=2 then 1 else 0 end) as second
+, sum(case when disc_rank=3 then 1 else 0 end) as third
+, sum(case when disc_rank=4 then 1 else 0 end) as fourth
+from disc_rank_40pct
+group by 1;
+')
+disc_rank_40pct_retailer <- sqldf('
+select *
+, 1118-first-second-third-fourth as never
+from disc_rank_40pct_retailer                               
+')
+
+```
+
+
+
+```{r}
+
+
+avg_disc_product <- sqldf('
+select retailer, group_article
+, avg(coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL)/avg_init) as avg_min_disc_product
+, min(coalesce(MIN_CP_IN_VAT_PRC_CURR_LOCAL, MAX_CP_IN_VAT_PRC_CURR_LOCAL)/avg_init) as min_min_disc_product
+from add_avg_init
+where avg_init <> "NA"
+group by 1,2
+')
+
+avg_disc <- sqldf('
+select retailer
+, avg(avg_min_disc_product) as avg_min_disc
+, avg(min_min_disc_product) as avg_min_min_disc
+from avg_disc_product
+group by 1
+')
+
+
+#write.csv(add_max_price[which(add_max_price$GROUP_ARTICLE=='FT7008'),], file="/Users/smartboyben/Documents/Data/adidas/test.csv")
+
+
+
+
+```
+
+```{r IV-1, include=FALSE}
+library(Information)
+library(gridExtra)
+
+model_inter <- sqldf('
+select a.*
+, b.PRODUCT_DIVISION_NAME
+, b.PRODUCT_GROUP_NAME
+, b.SPORT
+, b.PRODUCT_TYPE_NAME
+, b.GENDER
+, b.AGE_GROUP
+, b.COLOR_GROUP
+from inter_adidas_price_change a 
+left join (select * from article_ref where PRODUCT_DIVISION_NAME <>"") b
+on a.RETAILER_GROUP_ARTICLE = b.RETAILER_GROUP_ARTICLE
+and a.group_article=b.group_article
+and a.RETAILER = b.RETAILER
+and a.company_name=b.company_name
+')
+
+model_inter <- sqldf("
+select *
+, coalesce(avail_size_cnt, site_size_cnt,1)/coalesce(site_size_cnt,avail_size_cnt,1) as avail_ratio
+from model_inter
+")
+
+### Ranking variables using penalized IV  
+IV_Zalando <- create_infotables(data=model_inter[which( (!is.na(model_inter$disc_flag)) & model_inter$retailer=='Zalando'),c("PRODUCT_DIVISION_NAME","PRODUCT_GROUP_NAME","AGE_GROUP","GENDER","COLOR_GROUP","SPORT","PRODUCT_TYPE_NAME","avail_ratio","avg_init_price","CONSUMER_RATING_CNT","CONSUMER_RATING_AVG","disc_flag")],y="disc_flag")
+```
+```{r IV-2, echo = FALSE}
+## require "brew install freetype" in ios terminal
+library(kableExtra)
+IV_Summary <- IV$Summary
+rownames(IV_Summary) <- NULL
+kable(IV_Summary[c(1:10),]) %>%
+  kable_styling(full_width = FALSE, position = "float_left")
+#kable(IV_Summary[c(11:20),]) %>%
+#  kable_styling(full_width = FALSE, position = "left")
+```
+```{r, echo=FALSE,eval = FALSE}
+library(Information)
+library(gridExtra)
+### Ranking variables using penalized IV  
+IV$Tables$PRODUCT_TYPE_NAME
+IV$Tables$EXT_SOURCE_2
+IV$Tables$EXT_SOURCE_3
+
+IV$Tables$DAYS_EMPLOYED
+IV$Tables$DAYS_BIRTH
+IV$Tables$OCCUPATION_TYPE
+IV$Tables$NAME_INCOME_TYPE
+IV$Tables$NAME_INCOME_TYPE
+#grid.table(IV$Tables$EXT_SOURCE_1, rows=NULL)
+```
+
+```{r IV-1, include=FALSE}
+library(Information)
+library(gridExtra)
+
+#scrape_arti <- scrape_arti[which(!is.na(scrape_arti$disc_price)),]
+
+### Ranking variables using penalized IV  
+IV_Zalando <- create_infotables(data=scrape_arti[which(!is.na(scrape_arti$disc_price) & scrape_arti$RETAILER=='Zalando'),c("PRODUCT_DIVISION_NAME","PRODUCT_GROUP_NAME","AGE_GROUP","GENDER","COLOR_GROUP","COMPANY_NAME","SPORT","PRODUCT_TYPE_NAME","disc_flag","avail_ratio","CONSUMER_RATING_CNT","CONSUMER_RATING_AVG","ori_price")],y="disc_flag", bins=5)
+```
+
+```{r}
+IV_Zalando$Summary
+IV_Zalando$Tables$avail_ratio
+
+IV_Sportscheck <- create_infotables(data=scrape_arti[which(!is.na(scrape_arti$disc_price) & scrape_arti$RETAILER=='Sportscheck'),c("PRODUCT_DIVISION_NAME","PRODUCT_GROUP_NAME","AGE_GROUP","GENDER","COLOR_GROUP","COMPANY_NAME","SPORT","PRODUCT_TYPE_NAME","disc_flag","avail_ratio","CONSUMER_RATING_CNT","CONSUMER_RATING_AVG","ori_price")],y="disc_flag", bins=5)
+
+IV_Intersport <- create_infotables(data=scrape_arti[which(!is.na(scrape_arti$disc_price) & scrape_arti$RETAILER=='Intersport'),c("PRODUCT_DIVISION_NAME","PRODUCT_GROUP_NAME","AGE_GROUP","GENDER","COLOR_GROUP","COMPANY_NAME","SPORT","PRODUCT_TYPE_NAME","disc_flag","avail_ratio","CONSUMER_RATING_CNT","CONSUMER_RATING_AVG","ori_price")],y="disc_flag", bins=3)
+
+IV_ownEcom <- create_infotables(data=scrape_arti[which(!is.na(scrape_arti$disc_price) & scrape_arti$RETAILER=='own eCom'),c("PRODUCT_DIVISION_NAME","PRODUCT_GROUP_NAME","AGE_GROUP","GENDER","COLOR_GROUP","COMPANY_NAME","SPORT","PRODUCT_TYPE_NAME","disc_flag","avail_ratio","CONSUMER_RATING_CNT","CONSUMER_RATING_AVG","ori_price")],y="disc_flag", bins=5)
+
+```
+
+
+```{r}
+library(rpart)
+tree_z <- rpart(disc_flag~PRODUCT_GROUP_NAME, data = scrape_arti[which(!is.na(scrape_arti$disc_price) & scrape_arti$RETAILER=='Zalando'),], method = "class", cp=0.00001, maxdepth = 2)
+
+```
+
+
+
+

@@ -579,26 +579,31 @@ legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,
 <pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
 <pre><code>## The calibrated asset correlation is: 2.61%</code></pre>
 </div>
-<div id="ifrs9-requirement-and-use-of-asrf-model" class="section level3">
-<h3>5. IFRS9 requirement and use of ASRF model</h3>
+<div id="use-asrf-model-for-ifrs9" class="section level3">
+<h3>5. Use ASRF model for IFRS9</h3>
 <p>The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current &amp; future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as <span class="math inline">\(z\)</span> (standard normal distribution) represents the single systemetic credit risk factor.</p>
 </div>
-<div id="binomial-confidence-bound-of-irb-pd" class="section level3">
-<h3>6. Binomial confidence bound of IRB PD</h3>
+<div id="numerical-noise-test" class="section level3">
+<h3>6. Numerical noise test</h3>
 <p>To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.</p>
-<p>The figures below show the binomial confidence bound for n=1000 and n=20000. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. It’s likely not achievable for wholesale portfolio where the number of observations is limited and the expert judgement is required macroeconomic PiT adjustment.</p>
-<p>The below example is an simplied case. The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.</p>
+<p>The figures below show an example for the binomial confidence bound for n=1000 and n=200. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. From the below figures, we can say that the PiT adjustment is required if the default rate are observed from sample size of 1000, but if it’s observed from sample size=200, we are not sure if the variation in default rate is caused by random noise.</p>
+<p>The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.</p>
 <pre class="r"><code>binomial_bounds &lt;- function(static_size) {
-  n &lt;- rep(static_size, 25)
-  odr &lt;- c(0.024,0.025,0.024,0.022,0.023
-  ,0.025,0.023,0.021,0.022,0.024
-  ,0.023,0.021,0.021,0.023,0.021
-  ,0.019,0.019,0.021,0.020,0.019
-  ,0.020,0.022,0.022,0.022,0.023)
-  IRB_PD &lt;- rep(mean(odr),25)
+  
+  odr &lt;- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
+                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
+                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
+  IRB_PD &lt;- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
+                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
+                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
+  n &lt;- rep(static_size, length(odr))
   down_bound &lt;- rep(qbinom(0.025, static_size,IRB_PD[1])/static_size,25)
   up_bound &lt;- rep(qbinom(0.975, static_size,IRB_PD[1])/static_size,25)
-  plot(IRB_PD, type=&#39;l&#39;, ylim = c(0.01,0.04))
+  for(i in 1:length(n)){
+    down_bound[i] &lt;- qbinom(0.025, static_size,IRB_PD[i])/static_size
+    up_bound[i] &lt;- qbinom(0.975, static_size,IRB_PD[i])/static_size
+  }
+  plot(IRB_PD, type=&#39;l&#39;, ylim = c(0.01,0.1))
   lines(odr, col=&#39;red&#39;)
   lines(down_bound, lty=2)
   lines(up_bound,lty=2)
@@ -606,11 +611,11 @@ legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,
 
 binomial_bounds(static_size=1000)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>binomial_bounds(static_size=20000)</code></pre>
+<pre class="r"><code>binomial_bounds(static_size=200)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 </div>
-<div id="rho-and-pit-pd-distribution-shape" class="section level3">
-<h3>7. <span class="math inline">\(\rho\)</span> and PiT PD distribution shape</h3>
+<div id="rho-and-pit-distribution-shape" class="section level3">
+<h3>7. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
 <p>The histagrams shows that as the <span class="math inline">\(\rho\)</span> increase, the distribution becomes more flat tailed.</p>
 <pre class="r"><code>rho &lt;- c(0.02,0.07,0.18)
 ttc &lt;- 0.05
@@ -651,8 +656,8 @@ hist(pit[,1], breaks=40, freq=FALSE, ylim=c(0,50), xlim=c(0,0.25), xlab=&#39;PiT
 <pre class="r"><code>hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 12.5%&#39;)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
 </div>
-<div id="pit-adjustment-for-non-default-rating-migration" class="section level3">
-<h3>9. PiT adjustment for non-default rating migration</h3>
+<div id="pit-non-default-migration" class="section level3">
+<h3>9. PiT non-default migration</h3>
 <p>With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.</p>
 <p><span class="math display">\[MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\]</span></p>
 <ul>

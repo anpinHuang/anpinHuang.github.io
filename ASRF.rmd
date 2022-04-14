@@ -237,46 +237,51 @@ cat(paste0("The calibrated asset correlation is: ",rho*100,"% \n"))
 
 
 
-### 5. IFRS9 requirement and use of ASRF model
+### 5. Use ASRF model for IFRS9
 
 
 The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current & future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as $z$ (standard normal distribution) represents the single systemetic credit risk factor.
 
 
-### 6. Binomial confidence bound of IRB PD
+### 6. Numerical noise test
 
 
 To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.
 
-The figures below show the binomial confidence bound for n=1000 and n=20000. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. It's likely not achievable for wholesale portfolio where the number of observations is limited and the expert judgement is required macroeconomic PiT adjustment.
+The figures below show an example for the binomial confidence bound for n=1000 and n=200. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. From the below figures, we can say that the PiT adjustment is required if the default rate are observed from sample size of 1000, but if it's observed from sample size=200, we are not sure if the variation in default rate is caused by random noise.
 
-The below example is an simplied case. The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.
+The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.
 
 ```{r}
 binomial_bounds <- function(static_size) {
-  n <- rep(static_size, 25)
-  odr <- c(0.024,0.025,0.024,0.022,0.023
-  ,0.025,0.023,0.021,0.022,0.024
-  ,0.023,0.021,0.021,0.023,0.021
-  ,0.019,0.019,0.021,0.020,0.019
-  ,0.020,0.022,0.022,0.022,0.023)
-  IRB_PD <- rep(mean(odr),25)
+  
+  odr <- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
+                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
+                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
+  IRB_PD <- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
+                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
+                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
+  n <- rep(static_size, length(odr))
   down_bound <- rep(qbinom(0.025, static_size,IRB_PD[1])/static_size,25)
   up_bound <- rep(qbinom(0.975, static_size,IRB_PD[1])/static_size,25)
-  plot(IRB_PD, type='l', ylim = c(0.01,0.04))
+  for(i in 1:length(n)){
+    down_bound[i] <- qbinom(0.025, static_size,IRB_PD[i])/static_size
+    up_bound[i] <- qbinom(0.975, static_size,IRB_PD[i])/static_size
+  }
+  plot(IRB_PD, type='l', ylim = c(0.01,0.1))
   lines(odr, col='red')
   lines(down_bound, lty=2)
   lines(up_bound,lty=2)
 }
 
 binomial_bounds(static_size=1000)
-binomial_bounds(static_size=20000)
+binomial_bounds(static_size=200)
 
 ```
 
 
 
-### 7. $\rho$ and PiT PD distribution shape
+### 7. $\rho$ and PiT distribution shape
 
 
 The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
@@ -326,7 +331,7 @@ hist(pit[,3], breaks=40, freq=FALSE, ylim=c(0,6), xlim=c(0,0.6), xlab='PiT PD', 
 
 
 
-### 9. PiT adjustment for non-default rating migration
+### 9. PiT non-default migration
 
 
 With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.

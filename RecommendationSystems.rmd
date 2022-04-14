@@ -13,22 +13,53 @@ link-citations: yes
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### 1. Similarilities
+### 1. Similarities
 </ins>
 </div>
+
+For 2 vectors $q$ and $x$
+
+* cosine: $cos(q,x)$
+* dot product: $\lVert q \lVert \lVert x \lVert cos(q,x)$
+* Euclidean distance: $\lVert q-x \lVert$
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 2. Content Based Recommendations
+</ins>
+</div>
+
+The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.
+
 
 
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### 2. Matrix Factorization
+### 3. Collaborative Filtering
 </ins>
 </div>
 
-goal: Find Feedback matrix $A$
+
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 4. Matrix Factorization
+</ins>
+</div>
+
+When recommending a movie, the algorithm should recommend
+
+* movies similar to the ones that user has liked in the past
+* movies that similar users liked
+
+Again, both movies and users are represented in the same embedding space.
+
+The goal is to factorize the feedback matrix $A$ into the product of a user embedding matrix $U$ and item (movie) embedding matrix $V$ such that $A	\approx UV^T$
 
 * user $U \in \mathbb{R}^{m {\times} d}$
 * item $V \in \mathbb{R}^{n {\times} d}$
+
+where $m$ is the number of user, $n$ is the number of items and $d$ is the number of dimensions (features/variables)
 
 Matrix factorization, $UV^T$ is a simple embedding model
 

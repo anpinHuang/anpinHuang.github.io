@@ -30,12 +30,14 @@ Futhermore, the lender should reserve for the loan loss based on different stage
 * **Stage 3:**  If the loan’s credit risk increases to the point where it is considered **credit-impaired**, interest revenue is calculated based on the loan’s **amortised cost** (gross carrying amount minus loss allowance). Lifetime ECLs are recognised.
 
 
-### 2. Significant increase in credit risk (SICR)
-The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and references.
+### 2. SICR
+SICR referes to Significant Increase in Credit Risk. The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and references.
 
-* **Lifetime default risk** as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss. 
+* **Lifetime default risk** as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss. The figure below shows an example of measuring the increase of lifetime PD. P(reporting date) which refers to the conditional (condition: it survises the first 9 years) lifetime PD from reporting date (year 10) to maturity (year 20) given the information at reporting date should be compared to P(origination) which referes to the conditional lifetime PD from reporting date (year 10) to maturity (year 20) given the information at origination date.
 
   $\to$ see [@IFRS9] 5.5.9: *"At each reporting date, an entity shall assess whether the credit risk on a financial instrument has increased significantly since initial recognition. When making the assessment, an entity shall use the change in the risk of a default occurring over the expected life of the financial instrument instead of the change in the amount of expected credit losses. To make that assessment, an entity shall compare the risk of a default occurring on the financial instrument as at the reporting date with the risk of a default occurring on the financial instrument as at the date of initial recognition and consider reasonable and supportable information, that is available without undue cost or effort, that is indicative of significant increases in credit risk since initial recognition."*
+  
+<img src="SICR.png" />
 
 
   $\to$ As per [@Moody16], when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.
