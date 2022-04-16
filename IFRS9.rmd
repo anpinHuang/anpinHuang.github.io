@@ -31,16 +31,16 @@ Futhermore, the lender should reserve for the loan loss based on different stage
 
 
 ### 2. SICR
-SICR referes to Significant Increase in Credit Risk. The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and references.
+SICR referes to Significant Increase in Credit Risk. The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and other references.
 
-* **Lifetime default risk** as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss. The figure below shows an example of measuring the increase of lifetime PD. P(reporting date) which refers to the conditional (condition: it survises the first 9 years) lifetime PD from reporting date (year 10) to maturity (year 20) given the information at reporting date should be compared to P(origination) which referes to the conditional lifetime PD from reporting date (year 10) to maturity (year 20) given the information at origination date.
+* **Lifetime default risk** as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss. 
 
   $\to$ see [@IFRS9] 5.5.9: *"At each reporting date, an entity shall assess whether the credit risk on a financial instrument has increased significantly since initial recognition. When making the assessment, an entity shall use the change in the risk of a default occurring over the expected life of the financial instrument instead of the change in the amount of expected credit losses. To make that assessment, an entity shall compare the risk of a default occurring on the financial instrument as at the reporting date with the risk of a default occurring on the financial instrument as at the date of initial recognition and consider reasonable and supportable information, that is available without undue cost or effort, that is indicative of significant increases in credit risk since initial recognition."*
+
+
+  $\to$ As per [@Moody16], when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information. The figure below shows an example of measuring the increase of lifetime PD. P(reporting date) which refers to the conditional (condition: it survises the first 9 years) lifetime PD from reporting date (year 10) to maturity (year 20) given the information at reporting date should be compared to P(origination) which referes to the conditional lifetime PD from reporting date (year 10) to maturity (year 20) given the information at origination date.
   
-<img src="SICR.png" />
-
-
-  $\to$ As per [@Moody16], when comparing the lifetime default risk, it should be based on the same time frame, i.e. the remaining expected life of the loan. For example, for a 10 year mortgage that has 7 years remaining at the reporting date, we should not be comparing the expected lifetime default risk for the remaining life at reporting date (7 years remained) to the expected lifetime default risk at origination (10 years remained). That will be comparing apple to orange. Instead, we should compare the expected lifetime default risk for the remaining at reporting date to the expected default risk from 4th to 10th years with the at origination information.
+  <img src="SICR.png" />
 
 * **Low credit risk simplification**, i.e. the entity can still be classified as stage 1 if it is considered low risk provided the credit risk has increased since initial recognision.
 
@@ -92,8 +92,14 @@ economic incentive to make scheduled contractual payments. Credit quality enhanc
 
 </details>
   
-  
+* **Relative threshold:** By construction, the relative threshold corrects for inhomogeneity in default risk at origination. The relative threshold is contructed in the way such that the lower the PD at origination, the higher the relative threshold. This means that for loans that is low default in nature, the threshold is less strict. The optimal $S_{factor}$ is the one that maximizes the Mathew's Correlation Cofficient (MCC).
+
+$$ PD\ relative\ change = \frac{PiTPD_{reporting}(reporting \to maturity)}{PiTPD_{origination}(reporting \to maturity)} $$
+
+$$relative\ threshold = ln(\frac{1}{PiTPD_{origination}(reporting \to maturity)/T(reporting \to maturity)}-1) \cdot  S_{factor}$$
  
+
+
 
 ### 3. Probability weighted scenarios
 

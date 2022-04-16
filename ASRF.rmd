@@ -228,7 +228,7 @@ PiT_empirical_q <- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
 plot(avg_IRB_PD, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period", lwd=2)
 lines(default_rate, col='red', lwd=2)
 lines(PiT_empirical_q, col='orange', lwd=2)
-legend(x=16, y=0.1, c("IRB TtC PD", "Observed Default rate","PiT empirical quantile"),col=c("black","red","orange"),lty=c(1,1,1))
+legend(x=16, y=0.1, c("IRB TtC PD", "Observed Default rate","PiT adjusted PD"),col=c("black","red","orange"),lty=c(1,1,1))
 cat(paste0("The calibrated asset correlation is: ",rho*100,"% \n"))
 ```
 
@@ -378,8 +378,22 @@ Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to
 * **Advanded IRB Approach (AIRB)**:
   The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
 
+### 12. LGD for unresolved cases
 
-### 12. References
+* **Includes all observed defaults. ** The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach. 
+
+  $\to$ see [@EBA1716] 6.5: *"The CRR requirement that all observed defaults have to be taken into account applies to all LGD models under the IRB Approach, and hence no data exclusions are possible in the calculation of long-run average LGD. Furthermore, in the case of low-default portfolios the minimum requirements have to be met in order to receive permission to use the IRB Approach, and the CRR does not envisage any exemptions from these requirements for such portfolios. "*
+  
+* **Maximum recovery period. ** Institutions should estimate future recoveries only until a certain point in
+time (for IRB approach which requires conservatism). For IFRS 9 models, the maximum recovery period is incompliant as IFRS 9 models requires "best esimate" and does not allow conservatism.
+
+  $\to$ see [@EBA1716]: *"Institutions should estimate future recoveries only until a certain point in time, i.e. the maximum length of the recovery process during which a sufficient number of recoveries were actually observed in similar cases. "*
+  
+  $\to$ see [@EBA1716]: *"No further recoveries should be estimated beyond the maximum length of the recovery processes specified for the specific type of exposures. "*
+
+
+
+### 13. References
 
 
 

@@ -66,4 +66,12 @@ $$
 
 Comparing $\mathcal{P}(D|E)$ against $\mathcal{P}(D)$, we can see how much improvement we have given the additional information from the model.
 
+* Mathew's correlation cofficient (MCC):
+
+$$MCC = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
+
+
+
+
+
 

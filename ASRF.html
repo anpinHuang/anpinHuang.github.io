@@ -574,7 +574,7 @@ PiT_empirical_q &lt;- Vasicek_ICDF(CI=empirical_q, IRB=avg_IRB_PD, AC=rho)
 plot(avg_IRB_PD, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;, lwd=2)
 lines(default_rate, col=&#39;red&#39;, lwd=2)
 lines(PiT_empirical_q, col=&#39;orange&#39;, lwd=2)
-legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,&quot;PiT empirical quantile&quot;),col=c(&quot;black&quot;,&quot;red&quot;,&quot;orange&quot;),lty=c(1,1,1))</code></pre>
+legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,&quot;PiT adjusted PD&quot;),col=c(&quot;black&quot;,&quot;red&quot;,&quot;orange&quot;),lty=c(1,1,1))</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
 <pre><code>## The calibrated asset correlation is: 2.61%</code></pre>
@@ -690,11 +690,24 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 <li><strong>Advanded IRB Approach (AIRB)</strong>: The bank uses its own estimaed PD, EAD, LGD and effective duration (M).</li>
 </ul>
 </div>
+<div id="lgd-for-unresolved-cases" class="section level3">
+<h3>12. LGD for unresolved cases</h3>
+<ul>
+<li><p><strong>Includes all observed defaults. </strong> The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span> 6.5: <em>“The CRR requirement that all observed defaults have to be taken into account applies to all LGD models under the IRB Approach, and hence no data exclusions are possible in the calculation of long-run average LGD. Furthermore, in the case of low-default portfolios the minimum requirements have to be met in order to receive permission to use the IRB Approach, and the CRR does not envisage any exemptions from these requirements for such portfolios.”</em></p></li>
+<li><p><strong>Maximum recovery period. </strong> Institutions should estimate future recoveries only until a certain point in time (for IRB approach which requires conservatism). For IFRS 9 models, the maximum recovery period is incompliant as IFRS 9 models requires “best esimate” and does not allow conservatism.</p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span>: <em>“Institutions should estimate future recoveries only until a certain point in time, i.e. the maximum length of the recovery process during which a sufficient number of recoveries were actually observed in similar cases.”</em></p>
+<p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span>: <em>“No further recoveries should be estimated beyond the maximum length of the recovery processes specified for the specific type of exposures.”</em></p></li>
+</ul>
+</div>
 <div id="references" class="section level3 unnumbered">
-<h3>12. References</h3>
+<h3>13. References</h3>
 <div id="refs" class="references">
 <div id="ref-BASEL2">
 <p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel Ii Irb Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>
+</div>
+<div id="ref-EBA1716">
+<p>European Banking Association. 2017. <em>Guidelines on PD and LGD Estimation (Eba-Gl-2017-16).</em></p>
 </div>
 <div id="ref-ASRF16">
 <p>Juulia Happonen. 2016. <em>Theory Behind Regulatory Capital Formulae</em>. <a href="https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y">https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y</a>.</p>
