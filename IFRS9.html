@@ -471,7 +471,7 @@ div.tocify {
 </ul>
 </details>
 <ul>
-<li><strong>Relative threshold:</strong> By construction, the relative threshold corrects for inhomogeneity in default risk at origination. The relative threshold is contructed in the way such that the lower the PD at origination, the higher the relative threshold. This means that for loans that is low default in nature, the threshold is less strict. The optimal <span class="math inline">\(S_{factor}\)</span> is the one that maximizes the Mathew’s Correlation Cofficient (MCC).</li>
+<li><strong>Relative threshold:</strong> By construction, the relative threshold corrects for inhomogeneity in default risk at origination. The relative threshold is contructed in the way such that the lower the PD at origination, the higher the relative threshold. This means that for loans that is low default in nature, the threshold is less strict. The optimal <span class="math inline">\(S_{factor}\)</span> is the one that maximizes the Mathew’s Correlation Cofficient (MCC). Since Relative threshold is calibrated on PiT PD, which is a function of both TtC PD and PiT adjustment (asset correlation &amp; macro-economic factors), the performance of the relative threshold is subject to the underlying IRB model and IFRS 9 model.</li>
 </ul>
 <p><span class="math display">\[ PD\ relative\ change = \frac{PiTPD_{reporting}(reporting \to maturity)}{PiTPD_{origination}(reporting \to maturity)} \]</span></p>
 <p><span class="math display">\[relative\ threshold = ln(\frac{1}{PiTPD_{origination}(reporting \to maturity)/T(reporting \to maturity)}-1) \cdot  S_{factor}\]</span></p>

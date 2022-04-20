@@ -578,6 +578,7 @@ legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
 <pre><code>## The calibrated asset correlation is: 2.61%</code></pre>
+<pre class="r"><code>rho_p &lt;- rho</code></pre>
 </div>
 <div id="use-asrf-model-for-ifrs9" class="section level3">
 <h3>5. Use ASRF model for IFRS9</h3>
@@ -614,8 +615,27 @@ binomial_bounds(static_size=1000)</code></pre>
 <pre class="r"><code>binomial_bounds(static_size=200)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 </div>
+<div id="macro-economic-model" class="section level3">
+<h3>7. Macro-economic model</h3>
+<p>Given the below formula derived in the previous section and the asset correlation <span class="math inline">\(\rho\)</span> estimated by the approach above, now the only missing piece is the <span class="math inline">\(Z\)</span> value, where <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
+&amp;=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(PD_i^{*}\)</span> is the TtC PD.</p>
+<p>The <span class="math inline">\(Z\)</span> value can be derived from the historical (same period as used for estimating <span class="math inline">\(\rho\)</span>) macro-economic variables by following the below steps:</p>
+<ol style="list-style-type: decimal">
+<li>Derive the distribution parameters of the variables (Need to make assumptions for the variable first, e.g. S&amp;P500 returns follow log normal distribution.)</li>
+<li>Calculate the time series of parametric quantile for each point in the training period</li>
+<li>Calculate the time series of standard normal <span class="math inline">\(Z\)</span> value for each parametric quantile from above step</li>
+<li>Calculate the time series of <span class="math inline">\(PiT_{PD}\)</span> by using the formula above</li>
+</ol>
+<p>The above steps can be repeated for multiple candidate variables, and the one with the highest predicting power for observed default rate would be chosen. Furthermore, a combination of multiple varialbes can also be used as the <span class="math inline">\(Z\)</span> value and the weighted/cofficients be estimated by linear regression.</p>
+</div>
 <div id="rho-and-pit-distribution-shape" class="section level3">
-<h3>7. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
+<h3>8. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
 <p>The histagrams shows that as the <span class="math inline">\(\rho\)</span> increase, the distribution becomes more flat tailed.</p>
 <pre class="r"><code>rho &lt;- c(0.01,0.05,0.12)
 ttc &lt;- 0.05
@@ -637,7 +657,7 @@ abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="pd_ttc-and-variability" class="section level3">
-<h3>8. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
+<h3>9. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 <p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>. Therefore, for different PD rating <span class="math inline">\(r_{i}\)</span> (different <span class="math inline">\(PD_{TtC}\)</span>), the <span class="math inline">\(\rho_{r_i}\)</span> should be different to have the same shape.</p>
 <pre class="r"><code>rho &lt;- 0.04
 ttc &lt;- c(0.01,0.06,0.24)
@@ -658,8 +678,70 @@ hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab=&#39;PiT P
 abline(v = ttc[3], col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
+<div id="asset-correlation-rho-per-rating" class="section level3">
+<h3>10. Asset correlation <span class="math inline">\(\rho\)</span> per rating</h3>
+<p>The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD.</p>
+<pre class="r"><code>rating_ts &lt;- read.csv(&quot;/Users/smartboyben/Documents/Data/ASRF/NumberPerRating_timeseries.csv&quot;)
+IRB_TtC_PD &lt;- c(0.001319,0.006152,0.01343,0.01812,0.03423,0.07932,0.09503,0.1488,0.2353)
+PiT_PD_R &lt;- matrix(0,nrow=nrow(rating_ts))
+total_number &lt;- rowSums(rating_ts)
+for(r in 1:ncol(rating_ts)) {
+  N_ratio &lt;- rating_ts[,r]/total_number
+  PiT_empirical_q_r &lt;- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_p)
+  PiT_PD_R &lt;- PiT_PD_R+N_ratio*PiT_empirical_q_r
+}
+plot(PiT_empirical_q, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;, lwd=2)
+points(PiT_empirical_q, col=&#39;black&#39;,pch=20)
+lines(PiT_PD_R, col=&#39;orange&#39;, lwd=2)
+points(PiT_PD_R, col=&#39;orange&#39;,pch=20)
+legend(x=14, y=0.1, c(&quot;PiT PD&quot;, &quot;PiT_PD_PL asset correlation&quot;),col=c(&quot;black&quot;,&quot;orange&quot;),lty=c(1,1), pch=c(20.20))</code></pre>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>One solution is to estimate the asset correlation <span class="math inline">\(\rho\)</span> individually for each rating. However, the data availability might be a problem for low default portfolio, especially for the high quality ratings where the default observation is even lower. Another approach to address this issue is to still estimate the <span class="math inline">\(\rho\)</span> at the portfolio, but make the linear transformation adjustment for each rating.</p>
+<p><span class="math display">\[\rho_r = \rho_{total} + (PD_{r}^{TtC}-    \overline{DR_{total}}) \cdot \delta\]</span></p>
+<p>The <span class="math inline">\(\delta\)</span> parameter is determined by optimization:</p>
+<p><span class="math display">\[ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL(t)}) - CV(PiT \ PD_{PL}(t)) \]</span></p>
+<p>where the coefficients of variance <span class="math inline">\(CV\)</span> is the ratio of standard deviation divided by mean and</p>
+<p><span class="math display">\[PiT \ PD_{WARL(t)}  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} \]</span></p>
+<p><span class="math inline">\(N\)</span> refers to number of observation, and <span class="math inline">\(Q\)</span> refers to parametric quantile.</p>
+<pre class="r"><code>## calibrate delta
+delta_candidate &lt;- seq(-0.03,0.6,0.0001)
+rho_R_I &lt;- matrix(NA,nrow = length(delta_candidate), ncol=ncol(rating_ts))
+avg_odr &lt;- mean(PiT_empirical_q)
+CV &lt;- matrix(NA,nrow = length(delta_candidate), ncol=1)
+total_number &lt;- rowSums(rating_ts)
+for(i in 1:length(delta_candidate)) {
+  PiT_PD_R &lt;- matrix(0,nrow=nrow(rating_ts))
+  for(r in 1:ncol(rating_ts)) {
+    rho_R_I[i,r] &lt;- rho_p + (IRB_TtC_PD[r] - avg_odr)*delta_candidate[i]
+    N_ratio &lt;- rating_ts[,r]/total_number
+    PiT_empirical_q_r &lt;- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_R_I[i,r])
+    PiT_PD_R &lt;- PiT_PD_R+N_ratio*PiT_empirical_q_r
+  }
+  CV[i,1] &lt;- abs(sd(PiT_PD_R)/mean(PiT_PD_R) - sd(PiT_empirical_q)/mean(PiT_empirical_q))
+}
+delta &lt;- delta_candidate[which(CV[,1]==min(CV[,1]))]
+rho_R &lt;- rho_R_I[which(CV[,1]==min(CV[,1])),]</code></pre>
+<pre class="r"><code>## plot the PiT PD with AC per rating
+PiT_PD_R &lt;- matrix(0,nrow=nrow(rating_ts))
+PiT_PD_r_adjusted &lt;- matrix(0,nrow=nrow(rating_ts))
+total_number &lt;- rowSums(rating_ts)
+for(r in 1:ncol(rating_ts)) {
+  N_ratio &lt;- rating_ts[,r]/total_number
+  #PiT_empirical_q_r &lt;- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho)
+  #PiT_PD_R &lt;- PiT_PD_R+N_ratio*PiT_empirical_q_r
+  PiT_empirical_q_r_adj &lt;- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_R[r])
+  PiT_PD_r_adjusted &lt;- PiT_PD_r_adjusted+N_ratio*PiT_empirical_q_r_adj
+}
+
+plot(PiT_empirical_q, type=&#39;l&#39;, ylim=c(0,0.1), ylab = &quot;PD&quot;, xlab = &quot;Period&quot;, lwd=1)
+points(PiT_empirical_q, col=&#39;black&#39;,pch=20)
+lines(PiT_PD_r_adjusted, col=&#39;blue&#39;, lwd=1)
+points(PiT_PD_r_adjusted, col=&#39;blue&#39;,pch=20)
+legend(x=14, y=0.1, c(&quot;PiT PD&quot;,&quot;PiT PD rating asset correlation&quot;),col=c(&quot;black&quot;,&quot;blue&quot;),lty=c(1,1),pch=c(20,20))</code></pre>
+<p><img src="ASRF_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
 <div id="pit-non-default-migration" class="section level3">
-<h3>9. PiT non-default migration</h3>
+<h3>11. PiT non-default migration</h3>
 <p>With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.</p>
 <p><span class="math display">\[MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\]</span></p>
 <ul>
@@ -680,10 +762,10 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 <p>so on and so forth, we can derive the migration probability of <span class="math inline">\(r \to c\)</span> where <span class="math inline">\(c\)</span> is any non-default rating.</p>
 </div>
 <div id="portfolio-invariance" class="section level3">
-<h3>10. Portfolio Invariance</h3>
+<h3>12. Portfolio Invariance</h3>
 </div>
 <div id="irb-approaches" class="section level3">
-<h3>11. IRB Approaches</h3>
+<h3>13. IRB Approaches</h3>
 <p>Alternative to the <strong>Standard Approach (SA)</strong>, the Basel II also allows banks to use <strong>Internal Ratings-Based (IRB)</strong> approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.</p>
 <ul>
 <li><strong>Foundation IRB Approach (FIRB)</strong>: The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)</li>
@@ -691,7 +773,7 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 </ul>
 </div>
 <div id="lgd-for-unresolved-cases" class="section level3">
-<h3>12. LGD for unresolved cases</h3>
+<h3>14. LGD for unresolved cases</h3>
 <ul>
 <li><p><strong>Includes all observed defaults. </strong> The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach.</p>
 <p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span> 6.5: <em>“The CRR requirement that all observed defaults have to be taken into account applies to all LGD models under the IRB Approach, and hence no data exclusions are possible in the calculation of long-run average LGD. Furthermore, in the case of low-default portfolios the minimum requirements have to be met in order to receive permission to use the IRB Approach, and the CRR does not envisage any exemptions from these requirements for such portfolios.”</em></p></li>
@@ -701,7 +783,7 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 </ul>
 </div>
 <div id="references" class="section level3 unnumbered">
-<h3>13. References</h3>
+<h3>15. References</h3>
 <div id="refs" class="references">
 <div id="ref-BASEL2">
 <p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel Ii Irb Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>

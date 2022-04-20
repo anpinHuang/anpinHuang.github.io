@@ -31,8 +31,13 @@ For 2 vectors $q$ and $x$
 
 The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.
 
+We can treat each user as a separate linear regression problems by following the below steps:
 
+* Manually give each movie a score for each feature selected (e.g. romance, action)
+* For each user $j$, learn parameter $\theta^{(j)} \in 	\mathbb{R}^{n+1}$, where $n$ is the number of features
+* Predict user $j$ as rating movie $i$ with $(\theta^{(j)})^T x^{(i)}$
 
+This means that each user has their own method (represented by different linear function) of rating the movies by taking the variables $X$ as inputs.
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>

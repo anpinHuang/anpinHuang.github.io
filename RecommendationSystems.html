@@ -399,10 +399,27 @@ div.tocify {
 <li>dot product: <span class="math inline">\(\lVert q \lVert \lVert x \lVert cos(q,x)\)</span></li>
 <li>Euclidean distance: <span class="math inline">\(\lVert q-x \lVert\)</span></li>
 </ul>
-<p>The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="matrix-factorization">2. Matrix Factorization</h3>
+<h3 id="content-based-recommendations">2. Content Based Recommendations</h3>
+</ins>
+</div>
+<p>The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.</p>
+<p>We can treat each user as a separate linear regression problems by following the below steps:</p>
+<ul>
+<li>Manually give each movie a score for each feature selected (e.g. romance, action)</li>
+<li>For each user <span class="math inline">\(j\)</span>, learn parameter <span class="math inline">\(\theta^{(j)} \in \mathbb{R}^{n+1}\)</span>, where <span class="math inline">\(n\)</span> is the number of features</li>
+<li>Predict user <span class="math inline">\(j\)</span> as rating movie <span class="math inline">\(i\)</span> with <span class="math inline">\((\theta^{(j)})^T x^{(i)}\)</span></li>
+</ul>
+<p>This means that each user has their own method (represented by different linear function) of rating the movies by taking the variables <span class="math inline">\(X\)</span> as inputs.</p>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="collaborative-filtering">3. Collaborative Filtering</h3>
+</ins>
+</div>
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+<h3 id="matrix-factorization">4. Matrix Factorization</h3>
 </ins>
 </div>
 <p>When recommending a movie, the algorithm should recommend</p>

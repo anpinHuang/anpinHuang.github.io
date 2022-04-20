@@ -230,6 +230,7 @@ lines(default_rate, col='red', lwd=2)
 lines(PiT_empirical_q, col='orange', lwd=2)
 legend(x=16, y=0.1, c("IRB TtC PD", "Observed Default rate","PiT adjusted PD"),col=c("black","red","orange"),lty=c(1,1,1))
 cat(paste0("The calibrated asset correlation is: ",rho*100,"% \n"))
+rho_p <- rho
 ```
 
 
@@ -279,9 +280,29 @@ binomial_bounds(static_size=200)
 
 ```
 
+### 7. Macro-economic model
+Given the below formula derived in the previous section and the asset correlation $\rho$ estimated by the approach above, now the only missing piece is the $Z$ value, where $Z \sim N(0,1)$. 
+
+$$
+\begin{aligned}
+PD_{PiT} &= \mathcal{P}(A_i(T)<L_i)\\
+&=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+\end{aligned}
+$$
+
+where $PD_i^{*}$ is the TtC PD.
+
+The $Z$ value can be derived from the historical (same period as used for estimating $\rho$) macro-economic variables by following the below steps:
+
+1. Derive the distribution parameters of the variables (Need to make assumptions for the variable first, e.g. S&P500 returns follow log normal distribution.)
+2. Calculate the time series of parametric quantile for each point in the training period
+3. Calculate the time series of standard normal $Z$ value for each parametric quantile from above step
+4. Calculate the time series of $PiT_{PD}$ by using the formula above
+
+The above steps can be repeated for multiple candidate variables, and the one with the highest predicting power for observed default rate would be chosen. Furthermore, a combination of multiple varialbes can also be used as the $Z$ value and the weighted/cofficients be estimated by linear regression.
 
 
-### 7. $\rho$ and PiT distribution shape
+### 8. $\rho$ and PiT distribution shape
 
 
 The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
@@ -308,7 +329,7 @@ abline(v = ttc, col="red", lwd=2, lty=2)
 ```
 
 
-### 8. $PD_{TtC}$ and variability
+### 9. $PD_{TtC}$ and variability
 
 
 The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$. Therefore, for different PD rating $r_{i}$ (different $PD_{TtC}$), the $\rho_{r_i}$ should be different to have the same shape.
@@ -333,10 +354,85 @@ hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab='PiT PD', 
 abline(v = ttc[3], col="red", lwd=2, lty=2)
 ```
 
+### 10. Asset correlation $\rho$ per rating
+
+The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD. 
+
+```{r}
+rating_ts <- read.csv("/Users/smartboyben/Documents/Data/ASRF/NumberPerRating_timeseries.csv")
+IRB_TtC_PD <- c(0.001319,0.006152,0.01343,0.01812,0.03423,0.07932,0.09503,0.1488,0.2353)
+PiT_PD_R <- matrix(0,nrow=nrow(rating_ts))
+total_number <- rowSums(rating_ts)
+for(r in 1:ncol(rating_ts)) {
+  N_ratio <- rating_ts[,r]/total_number
+  PiT_empirical_q_r <- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_p)
+  PiT_PD_R <- PiT_PD_R+N_ratio*PiT_empirical_q_r
+}
+plot(PiT_empirical_q, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period", lwd=2)
+points(PiT_empirical_q, col='black',pch=20)
+lines(PiT_PD_R, col='orange', lwd=2)
+points(PiT_PD_R, col='orange',pch=20)
+legend(x=14, y=0.1, c("PiT PD", "PiT_PD_PL asset correlation"),col=c("black","orange"),lty=c(1,1), pch=c(20.20))
+```
 
 
+One solution is to estimate the asset correlation $\rho$ individually for each rating. However, the data availability might be a problem for low default portfolio, especially for the high quality ratings where the default observation is even lower. Another approach to address this issue is to still estimate the $\rho$ at the portfolio, but make the linear transformation adjustment for each rating.
 
-### 9. PiT non-default migration
+$$\rho_r = \rho_{total} + (PD_{r}^{TtC}-	\overline{DR_{total}}) \cdot \delta$$
+
+The $\delta$ parameter is determined by optimization:
+
+$$ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL(t)}) - CV(PiT \ PD_{PL}(t)) $$
+
+where the coefficients of variance $CV$ is the ratio of standard deviation divided by mean and
+
+$$PiT \ PD_{WARL(t)}  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} $$
+
+$N$ refers to number of observation, and $Q$ refers to parametric quantile.
+
+```{r}
+## calibrate delta
+delta_candidate <- seq(-0.03,0.6,0.0001)
+rho_R_I <- matrix(NA,nrow = length(delta_candidate), ncol=ncol(rating_ts))
+avg_odr <- mean(PiT_empirical_q)
+CV <- matrix(NA,nrow = length(delta_candidate), ncol=1)
+total_number <- rowSums(rating_ts)
+for(i in 1:length(delta_candidate)) {
+  PiT_PD_R <- matrix(0,nrow=nrow(rating_ts))
+  for(r in 1:ncol(rating_ts)) {
+    rho_R_I[i,r] <- rho_p + (IRB_TtC_PD[r] - avg_odr)*delta_candidate[i]
+    N_ratio <- rating_ts[,r]/total_number
+    PiT_empirical_q_r <- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_R_I[i,r])
+    PiT_PD_R <- PiT_PD_R+N_ratio*PiT_empirical_q_r
+  }
+  CV[i,1] <- abs(sd(PiT_PD_R)/mean(PiT_PD_R) - sd(PiT_empirical_q)/mean(PiT_empirical_q))
+}
+delta <- delta_candidate[which(CV[,1]==min(CV[,1]))]
+rho_R <- rho_R_I[which(CV[,1]==min(CV[,1])),]
+```
+
+```{r}
+## plot the PiT PD with AC per rating
+PiT_PD_R <- matrix(0,nrow=nrow(rating_ts))
+PiT_PD_r_adjusted <- matrix(0,nrow=nrow(rating_ts))
+total_number <- rowSums(rating_ts)
+for(r in 1:ncol(rating_ts)) {
+  N_ratio <- rating_ts[,r]/total_number
+  #PiT_empirical_q_r <- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho)
+  #PiT_PD_R <- PiT_PD_R+N_ratio*PiT_empirical_q_r
+  PiT_empirical_q_r_adj <- Vasicek_ICDF(CI=empirical_q, IRB=IRB_TtC_PD[r], AC=rho_R[r])
+  PiT_PD_r_adjusted <- PiT_PD_r_adjusted+N_ratio*PiT_empirical_q_r_adj
+}
+
+plot(PiT_empirical_q, type='l', ylim=c(0,0.1), ylab = "PD", xlab = "Period", lwd=1)
+points(PiT_empirical_q, col='black',pch=20)
+lines(PiT_PD_r_adjusted, col='blue', lwd=1)
+points(PiT_PD_r_adjusted, col='blue',pch=20)
+legend(x=14, y=0.1, c("PiT PD","PiT PD rating asset correlation"),col=c("black","blue"),lty=c(1,1),pch=c(20,20))
+```
+
+
+### 11. PiT non-default migration
 
 
 With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.
@@ -363,12 +459,12 @@ $$
 so on and so forth, we can derive the migration probability of $r \to c$ where $c$ is any non-default rating.
 
 
-### 10. Portfolio Invariance
+### 12. Portfolio Invariance
 
 
 
 
-### 11. IRB Approaches
+### 13. IRB Approaches
 
 Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to use **Internal Ratings-Based (IRB)** approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.
 
@@ -378,7 +474,7 @@ Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to
 * **Advanded IRB Approach (AIRB)**:
   The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
 
-### 12. LGD for unresolved cases
+### 14. LGD for unresolved cases
 
 * **Includes all observed defaults. ** The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach. 
 
@@ -393,7 +489,7 @@ time (for IRB approach which requires conservatism). For IFRS 9 models, the maxi
 
 
 
-### 13. References
+### 15. References
 
 
 

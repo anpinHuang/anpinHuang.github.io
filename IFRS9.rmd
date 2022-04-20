@@ -92,7 +92,7 @@ economic incentive to make scheduled contractual payments. Credit quality enhanc
 
 </details>
   
-* **Relative threshold:** By construction, the relative threshold corrects for inhomogeneity in default risk at origination. The relative threshold is contructed in the way such that the lower the PD at origination, the higher the relative threshold. This means that for loans that is low default in nature, the threshold is less strict. The optimal $S_{factor}$ is the one that maximizes the Mathew's Correlation Cofficient (MCC).
+* **Relative threshold:** By construction, the relative threshold corrects for inhomogeneity in default risk at origination. The relative threshold is contructed in the way such that the lower the PD at origination, the higher the relative threshold. This means that for loans that is low default in nature, the threshold is less strict. The optimal $S_{factor}$ is the one that maximizes the Mathew's Correlation Cofficient (MCC). Since Relative threshold is calibrated on PiT PD, which is a function of both TtC PD and PiT adjustment (asset correlation & macro-economic factors), the performance of the relative threshold is subject to the underlying IRB model and IFRS 9 model.
 
 $$ PD\ relative\ change = \frac{PiTPD_{reporting}(reporting \to maturity)}{PiTPD_{origination}(reporting \to maturity)} $$
 

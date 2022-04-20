@@ -417,42 +417,7 @@ library(rpart)
 library(dplyr)</code></pre>
 <pre class="r"><code>churnAnalysis &lt;- read.csv(&quot;WA_Fn-UseC_-Telco-Customer-Churn.csv&quot;) 
 churnAnalysis &lt;- as.data.frame(churnAnalysis)
-head(churnAnalysis)</code></pre>
-<pre><code>##   customerID gender SeniorCitizen Partner Dependents tenure PhoneService
-## 1 7590-VHVEG Female             0     Yes         No      1           No
-## 2 5575-GNVDE   Male             0      No         No     34          Yes
-## 3 3668-QPYBK   Male             0      No         No      2          Yes
-## 4 7795-CFOCW   Male             0      No         No     45           No
-## 5 9237-HQITU Female             0      No         No      2          Yes
-## 6 9305-CDSKC Female             0      No         No      8          Yes
-##      MultipleLines InternetService OnlineSecurity OnlineBackup
-## 1 No phone service             DSL             No          Yes
-## 2               No             DSL            Yes           No
-## 3               No             DSL            Yes          Yes
-## 4 No phone service             DSL            Yes           No
-## 5               No     Fiber optic             No           No
-## 6              Yes     Fiber optic             No           No
-##   DeviceProtection TechSupport StreamingTV StreamingMovies       Contract
-## 1               No          No          No              No Month-to-month
-## 2              Yes          No          No              No       One year
-## 3               No          No          No              No Month-to-month
-## 4              Yes         Yes          No              No       One year
-## 5               No          No          No              No Month-to-month
-## 6              Yes          No         Yes             Yes Month-to-month
-##   PaperlessBilling             PaymentMethod MonthlyCharges TotalCharges
-## 1              Yes          Electronic check          29.85        29.85
-## 2               No              Mailed check          56.95      1889.50
-## 3              Yes              Mailed check          53.85       108.15
-## 4               No Bank transfer (automatic)          42.30      1840.75
-## 5              Yes          Electronic check          70.70       151.65
-## 6              Yes          Electronic check          99.65       820.50
-##   Churn
-## 1    No
-## 2    No
-## 3   Yes
-## 4    No
-## 5   Yes
-## 6   Yes</code></pre>
+#head(churnAnalysis)</code></pre>
 <p>   </p>
 <div id="data-pre-processing" class="section level3">
 <h3>Data pre-processing</h3>
@@ -729,6 +694,7 @@ NA
 </div>
 <div id="logistic-regression-with-woes" class="section level3">
 <h3>logistic regression with WOEs</h3>
+<p>Under contruction</p>
 </div>
 <div id="decision-tree" class="section level3">
 <h3>Decision tree</h3>
@@ -764,8 +730,8 @@ churnAnalysisTest &lt;- churnAnalysis[floor(3*nrow(churnAnalysis)/4+1):nrow(chur
 <hr />
 <hr />
 </div>
-<div id="use-the-rpart-function-from-package-rpart" class="section level3">
-<h3>Use the rpart function from package: rpart</h3>
+<div id="use-rpart-package" class="section level3">
+<h3>Use rpart package</h3>
 <p>use rpart to run decision tree from package:rpart</p>
 <pre class="r"><code>library(rpart)
 ## xval determine how many data points you want in the validation set.
@@ -774,8 +740,8 @@ pred_fitTree &lt;- predict(fitTree, churnAnalysisTest,type=&quot;class&quot;)
 table(Predicted = pred_fitTree, Actual = churnAnalysisTest$Churn) ## Confusion Matrix for Decision Tree</code></pre>
 <pre><code>##          Actual
 ## Predicted   No  Yes
-##       No  1144  220
-##       Yes  158  236</code></pre>
+##       No  1169  295
+##       Yes  104  190</code></pre>
 <pre class="r"><code>plot(fitTree,uniform=TRUE)
 text(fitTree,use.n=T,all=T)</code></pre>
 <p><img src="Churn_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
@@ -790,21 +756,18 @@ text(fitTree,use.n=T,all=T)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
+## [1] Contract         Dependents       InternetService  PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 965/3516 = 0.27446
+## Root node error: 924/3516 = 0.2628
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057</code></pre>
+## 1 0.047258      0   1.00000
+## 2 0.014069      3   0.85823
+## 3 0.012987      6   0.81494
+## 4 0.010000      7   0.80195</code></pre>
 <p>The cp at row one is the (rel error at row 2 - rel error at row 1)/nsplit in row 2. The “rel error” is the relative error = absolute error/root node error</p>
 <hr />
 </div>
@@ -826,21 +789,18 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
+## [1] Contract         Dependents       InternetService  PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 965/3516 = 0.27446
+## Root node error: 924/3516 = 0.2628
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057
+## 1 0.047258      0   1.00000
+## 2 0.014069      3   0.85823
+## 3 0.012987      6   0.81494
+## 4 0.010000      7   0.80195
 ## 
 ## Classification tree:
 ## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
@@ -851,21 +811,18 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
+## [1] Contract         Dependents       InternetService  PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 965/3516 = 0.27446
+## Root node error: 924/3516 = 0.2628
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057
+## 1 0.047258      0   1.00000
+## 2 0.014069      3   0.85823
+## 3 0.012987      6   0.81494
+## 4 0.010000      7   0.80195
 ## 
 ## Classification tree:
 ## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
@@ -876,71 +833,18 @@ printcp(fitTree)</code></pre>
 ##     xval = 0)
 ## 
 ## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
+## [1] Contract         Dependents       InternetService  PaperlessBilling
+## [5] PaymentMethod    TechSupport      tenure          
 ## 
-## Root node error: 965/3516 = 0.27446
-## 
-## n= 3516 
-## 
-##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057
-## 
-## Classification tree:
-## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
-##     tenure + PhoneService + MultipleLines + InternetService + 
-##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
-##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
-##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
-##     xval = 0)
-## 
-## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
-## 
-## Root node error: 965/3516 = 0.27446
+## Root node error: 924/3516 = 0.2628
 ## 
 ## n= 3516 
 ## 
 ##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057
-## 
-## Classification tree:
-## rpart(formula = Churn ~ gender + SeniorCitizen + Partner + Dependents + 
-##     tenure + PhoneService + MultipleLines + InternetService + 
-##     OnlineSecurity + OnlineBackup + DeviceProtection + TechSupport + 
-##     StreamingTV + StreamingMovies + Contract + PaperlessBilling + 
-##     PaymentMethod + MonthlyCharges + TotalCharges, data = churnAnalysisTraining, 
-##     xval = 0)
-## 
-## Variables actually used in tree construction:
-## [1] Contract         Dependents       InternetService  OnlineSecurity  
-## [5] PaperlessBilling PaymentMethod    TechSupport      tenure          
-## [9] TotalCharges    
-## 
-## Root node error: 965/3516 = 0.27446
-## 
-## n= 3516 
-## 
-##         CP nsplit rel error
-## 1 0.062176      0   1.00000
-## 2 0.052850      2   0.87565
-## 3 0.019171      3   0.82280
-## 4 0.013472      5   0.78446
-## 5 0.012435      8   0.74301
-## 6 0.010000      9   0.73057</code></pre>
+## 1 0.047258      0   1.00000
+## 2 0.014069      3   0.85823
+## 3 0.012987      6   0.81494
+## 4 0.010000      7   0.80195</code></pre>
 </div>
 
 
