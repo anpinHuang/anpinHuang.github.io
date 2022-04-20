@@ -175,7 +175,7 @@ $$E[I_i|Z] = \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:
 
-$$E[Loss_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[Loss_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Now we can calculate the value-at-risk (VaR) given a specified condifence level $\alpha$:
 
@@ -189,13 +189,12 @@ It is decided by the Basel Committee that banks should hold enough capital to co
 Therefore, the capital requirement $K$ for "UL-only"is :
 $$ 
 \begin{aligned}
-K &= \left(LGD_{downturn} \cdot VaR(\alpha) - EL \right) \cdot MAF \\
-&= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF  \\
+K  &= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF  \\
 &= \left(LGD_{downturn} \cdot \Phi \left(\sqrt{\frac{1}{1-\rho}}\Phi^{-1}(PD_{TtC})+\sqrt{\frac{\rho}{1-\rho}}\Phi^{-1}(\alpha)\right)-LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF
 \end{aligned}
 $$
 
-where 
+where $MAF$ refers to the maturity adjustment factor:
 
 $$MAF = \frac{1+(M-2.5) \cdot b(PD_{TtC})}{1-1.5 \cdot b(PD_{TtC})}$$
 
@@ -437,11 +436,11 @@ $$\rho_r = \rho_{total} + (PD_{r}^{TtC}-	\overline{DR_{total}}) \cdot \delta$$
 
 The $\delta$ parameter is determined by optimization:
 
-$$ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL(t)}) - CV(PiT \ PD_{PL}(t)) $$
+$$ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL}(t)) - CV(PiT \ PD_{PL}(t)) $$
 
 where the coefficients of variance $CV$ is the ratio of standard deviation divided by mean and
 
-$$PiT \ PD_{WARL(t)}  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} $$
+$$PiT \ PD_{WARL}(t)  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} $$
 
 $N$ refers to number of observation, and $Q$ refers to parametric quantile.
 

@@ -530,7 +530,7 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 <p>The conditional expected value of the default indicator given the systemic credit risk variable is:</p>
 <p><span class="math display">\[E[I_i|Z] = \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
 <p>Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:</p>
-<p><span class="math display">\[E[Loss_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
+<p><span class="math display">\[E[Loss_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})\]</span></p>
 <p>Now we can calculate the value-at-risk (VaR) given a specified condifence level <span class="math inline">\(\alpha\)</span>:</p>
 <p><span class="math display">\[VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \Phi^{-1}(1-\alpha)}{\sqrt{1-\rho}})\]</span></p>
 <p>It is decided by the Basel Committee that banks should hold enough capital to cover the unexpected loss (UL), since the expecte loss (EL) shoud already be taken into account setting provisions aside. The Basel II frameworks defines</p>
@@ -540,12 +540,11 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 </ul>
 <p>Therefore, the capital requirement <span class="math inline">\(K\)</span> for “UL-only”is : <span class="math display">\[ 
 \begin{aligned}
-K &amp;= \left(LGD_{downturn} \cdot VaR(\alpha) - EL \right) \cdot MAF \\
-&amp;= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF  \\
+K  &amp;= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF  \\
 &amp;= \left(LGD_{downturn} \cdot \Phi \left(\sqrt{\frac{1}{1-\rho}}\Phi^{-1}(PD_{TtC})+\sqrt{\frac{\rho}{1-\rho}}\Phi^{-1}(\alpha)\right)-LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF
 \end{aligned}
 \]</span></p>
-<p>where</p>
+<p>where <span class="math inline">\(MAF\)</span> refers to the maturity adjustment factor:</p>
 <p><span class="math display">\[MAF = \frac{1+(M-2.5) \cdot b(PD_{TtC})}{1-1.5 \cdot b(PD_{TtC})}\]</span></p>
 <p>where</p>
 <ul>
@@ -739,9 +738,9 @@ legend(x=14, y=0.1, c(&quot;PiT PD&quot;, &quot;PiT_PD_PL asset correlation&quot
 <p>One solution is to estimate the asset correlation <span class="math inline">\(\rho\)</span> individually for each rating. However, the data availability might be a problem for low default portfolio, especially for the high quality ratings where the default observation is even lower. Another approach to address this issue is to still estimate the <span class="math inline">\(\rho\)</span> at the portfolio, but make the linear transformation adjustment for each rating.</p>
 <p><span class="math display">\[\rho_r = \rho_{total} + (PD_{r}^{TtC}-    \overline{DR_{total}}) \cdot \delta\]</span></p>
 <p>The <span class="math inline">\(\delta\)</span> parameter is determined by optimization:</p>
-<p><span class="math display">\[ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL(t)}) - CV(PiT \ PD_{PL}(t)) \]</span></p>
+<p><span class="math display">\[ \underset{\delta}{\operatorname{argmin}} CV(PiT \ PD_{WARL}(t)) - CV(PiT \ PD_{PL}(t)) \]</span></p>
 <p>where the coefficients of variance <span class="math inline">\(CV\)</span> is the ratio of standard deviation divided by mean and</p>
-<p><span class="math display">\[PiT \ PD_{WARL(t)}  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} \]</span></p>
+<p><span class="math display">\[PiT \ PD_{WARL}(t)  = \frac{\sum_{r=1}^{R}N_{r,t} \cdot F_{PD}^{-1}(PD_{r}^{TtC};\rho_{r};Q_t)}{\sum_{r=1}^{R} N_{r,t}} \]</span></p>
 <p><span class="math inline">\(N\)</span> refers to number of observation, and <span class="math inline">\(Q\)</span> refers to parametric quantile.</p>
 <pre class="r"><code>## calibrate delta
 delta_candidate &lt;- seq(-0.03,0.6,0.0001)
@@ -815,10 +814,10 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 <h3>14. References</h3>
 <div id="refs" class="references">
 <div id="ref-BASEL2">
-<p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel Ii Irb Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>
+<p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel II IRB Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>
 </div>
 <div id="ref-EBA1716">
-<p>European Banking Association. 2017. <em>Guidelines on PD and LGD Estimation (Eba-Gl-2017-16).</em></p>
+<p>European Banking Association. 2017. <em>Guidelines on PD and LGD Estimation (EBA-GL-2017-16).</em></p>
 </div>
 <div id="ref-ASRF16">
 <p>Juulia Happonen. 2016. <em>Theory Behind Regulatory Capital Formulae</em>. <a href="https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y">https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y</a>.</p>
