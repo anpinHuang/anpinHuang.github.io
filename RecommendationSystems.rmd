@@ -25,7 +25,7 @@ For 2 vectors $q$ and $x$
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### 2. Content Based Recommendations
+### 2. Content Based Recommend
 </ins>
 </div>
 
@@ -81,11 +81,7 @@ Minimizing the Objective Function
 
 $\to$ cold-start problem
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-### 4. References
-</ins>
-</div>
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
@@ -97,3 +93,8 @@ $\to$ cold-start problem
 * Query = The information a system uses to make recommendations. e.g. items previously interact with, time of day, the user's device
 * Embedding = A mapping from a discrete set (in this case, the set of queries, or the set of items to recommend) to a vector space called the embedding space. 
 
+<div style="background-color:white;color:blue;matrixOperation:20px;">
+<ins>
+### 6. References
+</ins>
+</div>

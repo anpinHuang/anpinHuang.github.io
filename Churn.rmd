@@ -30,7 +30,7 @@ churnAnalysis <- as.data.frame(churnAnalysis)
 &nbsp;
 &nbsp;
     
-### Data pre-processing
+### 1. Data pre-processing
 
 Check if there is missing value. There are only 11 missing values in TotalCharges so we can just remove entire row given that the number is small.
 ```{r}
@@ -42,7 +42,7 @@ Then we look at what variables are continuous, and they are:
 "tenure", "MonthlyCharges" and "TotalCharges"
 
 
-### Kaplan Meier Analysis
+### 2. Kaplan Meier Analysis
 
 
 
@@ -85,7 +85,7 @@ autoplot(km_fit_pay)
 ```
 
 
-### Information value 
+### 3. Information value 
 ```{r IV-1, include=FALSE}
 library(Information)
 library(gridExtra)
@@ -106,11 +106,11 @@ kable(IV_Summary[c(11:20),]) %>%
 
 
 
-### logistic regression with WOEs
+### 4. logistic regression with WOEs
 
 Under contruction
 
-### Decision tree
+### 5. Decision tree by rpart
 
 To use decision tree, we need to convert the continuous variables to categorical variables be setting some thresold. But first, let's split the data into training, validation and test sets.
 
@@ -171,8 +171,6 @@ for(i in 1:ncol(churnAnalysisTraining)) {
 
     
 ********
-    
-### Use rpart package
 
 use rpart to run decision tree from package:rpart
 ```{r}
@@ -194,8 +192,6 @@ The "rel error" is the relative error = absolute error/root node error
 
 
 ********
-
-### Prune the tree using validation set
 now prune the tree using the validation set
 
 ```{r}

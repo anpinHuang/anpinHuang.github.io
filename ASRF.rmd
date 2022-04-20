@@ -23,15 +23,37 @@ This page is my summary of notes on Basel II and the ASRF model from various ext
 
 ### 1. Basel Requirements
 
-Unlike CECL and IFRS 9, the accounting standards for allowance on credit loss that focus on lifetime of the loan, the Basel rule focues on the **yearly (12-month)** loss for calculating the regulatory capital. And, unlike CECL and IFRS 9 that requires loss estimation based on point-in-time (PIT) which requires forwarding looking forecast, the Basel rule requires **through-the-cycle (TTC)** loss forecast over the next 12 months. **Portfolio-invariant** is required under the Basel rule. 
+The credit risk component is the first pillar (Minimum capital requirements) of the Basel II Accords and can be calculated in by Standard Approach (SA) or Internal Ratings-Based approach (IRB).
 
+The 2 IRB approaches different in complexity are:
 
-As mentioned in [@BASEL2], "one of the functions of bank capital is to provide a buffer to protect a bank’s debt holders against peak losses that exceed expected levels", i.e. the Unexpected Loss (UL).
+* **Foundation IRB Approach (FIRB)**: 
+  The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)
+* **Advanded IRB Approach (AIRB)**:
+  The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
+  
+
+As mentioned in [@BASEL2], "*one of the functions of bank capital is to provide a buffer to protect a bank’s debt holders against peak losses that exceed expected levels*", i.e. the Unexpected Loss (UL).
 
 * **Expected Loss (EL)**: The expected value of the loss over the next 12 month
 * **Unexpected Loss (UL)**: Losses above the Expected Loss (EL)
 * **Value-at-Risk (VaR)**: EL + UL
 
+Unlike CECL and IFRS 9 for loan loss provisioning, the IRB approach is different from the accounting standard in the following ways:
+
+* IRB focues on the **yearly (12-month)** loss for calculating the regulatory capital instead of the lifetime expect loss.
+* IRB requires **through-the-cycle (TtC)** loss forecast over the next 12 months instead of the point-in-time (PiT) forward looking forecast.
+
+Another key restriction on the credit risk model for Basel is **portfolio invariant**:
+
+$\to$ see [@BASEL2]:"*The model should be portfolio invariant, i.e. the capital required for any given loan should only depend on the risk of that loan and must not depend on the portfolio it is added to.*"
+
+Therefore, the underlying assmption is that the portfolio is well diversified and the portfolio's credit risk is composed of:
+
+* Idiosyncratic risk: random, uncorrelated credit risk of individual borrowers
+* Systematic risk: macroeconomic impact on all borrowers
+
+The ASRF model discussed in the following sections satisfies the above assumptions.
 
 ### 2. The Merton's Model
 
@@ -133,6 +155,11 @@ $$
 $$
 where $PD_i^{*}$ is the **unconditionally default probability (PD)**, or the through-the-cycle (TTC) PD and $\Phi^{-1}(PD_i^{*})$ is the thresold for default by taking the inverse of standard normal distribution.
 
+###  4. Risk weighted asset
+
+$$Risk \ weighted \ asset = \frac{1}{8\%} \cdot K \cdot EAD$$
+
+where $8\%$ is the minimum capital ratio and $K$ is the capital requirement (expressed as percentage of the exposure).
 
 The credit loss:
 
@@ -148,25 +175,94 @@ $$E[I_i|Z] = \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Assuming PD, EAD and LGD are independent, then the expected loss (EL) for the portfolio is:
 
-$$E[L_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
+$$E[Loss_p|Z] = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \mathcal{N}(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho}Z}{\sqrt{1-\rho}})$$
 
 Now we can calculate the value-at-risk (VaR) given a specified condifence level $\alpha$:
 
 $$VaR(\alpha) = \sum_{i=1}^{n} EAD_i \cdot LGD_i \cdot \Phi(\frac{\Phi^{-1}(PD_i^{*})-\sqrt{\rho} \cdot \Phi^{-1}(1-\alpha)}{\sqrt{1-\rho}})$$
-In practice, 
 
-* The asset correlation $\rho$ can be calibrated by observing correlations in the market or from historical default data. 
-* The Basel rules for calculating the correlation $\rho$ are:
+It is decided by the Basel Committee that banks should hold enough capital to cover the unexpected loss (UL), since the expecte loss (EL) shoud already be taken into account setting provisions aside. The Basel II frameworks defines 
 
-  * Corporate, sovereign and bank exposure:
-  * Small- and medium-sized entities (SMEs):
+* EL as average PD * downturn LGD for an exposure, and
+* UL-only captial requirement as conditional expected loss minus EL
+
+Therefore, the capital requirement $K$ for "UL-only"is :
+$$ 
+\begin{aligned}
+K &= \left(LGD_{downturn} \cdot VaR(\alpha) - EL \right) \cdot MAF \\
+&= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF  \\
+&= \left(LGD_{downturn} \cdot \Phi \left(\sqrt{\frac{1}{1-\rho}}\Phi^{-1}(PD_{TtC})+\sqrt{\frac{\rho}{1-\rho}}\Phi^{-1}(\alpha)\right)-LGD_{downturn} \cdot PD_{TtC}\right) \cdot MAF
+\end{aligned}
+$$
+
+where 
+
+$$MAF = \frac{1+(M-2.5) \cdot b(PD_{TtC})}{1-1.5 \cdot b(PD_{TtC})}$$
+
+where 
+
+* $M$ refers to matutiry and 
+* $b$ is the smoothed maturity adjustment $b(PD_{TtC})=[0.11852-0.05478 \cdot log(PD_{TtC})]^2$ and
+* $\alpha$, the confidence level is set to 99.9% by Basel Committee.
+
+Regarding the asset correlation $\rho$
+
+* It can be calibrated by observing correlations in the market or from historical default data. 
+* However, the asset correlation $\rho$ for Basel risk weight formula is:
     
-  $$\rho = 0.12 × (1 – e{-50 × PD}) / (1 – EXP(-50)) +
-0.24 × [1 – (1 – EXP(-50 × PD)) / (1 – EXP(-50))] $$
-* To derive $PD_i^{*}$ we need $\mu$ the instantenious expected rate of return of the asset value of company $i$
+  $$\rho = 0.12 \cdot \frac{1 – e^{-k \cdot PD}}{1 – e^{-k}} +
+0.24 \cdot [1 – \frac{1-e^{-k \cdot PD}}{1-e^{-k}}] - 0.04 \cdot [1-\frac{S-5}{45}] $$
+
+where $k$ determines how fast the exponential function decreases and is set at 50 for corporate exposures, 35 for retail, $S$ refers to firm's annual sales, between 5 and 50. The size adjustment ensures that the smaller the company size, the lower the asset correlation.
 
 
-###  4. Estimate asset correlation $\rho$
+
+### 5. Use ASRF model for IFRS9
+
+
+The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current & future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as $z$ (standard normal distribution) represents the single systemetic credit risk factor.
+
+
+### 6. Numerical noise test
+
+
+To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.
+
+The figures below show an example for the binomial confidence bound for n=1000 and n=200. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. From the below figures, we can say that the PiT adjustment is required if the default rate are observed from sample size of 1000, but if it's observed from sample size=200, we are not sure if the variation in default rate is caused by random noise.
+
+The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.
+
+```{r}
+binomial_bounds <- function(static_size) {
+  
+  odr <- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
+                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
+                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
+  IRB_PD <- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
+                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
+                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
+  n <- rep(static_size, length(odr))
+  down_bound <- rep(qbinom(0.025, static_size,IRB_PD[1])/static_size,25)
+  up_bound <- rep(qbinom(0.975, static_size,IRB_PD[1])/static_size,25)
+  for(i in 1:length(n)){
+    down_bound[i] <- qbinom(0.025, static_size,IRB_PD[i])/static_size
+    up_bound[i] <- qbinom(0.975, static_size,IRB_PD[i])/static_size
+  }
+  plot(IRB_PD, type='l', ylim = c(0.01,0.1), lwd=2)
+  lines(odr, col='red', lwd=2)
+  lines(down_bound, lty=2, lwd=2)
+  lines(up_bound,lty=2, lwd=2)
+}
+
+binomial_bounds(static_size=1000)
+binomial_bounds(static_size=200)
+
+```
+
+
+
+
+###  7. Estimate asset correlation $\rho$
 
 
 
@@ -238,49 +334,8 @@ rho_p <- rho
 
 
 
-### 5. Use ASRF model for IFRS9
 
-
-The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current & future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as $z$ (standard normal distribution) represents the single systemetic credit risk factor.
-
-
-### 6. Numerical noise test
-
-
-To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.
-
-The figures below show an example for the binomial confidence bound for n=1000 and n=200. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. From the below figures, we can say that the PiT adjustment is required if the default rate are observed from sample size of 1000, but if it's observed from sample size=200, we are not sure if the variation in default rate is caused by random noise.
-
-The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.
-
-```{r}
-binomial_bounds <- function(static_size) {
-  
-  odr <- c(0.0581, 0.0578, 0.0547, 0.0563, 0.0579, 0.0532, 0.0509, 0.0556, 0.0655, 0.0666
-                  , 0.0525, 0.0432, 0.0273, 0.0243, 0.0214, 0.0196, 0.02, 0.0193,0.0230, 0.0250
-                  , 0.0312, 0.0336, 0.0352,0.0355, 0.0325, 0.0359, 0.0373, 0.0335)
-  IRB_PD <- c(0.0458, 0.0452, 0.0442, 0.0455, 0.0456, 0.0468, 0.045, 0.0454, 0.0463, 0.0457
-                , 0.0464, 0.0456, 0.045,0.0441, 0.0426, 0.0412, 0.0402, 0.0387, 0.0380, 0.0358
-                , 0.0335, 0.0327, 0.0322, 0.0311, 0.0301, 0.0290, 0.0286, 0.0274)
-  n <- rep(static_size, length(odr))
-  down_bound <- rep(qbinom(0.025, static_size,IRB_PD[1])/static_size,25)
-  up_bound <- rep(qbinom(0.975, static_size,IRB_PD[1])/static_size,25)
-  for(i in 1:length(n)){
-    down_bound[i] <- qbinom(0.025, static_size,IRB_PD[i])/static_size
-    up_bound[i] <- qbinom(0.975, static_size,IRB_PD[i])/static_size
-  }
-  plot(IRB_PD, type='l', ylim = c(0.01,0.1), lwd=2)
-  lines(odr, col='red', lwd=2)
-  lines(down_bound, lty=2, lwd=2)
-  lines(up_bound,lty=2, lwd=2)
-}
-
-binomial_bounds(static_size=1000)
-binomial_bounds(static_size=200)
-
-```
-
-### 7. Macro-economic model
+### 8. Macro-economic model
 Given the below formula derived in the previous section and the asset correlation $\rho$ estimated by the approach above, now the only missing piece is the $Z$ value, where $Z \sim N(0,1)$. 
 
 $$
@@ -302,7 +357,7 @@ The $Z$ value can be derived from the historical (same period as used for estima
 The above steps can be repeated for multiple candidate variables, and the one with the highest predicting power for observed default rate would be chosen. Furthermore, a combination of multiple varialbes can also be used as the $Z$ value and the weighted/cofficients be estimated by linear regression.
 
 
-### 8. $\rho$ and PiT distribution shape
+### 9. $\rho$ and PiT distribution shape
 
 
 The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
@@ -329,7 +384,7 @@ abline(v = ttc, col="red", lwd=2, lty=2)
 ```
 
 
-### 9. $PD_{TtC}$ and variability
+### 10. $PD_{TtC}$ and variability
 
 
 The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$. Therefore, for different PD rating $r_{i}$ (different $PD_{TtC}$), the $\rho_{r_i}$ should be different to have the same shape.
@@ -354,7 +409,7 @@ hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab='PiT PD', 
 abline(v = ttc[3], col="red", lwd=2, lty=2)
 ```
 
-### 10. Asset correlation $\rho$ per rating
+### 11. Asset correlation $\rho$ per rating
 
 The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD. 
 
@@ -432,7 +487,7 @@ legend(x=14, y=0.1, c("PiT PD","PiT PD rating asset correlation"),col=c("black",
 ```
 
 
-### 11. PiT non-default migration
+### 12. PiT non-default migration
 
 
 With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.
@@ -459,22 +514,7 @@ $$
 so on and so forth, we can derive the migration probability of $r \to c$ where $c$ is any non-default rating.
 
 
-### 12. Portfolio Invariance
-
-
-
-
-### 13. IRB Approaches
-
-Alternative to the **Standard Approach (SA)**, the Basel II also allows banks to use **Internal Ratings-Based (IRB)** approach to measure the risk parameters (PD, EAD and/or LGD) for Risk weighted Asset (RWA) calculation.
-
-
-* **Foundation IRB Approach (FIRB)**: 
-  The bank uses its own estimated PD but rely on supervisory estimates for other risk components. (There is no distinction between a foundation and advanced approach for retail exposure, banks must provide their own PD, EAD and LGD.)
-* **Advanded IRB Approach (AIRB)**:
-  The bank uses its own estimaed PD, EAD, LGD and effective duration (M).
-
-### 14. LGD for unresolved cases
+### 13. LGD for unresolved cases
 
 * **Includes all observed defaults. ** The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach. 
 
@@ -489,7 +529,7 @@ time (for IRB approach which requires conservatism). For IFRS 9 models, the maxi
 
 
 
-### 15. References
+### 14. References
 
 
 
