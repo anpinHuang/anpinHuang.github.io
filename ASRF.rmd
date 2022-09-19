@@ -1,5 +1,4 @@
 ---
-title: "Basel II, ASRF Model & IFRS 9 Application"
 output:
   html_document:
     toc: true
@@ -13,6 +12,15 @@ bibliography: references.bib
 link-citations: yes
 ---
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<font size="12">
+<bold>
+Basel II, ASRF Model & IFRS 9 Application
+</bold>
+</font size="12">
+</div>
+
+
 This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures including the regulatory documents: 
 
 * [An Explanatory Note on the Basel II IRB Risk Weight Functions](https://www.bis.org/bcbs/irbriskweight.pdf)
@@ -20,8 +28,10 @@ This page is my summary of notes on Basel II and the ASRF model from various ext
 * [Basel III: Finalising post-crisis reforms](https://www.bis.org/bcbs/publ/d424.pdf)  
 * [International Convergence of Capital Measurement and Capital Standards](https://www.bis.org/publ/bcbs128.pdf)
 
-
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 1. Basel Requirements
+</div>
+
 
 The credit risk component is the first pillar (Minimum capital requirements) of the Basel II Accords and can be calculated in by Standard Approach (SA) or Internal Ratings-Based approach (IRB).
 
@@ -55,7 +65,10 @@ Therefore, the underlying assmption is that the portfolio is well diversified an
 
 The ASRF model discussed in the following sections satisfies the above assumptions.
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 2. The Merton's Model
+</div>
 
 The Merton's model leverage the **Black-Scholes** model used in option pricing. Similar to option pricing that the option's value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company's total assets and its total liabilities. The logic is that the loan defaults when the company's total assets cannot support its total liabilities. The evolution of the asset value $A$ is log-normmally distributed as the stock price in Black Scholes. The industry practice is to use Merton's model to estimate PD for corporation, and use logistic regression type model to estimate PD for retail exposures.
 
@@ -103,7 +116,10 @@ $$d_2 = \frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T
 Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.
 
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ###  3. ASRF Model
+</div>
 
 The Merton's model can be extended to **Asymptotic Single Risk Factor model (ASRF)**, assuming the assets value of any single borrowing company is correlated that of any other company with correlation $\rho$ ASRF model is portfolio-invariant. [@ASRF16] provides the derivation of ASRF model (also show in below).
  
@@ -155,7 +171,10 @@ $$
 $$
 where $PD_i^{*}$ is the **unconditionally default probability (PD)**, or the through-the-cycle (TTC) PD and $\Phi^{-1}(PD_i^{*})$ is the thresold for default by taking the inverse of standard normal distribution.
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ###  4. Risk weighted asset
+</div>
 
 $$Risk \ weighted \ asset = \frac{1}{8\%} \cdot K \cdot EAD$$
 
@@ -216,14 +235,18 @@ where $k$ determines how fast the exponential function decreases and is set at 5
 
 
 
-### 5. Use ASRF model for IFRS9
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 5. Use ASRF model for IFRS9
+</div>
 
 The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current & future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as $z$ (standard normal distribution) represents the single systemetic credit risk factor.
 
 
-### 6. Numerical noise test
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 6. Numerical noise test
+</div>
 
 To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.
 
@@ -261,8 +284,10 @@ binomial_bounds(static_size=200)
 
 
 
-###  7. Estimate asset correlation $\rho$
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+###  7. Estimate asset correlation $\rho$
+</div>
 
 
 The asset correlation $\rho$ can be estimated from the default rate. Following the equation above:
@@ -330,11 +355,11 @@ rho_p <- rho
 
 
 
-
-
-
-
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 8. Macro-economic model
+</div>
+
+
 Given the below formula derived in the previous section and the asset correlation $\rho$ estimated by the approach above, now the only missing piece is the $Z$ value, where $Z \sim N(0,1)$. 
 
 $$
@@ -356,8 +381,10 @@ The $Z$ value can be derived from the historical (same period as used for estima
 The above steps can be repeated for multiple candidate variables, and the one with the highest predicting power for observed default rate would be chosen. Furthermore, a combination of multiple varialbes can also be used as the $Z$ value and the weighted/cofficients be estimated by linear regression.
 
 
-### 9. $\rho$ and PiT distribution shape
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 9. $\rho$ and PiT distribution shape
+</div>
 
 The histagrams shows that as the $\rho$ increase, the distribution becomes more flat tailed.
 
@@ -383,8 +410,10 @@ abline(v = ttc, col="red", lwd=2, lty=2)
 ```
 
 
-### 10. $PD_{TtC}$ and variability
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 10. $PD_{TtC}$ and variability
+</div>
 
 The histagram shows that the shape of PiT PD distributions are quite different given the same $\rho$ but different $PD_{TtC}$. Therefore, for different PD rating $r_{i}$ (different $PD_{TtC}$), the $\rho_{r_i}$ should be different to have the same shape.
 
@@ -408,7 +437,10 @@ hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab='PiT PD', 
 abline(v = ttc[3], col="red", lwd=2, lty=2)
 ```
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 11. Asset correlation $\rho$ per rating
+</div>
 
 The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD. 
 
@@ -486,8 +518,10 @@ legend(x=14, y=0.1, c("PiT PD","PiT PD rating asset correlation"),col=c("black",
 ```
 
 
-### 12. PiT non-default migration
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 12. PiT non-default migration
+</div>
 
 With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.
 
@@ -513,7 +547,10 @@ $$
 so on and so forth, we can derive the migration probability of $r \to c$ where $c$ is any non-default rating.
 
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 13. LGD for unresolved cases
+</div>
 
 * **Includes all observed defaults. ** The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach. 
 
@@ -527,8 +564,9 @@ time (for IRB approach which requires conservatism). For IFRS 9 models, the maxi
   $\to$ see [@EBA1716]: *"No further recoveries should be estimated beyond the maximum length of the recovery processes specified for the specific type of exposures. "*
 
 
-
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 14. References
+</div>
 
 
 

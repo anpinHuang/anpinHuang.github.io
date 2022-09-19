@@ -11,7 +11,7 @@
 
 
 
-<title>Recommendation Systems</title>
+<title>RecommendationSystems.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -383,15 +383,15 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Recommendation Systems</h1>
 
 </div>
 
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<p><font size="18"> <bold> Recommendation Systems </bold> </font size="18"></p>
+</div>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 <h3 id="similarities">1. Similarities</h3>
-</ins>
 </div>
 <p>For 2 vectors <span class="math inline">\(q\)</span> and <span class="math inline">\(x\)</span></p>
 <ul>
@@ -399,10 +399,8 @@ div.tocify {
 <li>dot product: <span class="math inline">\(\lVert q \lVert \lVert x \lVert cos(q,x)\)</span></li>
 <li>Euclidean distance: <span class="math inline">\(\lVert q-x \lVert\)</span></li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="content-based-recommend">2. Content Based Recommend</h3>
-</ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="content-based-filtering">2. Content Based Filtering</h3>
 </div>
 <p>The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.</p>
 <p>We can treat each user as a separate linear regression problems by following the below steps:</p>
@@ -412,15 +410,42 @@ div.tocify {
 <li>Predict user <span class="math inline">\(j\)</span> as rating movie <span class="math inline">\(i\)</span> with <span class="math inline">\((\theta^{(j)})^T x^{(i)}\)</span></li>
 </ul>
 <p>This means that each user has their own method (represented by different linear function) of rating the movies by taking the variables <span class="math inline">\(X\)</span> as inputs.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+<ul>
+<li><span class="math inline">\(r(i,j)=1\)</span> if user <span class="math inline">\(j\)</span> has rated movie <span class="math inline">\(i\)</span>, otherwise 0</li>
+<li><span class="math inline">\(y^{(i,j)}=\)</span> rating by user <span class="math inline">\(j\)</span> (if defined)</li>
+<li><span class="math inline">\(\theta^{(j)}=\)</span> parameter vector for user <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(x^{(i)}=\)</span> feature vector for movie <span class="math inline">\(i\)</span></li>
+<li>For user <span class="math inline">\(j\)</span>, movie <span class="math inline">\(i\)</span>, predicted rating: <span class="math inline">\((\theta^{(j)})^Tx^{i}\)</span></li>
+<li><span class="math inline">\(m^{(j)}=\)</span> number of movies rated by user <span class="math inline">\(j\)</span></li>
+</ul>
+<p>To learn <span class="math inline">\(\theta^{(j)}\)</span>, the parameter for single user <span class="math inline">\(j\)</span>:</p>
+<p><span class="math inline">\(\underset{\theta^{(j)}}{\operatorname{min}} \frac{1}{2m^{(j)}} \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2m^{(j)}} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2\)</span></p>
+<p>Gradient descent update:</p>
+<ul>
+<li><p>for <span class="math inline">\(k=0\)</span>, <span class="math inline">\(\theta_k^{(j)}:=\theta_k^{(j)} - \alpha \frac{1}{m} \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)}\)</span></p></li>
+<li><p>for <span class="math inline">\(k \neq 0\)</span>, <span class="math inline">\(\theta_k^{(j)}:=\theta_k^{(j)}-\alpha \frac{1}{m} \left( \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)} + \lambda \theta_k^{(j)} \right)\)</span></p></li>
+</ul>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 <h3 id="collaborative-filtering">3. Collaborative Filtering</h3>
-</ins>
 </div>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+<p>Assuming that users have given their preferences, then the problem becomes as follows.</p>
+<p>Given <span class="math inline">\(\theta^{(1)},...,\theta^{(n_u)}\)</span> to learn <span class="math inline">\(x^{(i)}\)</span>:</p>
+<p><span class="math inline">\(\underset{x^{(i)}}{\operatorname{min}} \frac{1}{2} \sum\limits_{j:r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2} \sum\limits_{k=1}^n (x^{(i)}_k)^2\)</span></p>
+<ul>
+<li>One way to learn both <span class="math inline">\(\theta\)</span> and <span class="math inline">\(x\)</span> is to performe the estimation iteratively: random initialize <span class="math inline">\(\theta\)</span> then learn <span class="math inline">\(x\)</span>, then learn better <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\to\)</span> converges.</li>
+</ul>
+<p>To minimizing <span class="math inline">\(x^{(1)},..., x^{n_m}\)</span> and <span class="math inline">\(\theta^{(1)},...\theta^{(n_u)}\)</span> simultaneously:</p>
+<ul>
+<li>Given <span class="math inline">\(J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2} \sum\limits_{i=1}^{n_m} \sum\limits_{k=1}^n (x^{(i)}_k)^2+ \frac{\lambda}{2} \sum\limits_{j=1}^{n_u} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2\)</span></li>
+<li><span class="math inline">\(\underset{x,\theta}{\operatorname{min}} J(x^{(1)},...,x^{(n_m)}, \theta^{(1)},...,\theta^{(n_u)})\)</span></li>
+</ul>
+<p>Gradient descent update:</p>
+<ul>
+<li><p><span class="math inline">\(\theta_k^{(j)}:=\theta_k^{(j)}-\alpha \frac{1}{m} \left( \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)} + \lambda x_k^{(i)} \right)\)</span></p></li>
+<li><p><span class="math inline">\(x_k^{(i)}:=x_k^{(i)}-\alpha \frac{1}{m} \left( \sum\limits_{j:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) \theta_k^{(j)} + \lambda \theta_k^{(j)} \right)\)</span></p></li>
+</ul>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 <h3 id="matrix-factorization">4. Matrix Factorization</h3>
-</ins>
 </div>
 <p>When recommending a movie, the algorithm should recommend</p>
 <ul>
@@ -428,38 +453,273 @@ div.tocify {
 <li>movies that similar users liked</li>
 </ul>
 <p>Again, both movies and users are represented in the same embedding space.</p>
-<p>The goal is to factorize the feedback matrix <span class="math inline">\(A\)</span> into the product of a user embedding matrix <span class="math inline">\(U\)</span> and item (movie) embedding matrix <span class="math inline">\(V\)</span> such that <span class="math inline">\(A \approx UV^T\)</span></p>
+<p>For example, there are 4 users and 5 movies:</p>
+<p><span class="math display">\[Y=
+\begin{bmatrix}
+5 &amp; 5 &amp; 0 &amp; 0 \\
+5 &amp; \mathord{?} &amp; \mathord{?} &amp; 0 \\
+\mathord{?} &amp; 4 &amp; 0 &amp; \mathord{?} \\
+0 &amp; 0 &amp; 5 &amp; 4 \\
+0 &amp; 0 &amp; 5 &amp; 0
+\end{bmatrix}\]</span></p>
+<p>Predicted ratings: <span class="math display">\[ 
+\begin{bmatrix}
+(\theta^{(1)})^Tx^{(1)} &amp; (\theta^{(2)})^Tx^{(1)} &amp; (\theta^{(3)})^Tx^{(1)} &amp; (\theta^{(4)})^Tx^{(1)} \\
+(\theta^{(1)})^Tx^{(2)} &amp; (\theta^{(2)})^Tx^{(2)} &amp; (\theta^{(3)})^Tx^{(2)} &amp; (\theta^{(4)})^Tx^{(2)} \\
+(\theta^{(1)})^Tx^{(3)} &amp; (\theta^{(2)})^Tx^{(3)} &amp; (\theta^{(3)})^Tx^{(3)} &amp; (\theta^{(4)})^Tx^{(3)} \\
+(\theta^{(1)})^Tx^{(4)} &amp; (\theta^{(2)})^Tx^{(4)} &amp; (\theta^{(3)})^Tx^{(4)} &amp; (\theta^{(4)})^Tx^{(4)} \\
+(\theta^{(1)})^Tx^{(5)} &amp; (\theta^{(2)})^Tx^{(5)} &amp; (\theta^{(3)})^Tx^{(5)} &amp; (\theta^{(4)})^Tx^{(5)} 
+\end{bmatrix} = 
+\begin{bmatrix}
+(x^{(1)})\\ 
+(x^{(2)})\\ 
+(x^{(3)})\\
+(x^{(4)})\\
+(x^{(5)})
+\end{bmatrix}
+\begin{bmatrix}
+\theta^{(1)} &amp; \theta^{(2)}  &amp; \theta^{(3)}  &amp; \theta^{(4)} 
+\end{bmatrix}= 
+\begin{bmatrix}
+(x^{(1)})\\ 
+(x^{(2)})\\ 
+(x^{(3)})\\
+(x^{(4)})\\
+(x^{(5)})
+\end{bmatrix}
+\begin{bmatrix}
+(\theta^{(1)})\\ 
+(\theta^{(2)})\\ 
+(\theta^{(3)})\\
+(\theta^{(4)})
+\end{bmatrix}^T
+= X \theta^T
+\]</span></p>
+<p>To make the notation simplier to read:</p>
 <ul>
-<li>user <span class="math inline">\(U \in \mathbb{R}^{m {\times} d}\)</span></li>
-<li>item <span class="math inline">\(V \in \mathbb{R}^{n {\times} d}\)</span></li>
+<li><span class="math inline">\(X\)</span>: item embedding <span class="math inline">\(V \in \mathbb{R}^{n_m {\times} k}\)</span></li>
+<li><span class="math inline">\(\theta\)</span>: user embedding <span class="math inline">\(U \in \mathbb{R}^{n_u {\times} k}\)</span></li>
 </ul>
-<p>where <span class="math inline">\(m\)</span> is the number of user, <span class="math inline">\(n\)</span> is the number of items and <span class="math inline">\(d\)</span> is the number of dimensions (features/variables)</p>
-<p>Matrix factorization, <span class="math inline">\(UV^T\)</span> is a simple embedding model</p>
-<p>Choosing the Objective Function</p>
-<ul>
-<li>Observing only MF</li>
-<li>Weighted MF</li>
-<li>Singular Value Decomposition (SVD)</li>
-</ul>
-<p>Minimizing the Objective Function</p>
-<ul>
-<li>Stochastic gradient descent (SGD)</li>
-<li>Weighted Alternating Least Squares (WALS)</li>
-</ul>
+<p>The goal is to factorize the feedback matrix <span class="math inline">\(Y\)</span> into the product of a user embedding matrix <span class="math inline">\(U\)</span> (or <span class="math inline">\(\theta\)</span> in the previous section) and item (movie) embedding matrix <span class="math inline">\(V\)</span> (or <span class="math inline">\(X\)</span> in the previous section) such that <span class="math inline">\(Y \approx VU^T\)</span></p>
+<p>Matrix factorization, <span class="math inline">\(VU^T\)</span> is a simple embedding model</p>
 <p><span class="math inline">\(\to\)</span> cold-start problem</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-<h3 id="terminology">5. Terminology</h3>
-</ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="mean-normalization">5. Mean Normalization</h3>
 </div>
+<p>Assuming user 5 has not yet rated any movies.</p>
+<p><span class="math display">\[Y=
+\begin{bmatrix}
+5 &amp; 5 &amp; 0 &amp; 0 &amp; \mathord{?} \\
+5 &amp; \mathord{?} &amp; \mathord{?} &amp; 0 &amp; \mathord{?}\\
+\mathord{?} &amp; 4 &amp; 0 &amp; \mathord{?} &amp; \mathord{?}\\
+0 &amp; 0 &amp; 5 &amp; 4 &amp; \mathord{?}\\
+0 &amp; 0 &amp; 5 &amp; 0 &amp; \mathord{?}
+\end{bmatrix}\]</span></p>
+<p>Then, <span class="math inline">\(\theta^{(5)}\)</span> is going to a vector of 0, as</p>
 <ul>
-<li>Item = Items to be recommended</li>
-<li>Query = The information a system uses to make recommendations. e.g. items previously interact with, time of day, the user’s device</li>
-<li>Embedding = A mapping from a discrete set (in this case, the set of queries, or the set of items to recommend) to a vector space called the embedding space.</li>
+<li>it is optimized only by the regularization term <span class="math inline">\(\sum\limits_{j=1}^{n_u} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2\)</span>.</li>
+<li>The term <span class="math inline">\(\frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2\)</span> does not affect <span class="math inline">\(\theta^{(5)}\)</span> as <span class="math inline">\(r(i,j)=0\)</span> for <span class="math inline">\(i=5\)</span></li>
 </ul>
+<p>The resulting predicted ratings for all movies rated by user 5 would then be 0 given by <span class="math inline">\((\theta^{(5)})^Tx^{(i)} = 0\)</span> which is not very useful.</p>
+<p>Solution- mean normalization (mean for <span class="math inline">\((i,j)\)</span> where <span class="math inline">\(r(i,j)=1\)</span>). The mean vector <span class="math inline">\(mu\)</span> of the feedback matrix <span class="math inline">\(Y\)</span> is:</p>
+<p><span class="math display">\[
+\mu = \begin{bmatrix}
+2.5\\ 
+2.5\\ 
+2\\
+2.25\\
+1.25
+\end{bmatrix}
+\]</span></p>
+<p>Then, the mean normalized feedback matrix <span class="math inline">\(Y\)</span> becomes: <span class="math display">\[Y=
+\begin{bmatrix}
+2.5 &amp; 2.5 &amp; -2.5 &amp; -2.5 &amp; \mathord{?} \\
+2.5 &amp; \mathord{?} &amp; \mathord{?} &amp; -2.5 &amp; \mathord{?}\\
+\mathord{?} &amp; 2 &amp; -2 &amp; \mathord{?} &amp; \mathord{?}\\
+-2.25 &amp; -2.25 &amp; 2.75 &amp; 1.75 &amp; \mathord{?}\\
+-1.25 &amp; -1.25 &amp; 3.75 &amp; -1.25 &amp; \mathord{?}
+\end{bmatrix}\]</span></p>
+<p>Then learn <span class="math inline">\(\theta^{(j)}\)</span> and <span class="math inline">\(x^{(i)}\)</span> using the mean normalized feedback matrix. The prediction for user <span class="math inline">\(j\)</span> and movie <span class="math inline">\(i\)</span> would be:</p>
+<p><span class="math display">\[(\theta^{(j)})^Tx^{(i)} + \mu_i\]</span></p>
+<p>The intuition is that if the user hasn’t rated any movies, the the prediction for movie <span class="math inline">\(i\)</span> is just going to be the average rating of movie <span class="math inline">\(i\)</span>.</p>
+<p>On the other hand, if there is a movie that hasn’t been rated by any user, the mean normalization can be applied to column.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="choose-the-loss-function">6. Choose the Loss Function</h3>
+</div>
+<p>The below loss function comparison are shown without regularization terms:</p>
+<ul>
+<li>Observing only: only sum over observed pairs <span class="math display">\[J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2\]</span></li>
+<li>treat the unobserved values <span class="math inline">\(y^{(i,j)}\)</span> as zero: Singular Value Decomposition (SVD) <span class="math display">\[J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j)} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2\]</span></li>
+<li>Weighted Matrix Factorization - decomposes the objective into the following two sums:
+<ul>
+<li>A sum over observed entries.</li>
+<li>A sum over unobserved entries (treated as zeroes). <span class="math display">\[J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} w_{i,j} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{1}{2} \sum\limits_{(i,j):r(i,j)=0} w_{0}\left( (\theta^{(j)})^Tx^{(i)} \right)^2\]</span> where <span class="math inline">\(w_{i,j}\)</span>is a function of the frequency of movie <span class="math inline">\(i\)</span> and user <span class="math inline">\(j\)</span>, <em>“<span class="math inline">\(w_0\)</span> is a hyperparameter that weights the two terms so that the objective is not dominated by one or the other. Tuning this hyperparameter is very important.”</em></li>
+</ul></li>
+</ul>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="stochastic-gradient-descent">7. Stochastic Gradient Descent</h3>
+</div>
+<p>The (batch) gradient descent approach becomes computational expensive when the data is large.</p>
+<ol style="list-style-type: decimal">
+<li>Randomly shuffle dataset</li>
+<li></li>
+</ol>
+<p>Another approach called Mini-batch Gradient Descent lies somewhere between the (batch) gradient and stochastic gradient descent.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="weighted-alternating-ls">8. Weighted Alternating LS</h3>
+</div>
+<p>Weighted Alternating Least Squares (WALS)</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="example-movielens-data">9. Example: MovieLens Data</h3>
+</div>
+<pre><code>## Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object &#39;/Library/Frameworks/R.framework/Resources/modules//R_X11.so&#39;:
+##   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
+##   Referenced from: /Library/Frameworks/R.framework/Versions/3.5/Resources/modules/R_X11.so
+##   Reason: image not found</code></pre>
+<pre class="r"><code># load data
+user &lt;- read.csv(&quot;/Users/smartboyben/Documents/Data/MovieLens/u.user&quot;,sep=&quot;|&quot;,header=FALSE)
+colnames(user) &lt;- c(&#39;user_id&#39;, &#39;age&#39;, &#39;sex&#39;, &#39;occupation&#39;, &#39;zip_code&#39;)
+
+ratings &lt;- read.csv(&#39;/Users/smartboyben/Documents/Data/MovieLens/u.data&#39;,sep=&#39;\t&#39;)
+colnames(ratings) &lt;- c(&#39;user_id&#39;, &#39;movie_id&#39;, &#39;rating&#39;, &#39;unix_timestamp&#39;)
+movies &lt;- read.csv(&#39;/Users/smartboyben/Documents/Data/MovieLens/u.item&#39;,sep=&quot;|&quot;,header=FALSE)
+
+# The movies file contains a binary feature for each genre.
+genre_cols &lt;- c(
+    &quot;genre_unknown&quot;, &quot;Action&quot;, &quot;Adventure&quot;, &quot;Animation&quot;, &quot;Children&quot;, &quot;Comedy&quot;,
+    &quot;Crime&quot;, &quot;Documentary&quot;, &quot;Drama&quot;, &quot;Fantasy&quot;, &quot;Film-Noir&quot;, &quot;Horror&quot;,
+    &quot;Musical&quot;, &quot;Mystery&quot;, &quot;Romance&quot;, &quot;Sci-Fi&quot;, &quot;Thriller&quot;, &quot;War&quot;, &quot;Western&quot;
+)
+colnames(movies) &lt;- c(&#39;movie_id&#39;, &#39;title&#39;, &#39;release_date&#39;, &quot;video_release_date&quot;, &quot;imdb_url&quot;,genre_cols)
+colnames(movies)[[16]] &lt;- &quot;Film_Noir&quot;
+colnames(movies)[[21]] &lt;- &quot;Sci_Fi&quot;
+
+rating_DF &lt;- full_join(
+  x=ratings,
+  y=user,
+  by = (&quot;user_id&quot;=&quot;user_id&quot;),
+  copy = FALSE,
+  suffix = c(&quot;.rating&quot;, &quot;.user&quot;),
+  keep = FALSE
+)
+
+rating_DF &lt;- full_join(
+  x=rating_DF,
+  y=movies,
+  by = (&quot;movie_id&quot;=&quot;movie_id&quot;),
+  copy = FALSE,
+  suffix = c(&quot;.rating&quot;, &quot;.movie&quot;),
+  keep = FALSE
+)</code></pre>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h4 id="data-exploration">9.1 Data Exploration</h4>
+</div>
+<p>In this dataset, the number of users, 943, is less than the number of movies, 1,682. In reality though, there should be a lot more user than movies.</p>
+<pre class="r"><code>cat(&quot;unique users:&quot;,nrow(user),&quot;\n&quot;)</code></pre>
+<pre><code>## unique users: 943</code></pre>
+<pre class="r"><code>cat(&quot;unique movies:&quot;,nrow(movies))</code></pre>
+<pre><code>## unique movies: 1682</code></pre>
+<pre class="r"><code>user_rating_avg &lt;- sqldf(&quot;
+select user_id
+, count(*) as rate_number
+, avg(rating) as avg_user_rating
+from rating_DF
+group by 1
+&quot;, drv=&quot;SQLite&quot;)
+
+par(mfrow=c(1,2))
+hist(user_rating_avg[,&quot;avg_user_rating&quot;], xlab=&#39;rating&#39;,main=&quot;Users&#39; Average Rating&quot;, breaks = 20)
+hist(user_rating_avg[,&quot;rate_number&quot;], xlab=&#39;Number of movies that a user has rated&#39;,main=&quot;Number of movies that a user has rated&quot;, breaks = 150, xlim=c(0,150))</code></pre>
+<p><img src="RecommendationSystems_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>movie_rating_avg &lt;- sqldf(&quot;
+select movie_id
+, count(*) as rated_count
+, avg(rating) as avg_movie_rating
+from rating_DF
+group by 1
+&quot;, drv=&quot;SQLite&quot;)
+
+par(mfrow=c(1,2))
+hist(movie_rating_avg[which(movie_rating_avg$rated_count&gt;10),&quot;avg_movie_rating&quot;], xlab=&#39;rating&#39;,main=&quot;Movies&#39; Average Rating&quot;, breaks=20)
+hist(movie_rating_avg[,&quot;rated_count&quot;], xlab=&#39;Number of times a movies is rated&#39;,main=&quot;Number of times a movies is rated&quot;, breaks=300, xlim=c(0,30))</code></pre>
+<p><img src="RecommendationSystems_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>## contruct feedback matrix
+ratings &lt;- sqldf(&quot;
+select * from ratings order by movie_id, user_id asc                 
+                 &quot;,drv=&quot;SQLite&quot;)
+
+Y_feedback &lt;- reshape(ratings[,c(&quot;movie_id&quot;,&quot;user_id&quot;,&quot;rating&quot;)], idvar = &quot;movie_id&quot;, timevar = &quot;user_id&quot;, direction = &quot;wide&quot;,sep=&quot;_&quot;)
+rownames(Y_feedback) &lt;- Y_feedback$movie_id
+Y_feedback$movie_id &lt;- NULL
+Y &lt;- Y_feedback
+
+## movie vectors
+V &lt;- movies[,c(6:ncol(movies))]
+rownames(V) &lt;- movies$movie_id
+V &lt;- as.matrix(V)
+## user vectors
+U &lt;- data.frame(matrix(NA, nrow=nrow(user), ncol=ncol(V)))
+rownames(U) &lt;- user$user_id</code></pre>
+<pre class="r"><code>GD_optimize_U &lt;- function(Y, U, V, learning_rate=10, regularization=TRUE, lambda=1) {
+  ## initialize the parameters for V
+  initial_U &lt;- sample(c(0,1), replace=TRUE, size=(nrow(U)*ncol(U)))
+  initial_U &lt;- matrix(initial_U, nrow=nrow(U), ncol=ncol(U))
+  U &lt;- initial_U 
+  approx_Y &lt;- V%*%t(U)
+  m &lt;- length(which(!is.na(Y)))
+  r &lt;- which(!is.na(Y),arr.ind=TRUE)
+  for(i in 1:1000) {
+    if(regularization==TRUE) {
+      U &lt;- U - learning_rate * ( (Y[r[i,1],r[i,2]]-approx_Y[r[i,1],r[i,2]])*V[i,] + lambda*U )
+      approx_Y &lt;- V%*%t(U)
+      #loss &lt;- 1/(2*m)*sum(Y-approx_Y)
+      #loss &lt;- loss + sum(U^2)/(2*m) + sum(V^2)/(2*m)
+    } else {
+      temp &lt;- sum(Y-approx_Y,na.rm = TRUE) *V
+      U &lt;- U - learning_rate * temp/m
+      approx_Y &lt;- V%*%t(U)
+      #loss &lt;- 1/(2*m)*sum(Y-approx_Y)
+    }
+  }
+  return(U)
+}</code></pre>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h4 id="sgd-without-regularization">9.2 SGD without Regularization</h4>
+</div>
+<pre class="r"><code>SGD_optimize_U &lt;- function(Y, U, V, learning_rate=10, iterations=10, regularization=TRUE, lambda=1) {
+  ## initialize the parameters for V
+  initial_U &lt;- sample(c(0,1), replace=TRUE, size=(nrow(U)*ncol(U)))
+  initial_U &lt;- matrix(initial_U, nrow=nrow(U), ncol=ncol(U))
+  U &lt;- initial_U 
+  approx_Y &lt;- V%*%t(U)
+  m &lt;- length(which(!is.na(Y)))
+  # loss &lt;- 1/(2*m)*sum(Y-approx_Y)
+  # if(regularization==TRUE) {
+  #   loss &lt;- loss + sum(U^2)/(2*m) + sum(V^2)/(2*m)
+  # }
+  r &lt;- which(!is.na(Y),arr.ind=TRUE)
+  for(i in 1:m) {
+    if(regularization==TRUE) {
+      U &lt;- U - learning_rate * ( (Y[r[i,1],r[i,2]]-approx_Y[r[i,1],r[i,2]])*V[i,] + lambda*U )
+      approx_Y &lt;- V%*%t(U)
+      #loss &lt;- 1/(2*m)*sum(Y-approx_Y)
+      #loss &lt;- loss + sum(U^2)/(2*m) + sum(V^2)/(2*m)
+    } else {
+      temp &lt;- ( Y[r[i,1],r[i,2]]-approx_Y[r[i,1],r[i,2]] ) *V[r[i,1],]
+      temp &lt;- do.call(&quot;rbind&quot;, replicate(nrow(U), temp, simplify = FALSE))
+      U &lt;- U - learning_rate * temp
+      approx_Y &lt;- V%*%t(U)
+      #loss &lt;- 1/(2*m)*sum(Y-approx_Y)
+    }
+  }
+  return(U)
+}
+
+#test &lt;- SGD_optimize_U(Y, U, V, regularization = FALSE)
+#nonRegularized_U &lt;- SGD_optimize_U(Y=Y_feedback, U=U, V=V, learning_rate = 0.001, regularization=FALSE)</code></pre>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="references">6. References</h3>
+<h3 id="references">11. References</h3>
 </ins>
 </div>
 
@@ -509,7 +769,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2,h3",
+      selectors: "h1,h2,h3,h4,h5",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {

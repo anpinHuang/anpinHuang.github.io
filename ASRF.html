@@ -11,7 +11,7 @@
 
 
 
-<title>Basel II, ASRF Model &amp; IFRS 9 Application</title>
+<title>ASRF.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -403,11 +403,13 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Basel II, ASRF Model &amp; IFRS 9 Application</h1>
 
 </div>
 
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<p><font size="12"> <bold> Basel II, ASRF Model &amp; IFRS 9 Application </bold> </font size="12"></p>
+</div>
 <p>This page is my summary of notes on Basel II and the ASRF model from various external sources and literatures including the regulatory documents:</p>
 <ul>
 <li><a href="https://www.bis.org/bcbs/irbriskweight.pdf">An Explanatory Note on the Basel II IRB Risk Weight Functions</a></li>
@@ -416,8 +418,9 @@ div.tocify {
 </li>
 <li><a href="https://www.bis.org/publ/bcbs128.pdf">International Convergence of Capital Measurement and Capital Standards</a></li>
 </ul>
-<div id="basel-requirements" class="section level3">
-<h3>1. Basel Requirements</h3>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="basel-requirements">1. Basel Requirements</h3>
+</div>
 <p>The credit risk component is the first pillar (Minimum capital requirements) of the Basel II Accords and can be calculated in by Standard Approach (SA) or Internal Ratings-Based approach (IRB).</p>
 <p>The 2 IRB approaches different in complexity are:</p>
 <ul>
@@ -443,9 +446,9 @@ div.tocify {
 <li>Systematic risk: macroeconomic impact on all borrowers</li>
 </ul>
 <p>The ASRF model discussed in the following sections satisfies the above assumptions.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="the-mertons-model">2. The Merton’s Model</h3>
 </div>
-<div id="the-mertons-model" class="section level3">
-<h3>2. The Merton’s Model</h3>
 <p>The Merton’s model leverage the <strong>Black-Scholes</strong> model used in option pricing. Similar to option pricing that the option’s value being the surplus between stock price and the strike price, the value of a loan is the surplus between the underlying company’s total assets and its total liabilities. The logic is that the loan defaults when the company’s total assets cannot support its total liabilities. The evolution of the asset value <span class="math inline">\(A\)</span> is log-normmally distributed as the stock price in Black Scholes. The industry practice is to use Merton’s model to estimate PD for corporation, and use logistic regression type model to estimate PD for retail exposures.</p>
 <p>Stochastic differential equation (SDE) of a firm’s assets: <span class="math display">\[dA = (\mu A )dt + \sigma AdW(t)\]</span></p>
 <p>Apply <a href="ItoLemma.html"><strong>Ito’s lemma</strong></a> for <span class="math inline">\(g(x) = ln(x)\)</span>:</p>
@@ -478,9 +481,9 @@ A_t &amp;= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 \]</span> where <span class="math inline">\(L_i\)</span> is the total liabilities of company <span class="math inline">\(i\)</span>, and</p>
 <p><span class="math display">\[d_2 = \frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}\]</span></p>
 <p>Note that unlike Black-Scholes which is under the risk-neutral measure, the Merton model here is under physical measure.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="asrf-model">3. ASRF Model</h3>
 </div>
-<div id="asrf-model" class="section level3">
-<h3>3. ASRF Model</h3>
 <p>The Merton’s model can be extended to <strong>Asymptotic Single Risk Factor model (ASRF)</strong>, assuming the assets value of any single borrowing company is correlated that of any other company with correlation <span class="math inline">\(\rho\)</span> ASRF model is portfolio-invariant. <span class="citation">(Juulia Happonen <a href="#ref-ASRF16">2016</a>)</span> provides the derivation of ASRF model (also show in below).</p>
 <p>The asset value of company <span class="math inline">\(i\)</span> is driven by a single factor <span class="math inline">\(Z\)</span> that represents the systemic credit risk. The idiosyncretic risk should already diversified.</p>
 <p><span class="math display">\[X_i = aZ+b \epsilon_i\]</span> where both <span class="math inline">\(Z\)</span> and <span class="math inline">\(\epsilon\)</span> follow standard normal distribution and <span class="math inline">\(Z\)</span> is independent of <span class="math inline">\(\epsilon\)</span> and each of <span class="math inline">\(\epsilon_i\)</span> for <span class="math inline">\(i=1,...,n\)</span> is independent of each other</p>
@@ -516,9 +519,9 @@ Var(X_i) &amp;= E[X_i^2] - E[X_i]^2 \\
 &amp;=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 \end{aligned}
 \]</span> where <span class="math inline">\(PD_i^{*}\)</span> is the <strong>unconditionally default probability (PD)</strong>, or the through-the-cycle (TTC) PD and <span class="math inline">\(\Phi^{-1}(PD_i^{*})\)</span> is the thresold for default by taking the inverse of standard normal distribution.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="risk-weighted-asset">4. Risk weighted asset</h3>
 </div>
-<div id="risk-weighted-asset" class="section level3">
-<h3>4. Risk weighted asset</h3>
 <p><span class="math display">\[Risk \ weighted \ asset = \frac{1}{8\%} \cdot K \cdot EAD\]</span></p>
 <p>where <span class="math inline">\(8\%\)</span> is the minimum capital ratio and <span class="math inline">\(K\)</span> is the capital requirement (expressed as percentage of the exposure).</p>
 <p>The credit loss:</p>
@@ -560,13 +563,13 @@ K  &amp;= \left(LGD_{downturn} \cdot VaR(\alpha) - LGD_{downturn} \cdot PD_{TtC}
 0.24 \cdot [1 – \frac{1-e^{-k \cdot PD}}{1-e^{-k}}] - 0.04 \cdot [1-\frac{S-5}{45}] \]</span></p></li>
 </ul>
 <p>where <span class="math inline">\(k\)</span> determines how fast the exponential function decreases and is set at 50 for corporate exposures, 35 for retail, <span class="math inline">\(S\)</span> refers to firm’s annual sales, between 5 and 50. The size adjustment ensures that the smaller the company size, the lower the asset correlation.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="use-asrf-model-for-ifrs9">5. Use ASRF model for IFRS9</h3>
 </div>
-<div id="use-asrf-model-for-ifrs9" class="section level3">
-<h3>5. Use ASRF model for IFRS9</h3>
 <p>The main feature of the IFRS9 requirement is the point-in-time (PiT) risk parameters, i.e. the PD, EAD or LGD should reflect the current &amp; future economic condition as opposed to the through-the-cycle (TtC) risk parameters. The ASRF model discussed in the above section can also be used in the IFRS 9 as <span class="math inline">\(z\)</span> (standard normal distribution) represents the single systemetic credit risk factor.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="numerical-noise-test">6. Numerical noise test</h3>
 </div>
-<div id="numerical-noise-test" class="section level3">
-<h3>6. Numerical noise test</h3>
 <p>To make the PiT adjustment for PD, we have to first assume that the flunctuation of the observed default rate is a reflection of the economic condition as opposed to random noise around the TtC PD. Based on the IRB PD (12 month), we can construct the binomial confidence bound around it.</p>
 <p>The figures below show an example for the binomial confidence bound for n=1000 and n=200. The greater the observation size, the smaller the bound. In other words, we need to have enough data to ensure that we are not model random noise if we were to link macroeconomic factor for the PiT adjustment. From the below figures, we can say that the PiT adjustment is required if the default rate are observed from sample size of 1000, but if it’s observed from sample size=200, we are not sure if the variation in default rate is caused by random noise.</p>
 <p>The average IRB PD can be different per period as the portfolio compisition changes and so does the number of observations per period.</p>
@@ -595,9 +598,9 @@ binomial_bounds(static_size=1000)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>binomial_bounds(static_size=200)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="estimate-asset-correlation-rho">7. Estimate asset correlation <span class="math inline">\(\rho\)</span></h3>
 </div>
-<div id="estimate-asset-correlation-rho" class="section level3">
-<h3>7. Estimate asset correlation <span class="math inline">\(\rho\)</span></h3>
 <p>The asset correlation <span class="math inline">\(\rho\)</span> can be estimated from the default rate. Following the equation above:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -653,9 +656,9 @@ legend(x=16, y=0.1, c(&quot;IRB TtC PD&quot;, &quot;Observed Default rate&quot;,
 <pre class="r"><code>cat(paste0(&quot;The calibrated asset correlation is: &quot;,rho*100,&quot;% \n&quot;))</code></pre>
 <pre><code>## The calibrated asset correlation is: 2.61%</code></pre>
 <pre class="r"><code>rho_p &lt;- rho</code></pre>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="macro-economic-model">8. Macro-economic model</h3>
 </div>
-<div id="macro-economic-model" class="section level3">
-<h3>8. Macro-economic model</h3>
 <p>Given the below formula derived in the previous section and the asset correlation <span class="math inline">\(\rho\)</span> estimated by the approach above, now the only missing piece is the <span class="math inline">\(Z\)</span> value, where <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -672,9 +675,9 @@ PD_{PiT} &amp;= \mathcal{P}(A_i(T)&lt;L_i)\\
 <li>Calculate the time series of <span class="math inline">\(PiT_{PD}\)</span> by using the formula above</li>
 </ol>
 <p>The above steps can be repeated for multiple candidate variables, and the one with the highest predicting power for observed default rate would be chosen. Furthermore, a combination of multiple varialbes can also be used as the <span class="math inline">\(Z\)</span> value and the weighted/cofficients be estimated by linear regression.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="rho-and-pit-distribution-shape">9. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
 </div>
-<div id="rho-and-pit-distribution-shape" class="section level3">
-<h3>9. <span class="math inline">\(\rho\)</span> and PiT distribution shape</h3>
 <p>The histagrams shows that as the <span class="math inline">\(\rho\)</span> increase, the distribution becomes more flat tailed.</p>
 <pre class="r"><code>rho &lt;- c(0.01,0.05,0.12)
 ttc &lt;- 0.05
@@ -694,9 +697,9 @@ abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)
 hist(pit[,3], breaks=50, freq=FALSE, ylim=c(0,40), xlim=c(0,0.15), xlab=&#39;PiT PD&#39;, main = &#39;rho = 10%&#39;)
 abline(v = ttc, col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="pd_ttc-and-variability">10. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 </div>
-<div id="pd_ttc-and-variability" class="section level3">
-<h3>10. <span class="math inline">\(PD_{TtC}\)</span> and variability</h3>
 <p>The histagram shows that the shape of PiT PD distributions are quite different given the same <span class="math inline">\(\rho\)</span> but different <span class="math inline">\(PD_{TtC}\)</span>. Therefore, for different PD rating <span class="math inline">\(r_{i}\)</span> (different <span class="math inline">\(PD_{TtC}\)</span>), the <span class="math inline">\(\rho_{r_i}\)</span> should be different to have the same shape.</p>
 <pre class="r"><code>rho &lt;- 0.04
 ttc &lt;- c(0.01,0.06,0.24)
@@ -716,9 +719,9 @@ abline(v = ttc[2], col=&quot;red&quot;, lwd=2, lty=2)
 hist(pit[,3], breaks=30, freq=FALSE, ylim=c(0,8), xlim=c(0,0.6), xlab=&#39;PiT PD&#39;, main = &#39;TtC = 24%&#39;)
 abline(v = ttc[3], col=&quot;red&quot;, lwd=2, lty=2)</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="asset-correlation-rho-per-rating">11. Asset correlation <span class="math inline">\(\rho\)</span> per rating</h3>
 </div>
-<div id="asset-correlation-rho-per-rating" class="section level3">
-<h3>11. Asset correlation <span class="math inline">\(\rho\)</span> per rating</h3>
 <p>The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD.</p>
 <pre class="r"><code>rating_ts &lt;- read.csv(&quot;/Users/smartboyben/Documents/Data/ASRF/NumberPerRating_timeseries.csv&quot;)
 IRB_TtC_PD &lt;- c(0.001319,0.006152,0.01343,0.01812,0.03423,0.07932,0.09503,0.1488,0.2353)
@@ -778,9 +781,9 @@ lines(PiT_PD_r_adjusted, col=&#39;blue&#39;, lwd=1)
 points(PiT_PD_r_adjusted, col=&#39;blue&#39;,pch=20)
 legend(x=14, y=0.1, c(&quot;PiT PD&quot;,&quot;PiT PD rating asset correlation&quot;),col=c(&quot;black&quot;,&quot;blue&quot;),lty=c(1,1),pch=c(20,20))</code></pre>
 <p><img src="ASRF_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="pit-non-default-migration">12. PiT non-default migration</h3>
 </div>
-<div id="pit-non-default-migration" class="section level3">
-<h3>12. PiT non-default migration</h3>
 <p>With the TtC rating migration matrix, and PiT adjustment for default probability are established, the next step is the PiT adjustment for non-default rating migration.</p>
 <p><span class="math display">\[MP^{PiT}_{r \to d} = F^{-1}_{PD}(MP^{TtC}_{r \to d};\rho_r;PiC)\]</span></p>
 <ul>
@@ -799,9 +802,9 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 \end{aligned}
 \]</span></p>
 <p>so on and so forth, we can derive the migration probability of <span class="math inline">\(r \to c\)</span> where <span class="math inline">\(c\)</span> is any non-default rating.</p>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="lgd-for-unresolved-cases">13. LGD for unresolved cases</h3>
 </div>
-<div id="lgd-for-unresolved-cases" class="section level3">
-<h3>13. LGD for unresolved cases</h3>
 <ul>
 <li><p><strong>Includes all observed defaults. </strong> The CCR requires all observed default cases to be considered when estimating the LGD uner IRB approach.</p>
 <p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span> 6.5: <em>“The CRR requirement that all observed defaults have to be taken into account applies to all LGD models under the IRB Approach, and hence no data exclusions are possible in the calculation of long-run average LGD. Furthermore, in the case of low-default portfolios the minimum requirements have to be met in order to receive permission to use the IRB Approach, and the CRR does not envisage any exemptions from these requirements for such portfolios.”</em></p></li>
@@ -809,9 +812,9 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 <p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span>: <em>“Institutions should estimate future recoveries only until a certain point in time, i.e. the maximum length of the recovery process during which a sufficient number of recoveries were actually observed in similar cases.”</em></p>
 <p><span class="math inline">\(\to\)</span> see <span class="citation">(European Banking Association <a href="#ref-EBA1716">2017</a>)</span>: <em>“No further recoveries should be estimated beyond the maximum length of the recovery processes specified for the specific type of exposures.”</em></p></li>
 </ul>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<h3 id="references">14. References</h3>
 </div>
-<div id="references" class="section level3 unnumbered">
-<h3>14. References</h3>
 <div id="refs" class="references">
 <div id="ref-BASEL2">
 <p>Basel Committee on Banking Supervision. 2005. <em>An Explanatory Note on the Basel II IRB Risk Weight Functions</em>. <a href="https://www.bis.org/bcbs/irbriskweight.pdf">https://www.bis.org/bcbs/irbriskweight.pdf</a>.</p>
@@ -821,7 +824,6 @@ MP^{PiT}_{r \to d-1} &amp;=  MP^{PiT}_{r \to \{d,d-1\}} - MP^{PiT}_{r \to d}\\
 </div>
 <div id="ref-ASRF16">
 <p>Juulia Happonen. 2016. <em>Theory Behind Regulatory Capital Formulae</em>. <a href="https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y">https://aaltodoc.aalto.fi/bitstream/handle/123456789/22834/master_Happonen_Juulia_2016.pdf?sequence=1&amp;isAllowed=y</a>.</p>
-</div>
 </div>
 </div>
 

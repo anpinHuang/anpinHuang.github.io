@@ -1,9 +1,8 @@
 ---
-title: "Recommendation Systems"
 output:
   html_document:
     toc: true
-    toc_depth: 3
+    toc_depth: 5
     toc_float:
       collapsed: false
       smooth_scroll: true
@@ -11,10 +10,16 @@ bibliography: references.bib
 link-citations: yes
 ---
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+<font size="18">
+<bold>
+Recommendation Systems
+</bold>
+</font size="18">
+</div>
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 1. Similarities
-</ins>
 </div>
 
 For 2 vectors $q$ and $x$
@@ -23,10 +28,8 @@ For 2 vectors $q$ and $x$
 * dot product: $\lVert q \lVert \lVert x \lVert cos(q,x)$
 * Euclidean distance: $\lVert q-x \lVert$
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-### 2. Content Based Recommend
-</ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 2. Content Based Filtering
 </div>
 
 The similarity measures can be use for content based filtering. When recommending a movie to a user, the similarity score is compared between the user and the movie. It is surprising to treat movie and user with the same feature space since they are 2 different kind of entities. This is just a way to measure relevance.
@@ -39,17 +42,53 @@ We can treat each user as a separate linear regression problems by following the
 
 This means that each user has their own method (represented by different linear function) of rating the movies by taking the variables $X$ as inputs.
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+* $r(i,j)=1$ if user $j$ has rated movie $i$, otherwise 0
+* $y^{(i,j)}=$ rating by user $j$ (if defined)
+* $\theta^{(j)}=$ parameter vector for user $j$
+* $x^{(i)}=$ feature vector for movie $i$
+* For user $j$, movie $i$, predicted rating: $(\theta^{(j)})^Tx^{i}$
+* $m^{(j)}=$ number of movies rated by user $j$
+
+To learn $\theta^{(j)}$, the parameter for single user $j$:
+
+ $\underset{\theta^{(j)}}{\operatorname{min}} \frac{1}{2m^{(j)}} \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2m^{(j)}} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2$
+ 
+Gradient descent update:
+
+* for $k=0$,  $\theta_k^{(j)}:=\theta_k^{(j)} - \alpha \frac{1}{m} \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)}$
+
+* for $k \neq 0$, $\theta_k^{(j)}:=\theta_k^{(j)}-\alpha \frac{1}{m} \left( \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)} + \lambda \theta_k^{(j)} \right)$
+
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 3. Collaborative Filtering
-</ins>
 </div>
 
+Assuming that users have given their preferences, then the problem becomes as follows.
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
+Given $\theta^{(1)},...,\theta^{(n_u)}$ to learn $x^{(i)}$:
+
+ $\underset{x^{(i)}}{\operatorname{min}} \frac{1}{2} \sum\limits_{j:r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2} \sum\limits_{k=1}^n (x^{(i)}_k)^2$
+ 
+ 
+* One way to learn both $\theta$ and $x$ is to performe the estimation iteratively: random initialize $\theta$ then learn $x$, then learn better $\theta$, $\to$ converges.
+
+To minimizing $x^{(1)},..., x^{n_m}$ and $\theta^{(1)},...\theta^{(n_u)}$ simultaneously:
+
+* Given $J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{\lambda}{2} \sum\limits_{i=1}^{n_m} \sum\limits_{k=1}^n (x^{(i)}_k)^2+ \frac{\lambda}{2} \sum\limits_{j=1}^{n_u} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2$ 
+* $\underset{x,\theta}{\operatorname{min}} J(x^{(1)},...,x^{(n_m)}, \theta^{(1)},...,\theta^{(n_u)})$
+
+Gradient descent update:
+
+* $\theta_k^{(j)}:=\theta_k^{(j)}-\alpha \frac{1}{m} \left( \sum\limits_{i:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) x_k^{(i)} + \lambda x_k^{(i)} \right)$
+
+* $x_k^{(i)}:=x_k^{(i)}-\alpha \frac{1}{m} \left( \sum\limits_{j:r(i,j)=1} \left( (\theta^{(j)})^T x^{(i)} - y^{(i,j)} \right) \theta_k^{(j)} + \lambda \theta_k^{(j)} \right)$
+
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 4. Matrix Factorization
-</ins>
 </div>
 
 When recommending a movie, the algorithm should recommend
@@ -59,42 +98,351 @@ When recommending a movie, the algorithm should recommend
 
 Again, both movies and users are represented in the same embedding space.
 
-The goal is to factorize the feedback matrix $A$ into the product of a user embedding matrix $U$ and item (movie) embedding matrix $V$ such that $A	\approx UV^T$
+For example, there are 4 users and 5 movies:
 
-* user $U \in \mathbb{R}^{m {\times} d}$
-* item $V \in \mathbb{R}^{n {\times} d}$
+$$Y=
+\begin{bmatrix}
+5 & 5 & 0 & 0 \\
+5 & \mathord{?} & \mathord{?} & 0 \\
+\mathord{?} & 4 & 0 & \mathord{?} \\
+0 & 0 & 5 & 4 \\
+0 & 0 & 5 & 0
+\end{bmatrix}$$
 
-where $m$ is the number of user, $n$ is the number of items and $d$ is the number of dimensions (features/variables)
+Predicted ratings:
+$$ 
+\begin{bmatrix}
+(\theta^{(1)})^Tx^{(1)} & (\theta^{(2)})^Tx^{(1)} & (\theta^{(3)})^Tx^{(1)} & (\theta^{(4)})^Tx^{(1)} \\
+(\theta^{(1)})^Tx^{(2)} & (\theta^{(2)})^Tx^{(2)} & (\theta^{(3)})^Tx^{(2)} & (\theta^{(4)})^Tx^{(2)} \\
+(\theta^{(1)})^Tx^{(3)} & (\theta^{(2)})^Tx^{(3)} & (\theta^{(3)})^Tx^{(3)} & (\theta^{(4)})^Tx^{(3)} \\
+(\theta^{(1)})^Tx^{(4)} & (\theta^{(2)})^Tx^{(4)} & (\theta^{(3)})^Tx^{(4)} & (\theta^{(4)})^Tx^{(4)} \\
+(\theta^{(1)})^Tx^{(5)} & (\theta^{(2)})^Tx^{(5)} & (\theta^{(3)})^Tx^{(5)} & (\theta^{(4)})^Tx^{(5)} 
+\end{bmatrix} = 
+\begin{bmatrix}
+(x^{(1)})\\ 
+(x^{(2)})\\ 
+(x^{(3)})\\
+(x^{(4)})\\
+(x^{(5)})
+\end{bmatrix}
+\begin{bmatrix}
+\theta^{(1)} & \theta^{(2)}  & \theta^{(3)}  & \theta^{(4)} 
+\end{bmatrix}= 
+\begin{bmatrix}
+(x^{(1)})\\ 
+(x^{(2)})\\ 
+(x^{(3)})\\
+(x^{(4)})\\
+(x^{(5)})
+\end{bmatrix}
+\begin{bmatrix}
+(\theta^{(1)})\\ 
+(\theta^{(2)})\\ 
+(\theta^{(3)})\\
+(\theta^{(4)})
+\end{bmatrix}^T
+= X \theta^T
+$$
 
-Matrix factorization, $UV^T$ is a simple embedding model
+To make the notation simplier to read:
 
-Choosing the Objective Function
+* $X$: item embedding $V \in \mathbb{R}^{n_m {\times} k}$
+* $\theta$: user embedding $U \in \mathbb{R}^{n_u {\times} k}$
 
-* Observing only MF
-* Weighted MF
-* Singular Value Decomposition (SVD)
 
-Minimizing the Objective Function
 
-* Stochastic gradient descent (SGD) 
-* Weighted Alternating Least Squares (WALS)
+The goal is to factorize the feedback matrix $Y$ into the product of a user embedding matrix $U$ (or $\theta$ in the previous section) and item (movie) embedding matrix $V$ (or $X$ in the previous section) such that $Y	\approx VU^T$
+
+Matrix factorization, $VU^T$ is a simple embedding model
 
 $\to$ cold-start problem
 
-
-
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<ins>
-### 5. Terminology 
-</ins>
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 5. Mean Normalization 
 </div>
 
-* Item = Items to be recommended
-* Query = The information a system uses to make recommendations. e.g. items previously interact with, time of day, the user's device
-* Embedding = A mapping from a discrete set (in this case, the set of queries, or the set of items to recommend) to a vector space called the embedding space. 
+Assuming user 5 has not yet rated any movies.
+
+$$Y=
+\begin{bmatrix}
+5 & 5 & 0 & 0 & \mathord{?} \\
+5 & \mathord{?} & \mathord{?} & 0 & \mathord{?}\\
+\mathord{?} & 4 & 0 & \mathord{?} & \mathord{?}\\
+0 & 0 & 5 & 4 & \mathord{?}\\
+0 & 0 & 5 & 0 & \mathord{?}
+\end{bmatrix}$$
+
+Then, $\theta^{(5)}$ is going to a vector of 0, as
+
+* it is optimized only by the regularization term $\sum\limits_{j=1}^{n_u} \sum\limits_{k=1}^n (\theta^{(j)}_k)^2$. 
+* The term $\frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2$ does not affect $\theta^{(5)}$ as $r(i,j)=0$ for $i=5$
+
+The resulting predicted ratings for all movies rated by user 5 would then be 0 given by $(\theta^{(5)})^Tx^{(i)} = 0$ which is not very useful.
+
+Solution- mean normalization (mean for $(i,j)$ where $r(i,j)=1$). The mean vector $mu$ of the feedback matrix $Y$ is:
+
+$$
+\mu = \begin{bmatrix}
+2.5\\ 
+2.5\\ 
+2\\
+2.25\\
+1.25
+\end{bmatrix}
+$$
+
+Then, the mean normalized feedback matrix $Y$ becomes:
+$$Y=
+\begin{bmatrix}
+2.5 & 2.5 & -2.5 & -2.5 & \mathord{?} \\
+2.5 & \mathord{?} & \mathord{?} & -2.5 & \mathord{?}\\
+\mathord{?} & 2 & -2 & \mathord{?} & \mathord{?}\\
+-2.25 & -2.25 & 2.75 & 1.75 & \mathord{?}\\
+-1.25 & -1.25 & 3.75 & -1.25 & \mathord{?}
+\end{bmatrix}$$
+
+Then learn $\theta^{(j)}$ and $x^{(i)}$ using the mean normalized feedback matrix. The prediction for user $j$ and movie $i$ would be:
+
+$$(\theta^{(j)})^Tx^{(i)} + \mu_i$$
+
+The intuition is that if the user hasn't rated any movies, the the prediction for movie $i$ is just going to be the average rating of movie $i$.
+
+On the other hand, if there is a movie that hasn't been rated by any user, the mean normalization can be applied to column.
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 6. Choose the Loss Function 
+</div>
+
+The below loss function comparison are shown without regularization terms:
+
+* Observing only: only sum over observed pairs 
+  $$J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2$$
+* treat the unobserved values $y^{(i,j)}$ as zero: Singular Value Decomposition (SVD)
+  $$J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j)} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2$$
+* Weighted Matrix Factorization - decomposes the objective into the following two sums:
+  * A sum over observed entries.
+  * A sum over unobserved entries (treated as zeroes).
+    $$J(x^{(1)},...,x^{(n_m)},\theta^{(1)},...,\theta^{(n_u)}) = \frac{1}{2} \sum\limits_{(i,j):r(i,j)=1} w_{i,j} \left( (\theta^{(j)})^Tx^{(i)}-y^{(i,j)} \right)^2 + \frac{1}{2} \sum\limits_{(i,j):r(i,j)=0} w_{0}\left( (\theta^{(j)})^Tx^{(i)} \right)^2$$
+  where $w_{i,j}$is a function of the frequency of movie $i$ and user $j$, *"$w_0$ is a hyperparameter that weights the two terms so that the objective is not dominated by one or the other. Tuning this hyperparameter is very important."*
+
+
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 7. Stochastic Gradient Descent 
+</div>
+
+The (batch) gradient descent approach becomes computational expensive when the data is large.
+
+1. Randomly shuffle dataset
+2. 
+
+Another approach called Mini-batch Gradient Descent lies somewhere between the (batch) gradient and stochastic gradient descent.
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+
+### 8. Weighted Alternating LS
+
+</div>
+
+Weighted Alternating Least Squares (WALS) 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 9. Example: MovieLens Data
+</div>
+
+```{r, message=FALSE, echo=FALSE}
+library(sqldf)
+library(dplyr)
+```
+
+
+```{r}
+
+
+# load data
+user <- read.csv("/Users/smartboyben/Documents/Data/MovieLens/u.user",sep="|",header=FALSE)
+colnames(user) <- c('user_id', 'age', 'sex', 'occupation', 'zip_code')
+
+ratings <- read.csv('/Users/smartboyben/Documents/Data/MovieLens/u.data',sep='\t')
+colnames(ratings) <- c('user_id', 'movie_id', 'rating', 'unix_timestamp')
+movies <- read.csv('/Users/smartboyben/Documents/Data/MovieLens/u.item',sep="|",header=FALSE)
+
+# The movies file contains a binary feature for each genre.
+genre_cols <- c(
+    "genre_unknown", "Action", "Adventure", "Animation", "Children", "Comedy",
+    "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror",
+    "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western"
+)
+colnames(movies) <- c('movie_id', 'title', 'release_date', "video_release_date", "imdb_url",genre_cols)
+colnames(movies)[[16]] <- "Film_Noir"
+colnames(movies)[[21]] <- "Sci_Fi"
+
+rating_DF <- full_join(
+  x=ratings,
+  y=user,
+  by = ("user_id"="user_id"),
+  copy = FALSE,
+  suffix = c(".rating", ".user"),
+  keep = FALSE
+)
+
+rating_DF <- full_join(
+  x=rating_DF,
+  y=movies,
+  by = ("movie_id"="movie_id"),
+  copy = FALSE,
+  suffix = c(".rating", ".movie"),
+  keep = FALSE
+)
+
+
+```
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+#### 9.1 Data Exploration
+</div>
+
+In this dataset, the number of users, 943, is less than the number of movies, 1,682. In reality though, there should be a lot more user than movies.
+
+```{r}
+cat("unique users:",nrow(user),"\n")
+cat("unique movies:",nrow(movies))
+```
+
+```{r}
+user_rating_avg <- sqldf("
+select user_id
+, count(*) as rate_number
+, avg(rating) as avg_user_rating
+from rating_DF
+group by 1
+", drv="SQLite")
+
+par(mfrow=c(1,2))
+hist(user_rating_avg[,"avg_user_rating"], xlab='rating',main="Users' Average Rating", breaks = 20)
+hist(user_rating_avg[,"rate_number"], xlab='Number of movies that a user rated',main="Number of movies that a user rated", breaks = 150, xlim=c(0,150))
+```
+
+```{r}
+movie_rating_avg <- sqldf("
+select movie_id
+, count(*) as rated_count
+, avg(rating) as avg_movie_rating
+from rating_DF
+group by 1
+", drv="SQLite")
+
+par(mfrow=c(1,2))
+hist(movie_rating_avg[which(movie_rating_avg$rated_count>10),"avg_movie_rating"], xlab='rating',main="Movies' Average Rating", breaks=20)
+hist(movie_rating_avg[,"rated_count"], xlab='Number of times a movies is rated',main="Number of times a movies is rated", breaks=300, xlim=c(0,30))
+```
+
+
+```{r}
+## contruct feedback matrix
+ratings <- sqldf("
+select * from ratings order by movie_id, user_id asc                 
+                 ",drv="SQLite")
+
+Y_feedback <- reshape(ratings[,c("movie_id","user_id","rating")], idvar = "movie_id", timevar = "user_id", direction = "wide",sep="_")
+rownames(Y_feedback) <- Y_feedback$movie_id
+Y_feedback$movie_id <- NULL
+Y <- Y_feedback
+
+## movie vectors
+V <- movies[,c(6:ncol(movies))]
+rownames(V) <- movies$movie_id
+V <- as.matrix(V)
+## user vectors
+U <- data.frame(matrix(NA, nrow=nrow(user), ncol=ncol(V)))
+rownames(U) <- user$user_id
+
+```
+
+
+```{r}
+GD_optimize_U <- function(Y, U, V, learning_rate=10, regularization=TRUE, lambda=1) {
+  ## initialize the parameters for V
+  initial_U <- sample(c(0,1), replace=TRUE, size=(nrow(U)*ncol(U)))
+  initial_U <- matrix(initial_U, nrow=nrow(U), ncol=ncol(U))
+  U <- initial_U 
+  approx_Y <- V%*%t(U)
+  m <- length(which(!is.na(Y)))
+  r <- which(!is.na(Y),arr.ind=TRUE)
+  for(i in 1:1000) {
+    if(regularization==TRUE) {
+      U <- U - learning_rate * ( (Y[r[i,1],r[i,2]]-approx_Y[r[i,1],r[i,2]])*V[i,] + lambda*U )
+      approx_Y <- V%*%t(U)
+      #loss <- 1/(2*m)*sum(Y-approx_Y)
+      #loss <- loss + sum(U^2)/(2*m) + sum(V^2)/(2*m)
+    } else {
+      for(j in 1:nrow(U)) {
+        U[j,] <- U[j,] - learning_rate * sum(Y[j,]-approx_Y[j,],na.rm = TRUE)*
+      }
+      temp <- sum(Y-approx_Y,na.rm = TRUE) *V
+      U <- U - learning_rate * temp/m
+      approx_Y <- V%*%t(U)
+      #loss <- 1/(2*m)*sum(Y-approx_Y)
+    }
+  }
+  return(U)
+}
+```
+
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+#### 9.2 GD without Regularization
+</div>
+```{r}
+GD_optimize_U <- function(Y, U, V, learning_rate=1, iterations=10, regularization=TRUE, lambda=1) {
+  ## initialize the parameters for V
+  initial_U <- sample(c(0,5), replace=TRUE, size=(nrow(U)*ncol(U)))
+  #initial_U <- rnorm(n=nrow(U)*ncol(U), 0,1)
+  initial_U <- matrix(initial_U, nrow=nrow(U), ncol=ncol(U))
+  U <- initial_U 
+  approx_Y <- V%*%t(U)
+  if(regularization==TRUE) {
+    for(j in 1:nrow(U)) {
+        mj <- which(!is.na(Y[,j]))
+        for(t in 1:10) {
+          temp <- ( (Y[1,j]-approx_Y[1,j])*V[mj[1],])
+          for(i in 2:length(mj)) {
+            temp <- temp + ( (Y[mj[i],j]-approx_Y[mj[i],j]) * V[mj[i],]) + lambda*V[j,]
+          }
+          U[j,] <- U[j,] - learning_rate * temp/length(mj)
+          approx_Y <- V%*%t(U)
+        }
+      }
+    } else {
+      for(j in 1:nrow(U)) {
+        mj <- which(!is.na(Y[,j]))
+        loss <- as.data.frame(matrix(NA,nrow=500,ncol=1))
+        for(t in 1:100) {
+          temp <- ( (approx_Y[mj[1],j]-Y[mj[1],j])*V[mj[1],])
+          for(i in 2:length(mj)) {
+            temp <- temp + ( (approx_Y[mj[i],j] - Y[mj[i],j]) * V[mj[i],])
+          }
+          U[j,] <- U[j,] - learning_rate * temp/length(mj)
+          approx_Y <- V%*%t(U)
+          loss[t,1] <- 1/2 * sum((approx_Y[,j]-Y[,j])^2, na.rm = TRUE)/length(mj)
+        }
+      }
+    }
+  return(U)
+}
+
+U_hat <- GD_optimize_U(Y, U, V, regularization = FALSE)
+#nonRegularized_U <- SGD_optimize_U(Y=Y_feedback, U=U, V=V, learning_rate = 0.001, regularization=FALSE)
+
+```
+
+
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-### 6. References
+### 11. References
 </ins>
 </div>

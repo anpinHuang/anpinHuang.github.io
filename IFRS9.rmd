@@ -14,7 +14,10 @@ link-citations: yes
 ---
 
 
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 1. Overview
+</div>
 
 Under the IFRS9, the loan loss provisioning (ECL) are different from the Basel requirements in the following 3 aspects.
 
@@ -30,7 +33,12 @@ Futhermore, the lender should reserve for the loan loss based on different stage
 * **Stage 3:**  If the loan’s credit risk increases to the point where it is considered **credit-impaired**, interest revenue is calculated based on the loan’s **amortised cost** (gross carrying amount minus loss allowance). Lifetime ECLs are recognised.
 
 
+
+
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 2. SICR
+</div>
+
 SICR referes to Significant Increase in Credit Risk. The summary of significant increase in credit risk is discussed the the following bullet points with corresponding text from the regulatory documents and other references.
 
 * **Lifetime default risk** as the measurement. Significant increase in the lifetime default risk is used as the measurement as opposed to the lifetime expected credit loss. 
@@ -99,9 +107,11 @@ $$ PD\ relative\ change = \frac{PiTPD_{reporting}(reporting \to maturity)}{PiTPD
 $$relative\ threshold = ln(\frac{1}{PiTPD_{origination}(reporting \to maturity)/T(reporting \to maturity)}-1) \cdot  S_{factor}$$
  
 
-
-
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 3. Probability weighted scenarios
+</div>
+
+
 
 
 * The ECL should be based on a range of possible outcomes weighted by the unbiased probability of occurance.
@@ -113,16 +123,20 @@ An entity shall measure expected credit losses of a financial instrument in a wa
   * reasonable and supportable information that is available without undue cost or effort at the reporting date about past events, current conditions and forecasts of future economic conditions."
   
   
-### 4. Other points
 
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
+### 4. Other points
+</div>
   
 * The remaining lifetime cannot exceed the contractual maturity. Essentially, the multi-year ECL is 0 beyond the contractual maturity.
 
   $\to$ see [@EBA1706] 5.5.19: The maximum period to consider when measuring expected credit losses is the maximum contractual period (including extension options) over which the entity is exposed to credit risk and not a longer period, even if that longer period is consistent with business practice.
   
 
-
+<div style="background-color:white;color:#FF8250;matrixOperation:20px;">
 ### 6. References
+</div>
+
   
   
   

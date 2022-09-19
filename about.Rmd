@@ -10,7 +10,13 @@ output:
 <img src="suitUp.jpeg" width="150" height="150" />
   
 #### <ins>**Experience **</ins>
-***ING***  Amsterdam, North Holland, NL  (11/2020-present)  
+
+***adidas***  Amsterdam, North Holland, NL  (06/2022-present)  
+  Senior Manager, Global Trading Analytics
+  
+  * Led the analytics team to support buying, planning and trading team
+  
+***ING***  Amsterdam, North Holland, NL  (11/2020-05/2022)  
   Credit Risk Model Developer, IFRS 9 Methodology
   
   * IFRS 9-compliant model for Commercial Property Finance portfolio (wholesale portfolio)
