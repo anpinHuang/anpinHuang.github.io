@@ -1,13 +1,16 @@
 ---
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
   html_document:
-    toc: true
+    toc: yes
     toc_depth: 3
     toc_float:
-      collapsed: false
-      smooth_scroll: true
+      collapsed: no
+      smooth_scroll: yes
     includes:
-       in_header: GA_Script.html
+      in_header: GA_Script.html
 bibliography: references.bib
 link-citations: yes
 ---
@@ -96,15 +99,15 @@ A_t &= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)dt + \sigma dW(t)} \\
 &= A_0 \cdot e^{(\mu - \frac{1}{2}\sigma^2)t + \sigma \sqrt{t}X(t)} 
 \end{aligned}
 $$ 
-where $X_t \sim \mathcal{N}(0,1)$ or $\Phi$
+where $X_t \sim {N}(0,1)$ or $\Phi$
 
 The probability of default (not risk-neutral, but physical world and therefore $\mu$ is used instead of $r$) can be expressed as
 
 $$
 \begin{aligned}
-\mathcal{P}[A_i(T)<L_i] &= \mathcal{P}[A_i(0) \cdot e^{(\mu_i - \frac{1}{2}\sigma_i^2)T + \sigma_i \sqrt{T}X_i(T)}<L_i]\\
-&= \mathcal{P}[X_i(T)<\frac{ln(L_i)-ln(A_i(0))-(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
-&= \mathcal{P}[X_i(T)>\frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+{P}[A_i(T)<L_i] &= {P}[A_i(0) \cdot e^{(\mu_i - \frac{1}{2}\sigma_i^2)T + \sigma_i \sqrt{T}X_i(T)}<L_i]\\
+&= {P}[X_i(T)<\frac{ln(L_i)-ln(A_i(0))-(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
+&= {P}[X_i(T)>\frac{ln(A_i(0))-ln(L_i)+(\mu_i-\frac{\sigma_i^2}{2})T}{\sigma_i \sqrt{T}}] \\
 &= 1-\Phi(d2) \\
 &= \Phi(-d2)
 \end{aligned}
@@ -162,9 +165,9 @@ Now we want to derive the **conditional default probability** given the informat
 
 $$
 \begin{aligned}
-\mathcal{P}(A_i(T)<L_i) &= \mathcal{P}(X_i(T)<-d_2)\\
-&=  \mathcal{P}(\sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i < -d_2) \\
-&=  \mathcal{P}(\epsilon_i < \frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+{P}(A_i(T)<L_i) &= {P}(X_i(T)<-d_2)\\
+&=  {P}(\sqrt{\rho} \cdot Z + \sqrt{1-\rho} \cdot \epsilon_i < -d_2) \\
+&=  {P}(\epsilon_i < \frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 &=  \Phi(\frac{-d_2-\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 &=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 \end{aligned}
@@ -294,8 +297,8 @@ The asset correlation $\rho$ can be estimated from the default rate. Following t
 
 $$
 \begin{aligned}
-PD_{PiT} &= \mathcal{P}(A_i(T)<L_i)\\
-&=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
+PD_{PiT} &= {P}(A_i(T)<L_i)\\
+ &=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 \end{aligned}
 $$
 
@@ -364,7 +367,7 @@ Given the below formula derived in the previous section and the asset correlatio
 
 $$
 \begin{aligned}
-PD_{PiT} &= \mathcal{P}(A_i(T)<L_i)\\
+PD_{PiT} &= {P}(A_i(T)<L_i)\\
 &=  \Phi(\frac{\Phi^{-1}(PD_i^{*}) -\sqrt{\rho} \cdot Z}{\sqrt{1-\rho}}) \\
 \end{aligned}
 $$
@@ -445,7 +448,7 @@ abline(v = ttc[3], col="red", lwd=2, lty=2)
 The issue above presents when we estimate the asset correlation on portfolio level, but apply the same asset correlation to different ratings with different TtC PD. 
 
 ```{r}
-rating_ts <- read.csv("/Users/smartboyben/Documents/Data/ASRF/NumberPerRating_timeseries.csv")
+rating_ts <- read.csv("~/Documents/GitHub/anpinHuang.github.io/ASRF_files/NumberPerRating_timeseries.csv")
 IRB_TtC_PD <- c(0.001319,0.006152,0.01343,0.01812,0.03423,0.07932,0.09503,0.1488,0.2353)
 PiT_PD_R <- matrix(0,nrow=nrow(rating_ts))
 total_number <- rowSums(rating_ts)
