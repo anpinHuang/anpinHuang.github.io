@@ -505,9 +505,14 @@ predicted_logistic_test <- predict(model, var_woes_test, type="response")
 ```
 
 ```{r, message=FALSE}
+roc_logistic <- roc(tran_ext[tran_test,"TARGET"], predicted_logistic_test) #AUC score
+plot(roc_logistic ,main ="ROC curve -- Logistic Regression ")
+
+
 auc_logistic_train <- auc(tran_ext[tran_train,"TARGET"], predicted_logistic)
 auc_logistic_test <- auc(tran_ext[tran_test,"TARGET"], predicted_logistic_test)
 cat(paste0("Training AUC: ", auc_logistic_train,"\n", "Testing AUC: ", auc_logistic_test,"\n"))
+
 ```
 
 
@@ -557,6 +562,15 @@ auc_gbm_test <- auc(tran_ext[tran_test,"TARGET"], predicted_gbm_test)
 cat(paste0("Training AUC: ", auc_gbm_train,"\n", "Testing AUC: ", auc_gbm_test,"\n"))
 ```
 
+```{r, message=FALSE}
+roc_logistic <- roc(tran_ext[tran_test,"TARGET"], predicted_logistic_test) 
+roc_tree <- roc(tran_ext[tran_test,"TARGET"], predicted_tree_test[,1]) 
+roc_boost <- roc(tran_ext[tran_test,"TARGET"], predicted_gbm_test) 
+plot(roc_logistic ,main ="ROC curve ")
+plot(roc_tree ,add=TRUE, col='red')
+plot(roc_boost ,add=TRUE, col='blue')
+
+```
 ### 11. Conclusion
 
 to be continued...
