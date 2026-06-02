@@ -450,7 +450,7 @@ The court found that:
 * However, such substantive unfairness is not usually enough to set aside a contract. The complaining party must also demonstrate some flaw in the bargaining process that allowed the unfair terms to arise.
 
 
-#### 5.2 "One Sided Arbitration" Ferguson v. Conutry Credit Industries, Inc
+#### 5.2 "One Sided Arbitration" Ferguson v. Countrywide Credit Industries, Inc
 
 <u> *Situation:* </u>
 
@@ -922,9 +922,30 @@ The UCC only applies to sale of goods. The adequate assurance doctrine of the Co
 However, not all States embrace the adequate assurance doctrine outside of UCC cases.
 
 
-#### 14.1 "Courier's Alternative" - Albert Hochster v. Edgar De La Tour
+#### 14.1 Anticipatory Breach - "Courier's Alternative" - Hochster v. De La Tour
 
-Situation:
+<u>*Situation:* </u>
+
+* Edgar De La Tour planned a three month grand tour of the European continent for the summer of 1852. He decided to hire a courier to accompany him on his travels. And so, in April, he hired Albert Hochster to serve as his courier on the trip which was to begin on June 1st. 
+* But De La Tour soon changed his mind. On May 11th he wrote that he no longer required Hochster services, and that Hochster would receive no compensation. 
+* On May 22nd, Hochster sued De La Tour for breach of contract. And then sometime between then and June 1st, he managed to find another job on just as good terms, but not beginning until July 4th. 
+
+<u>*Central Issue & Ruling from Lord Campbell (England):* </u>
+
+* Were Hochster's contractual obligations still holds after De La Tour's repudiation? Note that this would have prevented him from accepting the alternative employment beginning on July 4th.
+
+* Could Hochster bring suit before June 1 given that De La Tour had not yet failed to meet any of his contractual obligations.?
+
+  --> courts have allowed such suits and contracts of marriage where        
+  * one party marries someone else in contracts to lease a particular property
+  * the lessor leases it to someone else for the same time period. 
+  * Ending contracts for purchase of goods where the seller sells them to someone else. 
+
+  --> In this case, he suggests that if De La Tour had set to sail for Australia before June 1st arrived, Hochster could have sued for breach under the same precedents. 
+
+This case comes from England and we're reading the decision from ​the Court of Queens Bench on appeal after Hochster won a trial. ​There were two legal questions for the appeals court to answer. ​The first was whether Hochster was obligated even after receiving De La Tour's letter ​to be ready to accompany him on a three month tour of Europe beginning on June 1st. ​Note that this would have prevented him from ​accepting the alternative employment beginning on July 4th. ​The second question was whether Hochster could sue De La Tour before June 1st ​given that De La Tour had not yet failed to meet any of his contractual obligations. 
+
+
 
 Lord Campbell also makes **economic argument**: "[I]nstead of remaining idle and laying out money in preparations which might be useless, he is at liberty to service under another company". **-->** This would allow for "mitigation of the damages to which he would otherwise be entitled for a breach of the contract"
 
@@ -998,11 +1019,13 @@ The steps that the court used for finding McDonald's rightfully cancelled the co
 2. The injured party is not precluded from recovery by the rule stated in Subsection (1) to the extent that **he has made reasonable but unsuccessful efforts to avoid loss**.
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
-*Restatement (Second) § 371*
+*Restatement (Second) § 371 - calculating restitution damages*
 </div>  
 
-a. the reasonable value to the other party of what he received in terms of what it would have cost him to obtain it from a person in the claimant's position, or
-b. the extent to which the other party's property has been increased in value or his other interests advanced.
+If a sum of money is awarded to protect a party's restitution interest, it may as justice requires be measured by either
+
+a. the reasonable value to the other party of what he received in terms of ***what it would have cost him to obtain it*** from a person in the claimant's position, OR
+b. the extent to which ***the other party's property has been increased in value*** or his other interests advanced.
 
 <u>Burden of proof:</u>
 
@@ -1014,13 +1037,15 @@ b. the extent to which the other party's property has been increased in value or
 *UCC § 2-708(1)*
 </div>  
 
-"*The measure of damages for non-acceptance or repudiation by the buyer is the difference between the market price at the time and place for tender and the unpaid contract price, together with any incidental damages ... but less expenses saved in consequence of the buyer's breach.*"
+"*The measure of damages for non-acceptance or repudiation by the buyer is the **difference between the market price at the time and place for tender and the unpaid contract price**, together with any incidental damages ... but less expenses saved in consequence of the buyer's breach.*"
+
+professor note: if the market price of the goods at the specified performance time and place is less than the amount specified in the contract, the seller can recover the difference. But if the market price is the same, 2-708(1) wouldn't provide damages for the seller. This is where 2-708(2) comes in.
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *UCC § 2-708(2)*
 </div>  
 
-"*If ... subsection (1) is inadequate to put the seller in as good a position as performance would have done then the measure of damages is the prodit ... which the seller would have made from full performance by the buyer. together with any incidental damages ... due allowance for costs reasonably incurred and due credit for payments or proceeds of resale.*"
+"*If ... subsection (1) is inadequate to put the seller in as good a position as performance would have done then the measure of damages is the **profit ... which the seller would have made from full performance by the buyer**. together with any incidental damages ... due allowance for costs reasonably incurred and due credit for payments or proceeds of resale.*"
 
 
 
@@ -1060,9 +1085,9 @@ Traditional rule of calculating
 * Since "Union knew that, if the sale of the property go through, the result would be that [Saugus Bank] would enforce it's rights under the mortgage and that a foreclosure sale was likely", the "correct measure of damages, on traditional contract principles, was the full amount of actual loss, the contract price less the amount received for the property at the foreclosure sale"
 
 
-#### 15.2 "Restitution and Losing Contract" - Sidney Bernstein v. Ronald Nemeyer
+#### 15.2 "Restitution and Losing Contract" - Bernstein v. Nemeyer
 
-Situation:
+<u>Situation: </u>
 
 * Defendant (Nemeyer) promised the plaintiff (Bernstein) to loan money to cover any negative cash-flow
 * Take priority in having loan paid off in future before other investors
@@ -1073,17 +1098,26 @@ Situation:
 
 <u>Take from Chief Justice Peters: </u>
 
-* Supreme Court of Connecticut Chief Justice Peters found the breach of **not lending money that one promised to lend to be material**. Then can the plaintiff get restitution?
-* Then the question: May a plaintiff obtain restitution when the breaching defendant obtained no benefit from the contract?
+* Supreme Court of Connecticut Chief Justice Peters found the breach of <u>not lending money that one promised to lend to be ***material***</u>. Then can the plaintiff get restitution?
+* Then the question: May a plaintiff obtain restitution <u>***when the breaching defendant obtained no benefit from the contract***</u>?
   * Plaintiffs have not tried to put defendants back in their original position (prerequisite for restitution, though meaningless in this case since the shares are already worthless).
   * No unjust enrichment: defendants lost money due to the contract.
 
 
-Review types of recovery for damages:
+<u>Review types of recovery for damages: </u>
 
-* **Expectation:** "put the non-breaching (injured) party in as good a position as he would have been **if the contract had been performed**"
-* **Reliance:** "put the injured party back in the position he would have been in **if the contract had not been made**"
-* **Restitution:** "put the **party in breach** back in the position he would have been in if the contract had not been made". **The calculation focuses on the defendant, not on the plaintiff.** The goal of restitution is to prevent defendants from being **unjustly enriched** by their breach of contract.
+* **Expectation:**        
+  "put the non-breaching (injured) party in as good a position as he would have been **if the contract had been performed**"
+* **Reliance:**         
+  "put the injured party back in the position he would have been in **if the contract had not been made**"
+* **Restitution:**        
+  "put the **party in breach** back in the position he would have been in if the contract had not been made". **The calculation focuses on the defendant, not on the plaintiff.** The goal of restitution is to prevent defendants from being **unjustly enriched** by their breach of contract.
+* plaintiffs are usually limited to <u>***the lesser of reliance and expectation damages***</u>.        
+  If a plaintiff elects to pursue reliance damages, courts will reduce them to the expectation about if the defendants persuade the court that expectation damages would be smaller. (BH: if your reliance damage is higher than expectation damage, then you must be doing something wrong because your expected value could be negative)
+* At common law,         
+  * the plaintiff initially gets to choose among any of the three classic measures, for damages - expectation, reliance, or restitution. 
+  * the plaintiff has the burden of proving the amount of the elected damage measure. 
+  * If the plaintiff chooses reliance or restitution and meets her burden of proving these damages, the burden then shifts to the defendant to show that expectation damages would be smaller. 
 
 --> in this case the plaintiff sue for **restitution**.
 
@@ -1128,6 +1162,8 @@ then
 
 * The court disagreed. It explained that ***Locks had many jukeboxes to sell or rent***. Where in our earlier hypothetical, you only had one house you could sell. Locks had many jukeboxes. Because of this <u>***ample supply and limited demand***</u>, if Wade had kept his promise and leased the jukebox equipment, Locks still would have been able to lease additional jukebox equipment to the same people that wanted the equipment after Wade breached. He would have realized the profits from both agreements.
 * "*Where, as here, a plaintiff lessor agrees to lease an article of which the <u>***supply in the market is for practical purposes not limited***</u>, then the law would be depriving him of the benefit of his bargain if, on the breach of the agreement, it required his claim against the lessee to be reduced by the amount he actually did or reasonably could realize on a reletting of the article.*"
+* Lost-volume damages should only be awarded if the breach is ***but-for cause*** of a change in the seller's volume. 
+* It is the <u>***breaching lessees burdened to prove that there was no lost volume in these cases***</u>.
 
 ###  16. Breach by the Seller
 
