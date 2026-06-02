@@ -1,0 +1,15 @@
+---
+title: "Law"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+#### Contract Law
+
+ 
+* [Contract Law I](contractLawI.html) 
+* [Contract Law II](contractLawII.html) 
+
+

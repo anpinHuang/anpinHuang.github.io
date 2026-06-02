@@ -12,3 +12,4 @@ The purpose of this website is to serve as notes for some of the topics that I f
   2. [Data Science & Machine Learning](dataScienceML.html)  
   3. [Financial Mathematics (Stochastic Calculus) & Risk Management](Finance.html)  
   4. [Programming](Programming.html)
+  5. [Law](Law.html)  
