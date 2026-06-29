@@ -8,8 +8,11 @@ output:
 
 #### Contract Law
 
- 
 * [Contract Law I](contractLawI.html) 
 * [Contract Law II](contractLawII.html) 
+
+#### Criminal Procedure
+
+* [The Fourth Amendment - Foundations of Search and Seizure](criminal_procedure1.html) 
 
 

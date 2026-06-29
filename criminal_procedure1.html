@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>criminal_procedure1.knit</title>
+
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9DRW0BMM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DH9DRW0BMM');
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-222711575-1');
+</script>
+
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="the-fourth-amendment---foundations-of-search-and-seizure"
+class="section level3">
+<h3>The Fourth Amendment - Foundations of Search and Seizure</h3>
+<ul>
+<li>Probable cause:
+<ul>
+<li>justifies full custodial arrests and the absolute constitutional
+prerequisite for a judge to issue a warrant to search a home or seize
+property</li>
+<li>when the facts and circumstances within the officer’s knowledge are
+sufficient to warrant a person of reasonable caution in the belief that
+an offense has been or is being committed or that contraband will be
+found in a particular place</li>
+</ul></li>
+</ul>
+<div id="olmstead-v.-united-states-1928---trespass-doctrine"
+class="section level4">
+<h4>Olmstead v. United States (1928) - Trespass Doctrine</h4>
+<p>Fourth Amendment law was entirely tethered to English common law
+property rights in physical trespass. The rule was remarkably rigid. It
+was all about tangible things the government had to physically encroach
+upon your property.</p>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>During the Prohibition era, Roy Olmstead was suspected of operating
+a massive, multimillion-dollar bootlegging ring.</li>
+<li>Federal agents tapped his home and office telephone lines to gather
+incriminating evidence.</li>
+<li>The wiretaps were placed on the phone wires in public streets and
+the basement of his office building, <strong><em>without ever physically
+trespassing onto his actual property</em></strong>.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<p>Chief Justice William Howard Taft (textual and property based):</p>
+<ul>
+<li>Wiretapping was not a search because there was no trespass</li>
+<li>4th Amendment protects persons, houses, papers and effects</li>
+<li>-&gt; because there was no physical trespass, the 4th Amendment was
+completely inapplicable</li>
+</ul>
+</div>
+<div
+id="katz-v.-united-states-1967---reasonable-expectation-of-privacy---phone-booth-case"
+class="section level4">
+<h4>Katz v. United States (1967) - Reasonable Expectation of Privacy -
+Phone Booth Case</h4>
+<p>As the 20th century progressed, that strict property based rule
+really began to suffocate personal liberty. Parabolic listening devices
+could pick up conversations through walls. The trespass doctrine left
+citizens completely exposed to sophisticated electronic surveillance.
+<u><strong>This overturned the previous <em>Olmstead
+doctrine</em></strong></u>.</p>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>Charles Katz was suspected by the FBI of transmitting illegal
+wagering information across state lines.</li>
+<li>Federal agents attached a listening and recording device to the
+exterior of a public glass telephone booth that Katz frequented to make
+his calls.</li>
+<li>The agents never physically penetrated the inside of the booth.
+Based entirely on the recordings of his end of the conversations, Katz
+was convicted of illegal gambling.</li>
+<li>Katz appealed, arguing that the <strong><em>warrantless
+wiretap</em></strong> violated his Fourth Amendment rights.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>Majority opinion by Justice Potter Stewart:
+<ul>
+<li>“<em>The 4th Amendment protects people, not places.</em>” An
+individual seeks to preserve as private, even in a space accessible to
+the public, may be constitutionally protected.</li>
+<li>The Court reasoned that by stepping into the phone booth and closing
+the door, Katz had a reasonable expectation that his conversation would
+remain private.</li>
+<li>Attaching the listening and recording device was in fact a
+constitutional search, despite the total absence of physical
+trespass</li>
+</ul></li>
+<li>Concurring opinion - <strong><em>The Harlen 2 prong
+test:</em></strong>
+<ul>
+<li>The individual must have exhibited an actual
+<u><strong><em>subjective expectation of privacy</em></strong> </u></li>
+<li>The expectation must be one that <u><strong><em>society is prepared
+to recognized as objectively reasonable</em></strong> </u></li>
+</ul></li>
+<li>Dissent - Justice Hugo Black (an uncompromising textualist):
+<ul>
+<li>the text of the 4th Amendment explicitly lists tangible things,
+persons, houses, papers, and effects. It protects those tangible things
+from physical search and physical seizure. (you cannot search a
+conversation)</li>
+<li>Privacy literally does not appear anywhere in the 4th Amendment and
+that elevating it to a constitutional standard was a dangerous act of
+judicial overreach.</li>
+<li>Practical warning - how on earth do lawyers and judges know what
+society finds objectively reasonable? it’s totally subjective.</li>
+</ul></li>
+</ul>
+</div>
+<div id="california-v.-greenwood-1988---trash-case"
+class="section level4">
+<h4>California v. Greenwood (1988) - Trash case</h4>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>The Suspicions: Police suspected Billy Greenwood was dealing drugs
+from his home in California, but they did not have enough evidence to
+get a search warrant.</li>
+<li>The “Trash Pulls”: Investigators asked Greenwood’s regular trash
+collector to pick up the garbage bags left on the curb and turn them
+over directly to the police.</li>
+<li>The Warrants: Upon searching the garbage, police found items
+indicative of narcotics use. They used this evidence to obtain a search
+warrant for Greenwood’s house, where they discovered controlled
+substances and made an arrest.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>No Expectation of Privacy: The Court stated that an individual does
+not have a “reasonable expectation of privacy” in garbage that is left
+(abandoned) in a public area</li>
+<li>Public Accessibility: Because garbage bags placed on the street are
+“readily accessible to animals, children, scavengers, snoops, and other
+members of the public,” they cannot be considered private. Additionally,
+the trash was placed on the street explicitly for a third party (the
+sanitation department) to collect and take away.</li>
+</ul>
+</div>
+<div id="oliver-v.-united-states-1984---open-field-not-curtilage"
+class="section level4">
+<h4>Oliver v. United States (1984) - Open field (not curtilage)</h4>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>Narcotics officers went to Ray Oliver’s farm to investigate reports
+of marijuana cultivation.</li>
+<li>They drove past his home, <u><strong><em>ignored a locked gate and
+“No Trespassing” signs</em></strong> </u>, and walked around a gate onto
+a footpath.</li>
+<li>About a mile from his house, they found marijuana growing in a
+field.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>Unreasonable searches and seizures does not extend to open
+fields</li>
+<li>An open field is not a person, a house, a paper and it is not an
+effect.</li>
+<li>The Framers drafted the 4th Amendment to <strong><em>protect the
+intimacies of the home</em></strong>, not vast expanses of rural
+land</li>
+<li>Fences and no trespassing signs might give you civil trespassing
+claim, but they DO NOT transform 100 acre forest into a constitutionally
+protected area</li>
+</ul>
+</div>
+<div id="florida-v.-jardines-2013---curtilage-is-part-of-the-home"
+class="section level4">
+<h4>Florida v. Jardines (2013) - Curtilage is Part of the Home</h4>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>The Tip: Miami-Dade police received an unverified tip that Joelis
+Jardines was growing marijuana in his house.</li>
+<li>The Dog Sniff: <u><strong><em>Officers brought a drug-detection dog
+up to Jardines’ front porch</em></strong></u>. The dog sniffed the base
+of the front door and gave a positive alert for narcotics.</li>
+<li>The Arrest: Using this alert as evidence, officers obtained a search
+warrant, discovered marijuana plants inside, and arrested Jardines.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>The Supreme Court ruled that as unconstitutional search. The porch
+is the curtilage.</li>
+<li>The government argued that anyone, a mail carrier, … a neighbor has
+an implied license to walk up to the front door and knock. The police
+argued they were just doing what any citizen could do.</li>
+<li>Justice Scalia: while a mail carrier has an implied license to walk
+up and drop off a package, they absolutely DO NOT have an implied
+license to bring a piece of highly trained forensic equipment (in this
+case the drug dog) to conduct a <u><strong><em>physical investigation on
+your doorstep</em></strong></u>.</li>
+</ul>
+</div>
+<div
+id="united-states-v.-miller-1976-and-smith-v.-maryland-1979---third-party-doctrine"
+class="section level4">
+<h4>United States v. Miller (1976) and Smith v. Maryland (1979) - Third
+Party Doctrine</h4>
+<p>You lose your 4th Amendment expectation of privacy in any information
+you voluntarily share with a 3rd party.</p>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li><p><em>United States v. Miller</em> :</p>
+<ul>
+<li>Government suspected Miller of tax fraud and running an illegal
+whiskey distillery.</li>
+<li>Government investigators subpoenaed Miller’s bank without a
+warrant.</li>
+<li>Miller tried to suppress the records, arguing his finances were
+deeply private.</li>
+</ul></li>
+<li><p><em>Smith v. Maryland</em>:</p>
+<ul>
+<li>Police suspected Michael Smith of robbing a woman then then making
+harassing phone calls to her</li>
+<li>Without a warrant, police had the phone company to install a “pen
+register” (a device that records the numbers dialed from a phone, but
+not the audio conversation) .</li>
+</ul></li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>The Supreme Court held that bank customers have NO reasonable
+expectation of privacy in their financial records <strong><em>because
+they <u>voluntarily share</u> this information with their bank in the
+ordinary course of business</em></strong></li>
+<li>The Court ruled this was not a Fourth Amendment search because a
+person voluntarily conveys dialing data to the phone company.</li>
+</ul>
+</div>
+<div
+id="carpenter-v.-united-states-2018---exception-to-the-third-party-doctrine"
+class="section level4">
+<h4>Carpenter v. United States (2018) - Exception to the Third Party
+Doctrine</h4>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>Under strict mechanical application the Smith v. Maryland 3rd party
+doctrine, the government would win easily.</li>
+<li>But Justice John Roberts (majority):
+<ul>
+<li>applying the old doctrine to modern technology would functionally
+destroy the 4th Amendment</li>
+<li>cell phone is no longer a luxury, it is almost a feature of human
+anatomy. You cannot participate in modern society/economy without
+one</li>
+<li>the phone pings towers <em>automatically</em> without any
+affirmative act by the user</li>
+<li>differ from the CSLI from the bank records in Miller based on the
+<u><strong><em>sheer volume, precision and inescapable
+nature</em></strong></u> of modern digital tracking</li>
+<li>-&gt; seizing 7 days or more of historical CSLI does violate a
+reasonable expectation of privacy and therefore law enforcement must get
+a warrant</li>
+</ul></li>
+</ul>
+</div>
+<div
+id="united-states-v.-jones-2012---tresspassing-to-get-information-is-a-search"
+class="section level4">
+<h4>United States v. Jones (2012) - Tresspassing to Get Information is a
+Search</h4>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>While Jone’s Jeep Grand Cherokee was <u><strong><em>parked in a
+public parking lot</em></strong></u>, a federal agent slid underneath
+the undercarriage and <u><strong><em>attached</em></strong></u> a hidden
+magnetic GPS tracking device.</li>
+</ul>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>Based entirely on Katz v. United States,
+<ul>
+<li>the government argue that Jones had no reasonable expectation of
+privacy in his movements on public streets. Any police officer could
+have visually tailed him in an unmatched car for a month.</li>
+<li>The undercarrigae of a Jeep isn’t a private, intimate space like a
+bedroom</li>
+</ul></li>
+<li>BUT, Justice Scalia (majority)
+<ul>
+<li>the 4th Amendment explicitly lists effects as a protected category.
+A Jeep is undeniably a personal affect.</li>
+<li>The government agents physically encroached upon and occupied that
+effect, slapping a magnet onto his property for this specific undeniable
+purpose of gathering information</li>
+<li>Katz v. United States was designed to add to the constitutional
+baselin of protection, not subtract from it. It did NOT erase the
+property rights of the founding era</li>
+<li>-&gt; If the government commits a <u><strong><em>common law
+trespass</em></strong> on a <strong><em>constitutionally protected area
+or item to get information</em></strong>, it is a search!</u></li>
+</ul></li>
+</ul>
+</div>
+<div id="united-states-v.-mendenhall" class="section level4">
+<h4>United States v. Mendenhall</h4>
+<p>A person is seized only when, by means a physical force or show of
+authority, their freedom of movement is restrained. e.g. Were the police
+displaying weapons, were there multiple officers surrounding the suspect
+in a physically threatening way? Did they retain the suspects ID or
+plane ticket?</p>
+</div>
+<div
+id="california-v.-hodari-d.---the-seizure-happens-when-physical-contact-happens-or-when-suspect-submits-to-the-show-of-authority"
+class="section level4">
+<h4>California v. Hodari D. - the seizure happens when physical contact
+happens or when suspect submits to the show of authority</h4>
+<p><u> <em>Situation</em> </u></p>
+<p><u> <em>Ruling</em> </u></p>
+<ul>
+<li>Based on Mendenhall test, Hodari D. argued that when an officer in a
+police jackets starts sprinting after you down a dark alley, that
+pursuit is underniably a show of authority. Any reasonable person being
+chase by a cop would not feel free to leave.
+<ul>
+<li>-&gt; By this logic, Hodari was “seized” the very second the chase
+began</li>
+<li>police admittedly did not have probable cause or reasonable
+suspicion to seize him just for standing the car and running, the
+initial “seizure” was unconstitutional.</li>
+<li>-&gt; the drugs he dropped during the illegal “seizure” must be
+supressed.</li>
+</ul></li>
+<li>BUT, Justice Scalia (majority ruling):4th Amendment seizure of a
+person requires either
+<ol style="list-style-type: decimal">
+<li>application of physical force to the body of the suspect (even the
+slightest touch), or</li>
+<li>officer is relying purely on show of authority (e.g yelling stop).
+The suspect must actually yield or submit to that authority
+<ul>
+<li>-&gt; Because Hordari did not submit, he was not “seized” until the
+exact millisecond the officer physically tackled him to the ground.</li>
+<li>-&gt; Because he tossed the cocaine before he was tackled, he
+abandoned that property while he was still. legally speaking, a
+completely free man because the seizure hadn’t happened yet</li>
+</ul></li>
+</ol></li>
+</ul>
+</div>
+<div id="illinois-v.-gates---totality-of-circumstances"
+class="section level4">
+<h4>Illinois v. Gates - Totality of Circumstances</h4>
+<p><u> <em>Situation</em> </u></p>
+<p><u> <em>Ruling</em> </u></p>
+</div>
+<div id="raucous-v.-illinois---constitutional-standing"
+class="section level4">
+<h4>Raucous v. Illinois - Constitutional Standing</h4>
+</div>
+<div id="horton-v.-california---the-plain-view-doctrine"
+class="section level4">
+<h4>Horton v. California - The Plain View Doctrine</h4>
+<ol style="list-style-type: decimal">
+<li><strong><em>lawful presence</em></strong>: the officer must be
+constitutionally allowed to stand in the exact spot they are standing
+whey they see the item.</li>
+<li><strong><em>lawful right of access</em></strong>: they must have
+legal path to physically reach the object</li>
+<li><strong><em>immediately apparent</em></strong>: the incriminating
+character of the object must be immediately apparent.
+<ul>
+<li>it means the officer must have probable cause to believe the item is
+contraband or evidence of a crime just by looking at it without
+conducting any further physical manipulation or search.</li>
+<li>BH: remember Breaking Bad - “<em>How could you have known that they
+(the bullet holes) were there before you took off the tape?</em>”</li>
+</ul></li>
+</ol>
+</div>
+<div id="review" class="section level4">
+<h4>Review</h4>
+<ul>
+<li>Step 1: Is it the
+<ul>
+<li>government or</li>
+<li>private citizen acting as a directed agent?</li>
+</ul></li>
+<li>Step 2: Was there
+<ul>
+<li>a physical trespass onto a protected effect to gather info under
+<em>United States v. Jones</em></li>
+<li>or a violation of a subjective expectation of privacy that is
+objectively reasonable under <em>Katz v. United States</em> (The phone
+booth case)</li>
+</ul></li>
+<li>Step 3: Did the search fall into categorical public exception?
+<ul>
+<li>did they abandoned the property on the public curb like
+<em>California v. Greenwood</em>? (The trash case)</li>
+<li>was it in a open field like <em>California v. Greenwood</em> or
+within the protected curtilage like <em>Florida v. Jardines</em>?</li>
+<li>did they voluntarily share the data with a third party like
+<em>United States v. Miller</em> or <em>Smith v. Maryland</em>?</li>
+</ul></li>
+<li>Step 4:If a person’s liberty is restricted, pinpoint the exact
+moment of the seizure
+<ul>
+<li>Apply the Mendenhall Free to leave test, but</li>
+<li>if they are running, apply Hodari D -&gt; there is no seizure until
+the physical force is applied or they actively submit to authority.</li>
+</ul></li>
+<li>Step 5: Does this specific defendant have a personal substantive
+standing to complain about it?
+<ul>
+<li>Were they an overnight guest with a recognized privacy interest</li>
+<li>or a casual afternoon visitor who gets no constitutional
+protection?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

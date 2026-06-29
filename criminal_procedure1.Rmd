@@ -1,0 +1,236 @@
+---
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '5'
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+    includes:
+      in_header: GA_Script.html
+bibliography: references.bib
+link-citations: yes
+---
+
+### The Fourth Amendment - Foundations of Search and Seizure
+
+
+
+* Probable cause: 
+  * justifies full custodial arrests and the absolute constitutional prerequisite for a judge to issue a warrant to search a home or seize property
+  * when the facts and circumstances within the officer's knowledge are sufficient to warrant a person of reasonable caution in the belief that an offense has been or is being committed or that contraband will be found in a particular place
+
+#### Olmstead v. United States (1928) - Trespass Doctrine
+
+Fourth Amendment law was entirely tethered to English common law property rights in physical trespass. The rule was remarkably rigid. It was all about tangible things the government had to physically encroach upon your property.
+
+
+
+<u> *Situation* </u>
+
+* During the Prohibition era, Roy Olmstead was suspected of operating a massive, multimillion-dollar bootlegging ring. 
+* Federal agents tapped his home and office telephone lines to gather incriminating evidence. 
+* The wiretaps were placed on the phone wires in public streets and the basement of his office building, ***without ever physically trespassing onto his actual property***. 
+
+
+<u> *Ruling* </u>
+
+Chief Justice William Howard Taft (textual and property based):
+
+  * Wiretapping was not a search because there was no trespass
+  * 4th Amendment protects persons, houses, papers and effects
+  * -> because there was no physical trespass, the 4th Amendment was completely inapplicable
+
+
+#### Katz v. United States (1967) - Reasonable Expectation of Privacy - Phone Booth Case
+
+As the 20th century progressed, that strict property based rule really began to suffocate personal liberty. Parabolic listening devices could pick up conversations through walls. The trespass doctrine left citizens completely exposed to sophisticated electronic surveillance. <u>**This overturned the previous *Olmstead doctrine***</u>.
+
+<u> *Situation* </u>
+
+* Charles Katz was suspected by the FBI of transmitting illegal wagering information across state lines. 
+* Federal agents attached a listening and recording device to the exterior of a public glass telephone booth that Katz frequented to make his calls. 
+* The agents never physically penetrated the inside of the booth. Based entirely on the recordings of his end of the conversations, Katz was convicted of illegal gambling. 
+* Katz appealed, arguing that the ***warrantless wiretap*** violated his Fourth Amendment rights.
+
+
+<u> *Ruling* </u>
+
+* Majority opinion by Justice Potter Stewart: 
+  * "*The 4th Amendment protects people, not places.*" An individual seeks to preserve as private, even in a space accessible to the public, may be constitutionally protected.
+  * The Court reasoned that by stepping into the phone booth and closing the door, Katz had a reasonable expectation that his conversation would remain private.
+  * Attaching the listening and recording device was in fact a constitutional search, despite the total absence of physical trespass
+
+
+* Concurring opinion - ***The Harlen 2 prong test:***
+  * The individual must have exhibited an actual <u>***subjective expectation of privacy*** </u>
+  * The expectation must be one that <u>***society is prepared to recognized as objectively reasonable*** </u>
+* Dissent - Justice Hugo Black (an uncompromising textualist):
+  * the text of the 4th Amendment explicitly lists tangible things, persons, houses, papers, and effects. It protects those tangible things from physical search and physical seizure. (you cannot search a conversation)
+  * Privacy literally does not appear anywhere in the 4th Amendment and that elevating it to a constitutional standard was a dangerous act of judicial overreach.
+  * Practical warning - how on earth do lawyers and judges know what society finds objectively reasonable? it's totally subjective.
+
+#### California v. Greenwood (1988) - Trash case
+
+<u> *Situation* </u>
+
+* The Suspicions: Police suspected Billy Greenwood was dealing drugs from his home in California, but they did not have enough evidence to get a search warrant.
+* The "Trash Pulls": Investigators asked Greenwood's regular trash collector to pick up the garbage bags left on the curb and turn them over directly to the police.
+* The Warrants: Upon searching the garbage, police found items indicative of narcotics use. They used this evidence to obtain a search warrant for Greenwood's house, where they discovered controlled substances and made an arrest.
+
+<u> *Ruling* </u>
+
+* No Expectation of Privacy: The Court stated that an individual does not have a "reasonable expectation of privacy" in garbage that is left (abandoned) in a public area
+* Public Accessibility: Because garbage bags placed on the street are "readily accessible to animals, children, scavengers, snoops, and other members of the public," they cannot be considered private. Additionally, the trash was placed on the street explicitly for a third party (the sanitation department) to collect and take away.
+
+#### Oliver v. United States (1984) - Open field (not curtilage)
+
+<u> *Situation* </u>
+
+* Narcotics officers went to Ray Oliver's farm to investigate reports of marijuana cultivation. 
+* They drove past his home, <u>***ignored a locked gate and "No Trespassing" signs*** </u>, and walked around a gate onto a footpath. 
+* About a mile from his house, they found marijuana growing in a field.
+
+
+<u> *Ruling* </u>
+
+* Unreasonable searches and seizures does not extend to open fields
+* An open field is not a person, a house, a paper and it is not an effect.
+* The Framers drafted the 4th Amendment to ***protect the intimacies of the home***, not vast expanses of rural land
+* Fences and no trespassing signs might give you civil trespassing claim, but they DO NOT transform 100 acre forest into a constitutionally protected area
+
+#### Florida v. Jardines (2013) - Curtilage is Part of the Home
+
+<u> *Situation* </u>
+
+* The Tip: Miami-Dade police received an unverified tip that Joelis Jardines was growing marijuana in his house.
+* The Dog Sniff: <u>***Officers brought a drug-detection dog up to Jardines' front porch***</u>. The dog sniffed the base of the front door and gave a positive alert for narcotics.
+* The Arrest: Using this alert as evidence, officers obtained a search warrant, discovered marijuana plants inside, and arrested Jardines.
+
+
+<u> *Ruling* </u>
+
+* The Supreme Court ruled that as unconstitutional search. The porch is the curtilage.
+* The government argued that anyone, a mail carrier, ... a neighbor has an implied license to walk up to the front door and knock. The police argued they were just doing what any citizen could do.
+* Justice Scalia: while a mail carrier has an implied license to walk up and drop off a package, they absolutely DO NOT have an implied license to bring a piece of highly trained forensic equipment (in this case the drug dog) to conduct a <u>***physical investigation on your doorstep***</u>.  
+
+#### United States v. Miller (1976) and Smith v. Maryland (1979) - Third Party Doctrine
+
+You lose your 4th Amendment expectation of privacy in any information you voluntarily share with a 3rd party.
+
+<u> *Situation* </u>
+
+* *United States v. Miller* : 
+
+  * Government suspected Miller of tax fraud and running an illegal whiskey distillery.
+  * Government investigators subpoenaed Miller's bank without a warrant. 
+  * Miller tried to suppress the records, arguing his finances were deeply private.
+
+* *Smith v. Maryland*:
+
+  * Police suspected Michael Smith of robbing a woman then then making harassing phone calls to her
+  * Without a warrant, police had the phone company to install a "pen register" (a device that records the numbers dialed from a phone, but not the audio conversation) . 
+ 
+ 
+<u> *Ruling* </u>
+
+* The Supreme Court held that bank customers have NO reasonable expectation of privacy in their financial records ***because they <u>voluntarily share</u> this information with their bank in the ordinary course of business***
+* The Court ruled this was not a Fourth Amendment search because a person voluntarily conveys dialing data to the phone company.
+
+
+#### Carpenter v. United States (2018) - Exception to the Third Party Doctrine
+
+
+<u> *Ruling* </u>
+
+* Under strict mechanical application the Smith v. Maryland 3rd party doctrine, the government would win easily.
+* But Justice John Roberts (majority): 
+  * applying the old doctrine to modern technology would functionally destroy the 4th Amendment
+  * cell phone is no longer a luxury, it is almost a feature of human anatomy. You cannot participate in modern society/economy without one
+  * the phone pings towers *automatically* without any affirmative act by the user
+  * differ from the CSLI from the bank records in Miller based on the <u>***sheer volume, precision and inescapable nature***</u> of modern digital tracking
+  * -> seizing 7 days or more of historical CSLI does violate a reasonable expectation of privacy and therefore law enforcement must get a warrant
+  
+#### United States v. Jones (2012) - Tresspassing to Get Information is a Search
+
+<u> *Situation* </u>
+
+* While Jone's Jeep Grand Cherokee was <u>***parked in a public parking lot***</u>, a federal agent slid underneath the undercarriage and <u>***attached***</u> a hidden magnetic GPS tracking device.
+
+<u> *Ruling* </u>
+
+* Based entirely on Katz v. United States, 
+  * the government argue that Jones had no reasonable expectation of privacy in his movements on public streets. Any police officer could have visually tailed him in an unmatched car for a month. 
+  * The undercarrigae of a Jeep isn't a private, intimate space like a bedroom
+* BUT, Justice Scalia (majority)
+  * the 4th Amendment explicitly lists effects as a protected category. A Jeep is undeniably a personal affect.
+  * The government agents physically encroached upon and occupied that effect, slapping a magnet onto his property for this specific undeniable purpose of gathering information
+  * Katz v. United States was designed to add to the constitutional baselin of protection, not subtract from it. It did NOT erase the property rights of the founding era
+  * -> If the government commits a <u>***common law trespass*** on a ***constitutionally protected area or item to get information***, it is a search!</u>
+
+
+#### United States v. Mendenhall
+
+A person is seized only when, by means a physical force or show of authority, their freedom of movement is restrained.
+e.g. Were the police displaying weapons, were there multiple officers surrounding the suspect in a physically threatening way? Did they retain the suspects ID or plane ticket?
+
+#### California v. Hodari D. - the seizure happens when physical contact happens or when suspect submits to the show of authority
+
+<u> *Situation* </u>
+
+
+<u> *Ruling* </u>
+
+* Based on Mendenhall test, Hodari D. argued that when an officer in a police jackets starts sprinting after you down a dark alley, that pursuit is underniably a show of authority. Any reasonable person being chase by a cop would not feel free to leave.
+  * -> By this logic, Hodari was "seized" the very second the chase began
+  * police admittedly did not have probable cause or reasonable suspicion to seize him just for standing the car and running, the initial "seizure" was unconstitutional.
+  * -> the drugs he dropped during the illegal "seizure" must be supressed.
+* BUT, Justice Scalia (majority ruling):4th Amendment seizure of a person requires either
+  1. application of physical force to the body of the suspect (even the slightest touch), or
+  2. officer is relying purely on show of authority (e.g yelling stop). The suspect must actually yield or submit to that authority
+      * -> Because Hordari did not submit, he was not "seized" until the exact millisecond the officer physically tackled him to the ground.
+      * -> Because he tossed the cocaine before he was tackled, he abandoned that property while he was still. legally speaking, a completely free man because the seizure hadn't happened yet
+  
+#### Illinois v. Gates - Totality of Circumstances
+
+
+
+<u> *Situation* </u>
+
+
+<u> *Ruling* </u>
+
+
+#### Raucous v. Illinois - Constitutional Standing
+
+
+#### Horton v. California - The Plain View Doctrine
+
+1. ***lawful presence***: the officer must be constitutionally allowed to stand in the exact spot they are standing whey they see the item.
+2. ***lawful right of access***: they must have legal path to physically reach the object
+3. ***immediately apparent***: the incriminating character of the object must be immediately apparent.
+    * it means the officer must have probable cause to believe the item is contraband or evidence of a crime just by looking at it without conducting any further physical manipulation or search. 
+    * BH: remember Breaking Bad - "*How could you have known that they (the bullet holes) were there before you took off the tape?*"
+
+#### Review
+
+* Step 1: Is it the 
+  * government or 
+  * private citizen acting as a directed agent?
+* Step 2: Was there
+  * a physical trespass onto a protected effect to gather info under *United States v. Jones*
+  * or a violation of a subjective expectation of privacy that is objectively reasonable under *Katz v. United States* (The phone booth case)
+* Step 3: Did the search fall into categorical public exception?
+  * did they abandoned the property on the public curb like *California v. Greenwood*? (The trash case)
+  * was it in a open field like *California v. Greenwood* or within the protected curtilage like *Florida v. Jardines*?
+  * did they voluntarily share the data with a third party like *United States v. Miller* or *Smith v. Maryland*?
+* Step 4:If a person's liberty is restricted, pinpoint the exact moment of the seizure
+  * Apply the Mendenhall Free to leave test, but
+  * if they are running, apply Hodari D -> there is no seizure until the physical force is applied or they actively submit to authority.
+* Step 5: Does this specific defendant have a personal substantive standing to complain about it?
+  * Were they an overnight guest with a recognized privacy interest
+  * or a casual afternoon visitor who gets no constitutional protection?
+  

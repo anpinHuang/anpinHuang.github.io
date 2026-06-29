@@ -13,12 +13,22 @@
 
 <title>Receiver Operating Characteristic (ROC) Curve</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -43,12 +53,37 @@
   gtag('config', 'UA-222711575-1');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -61,32 +96,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -96,10 +107,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -116,40 +123,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -177,7 +160,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -189,7 +172,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -199,11 +182,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -215,13 +215,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -229,16 +228,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -282,7 +274,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -309,6 +301,9 @@ $(document).ready(function () {
 <li>
   <a href="Programming.html">Programming</a>
 </li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -317,18 +312,33 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Receiver Operating Characteristic (ROC) Curve</h1>
+<h1 class="title toc-ignore">Receiver Operating Characteristic (ROC)
+Curve</h1>
 
 </div>
 
 
-<p>The Receiver Operating Characteristic (ROC) Curve is a way of measuring the performance of the model. The common practice is to look at the Area under the curve (AUC). For logistic regression, the curve can be constructed by changing the threshold of the predicted probability for classification. The ROC curve measures the performance of each threshold. The x-axis of the curve is the false positive rate (FPR, or fall-out) and the y-axis is the true positive rate (TPR, or recall). <strong>The intuition is that for every 1 unit increase of false positive rate, how much true positive rate do we gain? The rationale is that as we decrease the threshold, trying to increase the true positive (TP) count, the false positive (FP) count also increases at the same time.</strong></p>
-<p>The slope of a point on the ROC curve <span class="math display">\[=\frac{TPR}{FPR} = \frac{\frac{TP}{P}}{\frac{FP}{N}}\]</span></p>
-<p>For a model that has no predicting power (no better than random), the slope of the ROC curve would be 45 degree (slope = 1):</p>
+<p>The Receiver Operating Characteristic (ROC) Curve is a way of
+measuring the performance of the model. The common practice is to look
+at the Area under the curve (AUC). For logistic regression, the curve
+can be constructed by changing the threshold of the predicted
+probability for classification. The ROC curve measures the performance
+of each threshold. The x-axis of the curve is the false positive rate
+(FPR, or fall-out) and the y-axis is the true positive rate (TPR, or
+recall). <strong>The intuition is that for every 1 unit increase of
+false positive rate, how much true positive rate do we gain? The
+rationale is that as we decrease the threshold, trying to increase the
+true positive (TP) count, the false positive (FP) count also increases
+at the same time.</strong></p>
+<p>The slope of a point on the ROC curve <span
+class="math display">\[=\frac{TPR}{FPR} =
+\frac{\frac{TP}{P}}{\frac{FP}{N}}\]</span></p>
+<p>For a model that has no predicting power (no better than random), the
+slope of the ROC curve would be 45 degree (slope = 1):</p>
 <p><span class="math display">\[
 \begin{aligned}
 \frac{TPR}{FPR} &amp;= \frac{TP}{P} \cdot \frac{N}{FP} \\
@@ -336,51 +346,83 @@ $(document).ready(function () {
 &amp; =1
 \end{aligned}
 \]</span></p>
-<p>since that if the model is random, then the ratio of <span class="math inline">\(\frac{TP}{FP}\)</span> would be the same as <span class="math inline">\(\frac{P}{N}\)</span></p>
-<p>Use true value as the denominator, where <span class="math inline">\(D\)</span> is true default and <span class="math inline">\(\mathcal{P}(D)\)</span> is the probability of default, <span class="math inline">\(ND\)</span> is true non-default, <span class="math inline">\(E\)</span> is the predicted default and <span class="math inline">\(NE\)</span> is the predicted non-default.</p>
+<p>since that if the model is random, then the ratio of <span
+class="math inline">\(\frac{TP}{FP}\)</span> would be the same as <span
+class="math inline">\(\frac{P}{N}\)</span></p>
+<p>Use true value as the denominator, where <span
+class="math inline">\(D\)</span> is true default and <span
+class="math inline">\(\mathcal{P}(D)\)</span> is the probability of
+default, <span class="math inline">\(ND\)</span> is true non-default,
+<span class="math inline">\(E\)</span> is the predicted default and
+<span class="math inline">\(NE\)</span> is the predicted
+non-default.</p>
 <ul>
-<li><strong>True Positive Rate (TPR)</strong>, sensitivity, recall, or hit rate:<br />
-<span class="math inline">\(\frac{TP}{P} = \frac{TP}{TP+FN} = \mathcal{P}(E|D)\)</span></li>
+<li><strong>True Positive Rate (TPR)</strong>, sensitivity, recall, or
+hit rate:<br />
+<span class="math inline">\(\frac{TP}{P} = \frac{TP}{TP+FN} =
+\mathcal{P}(E|D)\)</span></li>
 <li><strong>False Positive Rate (FPR)</strong>, or fall-out:<br />
-<span class="math inline">\(\frac{FP}{N} = \frac{FP}{FP+TN} = \mathcal{P}(E|ND)\)</span></li>
-<li><strong>True Negative Rate (TNR)</strong>, specificity, or selectivity:<br />
-<span class="math inline">\(\frac{TN}{N} = \frac{TN}{TN+FP} = \mathcal{P}(NE|ND)\)</span></li>
+<span class="math inline">\(\frac{FP}{N} = \frac{FP}{FP+TN} =
+\mathcal{P}(E|ND)\)</span></li>
+<li><strong>True Negative Rate (TNR)</strong>, specificity, or
+selectivity:<br />
+<span class="math inline">\(\frac{TN}{N} = \frac{TN}{TN+FP} =
+\mathcal{P}(NE|ND)\)</span></li>
 <li><strong>False Negative Rate (FNR)</strong>, or miss rate:<br />
-<span class="math inline">\(\frac{FN}{P} = \frac{FN}{TP+FN} = \mathcal{P}(NE|D)\)</span></li>
+<span class="math inline">\(\frac{FN}{P} = \frac{FN}{TP+FN} =
+\mathcal{P}(NE|D)\)</span></li>
 </ul>
 <p>Use predictive value as the denominator:</p>
 <ul>
-<li><strong>Positive Predictive Value (PPV)</strong>, or precision:<br />
-<span class="math inline">\(\frac{TP}{TP+FP} = \mathcal{P}(D|E)\)</span></li>
+<li><strong>Positive Predictive Value (PPV)</strong>, or
+precision:<br />
+<span class="math inline">\(\frac{TP}{TP+FP} =
+\mathcal{P}(D|E)\)</span></li>
 <li><strong>Negative Predictive Value (NPV)</strong>:<br />
-<span class="math inline">\(\frac{TN}{TN+FN} = \mathcal{P}(ND|NE)\)</span></li>
+<span class="math inline">\(\frac{TN}{TN+FN} =
+\mathcal{P}(ND|NE)\)</span></li>
 <li><strong>False Discovery rate (FDR)</strong>:<br />
-<span class="math inline">\(\frac{FP}{TP+FP} = 1-PPV = \mathcal{P}(ND|E)\)</span></li>
+<span class="math inline">\(\frac{FP}{TP+FP} = 1-PPV =
+\mathcal{P}(ND|E)\)</span></li>
 <li><strong>False Omission rate (FOR)</strong>:<br />
-<span class="math inline">\(\frac{FN}{TN+FN} = 1-NPV = \mathcal{P}(D|NE)\)</span></li>
+<span class="math inline">\(\frac{FN}{TN+FN} = 1-NPV =
+\mathcal{P}(D|NE)\)</span></li>
 </ul>
-<p>The <span class="math inline">\(P\)</span> is defined as the real positive cases in the data and <span class="math inline">\(N\)</span> is defined as the real negative cases in the data.</p>
+<p>The <span class="math inline">\(P\)</span> is defined as the real
+positive cases in the data and <span class="math inline">\(N\)</span> is
+defined as the real negative cases in the data.</p>
 <ul>
-<li>True Positive (TP): Predict 1 (positive) and the prediction is correct (true)</li>
-<li>False Positive (FP): Predict 1 (positive) but the prediction is incorrect (false)</li>
-<li>True Negative (TN): Predict 0 (negative) and the prediction is correct (true)</li>
-<li>False Negative (FN): Predict 0 (negative) and the prediction is incorrect (false)</li>
+<li>True Positive (TP): Predict 1 (positive) and the prediction is
+correct (true)</li>
+<li>False Positive (FP): Predict 1 (positive) but the prediction is
+incorrect (false)</li>
+<li>True Negative (TN): Predict 0 (negative) and the prediction is
+correct (true)</li>
+<li>False Negative (FN): Predict 0 (negative) and the prediction is
+incorrect (false)</li>
 </ul>
 <p><img src="ConfusionMatrix.png" height="255px" width="600px" /></p>
-<p>Above ratios can also be linked through <strong>Baye’s Rule</strong>:<br />
+<p>Above ratios can also be linked through <strong>Baye’s
+Rule</strong>:<br />
 <span class="math display">\[
 \begin{aligned}
 \mathcal{P}(D|E) &amp;= \frac{\mathcal{P}(D, E)}{\mathcal{P}(E)}  \\
 &amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E)} \\
-&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E,D) +\mathcal{P}(E,ND)}  \\
-&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E|D) \cdot \mathcal{P}(D)+\mathcal{P}(E|ND)\cdot \mathcal{P}(ND)} 
+&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E,D)
++\mathcal{P}(E,ND)}  \\
+&amp;= \frac{\mathcal{P}(E|D)\cdot \mathcal{P}(D)}{\mathcal{P}(E|D)
+\cdot \mathcal{P}(D)+\mathcal{P}(E|ND)\cdot \mathcal{P}(ND)}
 \end{aligned}
 \]</span></p>
-<p>Comparing <span class="math inline">\(\mathcal{P}(D|E)\)</span> against <span class="math inline">\(\mathcal{P}(D)\)</span>, we can see how much improvement we have given the additional information from the model.</p>
+<p>Comparing <span class="math inline">\(\mathcal{P}(D|E)\)</span>
+against <span class="math inline">\(\mathcal{P}(D)\)</span>, we can see
+how much improvement we have given the additional information from the
+model.</p>
 <ul>
 <li>Mathew’s correlation cofficient (MCC):</li>
 </ul>
-<p><span class="math display">\[MCC = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}\]</span></p>
+<p><span class="math display">\[MCC = \frac{TP \cdot TN - FP \cdot
+FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}\]</span></p>
 
 
 
@@ -391,7 +433,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -409,7 +451,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

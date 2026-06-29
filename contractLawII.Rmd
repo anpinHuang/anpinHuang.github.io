@@ -7,7 +7,7 @@ output:
     toc: yes
     toc_depth: 5
     toc_float:
-      collapsed: no
+      collapsed: yes
       smooth_scroll: yes
     includes:
       in_header: GA_Script.html
@@ -16,7 +16,7 @@ link-citations: yes
 ---
 
 
-### 1. Capacity to Contract
+### Capacity to Contract
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *Restatement §14*
@@ -58,7 +58,7 @@ Reason to know?
 <u>Summary: </u>
 
 
-### 2. Unilateral and Mutual Mistake
+### Unilateral and Mutual Mistake
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *Restatement § 152*
@@ -142,7 +142,7 @@ Is this mistake as to value/quality, or is it a mistake that <u>***materially af
 * **Assumption of risk**: If there weren't "as-is" clause in the contract, the judge might have favored the Pickleses.
 
 
-###  3. Fraud
+###  Fraud
 
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
@@ -264,7 +264,7 @@ Courts have expanded "mistrepresentations" beyond fraudulent statements of facts
 * Generally, this rule applies to **misrepresentations of fact**.
 * But misrepresentation may also be expanded, for example to cover misrepresentations of <u>***professional opinions***</u>.
 
-#### 3.2 The Duty to Disclose - "Terminte Infestation" - Warren G. and Gloria R. Hill v. Ora G. and Barnara R.Jones 
+#### The Duty to Disclose - "Terminte Infestation" - Warren G. and Gloria R. Hill v. Ora G. and Barnara R.Jones 
 
 <u>*Situation:* </u>
 
@@ -324,7 +324,7 @@ Courts have expanded "mistrepresentations" beyond fraudulent statements of facts
 * A promise usually includes an implied intent to perform the promise
 * Misrepresenting an intention to perform can result in ***punitive damages*** under promissory fraud doctrine
 
-###  4. Duress and Undue Influence
+###  Duress and Undue Influence
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *Restatement (Second) §§ 174-177
@@ -333,7 +333,7 @@ Courts have expanded "mistrepresentations" beyond fraudulent statements of facts
 
 It's easy to understand that if someone hold a gun to your head to sign a contract, that contract is not enforcable. But, what if someone threaten to breach a contract unless you agree to modify its terms?
 
-#### 4.1 Economic Durass - "Radar Sets" - Austin Instrument, Inc. c. Loral Corp.
+#### Economic Durass - "Radar Sets" - Austin Instrument, Inc. c. Loral Corp.
 
 Note, the military background may have influence the decision. If Loral Corp cannot deliver the Radar sets, the American soldiers might be in danger during Vietnam War.
 
@@ -379,7 +379,7 @@ One of the key sources of duress is the ***failure of contractual damages***.
 <u> *Is it ever unlawful to threaten what one have a legal right to do? * </u>
 
 
-###  5. Unconscionability
+###  Unconscionability
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *Court of Chancery in 1750*
@@ -417,7 +417,7 @@ how - how the contract is negotiated, does one party has more bargaining power o
 
 what - whether the resulting terms were substantively one-sided or unfair
 
-#### 5.1 "Substantive Unconscionability" - Fleet v. U.S. Consumer Council
+#### "Substantive Unconscionability" - Fleet v. U.S. Consumer Council
 
 <u> *Situation:* </u>
 
@@ -450,7 +450,7 @@ The court found that:
 * However, such substantive unfairness is not usually enough to set aside a contract. The complaining party must also demonstrate some flaw in the bargaining process that allowed the unfair terms to arise.
 
 
-#### 5.2 "One Sided Arbitration" Ferguson v. Countrywide Credit Industries, Inc
+#### "One Sided Arbitration" Ferguson v. Countrywide Credit Industries, Inc
 
 <u> *Situation:* </u>
 
@@ -594,7 +594,7 @@ Terms with respect to which the confirmatory memorenda of the parties agree or w
 
 
 
-###  9. Duty of Good Faith
+###  Duty of Good Faith
 
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
@@ -621,9 +621,9 @@ Obligation of Good Faith: Every contract or duty within the Uniform Commercial C
 1. A term which measures the quantity by the output of the seller or the requirements of the buyer means such actual output or requirements as may occur in good faith, except that no quantity unreasonably disproportionate to any stated estimated ... may be tendered or demanded.
 2. A lawful agreement by either the seller or the buyer for the exclusive dealing in the kind of goods concerned imposes unless otherwise agreed an obligation by the seller to use best efforts to supply the goods and by the buyer to use best efforts to promote their sale.
 
-#### 9.1 "Unreleased Escrow" Centronics Corp. v. Genicom Corp
+#### "Unreleased Escrow" Centronics Corp. v. Genicom Corp
 
-#### 9.2 Market Street Associates Limited Prtnership v. Dale Frey
+#### Market Street Associates Limited Prtnership v. Dale Frey
 
 * Formation stage: "duty is minimized" - maybe just honesty
 * Performance and Enforcement stage - duty is heightened because of changed circumstances greater reliance
@@ -639,7 +639,48 @@ Obligation of Good Faith: Every contract or duty within the Uniform Commercial C
 
 
 
-#### 9.3 "At-will Contract Termination" - Elaine Zapatha v. Dairy Mart, Inc.
+#### "At-will Contract Termination" - Elaine Zapatha v. Dairy Mart, Inc.
+
+<u> *Situation:* </u>
+
+* Zapatha purchased a franchise from the defendant, Dairy Mart, an operator of a chain of franchise convenience stores. 
+* Zapatha relied on representations by Dairy Mart that the franchise business would be his own, stable and secure. 
+* The franchise agreement allowed either party to terminate without cause on 90 days written notice. 
+* When plaintiff refused to sign a new agreement modifying the terms of the franchise, defendants sent written notice that the franchise was terminating. 
+* Zapatha sued, claiming that Dairy Mart's termination was dishonest and in bad faith.
+
+<u> *Central Issue & Ruling:* </u>
+
+Was Dairy Mart's arbitrary termination of its franchise agreement with Zapatha invalid because of bad faith? 
+
+* The court found that the franchise agreement was not terminated in bad faith.
+* The court turned to the UCC as adopted by Massachusetts which says that good faith requires among merchants 
+  * "*Honesty and fact*", and 
+  * "the observance of <u>***reasonable commercial standards of fair dealing***</u> in the trade." 
+  * The honesty and fact requirement of good faith is a bit redundant with fraud, so most of the action in these cases will be about whether there was an observance of reasonable commercial standards at fair dealing
+* Holding:
+  * "*There was no evidence that Dairy Mart failed to observe reasonable commercial standards of fair dealing in the trade in terminating the agreement*" and, although the termination "*may have been arbitrary, it was not dishonest.*"
+  * The legislature "has not adopted limitations on the right to terminate all franchise agreements in general."
+
+<u> *What is Bad Faith:* </u>
+
+If terminating because the franchisee refuses to modify the franchise on terms more favorable to the franchisor is not a bad faith, what is?
+
+* Any of these reasons might have been bad faith
+  * franchisor ***discriminated*** against a minority franchisee, or 
+  * termination was in ***retaliation*** because the franchisee had reported salmonella in the ice cream to state health authorities, or 
+  * the purpose of the termination was to capture a thriving franchise for the benefit of the president's brother-in-law. 
+* Federal and state statutes have increasingly regulated the power to terminate a franchise relationship. 
+  * One example is the Automobile Dealers Day in Court Act, which provides that a dealer may sue an automobile manufacturer for damages "*By reason of the failure of said automobile manufacturers to act in good faith in terminating, canceling, or not renewing the franchise with said dealer.*" 
+
+Termination clauses are also relevant for <u>***at-will employees***</u>. 
+
+* For more than a century, American courts firmly adhered to the view that an employment contract of no fixed duration was terminable at-will. This means that an employee could quit or be fired <u>***for any reason, good or bad or even no reason at all***</u>. 
+* <u>***In recent years***</u>, both judges and legislatures have significantly limited employers' powers to discharge employees. 
+  * Legislatures have adopted statutory protections and 
+  * judges have developed common law limitations on the ability of employers to fire employees at-will, especially limiting the ability to fire for bad reason. 
+  * An employer will be liable if the employee terminates for a variety of bad reasons <u>*including race and gender discrimination*</u>. 
+* Tort Law allows a cause of action for wrongful discharge based on making the employee making public policy claims from being a whistleblower. 
 
 #### 9.4 "Good Faith Output" - Fred Feld v. Henry S. Levy & Sons, Inc.
 
@@ -752,7 +793,7 @@ A promisee has 2 ways to protect herself in a contract:
 
 * The main issue is whether the financial condition in this case was actually a warranty such that plaintiff is entitled to damages. 
 
-  --> The court held the agreement was carefully drafted and is clear that the provision in question is not a warranty, but a condition precedent.
+  --> The court held the agreement was carefully drafted and is clear that the provision in question is not a warranty, but a ***condition precedent***.
   * plaintiff had the right to refuse to purchase because of the failure of this condition. But that option to refuse had to be made by the closing date
   * by accepting sellers performance and going ahead with the closing, plaintiff ***waived its right under the condition Precedent***
 
@@ -860,7 +901,7 @@ Court ruled that the coronation is the <u>***implied condition***</u> for the co
 The impossibility does not stop the transaction to happen as it is still possible to rent the room given the delay of the coronation. However, the principle purpose of the contract is <u>***substantially frustrated***</u> and therefore the obligation is excused.
 
 
-###  14. Right to Suspend Performance
+###  Right to Suspend Performance
 
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
@@ -936,19 +977,33 @@ However, not all States embrace the adequate assurance doctrine outside of UCC c
 
 * Could Hochster bring suit before June 1 given that De La Tour had not yet failed to meet any of his contractual obligations.?
 
-  --> courts have allowed such suits and contracts of marriage where        
-  * one party marries someone else in contracts to lease a particular property
-  * the lessor leases it to someone else for the same time period. 
-  * Ending contracts for purchase of goods where the seller sells them to someone else. 
+  * ***Doctrinal Reason***:  Lord Campbell finds no universal rule that whereby agreement and act is to be done on a future day, no action can be brought for a breach of the agreement till the day for doing the act has arrived. Courts had allowed such suits and contracts of 
+    * marriage where one party marries someone else. 
+    * in contracts to lease a particular property, the lessor leases it to someone else for the same time period. 
+    * Ending contracts for purchase of goods where the seller sells them to someone else. 
 
-  --> In this case, he suggests that if De La Tour had set to sail for Australia before June 1st arrived, Hochster could have sued for breach under the same precedents. 
+    --> In this case, he suggests that if De La Tour had set to sail for Australia before June 1st arrived, Hochster could have sued for breach under the same precedents. When someone marries someone other than his or her fiance, or as in this case a party renounces a commitment, that person has breached "*An implied contract if either of them renounces the engagement*"
 
-This case comes from England and we're reading the decision from ​the Court of Queens Bench on appeal after Hochster won a trial. ​There were two legal questions for the appeals court to answer. ​The first was whether Hochster was obligated even after receiving De La Tour's letter ​to be ready to accompany him on a three month tour of Europe beginning on June 1st. ​Note that this would have prevented him from ​accepting the alternative employment beginning on July 4th. ​The second question was whether Hochster could sue De La Tour before June 1st ​given that De La Tour had not yet failed to meet any of his contractual obligations. 
+This case comes from England and we're reading the decision from the Court of Queens Bench on appeal after Hochster won a trial. There were two legal questions for the appeals court to answer. The first was whether Hochster was obligated even after receiving De La Tour's letter to be ready to accompany him on a three month tour of Europe beginning on June 1st. Note that this would have prevented him from accepting the alternative employment beginning on July 4th. The second question was whether Hochster could sue De La Tour before June 1st given that De La Tour had not yet failed to meet any of his contractual obligations. 
 
 
 
 Lord Campbell also makes **economic argument**: "[I]nstead of remaining idle and laying out money in preparations which might be useless, he is at liberty to service under another company". **-->** This would allow for "mitigation of the damages to which he would otherwise be entitled for a breach of the contract"
 
+<u>*Summary:* </u>
+
+* Doctrinal argument:
+  * Implied "promise that in the meantime neither will do anything to the prejudice of the other inconsistent with that [contractual] relation"
+  * "Breach of implied contract if either of them renounces the engagement"
+
+* Economic argument:
+  * "[I]nstead of remaining idle and laying out money in preparations which might be useless, he is at liberty to seek service under another employer"
+  * This would allow for "mitigation of the damages to which he would otherwise be entitled for a breach of the contract."
+
+* When one party indicates ***by word or action*** that it will breach its contractual obligation, the other party:
+
+  1. gets an immediate right to sue
+  2. Is released from its contractual obligations
 
 #### 14.2 "Premature Breeding Cancellation - Anticipatory Breach" - H.B. Taylor v. Elizabeth Johnston - 
 
@@ -1148,7 +1203,7 @@ then
 
 
 
-#### 15.3 "Lost Volume Profits" - Locks v. Wade
+#### "Lost Volume Profits" - Locks v. Wade
 
 <u>*Situation:* </u>
 
@@ -1165,7 +1220,7 @@ then
 * Lost-volume damages should only be awarded if the breach is ***but-for cause*** of a change in the seller's volume. 
 * It is the <u>***breaching lessees burdened to prove that there was no lost volume in these cases***</u>.
 
-###  16. Breach by the Seller
+###  Breach by the Seller
 
 <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
 *UCC § 2-610: *
@@ -1203,7 +1258,7 @@ The Restatement on Economic Waste
 
 
 
-#### 16.1 "Mitigation" - Reliance Cooperage Corp. vs. Treat
+#### "Mitigation" - Reliance Cooperage Corp. vs. Treat
 
 Main issue:
 Was the plaintiff under an unconditional duty to mitigate damages upon learning of defendant's anticipatory repudiation?
@@ -1224,18 +1279,21 @@ Summary:
 
 Is the measure of contract damages the ***cost of performance*** or the ***diminution in value*** as a result of the breach?
 
-<u>Holding: </u>
+<u>*Holding:* </u>
 
-The court relied on ***Oklahoma statues*** which "limit the damages recoverable to a reasonable amount not 'contrary to substantial justice'" and "prevent plaintiffs from recovering a 'greater amount in damages for the breach of an obligation' than they would have 'gained by the full performance thereof.'"
+The court relied on ***Oklahoma statues*** which 
+
+  * "limit the damages recoverable to a reasonable amount not 'contrary to substantial justice'" and 
+  * "prevent plaintiffs from recovering a 'greater amount in damages for the breach of an obligation' than they would have 'gained by the full performance thereof.'"
 
 The majority referenced the restatement on economic waste - 346(1)(a)
 
 
-<u>Dissent by Justice Erwin:</u>
+<u>*Dissent by Justice Erwin:*</u>
 
 The "defendant had knowledge, when it prevailed upon the plaintiffs to execute the lease, that the cost of performance might be disproportionate to the value or benefits received by plaintiff for the performance" and that "there were several negotiations between the plaintiffs and defendant before the contract is executed.
 
-<u>Professor:</u>
+<u>*Professor:*</u>
 
 There might be a reason why Garland agreed to the contract but then later breach, that is close to ***promissory fraud***, i.e. Garland in making the promise to restore never intended to perform.
 
@@ -1323,7 +1381,7 @@ Court's Answer is No.
 * In addition to losing the value from the contract, the plaintiff is worse off physically than before the contract
 
 
-#### 17.2 Rite Aid Corp vs. Lake Shore Investors - Punitive damages
+#### Rite Aid Corp vs. Lake Shore Investors - Punitive damages
 
 <u>Situation:</u>
 
@@ -1347,7 +1405,7 @@ Lake Shore should have been able to prove damages that would "reasonably" flow f
 * There is actual malice.
 
 
-###  18. Injunctions and Specific Performance
+###  Injunctions and Specific Performance
 
 In contract law, there is strong preference to compensate the plaintiff instead of to punish the defendant. 
 
@@ -1433,6 +1491,15 @@ The court applied a two-part test to determine whether the early termination fee
 
 
 
+### Final Review
+
+1. Contract formation
+
+    * who are you contracting with? 
+      * capacity?
+      * merchant or not? does UCC applies?
+    * consideration
+    * 
 
 
 
