@@ -23,7 +23,7 @@ link-citations: yes
   * justifies full custodial arrests and the absolute constitutional prerequisite for a judge to issue a warrant to search a home or seize property
   * when the facts and circumstances within the officer's knowledge are sufficient to warrant a person of reasonable caution in the belief that an offense has been or is being committed or that contraband will be found in a particular place
 
-#### Olmstead v. United States (1928) - Trespass Doctrine
+#### Olmstead v. United States (1928) - Trespass Doctrine (later overruled)
 
 Fourth Amendment law was entirely tethered to English common law property rights in physical trespass. The rule was remarkably rigid. It was all about tangible things the government had to physically encroach upon your property.
 
@@ -141,7 +141,7 @@ You lose your 4th Amendment expectation of privacy in any information you volunt
 * The Court ruled this was not a Fourth Amendment search because a person voluntarily conveys dialing data to the phone company.
 
 
-#### Carpenter v. United States (2018) - Exception to the Third Party Doctrine
+#### Carpenter v. United States (2018) - Exception to the Third Party Doctrine - cellphone
 
 
 <u> *Ruling* </u>
@@ -177,10 +177,16 @@ You lose your 4th Amendment expectation of privacy in any information you volunt
 A person is seized only when, by means a physical force or show of authority, their freedom of movement is restrained.
 e.g. Were the police displaying weapons, were there multiple officers surrounding the suspect in a physically threatening way? Did they retain the suspects ID or plane ticket?
 
-#### California v. Hodari D. - the seizure happens when physical contact happens or when suspect submits to the show of authority
+#### California v. Hodari D. (1991) - the seizure happens when physical contact happens or when suspect submits to the show of authority
 
 <u> *Situation* </u>
+* In Oakland, California, a group of youths, including the respondent Hodari D., fled at the sight of an unmarked police car. 
+* An officer pursued Hodari on foot.
+* While being chased and just before the officer tackled him, Hodari threw away a small rock that turned out to be crack cocaine.
 
+<u> *Central Issue*</u>
+
+Because the state conceded that the officer didn't have reasonable suspicion to chase Hodari until after the rock was thrown, the court had to decide the exact moment a "seizure" occurs. Was Hodari seized the moment the officer started chasing him (making the drugs inadmissible "*fruit of the poisonous tree*"), or was he seized only when he was tackled (making the discarded drugs admissible evidence)?
 
 <u> *Ruling* </u>
 
@@ -194,20 +200,40 @@ e.g. Were the police displaying weapons, were there multiple officers surroundin
       * -> Because Hordari did not submit, he was not "seized" until the exact millisecond the officer physically tackled him to the ground.
       * -> Because he tossed the cocaine before he was tackled, he abandoned that property while he was still. legally speaking, a completely free man because the seizure hadn't happened yet
   
-#### Illinois v. Gates - Totality of Circumstances
+#### Illinois v. Gates (1983) - Totality of Circumstances
 
+*Gates* Revolutionized how police departments use anonymous informant tips to build probable cause. Before *Gates*, courts relied on the strict *Aguilar-Spinelli* test, which required search warrants based on informant tips to meet two rigid, independent requirements:
 
+* Basis of Knowledge: The informant must reveal ***how they obtained their information***.
+* Veracity/Reliability: The police must establish ***why the informant is credible*** or their information is reliable (They have to prove this specific informant had a track record of being truthful)
+
+If you have a brilliant, incredibly detailed tip, but it was completely anonymous, meaning you couldn't prove the veracity of the author, then the judge has to throw the whole tip away as it fails the veracity/reliability test. The Supreme Court realized the rigid test was tying the hands of law enforcement, so they threw out the 2 prong test and adopted the totality of curcumstances.
 
 <u> *Situation* </u>
 
+* In May 1978, the Bloomingdale, Illinois, Police Department received an anonymous handwritten letter. The letter alleged that Lance and Susan Gates were drug dealers, describing in detail an operation where the wife would drive their car to Florida, leave it to be loaded with drugs, and the husband would fly down to drive it back.
+* Police independently investigated these claims and verified several key details. They found that Lance Gates had booked a flight to Florida, stayed in a motel room registered to his wife, and was driving northbound back toward Illinois on a major interstate used by travelers. 
+* Police presented this corroborated information and the anonymous letter to a judge, who issued a search warrant. Upon searching the couple's car and home, police discovered large quantities of marijuana, weapons, and other contraband
+
 
 <u> *Ruling* </u>
+
+* The Court concluded that the letter writer was completely anonymous, low veracity was overcome by the fact that the letter predicted future, highly specific innocent travel behavior that the police independently verified.
+* A judge issuing a warrant must simply make a practical, common-sense decision based on all the circumstances set forth in the affidavit (including the "veracity" and "basis of knowledge" of the informant). 
+* A deficiency in one of these areas can be compensated for by a strong showing in the other, or by other reliable details discovered during a police investigation. 
 
 
 #### Raucous v. Illinois - Constitutional Standing
 
 
-#### Horton v. California - The Plain View Doctrine
+#### Horton v. California (1990) - The Plain View Doctrine
+
+<u>*Situation* </u>
+
+* Police suspected Terry Brice Horton of an armed robbery and obtained probable cause to search his home for the stolen property and the robbers' weapons. * However, the search warrant issued by the magistrate only authorized a search for the stolen proceeds, not the weapons. 
+* During the authorized search, officers did not find the stolen property but discovered the weapons ***in plain view*** and seized them
+
+<u>*Ruling* </u>
 
 1. ***lawful presence***: the officer must be constitutionally allowed to stand in the exact spot they are standing whey they see the item.
 2. ***lawful right of access***: they must have legal path to physically reach the object

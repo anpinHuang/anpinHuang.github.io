@@ -1,0 +1,117 @@
+---
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '5'
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+    includes:
+      in_header: GA_Script.html
+bibliography: references.bib
+link-citations: yes
+---
+
+### Warrents and the Warrent Exceptions
+
+The 4th Amendment protects people from ***unreasonable searches and seizures***.
+
+* The baseline doctrine is that searches conducted outside the judicial process, meaning without prior approval by a judge or magistrate, are unreasonable.
+* The courts have carved out specific categorical exceptions to the warrant requirement.
+
+<u>*Why 4th Amendment though?* </u>
+
+Historically, "*a writ of assistance*" was a broad, blanket search warrant issued by British colonial courts (basically a blank check?). It empowered customs officials and authorities to search any ship, warehouse, or private home for smuggled goods without needing to specify the exact location or the items being sought and searchers were not responsible for any damage they caused.
+
+* Colonists viewed them as a massive invasion of privacy and a violation of their rights, because they could be used indefinitely ***without probable cause***.
+* In 1761, Boston lawyer James Otis passionately challenged the legality of these writs in court. Although he lost, his arguments heavily influenced the Fourth Amendment, which later required warrants to be <u>***specific***</u>.
+
+
+<u>*what does a constitutionally valid warrant look like?* </u> 
+
+It requires all three specific ingredients:
+
+1. must be issued by a neutral and detached magistrate
+2. affirmation: ***a sworn affidavit*** that lays out ***specific facts and circumstances*** that would lead a reasonable to believe that contraband or evidence of a crime will be found in a particular place.
+3. ***particularity***: the warrant must explicitly describe the place to be searched and the persons or things to be seized. i.e. the police have to name their target, e.g. a stolen vehicle, a financial ledgers or a specific caliber of ammunition?
+
+<u>*Search Incident to a Lawful Arrest (SILA)*</u>
+
+This exception exists primarily to serve two critical purposes:
+
+* ***Officer Safety***: To secure weapons the suspect could use to resist arrest or harm the officers.
+* ***Evidence Preservation***: To prevent the concealment or destruction of evidence related to the crime.
+
+It must satisfy below requirements:
+
+1. ***Lawful Custodial Arrest: ***
+
+    The arrest must be supported by probable cause and constitute a ***full custodial arrest*** (minor traffic tickets do not qualify).
+2. ***Timing and Space: ***
+
+    The search must be contemporaneous, or ***close in time and physical space, to the arrest itself***.
+3. ***Scope of Search: ***
+
+    Officers may search the arrestee's person and the ***immediate "wingspan" area***. For vehicles, Arizona v. Gant dictates that police may only search the passenger compartment if the arrestee is unsecured and within reaching distance during the search, or if there is a reasonable belief the vehicle contains evidence related to the arrest.
+
+
+#### Chimel v. California (1969) - Arrest Doesn't Grant Search
+
+
+<u> *Situation* </u>
+
+* Santa Ana, California police arrived at Ted Chimel's home with an arrest warrant for burglary, but without a search warrant. 
+* Upon arresting him inside his home, they ignored his objections and spent roughly an hour searching his entire three-bedroom house, including the attic, garage, and drawers, ultimately seizing items used to convict him
+
+#### Riley v. California (2014) - digital data (Cell phone) cannot be search during arrest
+
+A landmark 2014 unanimous U.S. Supreme Court decision holding that police must obtain a warrant before searching the digital contents of a cell phone seized from an individual who has been arrested.
+
+<u> *Situation* </u>
+
+* *Riley v. California*: 
+  * David Leon Riley was stopped for a traffic violation, which led to a vehicle search and his arrest. 
+  * Police seized his smartphone, looked through his digital photo gallery, and later used gang-related text messages and photos found on the phone to enhance his sentence for a shooting.
+* *United States v. Wurie*: 
+  * Brima Wurie was arrested after a suspected drug deal. 
+  * Officers monitored his flip phone's call log, discovering an incoming call from a "my house" contact. 
+  * They traced that number to an address and secured a search warrant for the residence, which contained drugs and a firearm
+
+
+<u> *Ruling:* </u>
+
+Chief Justice John Roberts wrote that the digital contents of a cell phone cannot be searched without a warrant. 
+
+The Court rejected the government's argument that a cell phone should be treated like any other physical item found on an arrestee (such as a wallet or a set of keys).The Court provided several key rationales for the decision:
+
+1. Massive privacy interest: 
+    
+    The Court acknowledged that modern cell phones are ***essentially "minicomputers"*** that hold massive amounts of private information, including financial records, medical history, and daily activities. The quantity and sensitivity of this data are unprecedented in American history.
+2. Lack of traditional threats: 
+
+    Historically, police are permitted to search suspects incident to an arrest <u>***to ensure officer safety and prevent the destruction of evidence***</u>. The Court reasoned that digital data cannot be used as a weapon to harm an officer. Furthermore, evidence destruction can usually be prevented simply by turning off the phone, removing the battery, or placing it in a signal-blocking Faraday bag while waiting for a judge to issue a warrant
+    
+#### Carroll v. United States (1925) - The Carroll Doctrine for Automobiles 
+
+The exception for SILA for automobiles.
+
+<u> *Situation:*</u>
+
+* During Prohibition, federal agents stopped a suspected bootlegger's car without a warrant and found illicit liquor hidden in the upholstery. 
+* The agents ***had prior knowledge and probable cause*** to believe the vehicle was actively transporting illegal alcohol
+
+<u> *Ruling:*</u>
+
+The Supreme Court upheld the conviction, determining that warrantless searches of automobiles are not "unreasonable" under the Fourth Amendment, provided the officer has valid probable cause. If probable cause exists, officers <u>can search anywhere in the vehicle ***where the suspected evidence could logically be concealed***</u>, including the trunk, glove boxes, and personal containers inside.
+
+*Be careful of "where the suspected evidence could logically be concealed". If the suspected evidence is a 65 inch flat screen TV, then the police cannot search the glove box or a purse found in the backseat because the 65 inch logically cannot be concealed there.*
+
+The ruling relies on two core rationales:
+
+* ***Inherent Mobility***: Because vehicles can be quickly moved out of a jurisdiction, securing a search warrant is often impractical.
+* ***Reduced Expectation of Privacy***: Individuals have a lower expectation of privacy in a vehicle compared to a home because vehicles are highly regulated and travel on public thoroughfares
+
+
