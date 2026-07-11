@@ -58,6 +58,20 @@ It must satisfy below requirements:
     Officers may search the arrestee's person and the ***immediate "wingspan" area***. For vehicles, Arizona v. Gant dictates that police may only search the passenger compartment if the arrestee is unsecured and within reaching distance during the search, or if there is a reasonable belief the vehicle contains evidence related to the arrest.
 
 
+<u>*For a Seizure to be Justified Under the Planview Doctrine*</u>
+
+3 strict prongs must be met:
+
+1. ***lawful vantage point***:
+
+    The officer must have a legal right to be exactly where they're standing when they see the object
+2. ***lawful right to access***:
+
+    The officer must be able to physically reach the object and seize it without violating the 4th Amendment
+3. ***immediately apparent***: 
+
+    the incriminating nature of the object must be immediately apparent
+
 #### Chimel v. California (1969) - Arrest Doesn't Grant Search
 
 
@@ -114,4 +128,42 @@ The ruling relies on two core rationales:
 * ***Inherent Mobility***: Because vehicles can be quickly moved out of a jurisdiction, securing a search warrant is often impractical.
 * ***Reduced Expectation of Privacy***: Individuals have a lower expectation of privacy in a vehicle compared to a home because vehicles are highly regulated and travel on public thoroughfares
 
+
+#### Arizona v. Hicks (1987) - probable cause required for Plan View Doctrine
+
+<u> *Situation:*</u>
+
+* On April 18, 1984, An officer responded to an emergencuy call that a bullet was fired through the floor of James Hicks' apartment, injuring a man in the unit below. 
+* Under ***exigent circumstances***, police lawfully entered Hicks' apartment without a warrant to search for the shooter, other victims, and weapons.
+* During the search, officers discovered several weapons and a stocking-cap mask. 
+* An officer also noticed two sets of expensive stereo components that seemed out of place in the otherwise squalid apartment. 
+* Suspecting they were stolen, ***the officer moved the components to read and record their serial numbers***. He then called in the numbers to headquarters and learned that one of the turntables had been taken in an armed robbery, which police seized immediately
+
+
+
+<u> *Ruling:*</u>
+
+1. ***Movement is a Search***: 
+
+    Taking action to move or physically manipulate an object to view concealed information (like a serial number) compromises the owner's possessory rights and qualifies as an independent search. Justice Scalia wrote that: moving the stereo even just a few inches to read the serial numbers constituted a new, independent, warrantless search that was unrelated to the initial emergency of looking for the shooter.
+
+2. ***Probable Cause Required for Plain View***: 
+
+    For the plain view doctrine to allow warrantless seizure (or inspection), police must have probable cause to believe the object in plain view is evidence of a crime. The Court rejected the argument that "reasonable suspicion" is sufficient to invoke the plain view exception
+
+
+#### Minnesota v. Dickerson (1993) - Plain view extend to "plain feel/touch"
+
+<u> *Situation:*</u>
+
+* Police officers stopped Timothy Dickerson as he was leaving an apartment building known for crack cocaine sales. 
+* After ordering Dickerson to submit to a Terry frisk, the officer felt a small, hard lump in Dickerson's jacket pocket. 
+* The officer testified that he ***did not immediately recognize the lump as a weapon***, 
+* but after ***further tactile examination and manipulation***, he concluded it was a lump of crack cocaine in cellophane. He then reached into the pocket and seized the drugs.
+
+
+<u> *Ruling:*</u>
+
+* the Court determined the officer's initial Terry stop and pat-down were valid. 
+* However, the seizure of the cocaine was unconstitutional. Because the officer already knew the hard lump in the pocket was not a weapon (it is not immediate apparent that it is drug during the process of determining of it is a weapon), his continued exploration and manipulation of the object to determine it was drugs exceeded the authorized scope of a Terry frisk.
 

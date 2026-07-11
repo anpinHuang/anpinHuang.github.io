@@ -13,13 +13,23 @@
 
 <title>Derive OLS Estimators</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -36,22 +46,47 @@
 </script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-222711575-1');
+  gtag('config', 'G-LLS7JTFH7K');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -64,32 +99,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -99,10 +110,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -119,40 +126,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -180,7 +163,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -192,7 +175,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -202,11 +185,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -218,13 +218,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -232,16 +231,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -350,7 +342,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,7 +356,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -386,10 +378,13 @@ div.tocify {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
+</li>
+<li>
+  <a href="Law.html">Law</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -399,7 +394,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -410,10 +405,14 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="problem-formulation">Problem Formulation</h3>
+<div id="problem-formulation" class="section level3">
+<h3>Problem Formulation</h3>
 </ins>
 </div>
-<p>The purpose of this section is to derive the estimators of OLS (Ordinary Least Square), their expectation and variance. <span class="math display">\[ y = x\beta + \epsilon\]</span></p>
+</div>
+<p>The purpose of this section is to derive the estimators of OLS
+(Ordinary Least Square), their expectation and variance. <span
+class="math display">\[ y = x\beta + \epsilon\]</span></p>
 <p><span class="math display">\[
 \begin{bmatrix}
 y_{1}\\
@@ -438,64 +437,133 @@ x_{T,1} &amp; x_{T,2} &amp; \dots &amp; x_{T,K}
 \vdots\\
 \epsilon_{T}
 \end{bmatrix}
-\]</span> note that <span class="math display">\[ e = y-x\hat{\beta} \]</span> and</p>
+\]</span> note that <span class="math display">\[ e = y-x\hat{\beta}
+\]</span> and</p>
 <p><span class="math display">\[\epsilon  \neq e\]</span></p>
-<strong>Goal: minimize sum of squared residuals</strong> <span class="math display">\[ min(e^{\prime} e) \]</span> <span class="math display">\[
+<strong>Goal: minimize sum of squared residuals</strong> <span
+class="math display">\[ min(e^{\prime} e) \]</span> <span
+class="math display">\[
 \begin{aligned}
 e^{\prime} e &amp;=  (y-x\hat{\beta})^{\prime}(y-x\hat{\beta}) \\
-&amp;= y^{\prime} y - \hat{\beta}^{\prime} x^{\prime} y - y^{\prime} x\hat{\beta} + \hat{\beta}^{\prime} x^{\prime} x \hat{\beta} \\
-&amp;= y^{\prime} y - 2\hat{\beta}^{\prime} x^{\prime} y + \hat{\beta}^{\prime} x^{\prime} x \hat{\beta} \\
+&amp;= y^{\prime} y - \hat{\beta}^{\prime} x^{\prime} y - y^{\prime}
+x\hat{\beta} + \hat{\beta}^{\prime} x^{\prime} x \hat{\beta} \\
+&amp;= y^{\prime} y - 2\hat{\beta}^{\prime} x^{\prime} y +
+\hat{\beta}^{\prime} x^{\prime} x \hat{\beta} \\
 \end{aligned}
 \]</span>
 <div style="background-color:#E5E7E9;color:black;matrixOperation:20px;">
-<p>given that <span class="math display">\[ (AB)^{\prime} = B^{\prime} A^{\prime} \]</span> and transpose of a scaler is a scaler <span class="math display">\[ y^{\prime} x \hat{\beta} = (y^{\prime} x \hat{\beta})^{\prime} = (x\hat{\beta})^{\prime} y = \hat{\beta}^{\prime} x^{\prime} y \]</span></p>
+<p>given that <span class="math display">\[ (AB)^{\prime} = B^{\prime}
+A^{\prime} \]</span> and transpose of a scaler is a scaler <span
+class="math display">\[ y^{\prime} x \hat{\beta} = (y^{\prime} x
+\hat{\beta})^{\prime} = (x\hat{\beta})^{\prime} y = \hat{\beta}^{\prime}
+x^{\prime} y \]</span></p>
 </div>
-<p><span class="math display">\[ \frac{\partial e^{\prime} e}{\partial \hat{\beta}} = -2x^{\prime} y+2x^{\prime} x \hat{\beta} = 0 \]</span></p>
-<span class="math display">\[ \Rightarrow x^{\prime} x \hat{\beta} = x^{\prime} y \]</span> <span class="math display">\[ 
+<p><span class="math display">\[ \frac{\partial e^{\prime} e}{\partial
+\hat{\beta}} = -2x^{\prime} y+2x^{\prime} x \hat{\beta} = 0
+\]</span></p>
+<span class="math display">\[ \Rightarrow x^{\prime} x \hat{\beta} =
+x^{\prime} y \]</span> <span class="math display">\[
 \begin{aligned}
-\Rightarrow \hat{\beta} &amp;= (x^{\prime} x)^{-1}x^{\prime} y ,\,\ (\,if \,\, (x^{\prime} x)^{-1} \,\, exists) \\
- &amp;= (x^{\prime} x)^{-1}x^{\prime} (x\beta + \epsilon) \\
- &amp;= \beta+(x^{\prime} x)^{-1}x^{\prime}  \epsilon 
- \end{aligned}
- \]</span>
+\Rightarrow \hat{\beta} &amp;= (x^{\prime} x)^{-1}x^{\prime} y ,\,\
+(\,if \,\, (x^{\prime} x)^{-1} \,\, exists) \\
+&amp;= (x^{\prime} x)^{-1}x^{\prime} (x\beta + \epsilon) \\
+&amp;= \beta+(x^{\prime} x)^{-1}x^{\prime}  \epsilon
+\end{aligned}
+\]</span>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="unbiasedness-of-hatbeta_ols">Unbiasedness of <span class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
+<div id="unbiasedness-of-hatbeta_ols" class="section level3">
+<h3>Unbiasedness of <span
+class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
 </ins>
 </div>
-<p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x^{\prime} x)^{-1}x^{\prime} \epsilon]\]</span></p>
-<p>If <span class="math inline">\(E[\epsilon] =0\)</span> and <span class="math inline">\(E[\epsilon | x] = 0\)</span>, then <span class="math inline">\(E[(x^{\prime} x)^{-1}x^{\prime} \epsilon] = 0\)</span> and <span class="math inline">\(E[ \hat{\beta}] = \beta\)</span>.<br />
-<strong><span class="math inline">\(\Rightarrow \hat{\beta}\)</span> is an unbiased estimator.</strong></p>
+</div>
+<p><span class="math display">\[ E[ \hat{\beta}] = \beta + E[(x^{\prime}
+x)^{-1}x^{\prime} \epsilon]\]</span></p>
+<p>If <span class="math inline">\(E[\epsilon] =0\)</span> and <span
+class="math inline">\(E[\epsilon | x] = 0\)</span>, then <span
+class="math inline">\(E[(x^{\prime} x)^{-1}x^{\prime} \epsilon] =
+0\)</span> and <span class="math inline">\(E[ \hat{\beta}] =
+\beta\)</span>.<br />
+<strong><span class="math inline">\(\Rightarrow \hat{\beta}\)</span> is
+an unbiased estimator.</strong></p>
 <hr />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="variance-of-the-hatbeta_ols">Variance of the <span class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
+<div id="variance-of-the-hatbeta_ols" class="section level3">
+<h3>Variance of the <span
+class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
 </ins>
 </div>
-<p>recall the formula for variance <span class="math display">\[Var(A) = E[\,(A-E[A])\, (A-E[A])^{\prime}]\]</span> and the OLS estimator we just derived <span class="math display">\[\hat\beta_{OLS} = \beta + (x^{\prime} x)^{-1}x^{\prime}  \epsilon\]</span> and if the OLS estimator is an unbiased estimator <span class="math display">\[E[\hat\beta_{OLS}] = \beta\]</span> Then <span class="math display">\[
+</div>
+<p>recall the formula for variance <span class="math display">\[Var(A) =
+E[\,(A-E[A])\, (A-E[A])^{\prime}]\]</span> and the OLS estimator we just
+derived <span class="math display">\[\hat\beta_{OLS} = \beta +
+(x^{\prime} x)^{-1}x^{\prime}  \epsilon\]</span> and if the OLS
+estimator is an unbiased estimator <span
+class="math display">\[E[\hat\beta_{OLS}] = \beta\]</span> Then <span
+class="math display">\[
 \begin{aligned}
-Var(\hat\beta_{OLS}) &amp;= E[(x^{\prime} x)^{-1}x^{\prime}\epsilon \,\, ((x^{\prime} x)^{-1}x^{\prime}\epsilon)^{\prime}] \\
-&amp;=(x^{\prime} x)^{-1}x^{\prime} \,\, E[\epsilon\epsilon^{\prime}] \,\, ((x^{\prime} x)^{-1}x^{\prime})^{\prime}
+Var(\hat\beta_{OLS}) &amp;= E[(x^{\prime} x)^{-1}x^{\prime}\epsilon \,\,
+((x^{\prime} x)^{-1}x^{\prime}\epsilon)^{\prime}] \\
+&amp;=(x^{\prime} x)^{-1}x^{\prime} \,\, E[\epsilon\epsilon^{\prime}]
+\,\, ((x^{\prime} x)^{-1}x^{\prime})^{\prime}
 \end{aligned}
-\]</span> if <span class="math inline">\(E[\epsilon\epsilon^{\prime}]=\sigma^2I_T\)</span> and <span class="math inline">\(E[\epsilon|X]=0\)</span> Then <span class="math display">\[
+\]</span> if <span
+class="math inline">\(E[\epsilon\epsilon^{\prime}]=\sigma^2I_T\)</span>
+and <span class="math inline">\(E[\epsilon|X]=0\)</span> Then <span
+class="math display">\[
 \begin{aligned}
-Var(\hat\beta_{OLS}) &amp;=(x^{\prime} x)^{-1}x^{\prime} \,\, E[\epsilon\epsilon^{\prime}] \,\, ((x^{\prime} x)^{-1}x^{\prime})^{\prime} \\
+Var(\hat\beta_{OLS}) &amp;=(x^{\prime} x)^{-1}x^{\prime} \,\,
+E[\epsilon\epsilon^{\prime}] \,\, ((x^{\prime}
+x)^{-1}x^{\prime})^{\prime} \\
 &amp;=\sigma^2(X^{\prime} X)^{-1}
 \end{aligned}
-\]</span> We don’t know the <span class="math inline">\(\epsilon\)</span>…we only have the estimate of it-the residuals <span class="math inline">\(e\)</span> where <span class="math inline">\(e = Y-X\hat\beta_{OLS}\)</span>.</p>
-<p>Then we estimate the <span class="math inline">\(\sigma^2\)</span> by <span class="math display">\[s^2= \frac{e^{\prime} e}{T-K} \]</span> where <span class="math inline">\(K\)</span> is the number of explanatory variables</p>
-<p>Therefore, our estimate of variance of <span class="math inline">\(\hat\beta_{OLS}\)</span> becomes <span class="math display">\[s^2(X^{\prime} X)^{-1}\]</span> Then the distribution of <span class="math inline">\(\hat\beta_{OLS}\)</span> becomes a t-distribution with <span class="math inline">\(T-K\)</span> degree of freedoms with <span class="math inline">\(mean = \beta\)</span> and <span class="math inline">\(variance = s^2(X^{^{\prime}} X)^{-1}\)</span></p>
+\]</span> We don’t know the <span
+class="math inline">\(\epsilon\)</span>…we only have the estimate of
+it-the residuals <span class="math inline">\(e\)</span> where <span
+class="math inline">\(e = Y-X\hat\beta_{OLS}\)</span>.</p>
+<p>Then we estimate the <span class="math inline">\(\sigma^2\)</span> by
+<span class="math display">\[s^2= \frac{e^{\prime} e}{T-K} \]</span>
+where <span class="math inline">\(K\)</span> is the number of
+explanatory variables</p>
+<p>Therefore, our estimate of variance of <span
+class="math inline">\(\hat\beta_{OLS}\)</span> becomes <span
+class="math display">\[s^2(X^{\prime} X)^{-1}\]</span> Then the
+distribution of <span class="math inline">\(\hat\beta_{OLS}\)</span>
+becomes a t-distribution with <span class="math inline">\(T-K\)</span>
+degree of freedoms with <span class="math inline">\(mean =
+\beta\)</span> and <span class="math inline">\(variance =
+s^2(X^{^{\prime}} X)^{-1}\)</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="distribution-of-hatbeta_ols">Distribution of <span class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
+<div id="distribution-of-hatbeta_ols" class="section level3">
+<h3>Distribution of <span
+class="math inline">\(\hat{\beta}_{OLS}\)</span></h3>
 </ins>
 </div>
-<p>With the expected value and variance estimated in the above sections, we still need to know the sampling distribution of <span class="math inline">\(\hat{\beta}_{OLS}\)</span> to perform the significant test</p>
+</div>
+<p>With the expected value and variance estimated in the above sections,
+we still need to know the sampling distribution of <span
+class="math inline">\(\hat{\beta}_{OLS}\)</span> to perform the
+significant test</p>
 <ul>
-<li><span class="math inline">\(\epsilon\)</span> is normally distributed, then <span class="math inline">\(\hat{\beta}_{OLS}\)</span> is normally distributed</li>
-<li>Don’t know <span class="math inline">\(\epsilon\)</span>’s distribution: Large sample -&gt; <span class="math inline">\(\hat{\beta}_{OLS}\)</span> is asymtotically normally distributed. The common argument for this assumption is that <span class="math inline">\(\epsilon\)</span> is a sum of many unobserved factors, so by Generalized Central Limit Theorem it is asymtotically normally distributed. (Note: the standard Central Limit Theorem requires that the samples of the unobserved factors are i.d.d. which is not the case in the real world)</li>
+<li><span class="math inline">\(\epsilon\)</span> is normally
+distributed, then <span class="math inline">\(\hat{\beta}_{OLS}\)</span>
+is normally distributed</li>
+<li>Don’t know <span class="math inline">\(\epsilon\)</span>’s
+distribution: Large sample -&gt; <span
+class="math inline">\(\hat{\beta}_{OLS}\)</span> is asymtotically
+normally distributed. The common argument for this assumption is that
+<span class="math inline">\(\epsilon\)</span> is a sum of many
+unobserved factors, so by Generalized Central Limit Theorem it is
+asymtotically normally distributed. (Note: the standard Central Limit
+Theorem requires that the samples of the unobserved factors are i.d.d.
+which is not the case in the real world)</li>
 </ul>
-<p>The following code takes a sample of 20 non-i.d.d. variables (Normal, Uniform or Cauchy distributions with different parameters) and simulate 1000 times.</p>
+<p>The following code takes a sample of 20 non-i.d.d. variables (Normal,
+Uniform or Cauchy distributions with different parameters) and simulate
+1000 times.</p>
 <pre class="r"><code>N &lt;- 1000
 s &lt;- numeric(0)
 for(i in 1:N) {
@@ -535,30 +603,65 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 <img src="deriveOLS_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="significancy-confidence-interval">Significancy &amp; Confidence Interval</h3>
+<div id="significancy-confidence-interval" class="section level3">
+<h3>Significancy &amp; Confidence Interval</h3>
 </ins>
 </div>
-<p>The significance test and condifence intervals tell us about the same thing we want to know and will have the same conclusion. However, there are suble difference of the way they look at this.</p>
-<p><strong>The t statistics:</strong> <span class="math display">\[t = \frac{\bar{X}-\mu}{\hat{\sigma}/\sqrt{n}}\]</span> where <span class="math inline">\(\mu\)</span> is the population mean, <span class="math inline">\(\hat{\sigma}\)</span> is the estimate of the standard deviation of the population. The t statistics follows <strong>Student t distribution</strong>. (Derived from <span class="math inline">\(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span> follows normal distribution by the central limit theorem, but the standard deviation of the population is an estimation from the sample in t statistics)</p>
+</div>
+<p>The significance test and condifence intervals tell us about the same
+thing we want to know and will have the same conclusion. However, there
+are suble difference of the way they look at this.</p>
+<p><strong>The t statistics:</strong> <span class="math display">\[t =
+\frac{\bar{X}-\mu}{\hat{\sigma}/\sqrt{n}}\]</span> where <span
+class="math inline">\(\mu\)</span> is the population mean, <span
+class="math inline">\(\hat{\sigma}\)</span> is the estimate of the
+standard deviation of the population. The t statistics follows
+<strong>Student t distribution</strong>. (Derived from <span
+class="math inline">\(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span>
+follows normal distribution by the central limit theorem, but the
+standard deviation of the population is an estimation from the sample in
+t statistics)</p>
 <ul>
-<li><p>The significance test has the <span class="math inline">\(\mu\)</span> as the value of Null hypothesis and measures the distance of sample mean from the Null hypothesis.</p></li>
-<li><p>The confidence interval is an interval with the sample mean at the center and the confidence limit stretched from the sample mean.</p></li>
+<li><p>The significance test has the <span
+class="math inline">\(\mu\)</span> as the value of Null hypothesis and
+measures the distance of sample mean from the Null hypothesis.</p></li>
+<li><p>The confidence interval is an interval with the sample mean at
+the center and the confidence limit stretched from the sample
+mean.</p></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="f-test-for-the-model">F Test for the Model</h3>
+<div id="f-test-for-the-model" class="section level3">
+<h3>F Test for the Model</h3>
 </ins>
 </div>
-<p><span class="math display">\[ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ...+ \beta_px_p + \epsilon\]</span></p>
-<p><span class="math display">\[H_0: \beta_1=\beta_2 = ...= \beta_p = 0\]</span> <span class="math display">\[H_1: \beta_i \neq 0\]</span> Sum of Squared Residuals of the Unrestricted model (the above equation): <span class="math display">\[SSR_U = \sum_{i=1}^n e_U^2\]</span> where <span class="math inline">\(e_R\)</span> is the estimate of <span class="math inline">\(\epsilon\)</span> by the unrestricted model</p>
-<p>The restricted model (No explanatory variables) <span class="math display">\[y = \beta_0 + e_R\]</span></p>
-<p>then Sum of Squared Residuals of the Restricted model: <span class="math display">\[SSR_R = \sum_{i=1}^n e_R^2\]</span></p>
+</div>
+<p><span class="math display">\[ y = \beta_0 + \beta_1x_1 + \beta_2x_2 +
+...+ \beta_px_p + \epsilon\]</span></p>
+<p><span class="math display">\[H_0: \beta_1=\beta_2 = ...= \beta_p =
+0\]</span> <span class="math display">\[H_1: \beta_i \neq 0\]</span> Sum
+of Squared Residuals of the Unrestricted model (the above equation):
+<span class="math display">\[SSR_U = \sum_{i=1}^n e_U^2\]</span> where
+<span class="math inline">\(e_R\)</span> is the estimate of <span
+class="math inline">\(\epsilon\)</span> by the unrestricted model</p>
+<p>The restricted model (No explanatory variables) <span
+class="math display">\[y = \beta_0 + e_R\]</span></p>
+<p>then Sum of Squared Residuals of the Restricted model: <span
+class="math display">\[SSR_R = \sum_{i=1}^n e_R^2\]</span></p>
 <p><span class="math display">\[SSR_R &gt; SSR_U\]</span></p>
 <p>but is it signigicant?</p>
-<p><span class="math display">\[F = \frac{(SSR_R-SSR_U)/p}{SSR_U/(n-p-1)}\]</span> Recall the Chi-square distribution - If <span class="math inline">\(Z_1,...Z_k\)</span> are independent, standard normal random variables, then the sum of their squares,</p>
+<p><span class="math display">\[F =
+\frac{(SSR_R-SSR_U)/p}{SSR_U/(n-p-1)}\]</span> Recall the Chi-square
+distribution - If <span class="math inline">\(Z_1,...Z_k\)</span> are
+independent, standard normal random variables, then the sum of their
+squares,</p>
 <p><span class="math display">\[Q = \sum_{i=1}^k Z_i^2\]</span></p>
 <p><span class="math display">\[Q \sim \chi^2(k)\]</span></p>
-<p>where <span class="math inline">\(k\)</span> specifies the degree of freedom. The F distribution is the ratio of 2 scaled independent Chi-square distribution. The F test requires the sample errors <span class="math inline">\(e\)</span> ,or <span class="math inline">\(Z_i\)</span> to be normally distributed.</p>
+<p>where <span class="math inline">\(k\)</span> specifies the degree of
+freedom. The F distribution is the ratio of 2 scaled independent
+Chi-square distribution. The F test requires the sample errors <span
+class="math inline">\(e\)</span> ,or <span
+class="math inline">\(Z_i\)</span> to be normally distributed.</p>
 
 
 
@@ -571,7 +674,7 @@ lines(xfit, yfit_density, col=&quot;blue&quot;, lwd=2)</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -589,7 +692,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -598,6 +701,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

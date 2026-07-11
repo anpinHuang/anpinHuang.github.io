@@ -13,13 +13,23 @@
 
 <title>OLS Assumptions Test</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -36,22 +46,47 @@
 </script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-222711575-1');
+  gtag('config', 'G-LLS7JTFH7K');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -64,32 +99,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -99,10 +110,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -119,40 +126,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -180,7 +163,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -192,7 +175,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -202,11 +185,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -218,13 +218,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -232,16 +231,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -350,7 +342,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,7 +356,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -386,10 +378,13 @@ div.tocify {
   <a href="dataScienceML.html">Data Science</a>
 </li>
 <li>
-  <a href="Finance.html">Financial Math &amp; Risk Models</a>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
 </li>
 <li>
   <a href="Programming.html">Programming</a>
+</li>
+<li>
+  <a href="Law.html">Law</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -399,7 +394,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -410,68 +405,137 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="stationary">Stationary</h3>
+<div id="stationary" class="section level3">
+<h3>Stationary</h3>
 </ins>
 </div>
-<p>The Dickey-Fuller test needs to be done for all dependent and explanatory variables individually. Regressing on non-stationary time series can lead to spurious regression relationship between dependent and explanatory variables. Test for <strong>Unit Root</strong>: <span class="math display">\[y_t = \alpha + \rho y_{t-1} + \epsilon_t\]</span></p>
+</div>
+<p>The Dickey-Fuller test needs to be done for all dependent and
+explanatory variables individually. Regressing on non-stationary time
+series can lead to spurious regression relationship between dependent
+and explanatory variables. Test for <strong>Unit Root</strong>: <span
+class="math display">\[y_t = \alpha + \rho y_{t-1} +
+\epsilon_t\]</span></p>
 <ul>
-<li>Null Hypothesis: <span class="math inline">\(H_0: \rho = 1\)</span></li>
-<li>Alternative Hypothesis: <span class="math inline">\(H_1: \rho &lt;1\)</span></li>
+<li>Null Hypothesis: <span class="math inline">\(H_0: \rho =
+1\)</span></li>
+<li>Alternative Hypothesis: <span class="math inline">\(H_1: \rho
+&lt;1\)</span></li>
 </ul>
-<p>The original equation can also be written as the equation below, so that by testing the significancy of <span class="math inline">\(y_{t-1}\)</span> (wheher <span class="math inline">\(\theta = 0\)</span>), we can conclude that whether the time series is unit root: <span class="math display">\[\Delta y_t = \alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
-<p>However, when the true <span class="math inline">\(\theta = 0\)</span>, the sampling distribution of <span class="math inline">\(\theta\)</span> is not normal (Central Limit Theorem no longer applies), and therefore the standard t-test on OLS regression is not valid in this case. The asymptotic distribution of the t statistic is known as Dickey-Fuller distribution. The derivation is rather mathematical intense. The Dickey-Fuller test can be done in R packages.</p>
+<p>The original equation can also be written as the equation below, so
+that by testing the significancy of <span
+class="math inline">\(y_{t-1}\)</span> (wheher <span
+class="math inline">\(\theta = 0\)</span>), we can conclude that whether
+the time series is unit root: <span class="math display">\[\Delta y_t =
+\alpha + \theta y_{t-1} + \epsilon_t\]</span></p>
+<p>However, when the true <span class="math inline">\(\theta =
+0\)</span>, the sampling distribution of <span
+class="math inline">\(\theta\)</span> is not normal (Central Limit
+Theorem no longer applies), and therefore the standard t-test on OLS
+regression is not valid in this case. The asymptotic distribution of the
+t statistic is known as Dickey-Fuller distribution. The derivation is
+rather mathematical intense. The Dickey-Fuller test can be done in R
+packages.</p>
 <hr />
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="auto-correlation">Auto-correlation</h3>
+<div id="auto-correlation" class="section level3">
+<h3>Auto-correlation</h3>
 </ins>
 </div>
-<p>This test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is auto-correlation in the residuals. The t test for <span class="math inline">\(\beta\)</span> is therefore not valid.</p>
+</div>
+<p>This test needs to be done on the model residauls. The variances of
+the sampling distribution of <span class="math inline">\(\beta\)</span>
+of the OLS is not correct when there is auto-correlation in the
+residuals. The t test for <span class="math inline">\(\beta\)</span> is
+therefore not valid.</p>
 <ul>
-<li><p><strong>Durbin-Watson Statistics</strong>: The simplest way to diagose auto-correlation in the error term is to plot ACF/PACF test using the R package. Durbin-Watson Statistics can also be used when there is no lag term of dependent variable in the equation.</p></li>
+<li><p><strong>Durbin-Watson Statistics</strong>: The simplest way to
+diagose auto-correlation in the error term is to plot ACF/PACF test
+using the R package. Durbin-Watson Statistics can also be used when
+there is no lag term of dependent variable in the equation.</p></li>
 <li><p><strong>Breusch–Godfrey test</strong>:</p></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="homoscedasticity">Homoscedasticity</h3>
+<div id="homoscedasticity" class="section level3">
+<h3>Homoscedasticity</h3>
 </ins>
 </div>
-<p>The test needs to be done on the model residauls. The variances of the sampling distribution of <span class="math inline">\(\beta\)</span> of the OLS is not correct when there is Heteroscedasticity. The t test for <span class="math inline">\(\beta\)</span> is therefore not valid.</p>
+</div>
+<p>The test needs to be done on the model residauls. The variances of
+the sampling distribution of <span class="math inline">\(\beta\)</span>
+of the OLS is not correct when there is Heteroscedasticity. The t test
+for <span class="math inline">\(\beta\)</span> is therefore not
+valid.</p>
 <ul>
-<li><strong>Breusch–Pagan test</strong>: For a linear equation <span class="math display">\[y = \beta_0 + \beta_1x1+ \beta_2x2+...\beta_kxk + \epsilon\]</span> then
+<li><strong>Breusch–Pagan test</strong>: For a linear equation <span
+class="math display">\[y = \beta_0 + \beta_1x1+ \beta_2x2+...\beta_kxk +
+\epsilon\]</span> then
 <ul>
-<li><span class="math inline">\(Var(u|x) = \sigma^2\)</span> if homoskasdasticity</li>
-<li><span class="math inline">\(Var(u|x) = \sigma^2f(x)\)</span> if heteroskasdasticity</li>
+<li><span class="math inline">\(Var(u|x) = \sigma^2\)</span> if
+homoskasdasticity</li>
+<li><span class="math inline">\(Var(u|x) = \sigma^2f(x)\)</span> if
+heteroskasdasticity</li>
 </ul>
-To test it, we regress the estimates of errors’ squares <span class="math inline">\(\hat{\epsilon}^2\)</span> with the explanatory variables <span class="math inline">\(x\)</span>: <span class="math display">\[\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k + e \]</span> Then we use <strong>F-test</strong> for hypothesis testing:
+To test it, we regress the estimates of errors’ squares <span
+class="math inline">\(\hat{\epsilon}^2\)</span> with the explanatory
+variables <span class="math inline">\(x\)</span>: <span
+class="math display">\[\hat{\epsilon}^2 = a_0+a_1x_1+a_2x_2+...a_kx_k +
+e \]</span> Then we use <strong>F-test</strong> for hypothesis testing:
 <ul>
-<li>Null Hypothesis <span class="math inline">\(H_0: a_1 = a_2 = ...a_k = 0\)</span></li>
-<li>Alternate Hyphthesis <span class="math inline">\(H_1: a_i \neq 0\)</span></li>
+<li>Null Hypothesis <span class="math inline">\(H_0: a_1 = a_2 = ...a_k
+= 0\)</span></li>
+<li>Alternate Hyphthesis <span class="math inline">\(H_1: a_i \neq
+0\)</span></li>
 </ul></li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="multi-collinearity">Multi-collinearity</h3>
+<div id="multi-collinearity" class="section level3">
+<h3>Multi-collinearity</h3>
 </ins>
 </div>
-<p>When Multi-collinearity exists in the model, the model is not able to distinguish the effects of the variables and therefore the variables of the <span class="math inline">\(\beta\)</span> sampling distribution will be huge.</p>
+</div>
+<p>When Multi-collinearity exists in the model, the model is not able to
+distinguish the effects of the variables and therefore the variables of
+the <span class="math inline">\(\beta\)</span> sampling distribution
+will be huge.</p>
 <ul>
-<li><strong>Model is significant but <span class="math inline">\(\beta\)</span>s are not</strong>:<br />
-The usual symtom could be that the model is significant (p value small for F test) but non of the <span class="math inline">\(\beta\)</span>s are significant because the model is not able to discern the effect of the variables.</li>
+<li><strong>Model is significant but <span
+class="math inline">\(\beta\)</span>s are not</strong>:<br />
+The usual symtom could be that the model is significant (p value small
+for F test) but non of the <span class="math inline">\(\beta\)</span>s
+are significant because the model is not able to discern the effect of
+the variables.</li>
 <li><strong>Correlation matrix</strong>:<br />
-In some case, it can also be observed in the correlation matrix of the explanatory. However, if one variable is closed to a linear combination of 2 or more other variables, it cannot be seen in the correlation matrix.</li>
+In some case, it can also be observed in the correlation matrix of the
+explanatory. However, if one variable is closed to a linear combination
+of 2 or more other variables, it cannot be seen in the correlation
+matrix.</li>
 <li><strong>Variance inflation factor (VIF)</strong>:<br />
-This method address the weakness of only looking at the correlation matrix. For each explanatory variable, regress it on all the other explanatory variables. Then calculate <span class="math display">\[VIF_i = \frac{1}{1-R_i^2}\]</span><br />
+This method address the weakness of only looking at the correlation
+matrix. For each explanatory variable, regress it on all the other
+explanatory variables. Then calculate <span class="math display">\[VIF_i
+= \frac{1}{1-R_i^2}\]</span><br />
 A high VIF indicates Multi-collinearity.</li>
 </ul>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="normality-of-the-residuals">Normality of the Residuals</h3>
+<div id="normality-of-the-residuals" class="section level3">
+<h3>Normality of the Residuals</h3>
 </ins>
 </div>
-<p>Recall from <a href="deriveOLS.html">Derive OLS Estimaors in Matrix Form</a> we derive that <span class="math inline">\(\hat{\beta} = \beta+(X^{&#39;}X)^{-1}X^{&#39;} \epsilon\)</span>.</p>
+</div>
+<p>Recall from <a href="deriveOLS.html">Derive OLS Estimaors in Matrix
+Form</a> we derive that <span class="math inline">\(\hat{\beta} =
+\beta+(X^{&#39;}X)^{-1}X^{&#39;} \epsilon\)</span>.</p>
 <ul>
-<li><strong>Quantile-quantile plot (QQ plot)</strong>: This method is very intuitive. One can plot the normalized values of error for each quantile with the value of standard normal distribution of each quantile. We can get a sense of if there is strong non-normality in the errors by eyeballing it.</li>
+<li><strong>Quantile-quantile plot (QQ plot)</strong>: This method is
+very intuitive. One can plot the normalized values of error for each
+quantile with the value of standard normal distribution of each
+quantile. We can get a sense of if there is strong non-normality in the
+errors by eyeballing it.</li>
 <li><strong>Jarque–Bera test</strong>:</li>
 <li><strong>Kolmogorov–Smirnov test</strong>:</li>
 </ul>
@@ -487,7 +551,7 @@ A high VIF indicates Multi-collinearity.</li>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -505,7 +569,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -514,6 +578,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
