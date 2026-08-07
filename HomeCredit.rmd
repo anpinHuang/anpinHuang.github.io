@@ -569,6 +569,7 @@ roc_boost <- roc(tran_ext[tran_test,"TARGET"], predicted_gbm_test)
 plot(roc_logistic ,main ="ROC curve ")
 plot(roc_tree ,add=TRUE, col='red')
 plot(roc_boost ,add=TRUE, col='blue')
+legend()
 
 ```
 ### 11. Conclusion

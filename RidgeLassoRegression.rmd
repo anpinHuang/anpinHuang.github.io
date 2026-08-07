@@ -26,3 +26,59 @@ To ensure that variables' coefficients are penalized fairly, standardization of 
 
 ### Lasso Regression ###
 
+
+
+
+### Example ###
+
+```{r, message=FALSE}
+library(sqldf)
+library(Information)
+library(gridExtra)
+library(kableExtra)
+library(ggplot2)
+library(reshape2)
+library(pROC)
+library(scorecard)
+library(rpart)
+library(gbm)
+library(plyr)
+library(MASS)
+library(matrixStats)
+
+# covariance matrix
+r1 <- c(0.004, rep(0.00023,9))
+r2 <- c(0.00023, 0.004, rep(0.00023,8))
+r3 <- c(rep(0.00023,2), 0.004, rep(0.00023,7))
+r4 <- c(rep(0.00023,3), 0.004, rep(0.00023,6))
+r5 <- c(rep(0.00023,4), 0.004, rep(0.00023,5))
+r6 <- c(rep(0.00023,5), 0.004, rep(0.00023,4))
+r7 <- c(rep(0.00023,6), 0.004, rep(0.00023,3))
+r8 <- c(rep(0.00023,7), 0.004, rep(0.00023,2))
+r9 <- c(rep(0.00023,8), 0.004, rep(0.00023,1))
+r10 <- c(rep(0.00023,9), 0.004)
+m <- matrix(c(r1,r2,r3,r4,r5,r6,r7,r8,r9,r10), nrow=10, ncol=10,byrow=TRUE)
+
+
+x <- mvrnorm(n=1000,mu=c(0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1),
+             Sigma=m)
+
+
+y <- 1.2 + x %*% seq(0.2,2,0.2)+rnorm(1000, 0,0.3)
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
