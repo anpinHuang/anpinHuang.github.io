@@ -14,6 +14,8 @@ navbar:
       href: Finance.html
     - text: "Programming"
       href: Programming.html
+    - text: "Law"
+      href: Law.html
 output:
   html_document:
     toc: true

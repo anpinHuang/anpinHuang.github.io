@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
 <title>Merge, aggregate and count in R</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -41,37 +55,11 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
+
 
 <style type = "text/css">
 .main-container {
@@ -79,58 +67,71 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
 }
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
+.dropdown-submenu {
+  position: relative;
 }
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
 }
-
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
 }
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
 }
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
 }
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu.pull-left {
+  float: none;
 }
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -140,27 +141,91 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -168,12 +233,12 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">An-Pin Huang</a>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -189,6 +254,15 @@ $(document).ready(function () {
 <li>
   <a href="dataScienceML.html">Data Science</a>
 </li>
+<li>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -197,7 +271,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -205,8 +279,20 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#aggregate-function" id="toc-aggregate-function">Aggregate
+function</a></li>
+<li><a href="#count-function" id="toc-count-function">Count
+function</a></li>
+</ul>
+</div>
 
-<p>The purpose of this section is to show some examples of SQL like data analysis using R. The data that is used in these examples is the Customer Support data from <a href="https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/">IBM Watson Analytics</a>.</p>
+<p>The purpose of this section is to show some examples of SQL like data
+analysis using R. The data that is used in these examples is the
+Customer Support data from <a
+href="https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/">IBM
+Watson Analytics</a>.</p>
 <p>First, we want to load the libraries that we need:</p>
 <pre class="r"><code>library(data.table)
 library(plyr)</code></pre>
@@ -220,37 +306,32 @@ head(churnAnalysis)</code></pre>
 ## 4 7795-CFOCW   Male             0      No         No     45           No
 ## 5 9237-HQITU Female             0      No         No      2          Yes
 ## 6 9305-CDSKC Female             0      No         No      8          Yes
-##      MultipleLines InternetService OnlineSecurity OnlineBackup
-## 1 No phone service             DSL             No          Yes
-## 2               No             DSL            Yes           No
-## 3               No             DSL            Yes          Yes
-## 4 No phone service             DSL            Yes           No
-## 5               No     Fiber optic             No           No
-## 6              Yes     Fiber optic             No           No
-##   DeviceProtection TechSupport StreamingTV StreamingMovies       Contract
-## 1               No          No          No              No Month-to-month
-## 2              Yes          No          No              No       One year
-## 3               No          No          No              No Month-to-month
-## 4              Yes         Yes          No              No       One year
-## 5               No          No          No              No Month-to-month
-## 6              Yes          No         Yes             Yes Month-to-month
-##   PaperlessBilling             PaymentMethod MonthlyCharges TotalCharges
-## 1              Yes          Electronic check          29.85        29.85
-## 2               No              Mailed check          56.95      1889.50
-## 3              Yes              Mailed check          53.85       108.15
-## 4               No Bank transfer (automatic)          42.30      1840.75
-## 5              Yes          Electronic check          70.70       151.65
-## 6              Yes          Electronic check          99.65       820.50
-##   Churn
-## 1    No
-## 2    No
-## 3   Yes
-## 4    No
-## 5   Yes
-## 6   Yes</code></pre>
+##      MultipleLines InternetService OnlineSecurity OnlineBackup DeviceProtection
+## 1 No phone service             DSL             No          Yes               No
+## 2               No             DSL            Yes           No              Yes
+## 3               No             DSL            Yes          Yes               No
+## 4 No phone service             DSL            Yes           No              Yes
+## 5               No     Fiber optic             No           No               No
+## 6              Yes     Fiber optic             No           No              Yes
+##   TechSupport StreamingTV StreamingMovies       Contract PaperlessBilling
+## 1          No          No              No Month-to-month              Yes
+## 2          No          No              No       One year               No
+## 3          No          No              No Month-to-month              Yes
+## 4         Yes          No              No       One year               No
+## 5          No          No              No Month-to-month              Yes
+## 6          No         Yes             Yes Month-to-month              Yes
+##               PaymentMethod MonthlyCharges TotalCharges Churn
+## 1          Electronic check          29.85        29.85    No
+## 2              Mailed check          56.95      1889.50    No
+## 3              Mailed check          53.85       108.15   Yes
+## 4 Bank transfer (automatic)          42.30      1840.75    No
+## 5          Electronic check          70.70       151.65   Yes
+## 6          Electronic check          99.65       820.50   Yes</code></pre>
 <div id="aggregate-function" class="section level3">
 <h3>Aggregate function</h3>
-<p>Let’s say, if we are interested in if payment method is a driver for monthly charges, we can use <strong>aggregate</strong> function to see the average monthly charges of each payment method:</p>
+<p>Let’s say, if we are interested in if payment method is a driver for
+monthly charges, we can use <strong>aggregate</strong> function to see
+the average monthly charges of each payment method:</p>
 <pre class="r"><code>PaymentMethodMonthlyChargesMean &lt;- aggregate(churnAnalysis[,c(&quot;PaymentMethod&quot;,&quot;MonthlyCharges&quot;)], list(churnAnalysis$PaymentMethod), mean)
 PaymentMethodMonthlyChargesMean</code></pre>
 <pre><code>##                     Group.1 PaymentMethod MonthlyCharges
@@ -258,62 +339,23 @@ PaymentMethodMonthlyChargesMean</code></pre>
 ## 2   Credit card (automatic)            NA       66.51239
 ## 3          Electronic check            NA       76.25581
 ## 4              Mailed check            NA       43.91706</code></pre>
-<p>People who use mailed check to pay seems to have lower monthly charges.</p>
+<p>People who use mailed check to pay seems to have lower monthly
+charges.</p>
 </div>
 <div id="count-function" class="section level3">
 <h3>Count function</h3>
-<p>From the data, we observe that the people do mailed check has lower monthly charges, but to make sure that it is not driven by a small number of data, we do <strong>count</strong> for count how many data points we have for each payment methods:</p>
+<p>From the data, we observe that the people do mailed check has lower
+monthly charges, but to make sure that it is not driven by a small
+number of data, we do <strong>count</strong> for count how many data
+points we have for each payment methods:</p>
 <pre class="r"><code>count(churnAnalysis,&#39;PaymentMethod&#39;) ## library plyr</code></pre>
 <pre><code>##               PaymentMethod freq
 ## 1 Bank transfer (automatic) 1544
 ## 2   Credit card (automatic) 1522
 ## 3          Electronic check 2365
 ## 4              Mailed check 1612</code></pre>
-<p>Given that each payment mehtod has more than 1000 data points, we can say that the difference is not driven by a small number of data.</p>
-<pre class="r"><code>library(&quot;RSQLite&quot;)
-# connect to the sqlite file
-mydb = dbConnect(RSQLite::SQLite(), dbname=&quot;database.sqlite&quot;) ## load the music review data
-## list all tables
-tableList &lt;- dbListTables(mydb)
-
-
-
-# dbDisconnect(mydb)
-# unlink(&quot;my-db.sqlite&quot;)</code></pre>
-<pre class="r"><code>reviews &lt;- dbReadTable(mydb,&quot;reviews&quot;)
-artists &lt;- dbReadTable(mydb,&quot;artists&quot;)
-## I want to find out how many artists first
-artistsList &lt;-  dbGetQuery(mydb, &#39;SELECT DISTINCT artist  FROM artists&#39;)
-## I want to find out for each artist, how many reviews have they got (use Group By)
-artistsReviewCount &lt;- dbGetQuery(mydb, &#39;SELECT COUNT(a.reviewid), a.* FROM artists AS a GROUP BY a.artist ORDER BY COUNT(a.reviewid) DESC&#39;)
-head(artistsReviewCount)</code></pre>
-<pre><code>##   COUNT(a.reviewid) reviewid              artist
-## 1               688     1929     various artists
-## 2                23     3594    guided by voices
-## 3                23    11868          neil young
-## 4                22      699 bonnie prince billy
-## 5                21      881         david bowie
-## 6                21     1093         the beatles</code></pre>
-<pre class="r"><code>##use R to solve the SQL problem
-## I want to find out how many artists first
-artistList &lt;- unique(artists)
-#tempReview_Artist &lt;- merge(artists,reviews,by.x=&quot;reviewid&quot;,by.y=&quot;reviewid&quot;,all.y=TRUE) ## artist is already in the review table....
-## I want to find out for each artist, how many reviews have they got
-reviewCounts &lt;- count(artists,&quot;artist&quot;)
-## only want to see artists with more than 1 reviews
-reviewCountsEx1 &lt;- reviewCounts[reviewCounts[,2]&gt;1,]</code></pre>
-<pre class="r"><code>## let&#39;s say, I don&#39;t have plyr library, what can I do?
-countGroupBy &lt;- function(table,ByColumn) {
-  groups &lt;- unique(table[,ByColumn])
-  #NewTable &lt;- as.data.frame(matrix(NA,nrow=length(groups),ncol=2))
-  temp &lt;- sapply(groups,function(x,table,ByColumn) {return(length(which(table[,ByColumn] ==x)))},table=table,ByColumn=ByColumn)
-  return(cbind(groups,as.numeric(temp)))
-}
-reviewCountsBySelf &lt;- countGroupBy(table=artists,ByColumn=&quot;artist&quot;)
-reviewCountsBySelf &lt;- reviewCountsBySelf[order(reviewCountsBySelf[,1]),]
-reviewCounts &lt;- reviewCounts[order(reviewCounts[,1]),]
-#sum(reviewCounts!=reviewCountsBySelf) ## check if the self-built function is the same as
-## the count function from plyr package</code></pre>
+<p>Given that each payment mehtod has more than 1000 data points, we can
+say that the difference is not driven by a small number of data.</p>
 </div>
 
 
@@ -325,7 +367,7 @@ reviewCounts &lt;- reviewCounts[order(reviewCounts[,1]),]
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -333,6 +375,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

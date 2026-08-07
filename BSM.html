@@ -13,13 +13,23 @@
 
 <title>Derive Black-Scholes Model</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -36,22 +46,47 @@
 </script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-222711575-1');
+  gtag('config', 'G-LLS7JTFH7K');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -64,32 +99,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -99,10 +110,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -119,40 +126,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -180,7 +163,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -192,7 +175,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -202,11 +185,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -218,13 +218,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -232,16 +231,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -350,7 +342,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,7 +356,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -391,6 +383,9 @@ div.tocify {
 <li>
   <a href="Programming.html">Programming</a>
 </li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -399,7 +394,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -408,64 +403,113 @@ div.tocify {
 </div>
 
 
-<p>In this page we derive the famous Black-Scholes Model for European option pricing. I first</p>
+<p>In this page we derive the famous Black-Scholes Model for European
+option pricing. I first</p>
 <ol style="list-style-type: decimal">
-<li>Assume stock returns are log-normal (Stock price is Geometric Brownian Motion), then</li>
+<li>Assume stock returns are log-normal (Stock price is Geometric
+Brownian Motion), then</li>
 <li>Change to Risk-neutral measure by Girsanov’s theorem, then</li>
-<li>Solve for European call option under Risk-neutral measure by applying Girsanov’s theorem again</li>
+<li>Solve for European call option under Risk-neutral measure by
+applying Girsanov’s theorem again</li>
 </ol>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="geometric-brownian-motion">Geometric Brownian Motion</h3>
+<div id="geometric-brownian-motion" class="section level3">
+<h3>Geometric Brownian Motion</h3>
 </ins>
 </div>
-<p>Assuming the stock price follows geometric brownian motion and the SDE is: <span class="math display">\[dS_t = \mu S_t dt + \sigma S_t dW_t\]</span> and <span class="math inline">\(g(x) = ln(x)\)</span> Apply the Ito’s formula:</p>
+</div>
+<p>Assuming the stock price follows geometric brownian motion and the
+SDE is: <span class="math display">\[dS_t = \mu S_t dt + \sigma S_t
+dW_t\]</span> and <span class="math inline">\(g(x) = ln(x)\)</span>
+Apply the Ito’s formula:</p>
 <p><span class="math display">\[
 \begin{aligned}
 dg(S_t) &amp;= d(ln(S_t)) \\
-&amp;= \frac{1}{S_t}dS_t + \frac{1}{2} \cdot (-1) \cdot \frac{1}{S_t^2} \sigma^2 S_t^2dt \\
-&amp;= \frac{1}{S_t}(\mu S_t dt + \sigma S_t dW_t) - \frac{1}{2} \sigma^2dt \\
+&amp;= \frac{1}{S_t}dS_t + \frac{1}{2} \cdot (-1) \cdot \frac{1}{S_t^2}
+\sigma^2 S_t^2dt \\
+&amp;= \frac{1}{S_t}(\mu S_t dt + \sigma S_t dW_t) - \frac{1}{2}
+\sigma^2dt \\
 &amp;= (\mu-\frac{1}{2} \sigma^2) dt + \sigma dW_t
 \end{aligned}
-\]</span> Take the integral, then we get the stock price <span class="math inline">\(S_t\)</span> at time <span class="math inline">\(t\)</span>:</p>
-<p><span class="math display">\[S_t = S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t + \sigma W_t}\]</span></p>
-<p><strong>Expected value of <span class="math inline">\(S_t\)</span></strong>:</p>
+\]</span> Take the integral, then we get the stock price <span
+class="math inline">\(S_t\)</span> at time <span
+class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[S_t = S_0 \cdot e^{(\mu-\frac{1}{2}
+\sigma^2) t + \sigma W_t}\]</span></p>
+<p><strong>Expected value of <span
+class="math inline">\(S_t\)</span></strong>:</p>
 <p><span class="math display">\[
 \begin{aligned}
-E[S_t] &amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t } \cdot E[e^{\sigma W_t}] \\
-&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t} \cdot e^{\frac{\sigma^2 t}{2}} \\
-&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t+\frac{1}{2}\sigma^2 t} \\
+E[S_t] &amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t } \cdot
+E[e^{\sigma W_t}] \\
+&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t} \cdot
+e^{\frac{\sigma^2 t}{2}} \\
+&amp;= S_0 \cdot e^{(\mu-\frac{1}{2} \sigma^2) t+\frac{1}{2}\sigma^2 t}
+\\
 &amp;= S_0 \cdot e^{\mu t} \\
 \end{aligned}
-\]</span> We haven’t proved that <span class="math inline">\(E[e^{\sigma W_t}] = e^{\frac{1}{2}\sigma^2t}\)</span> yet. Let’s derive <span class="math inline">\(E[e^{W_t}] = e^{\frac{1}{2}t}\)</span> fisrt:</p>
+\]</span> We haven’t proved that <span class="math inline">\(E[e^{\sigma
+W_t}] = e^{\frac{1}{2}\sigma^2t}\)</span> yet. Let’s derive <span
+class="math inline">\(E[e^{W_t}] = e^{\frac{1}{2}t}\)</span> fisrt:</p>
 <p><span class="math display">\[
 \begin{aligned}
-E[e^{W_t}] &amp;= \int e^x \cdot \frac{1}{\sigma_w\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-\mu}{\sigma_w})^2} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{x-\frac{1}{2}(\frac{x}{\sqrt{t}})^2} dx \\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-x-\frac{x^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{2xt+x^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{x^2+2xt+t^2}{2t}+\frac{t^2}{2t}} dx\\
-&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2+\frac{t}{2}}  dx \\
-&amp;= e^{\frac{t}{2}} \cdot \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2} dx  \\
+E[e^{W_t}] &amp;= \int e^x \cdot \frac{1}{\sigma_w\sqrt{2\pi}} \cdot
+e^{-\frac{1}{2}(\frac{x-\mu}{\sigma_w})^2} dx\\
+&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot
+e^{x-\frac{1}{2}(\frac{x}{\sqrt{t}})^2} dx \\
+&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-x-\frac{x^2}{2t}}
+dx\\
+&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot e^{-\frac{2xt+x^2}{2t}}
+dx\\
+&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot
+e^{-\frac{x^2+2xt+t^2}{2t}+\frac{t^2}{2t}} dx\\
+&amp;= \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot
+e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2+\frac{t}{2}}  dx \\
+&amp;= e^{\frac{t}{2}} \cdot \int \frac{1}{\sqrt{t}\sqrt{2\pi}} \cdot
+e^{-\frac{1}{2}(\frac{x-(-t)}{\sqrt{t}})^2} dx  \\
 &amp;= e^{\frac{t}{2}} \\
 \end{aligned}
-\]</span> We can then extend to that <span class="math inline">\(E[e^{\sigma W_t}] = e^{\frac{\sigma^2 t}{2}}\)</span> by replacing <span class="math inline">\(\sigma_w = \sqrt{t}\)</span> with <span class="math inline">\(\sigma_w = \sigma \sqrt{t}\)</span></p>
-<p>Geometric Brownian Motion means that the log of stock return follows normal distribution.</p>
+\]</span> We can then extend to that <span
+class="math inline">\(E[e^{\sigma W_t}] = e^{\frac{\sigma^2
+t}{2}}\)</span> by replacing <span class="math inline">\(\sigma_w =
+\sqrt{t}\)</span> with <span class="math inline">\(\sigma_w = \sigma
+\sqrt{t}\)</span></p>
+<p>Geometric Brownian Motion means that the log of stock return follows
+normal distribution.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="risk-neutral-measure">Risk Neutral Measure</h3>
+<div id="risk-neutral-measure" class="section level3">
+<h3>Risk Neutral Measure</h3>
 </ins>
 </div>
-<p><strong><em>[To be validated]</em></strong> The pricing of European option requires changing from phycial measure to risk neutral measure using Girsanov’s Theorem.</p>
+</div>
+<p><strong><em>[To be validated]</em></strong> The pricing of European
+option requires changing from phycial measure to risk neutral measure
+using Girsanov’s Theorem.</p>
 <p>The price of an European call option can be expressed as:</p>
-<p><span class="math display">\[C = E[e^{-\mu_cT} \cdot (S_T-K)^+]\]</span></p>
-<p>Where <span class="math inline">\(\mu\)</span> is the required rate of return for the option, <span class="math inline">\(S_T\)</span> is the stock price at maturity date <span class="math inline">\(T\)</span> and <span class="math inline">\(K\)</span> is the strike price. Since the required rate of return for the option in unknown, we need to do some tranformation in order to price the option: change to risk-neutral measure.</p>
-<p>Under Physical measure <span class="math inline">\(P\)</span>, the stock price has SDE:</p>
-<p><span class="math inline">\(S_T = S_0 \cdot e^{(\mu -\frac{1}{2}\sigma^2)T + \sigma W_T^P}\)</span></p>
-<p>where <span class="math inline">\(\mu\)</span> is the expected rate of return of the stock.</p>
+<p><span class="math display">\[C = E[e^{-\mu_cT} \cdot
+(S_T-K)^+]\]</span></p>
+<p>Where <span class="math inline">\(\mu\)</span> is the required rate
+of return for the option, <span class="math inline">\(S_T\)</span> is
+the stock price at maturity date <span class="math inline">\(T\)</span>
+and <span class="math inline">\(K\)</span> is the strike price. Since
+the required rate of return for the option in unknown, we need to do
+some tranformation in order to price the option: change to risk-neutral
+measure.</p>
+<p>Under Physical measure <span class="math inline">\(P\)</span>, the
+stock price has SDE:</p>
+<p><span class="math inline">\(S_T = S_0 \cdot e^{(\mu
+-\frac{1}{2}\sigma^2)T + \sigma W_T^P}\)</span></p>
+<p>where <span class="math inline">\(\mu\)</span> is the expected rate
+of return of the stock.</p>
 <p><strong>Girsanov’s Theorem</strong>:</p>
-<p>Define: <span class="math display">\[\frac{dQ}{dP} = Z_t = e^{\int_0^t \varphi_sdW_s^P-\frac{1}{2}\int_0^t \varphi_s^2ds}\]</span> want Q as a probability measure: <span class="math inline">\(Z_t \geq 0\)</span> and <span class="math inline">\(Q[\Omega] = 1\)</span></p>
-<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t \varphi_sds\]</span> move it around we get:</p>
+<p>Define: <span class="math display">\[\frac{dQ}{dP} = Z_t =
+e^{\int_0^t \varphi_sdW_s^P-\frac{1}{2}\int_0^t \varphi_s^2ds}\]</span>
+want Q as a probability measure: <span class="math inline">\(Z_t \geq
+0\)</span> and <span class="math inline">\(Q[\Omega] = 1\)</span></p>
+<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t
+\varphi_sds\]</span> move it around we get:</p>
 <p><span class="math display">\[
 \begin{aligned}
 W_t^P &amp;= W_t^Q + \int_0^t \varphi_sds \\
@@ -475,84 +519,140 @@ W_t^P &amp;= W_t^Q + \int_0^t \varphi_sds \\
 <p>Hence</p>
 <p><span class="math display">\[
 \begin{aligned}
-\frac{dP}{dQ} &amp;= e^{\int_0^t (-\varphi_s)dW_s^Q-\frac{1}{2}\int_0^t (-\varphi_s)^2ds} \\
+\frac{dP}{dQ} &amp;= e^{\int_0^t (-\varphi_s)dW_s^Q-\frac{1}{2}\int_0^t
+(-\varphi_s)^2ds} \\
 &amp;= e^{-\int_0^t \varphi_sdW_s^Q-\frac{1}{2}\int_0^t \varphi_s^2ds}
 \end{aligned}
 \]</span></p>
-<p>The choice <span class="math inline">\(\varphi_s = \frac{r-\mu}{\sigma}\)</span> (constant). So:</p>
+<p>The choice <span class="math inline">\(\varphi_s =
+\frac{r-\mu}{\sigma}\)</span> (constant). So:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \frac{dQ}{dP} &amp;= Z_t\\
-&amp;= e^{\int_0^t \frac{r=\mu}{\sigma}dW_s^P -\frac{1}{2}\int_0^t (\frac{r-\mu}{\sigma})^2ds} \\
-&amp;= e^{\frac{r-\mu}{\sigma}W_t^P-\frac{1}{2}(\frac{r-\mu}{\sigma})^2t}
+&amp;= e^{\int_0^t \frac{r=\mu}{\sigma}dW_s^P -\frac{1}{2}\int_0^t
+(\frac{r-\mu}{\sigma})^2ds} \\
+&amp;=
+e^{\frac{r-\mu}{\sigma}W_t^P-\frac{1}{2}(\frac{r-\mu}{\sigma})^2t}
 \end{aligned}
 \]</span></p>
 <p>and</p>
-<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t \frac{r-\mu}{\sigma}ds = W_t^P-\frac{r-\mu}{\sigma}t\]</span></p>
+<p><span class="math display">\[W_t^Q = W_t^P - \int_0^t
+\frac{r-\mu}{\sigma}ds = W_t^P-\frac{r-\mu}{\sigma}t\]</span></p>
 <ul>
-<li>Under physical measure <span class="math inline">\(P\)</span>: <span class="math display">\[E^P[S_T] = S_0 \cdot e^{\mu T}\]</span></li>
-<li>Under risk-netural measure <span class="math inline">\(Q\)</span>: <span class="math display">\[
+<li>Under physical measure <span class="math inline">\(P\)</span>: <span
+class="math display">\[E^P[S_T] = S_0 \cdot e^{\mu T}\]</span></li>
+<li>Under risk-netural measure <span class="math inline">\(Q\)</span>:
+<span class="math display">\[
 \begin{aligned}
-E^Q[S_T] &amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T+ \sigma W_T^P}] \\
-&amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T + \sigma (W_T^Q + \frac{r-\mu}{\sigma})T}] \\
-&amp;= E^Q[S_0 \cdot e^{\mu T - \frac{\sigma^2}{2}}T + \sigma W_T^Q + rT-\mu T]\\
+E^Q[S_T] &amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T+ \sigma
+W_T^P}] \\
+&amp;= E^Q[S_0 \cdot e^{(\mu-\frac{\sigma^2}{2})T + \sigma (W_T^Q +
+\frac{r-\mu}{\sigma})T}] \\
+&amp;= E^Q[S_0 \cdot e^{\mu T - \frac{\sigma^2}{2}}T + \sigma W_T^Q +
+rT-\mu T]\\
 &amp;= E^Q[S_0 \cdot e^{(r-\frac{\sigma^2}{2})T+\sigma W_T^Q}] \\
 &amp;= S_0 \cdot e^{rT}
 \end{aligned}
 \]</span></li>
 </ul>
-<p>Now, we can price the option under the risk-neutral measure <span class="math inline">\(Q\)</span> by taking the expected value <span class="math inline">\(E^Q\)</span></p>
+<p>Now, we can price the option under the risk-neutral measure <span
+class="math inline">\(Q\)</span> by taking the expected value <span
+class="math inline">\(E^Q\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 C &amp;= E^Q[e^{-rT}(S_T-K)^+] \\
-&amp;= E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot I_{\{S_T-K\}}] \\
+&amp;= E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] - E_Q[e^{-rT}K \cdot
+I_{\{S_T-K\}}] \\
 &amp;= \text{1st term} - \text{2nd term}
 \end{aligned}
 \]</span></p>
-<p>Under the risk-neutral measure all the assets earn risk-free rate, so both <span class="math inline">\(\mu_c\)</span> and <span class="math inline">\(\mu\)</span> are replaced with <span class="math inline">\(r\)</span>. The stock price at <span class="math inline">\(T\)</span> is therefore <span class="math inline">\(S_T = S_0 \cdot e^{(r-\frac{\sigma^2}{2})T + \sigma W_T^Q}\)</span>. We will tackle the 1st term and 2nd term individually.</p>
-<p>A good analogy I read on <a href="https://quant.stackexchange.com/questions/35697/risk-neutral-vs-physical-measures-real-world-example">stackexchange post</a> said that “it’s like pricing an umbrella, the price depends on how likely it is to rain, and how much people hate rain”. In risk-neutral pricing, we change the require rate of return <span class="math inline">\(mu\)</span> to risk-free rate <span class="math inline">\(r\)</span> (change how people hate rain), we must, at the same time, also change the probability to under risk-neutral measure by Girsanov’s theorem (change how likely it is to rain) so that the pricing is the same as under physical measure.</p>
+<p>Under the risk-neutral measure all the assets earn risk-free rate, so
+both <span class="math inline">\(\mu_c\)</span> and <span
+class="math inline">\(\mu\)</span> are replaced with <span
+class="math inline">\(r\)</span>. The stock price at <span
+class="math inline">\(T\)</span> is therefore <span
+class="math inline">\(S_T = S_0 \cdot e^{(r-\frac{\sigma^2}{2})T +
+\sigma W_T^Q}\)</span>. We will tackle the 1st term and 2nd term
+individually.</p>
+<p>A good analogy I read on <a
+href="https://quant.stackexchange.com/questions/35697/risk-neutral-vs-physical-measures-real-world-example">stackexchange
+post</a> said that “it’s like pricing an umbrella, the price depends on
+how likely it is to rain, and how much people hate rain”. In
+risk-neutral pricing, we change the require rate of return <span
+class="math inline">\(mu\)</span> to risk-free rate <span
+class="math inline">\(r\)</span> (change how people hate rain), we must,
+at the same time, also change the probability to under risk-neutral
+measure by Girsanov’s theorem (change how likely it is to rain) so that
+the pricing is the same as under physical measure.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="the-1st-term">The 1st Term</h3>
+<div id="the-1st-term" class="section level3">
+<h3>The 1st Term</h3>
 </ins>
+</div>
 </div>
 <p><span class="math display">\[
 \begin{aligned}
-E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] &amp;= E^Q[e^{-rT}S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}\cdot I_{\{S_T-K\}}]\\
-&amp;= S_0 \cdot E_Q[e^{-\frac{1}{2}\sigma T+\sigma W_T^Q} I_{\{S_T-K\}}]\\
+E^Q[e^{-rT}S_T \cdot I_{\{S_T-K\}}] &amp;= E^Q[e^{-rT}S_0 \cdot
+e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}\cdot I_{\{S_T-K\}}]\\
+&amp;= S_0 \cdot E_Q[e^{-\frac{1}{2}\sigma T+\sigma W_T^Q}
+I_{\{S_T-K\}}]\\
 \end{aligned}
-\]</span> Now we have to change the measure again using the Girsanov’s Theorem . Define:</p>
-<p><span class="math display">\[\frac{dQ^s}{dQ} = Z_t = e^{-\frac{1}{2}\sigma T+\sigma W_T^Q}\]</span> Then we can continue as <span class="math display">\[
+\]</span> Now we have to change the measure again using the Girsanov’s
+Theorem . Define:</p>
+<p><span class="math display">\[\frac{dQ^s}{dQ} = Z_t =
+e^{-\frac{1}{2}\sigma T+\sigma W_T^Q}\]</span> Then we can continue as
+<span class="math display">\[
 \begin{aligned}
-S_0 \cdot E^Q[e^{-\frac{1}{2}\sigma T+\sigma W_T} I_{\{S_T-K\}}] &amp;= S_0 \cdot E^Q[\frac{dQ^s}{dQ} \cdot  I_{\{S_T-K\}}]\\
+S_0 \cdot E^Q[e^{-\frac{1}{2}\sigma T+\sigma W_T} I_{\{S_T-K\}}] &amp;=
+S_0 \cdot E^Q[\frac{dQ^s}{dQ} \cdot  I_{\{S_T-K\}}]\\
 &amp;= S_0 \cdot E^{Q^s}[I_{\{S_T-K\}}] \\
 &amp;= S_0 \cdot Q^s[S_T&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma W_T^Q}&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma(W_T^{Q^s}+\sigma T)}&gt;K] \\
-&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r+\frac{1}{2}\sigma^2)T+\sigma W_T^{Q^s}}&gt;K] \\
-&amp;= S_0 \cdot Q^s[W_T^{Q^s}&gt; \frac{ln(K/S_0)-(r+\frac{1}{2}\sigma^2)T}{\sigma}] \\
-&amp;= S_0 \cdot Q^s[\epsilon&lt;\frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
+&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T+\sigma
+W_T^Q}&gt;K] \\
+&amp;= S_0 \cdot Q^s[S_0 \cdot
+e^{(r-\frac{1}{2}\sigma^2)T+\sigma(W_T^{Q^s}+\sigma T)}&gt;K] \\
+&amp;= S_0 \cdot Q^s[S_0 \cdot e^{(r+\frac{1}{2}\sigma^2)T+\sigma
+W_T^{Q^s}}&gt;K] \\
+&amp;= S_0 \cdot Q^s[W_T^{Q^s}&gt;
+\frac{ln(K/S_0)-(r+\frac{1}{2}\sigma^2)T}{\sigma}] \\
+&amp;= S_0 \cdot
+Q^s[\epsilon&lt;\frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma
+\sqrt{T}}] \\
 &amp;= S_0 \cdot \Phi(d_1)
 \end{aligned}
 \]</span></p>
 <p>Where</p>
-<p><span class="math display">\[d_1 = \frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
+<p><span class="math display">\[d_1 =
+\frac{ln(S_0/K)+(r+\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="the-2nd-term">The 2nd Term</h3>
+<div id="the-2nd-term" class="section level3">
+<h3>The 2nd Term</h3>
 </ins>
 </div>
-<p>THe derivation of the 2nd term is always under <span class="math inline">\(Q\)</span> measure. i.e. <span class="math inline">\(E[x] = E^Q[x]\)</span> and <span class="math inline">\(W_T = W^Q_T\)</span></p>
+</div>
+<p>THe derivation of the 2nd term is always under <span
+class="math inline">\(Q\)</span> measure. i.e. <span
+class="math inline">\(E[x] = E^Q[x]\)</span> and <span
+class="math inline">\(W_T = W^Q_T\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
-E[e^{-rT}K \cdot I_{\{S_T-K\}}] &amp;= e^{-rT} \cdot K \cdot Q[S_T&gt;K]\\
-&amp;= e^{-rT} \cdot Q[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T + \sigma W_T}&gt;K] \\
-&amp;= e^{-rT} \cdot Q[\epsilon&gt;\frac{ln(K/S_0)-(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
-&amp;=  e^{-rT} \cdot Q[\epsilon&lt;\frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}] \\
+E[e^{-rT}K \cdot I_{\{S_T-K\}}] &amp;= e^{-rT} \cdot K \cdot
+Q[S_T&gt;K]\\
+&amp;= e^{-rT} \cdot Q[S_0 \cdot e^{(r-\frac{1}{2}\sigma^2)T + \sigma
+W_T}&gt;K] \\
+&amp;= e^{-rT} \cdot
+Q[\epsilon&gt;\frac{ln(K/S_0)-(r-\frac{1}{2}\sigma^2)T}{\sigma
+\sqrt{T}}] \\
+&amp;=  e^{-rT} \cdot
+Q[\epsilon&lt;\frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma
+\sqrt{T}}] \\
 &amp;= e^{-rT} \cdot K \cdot \Phi(d_2)
 \end{aligned}
 \]</span></p>
-<p>Where <span class="math display">\[d_2 = \frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
+<p>Where <span class="math display">\[d_2 =
+\frac{ln(S_0/K)+(r-\frac{1}{2}\sigma^2)T}{\sigma \sqrt{T}}\]</span></p>
 
 
 
@@ -565,7 +665,7 @@ E[e^{-rT}K \cdot I_{\{S_T-K\}}] &amp;= e^{-rT} \cdot K \cdot Q[S_T&gt;K]\\
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -583,7 +683,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -592,6 +692,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

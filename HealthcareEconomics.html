@@ -13,13 +13,23 @@
 
 <title>Healthcare Economics</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -36,22 +46,47 @@
 </script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-222711575-1');
+  gtag('config', 'G-LLS7JTFH7K');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -64,32 +99,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -99,10 +110,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -119,40 +126,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -180,7 +163,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -192,7 +175,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -202,11 +185,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -218,13 +218,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -232,16 +231,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -350,7 +342,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,7 +356,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -391,6 +383,9 @@ div.tocify {
 <li>
   <a href="Programming.html">Programming</a>
 </li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -399,7 +394,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -408,14 +403,16 @@ div.tocify {
 </div>
 
 
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="healthcare-market">1. Healthcare Market</h3>
+<div id="healthcare-market" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>1. Healthcare Market</h3>
 </div>
 <p>Free Market</p>
 <ul>
 <li>Buyer has full financial responsibility</li>
 <li>The finaiclal responsibility is immediate</li>
-<li>The value of the consumption is easily determined even if the service is intangible</li>
+<li>The value of the consumption is easily determined even if the
+service is intangible</li>
 <li>Not vulnerable purchase</li>
 <li>Limit cost/risk sharing</li>
 <li>Self-ration as consumer owns 100% of the cost</li>
@@ -427,33 +424,46 @@ div.tocify {
 <li>Difficult to determine the value of service (medication)</li>
 <li>Uncertainty</li>
 <li>Cost/risk sharing</li>
-<li>Tendency of overconsumption given uncertainty, lack of information and cost/risk sharing</li>
-<li>Induced demand: supplier (healthcare provider) side factor on the demand. It is observed when there is an increase of supply (upshift of supply curve), it always accompanied with upshit of demand curve.</li>
+<li>Tendency of overconsumption given uncertainty, lack of information
+and cost/risk sharing</li>
+<li>Induced demand: supplier (healthcare provider) side factor on the
+demand. It is observed when there is an increase of supply (upshift of
+supply curve), it always accompanied with upshit of demand curve.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="health-insurance">2. Health Insurance</h3>
+<div id="health-insurance" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>2. Health Insurance</h3>
 </div>
 <p>Buyer:</p>
 <ul>
 <li>Maximum WTP (willingness to pay)</li>
 <li>Risk sharing</li>
-<li>Risk aversion - people buy H.I. when there is high cost of treatment with low probability of event</li>
+<li>Risk aversion - people buy H.I. when there is high cost of treatment
+with low probability of event</li>
 </ul>
 <p>Seller (Insurance company):</p>
 <ul>
 <li>Minimum WTA (willingness to accept)</li>
-<li>Risk pooling: pool by similar risk segment - just like we did in credit market</li>
-<li>Setting the <strong>premium <span class="math inline">\(P\)</span></strong> based on:
+<li>Risk pooling: pool by similar risk segment - just like we did in
+credit market</li>
+<li>Setting the <strong>premium <span
+class="math inline">\(P\)</span></strong> based on:
 <ul>
-<li><strong>Expected payout <span class="math inline">\(E\)</span></strong> - the average payout by the insurance company for the segment</li>
+<li><strong>Expected payout <span
+class="math inline">\(E\)</span></strong> - the average payout by the
+insurance company for the segment</li>
 <li><span class="math inline">\(+\)</span> admin cost</li>
 <li><span class="math inline">\(+\)</span> reserve funds</li>
 <li><span class="math inline">\(+\)</span> profit</li>
-<li><span class="math inline">\(E\)</span> is called the fair value of the insurance</li>
-<li>The price of the commodity (the insureance) is the loading fee <span class="math inline">\(L\)</span></li>
-<li>Usually, people express loading fee in relative form(%): where <span class="math inline">\(L = \frac{P-E}{E}\)</span></li>
+<li><span class="math inline">\(E\)</span> is called the fair value of
+the insurance</li>
+<li>The price of the commodity (the insureance) is the loading fee <span
+class="math inline">\(L\)</span></li>
+<li>Usually, people express loading fee in relative form(%): where <span
+class="math inline">\(L = \frac{P-E}{E}\)</span></li>
 </ul></li>
-<li><span class="math inline">\(P-E\)</span> is called the loading fee <span class="math inline">\(L\)</span></li>
+<li><span class="math inline">\(P-E\)</span> is called the loading fee
+<span class="math inline">\(L\)</span></li>
 </ul>
 <p>Determing expected payout <span class="math inline">\(E\)</span></p>
 <ul>
@@ -462,98 +472,195 @@ div.tocify {
 </ul>
 <p><strong>3. Moral Hazard:</strong></p>
 <ul>
-<li>Change of the behaviour of the consumer when he/she has the insurance coverage.</li>
-<li>Orginally, the person who bought the insurance is risk adverse, but once he/she has insurance, he/she can become more risk taking.</li>
-<li>Since the healthcase is paid by the 3rd party, there might be higher consumption of the healthcare even when it’s not necessary. The healthcare provider can also induce the demand to shift the demand curve.</li>
-<li>If the insurance company collects the data of you when you didn’t have insurance to determine <span class="math inline">\(E\)</span>, it cannot predict your behaviour once you have the insurance.</li>
-<li>Mitigant 1: To make the persone more sensitive/elastic, the insurance company introduce. coinsurance/copay (not 100% coverage since 100% coverage is perfectly inelastic.)</li>
-<li>Mitigant 2: Customary payment (<strong>FFS - Fee for Service</strong>). Insurance company set how much it would pay for a particular item/service, and anything higher than that,regardless which healthcare the customer goes to, the customer has to pay out of pocket.</li>
+<li>Change of the behaviour of the consumer when he/she has the
+insurance coverage.</li>
+<li>Orginally, the person who bought the insurance is risk adverse, but
+once he/she has insurance, he/she can become more risk taking.</li>
+<li>Since the healthcase is paid by the 3rd party, there might be higher
+consumption of the healthcare even when it’s not necessary. The
+healthcare provider can also induce the demand to shift the demand
+curve.</li>
+<li>If the insurance company collects the data of you when you didn’t
+have insurance to determine <span class="math inline">\(E\)</span>, it
+cannot predict your behaviour once you have the insurance.</li>
+<li>Mitigant 1: To make the persone more sensitive/elastic, the
+insurance company introduce. coinsurance/copay (not 100% coverage since
+100% coverage is perfectly inelastic.)</li>
+<li>Mitigant 2: Customary payment (<strong>FFS - Fee for
+Service</strong>). Insurance company set how much it would pay for a
+particular item/service, and anything higher than that,regardless which
+healthcare the customer goes to, the customer has to pay out of
+pocket.</li>
 <li>Mitigant 3: Managed care
 <ul>
-<li><strong>Gatekeeper physician</strong> (e.g. your primary doctor): You have to be referred by the primary doctor to see the specialist.</li>
-<li><strong>Pre-certification or pre-approval</strong> from insurance company in case of high cost service.</li>
-<li><strong>Stop loss provision</strong> (a form of deductible). The deductible has several layer/threshold, and stop loss provision only has 1 threshold.</li>
+<li><strong>Gatekeeper physician</strong> (e.g. your primary doctor):
+You have to be referred by the primary doctor to see the
+specialist.</li>
+<li><strong>Pre-certification or pre-approval</strong> from insurance
+company in case of high cost service.</li>
+<li><strong>Stop loss provision</strong> (a form of deductible). The
+deductible has several layer/threshold, and stop loss provision only has
+1 threshold.</li>
 </ul></li>
 </ul>
 <p><strong>4. Adverse selection:</strong></p>
 <ul>
-<li>Within the segment that the insurance company pooled, the difference in purchasing the insurance due to different characteristics from an average person within the segment. This means the price (premium) is wrong for those individuals.</li>
-<li>Migitant 1: Direct pay (in some way similar to experience rating)</li>
-<li>Migitant 2: Community rating (In practice it doesn’t work according to empirical stury)</li>
+<li>Within the segment that the insurance company pooled, the difference
+in purchasing the insurance due to different characteristics from an
+average person within the segment. This means the price (premium) is
+wrong for those individuals.</li>
+<li>Migitant 1: Direct pay (in some way similar to experience
+rating)</li>
+<li>Migitant 2: Community rating (In practice it doesn’t work according
+to empirical stury)</li>
 </ul>
 <p><strong>5. Employer health insurance:</strong></p>
 <ul>
-<li>Advantage| Employer may have policy that help the insureance company to have more homogeneious characteristics within the segment/pool and therefore the insurance company can offer community rating, addressing the issue of adverse selection</li>
-<li>Disadvandage| No job no insurance. Thus the U.S. government implemented COBRA (1985)</li>
-<li>Disadvantage| Job lock: changing the job become difficult because you are flagged as less healthy person.</li>
+<li>Advantage| Employer may have policy that help the insureance company
+to have more homogeneious characteristics within the segment/pool and
+therefore the insurance company can offer community rating, addressing
+the issue of adverse selection</li>
+<li>Disadvandage| No job no insurance. Thus the U.S. government
+implemented COBRA (1985)</li>
+<li>Disadvantage| Job lock: changing the job become difficult because
+you are flagged as less healthy person.</li>
 </ul>
-<p><strong>6. Integration between insurance company and provider.</strong> Different from other markets, the insurance company is setting 2 prices where it’s setting the price of premium and the price of healthcare services (The health insurance company negotiate the price with the healthcare provider).</p>
-<p>3 types of negotiation between insurance company &amp; healthcare provider</p>
+<p><strong>6. Integration between insurance company and
+provider.</strong> Different from other markets, the insurance company
+is setting 2 prices where it’s setting the price of premium and the
+price of healthcare services (The health insurance company negotiate the
+price with the healthcare provider).</p>
+<p>3 types of negotiation between insurance company &amp; healthcare
+provider</p>
 <ul>
-<li><strong>Separate entities:</strong> 0 integration, called Indemnity plan or FFS. The insurance company has no say in terms of which provider you go to.</li>
-<li><strong>Selective contracting:</strong> Insurance company channelizes toward a selective group of providers, and in return the providers give the insurance company a lower negotiated price. In this situation, the price of the premium is not involved and therefore the insurance company can have a higher profit. The patients are not benefitted in this system, paying escalating higher healthcare cost.</li>
-<li><strong>Vertical integration</strong> - MCO Managed Care Organization: an organization is formed with insurance department and healthcare provider department. MCO charges a fixed rate of premium drown from a small fixed pool of population. By restricting to a small fixed pool of population, it mitigate the information gap (healthness of the population) between the patients and the insurance company. This fixed rate premium is usually lower than the premium of the 2 systems above.
+<li><strong>Separate entities:</strong> 0 integration, called Indemnity
+plan or FFS. The insurance company has no say in terms of which provider
+you go to.</li>
+<li><strong>Selective contracting:</strong> Insurance company
+channelizes toward a selective group of providers, and in return the
+providers give the insurance company a lower negotiated price. In this
+situation, the price of the premium is not involved and therefore the
+insurance company can have a higher profit. The patients are not
+benefitted in this system, paying escalating higher healthcare
+cost.</li>
+<li><strong>Vertical integration</strong> - MCO Managed Care
+Organization: an organization is formed with insurance department and
+healthcare provider department. MCO charges a fixed rate of premium
+drown from a small fixed pool of population. By restricting to a small
+fixed pool of population, it mitigate the information gap (healthness of
+the population) between the patients and the insurance company. This
+fixed rate premium is usually lower than the premium of the 2 systems
+above.
 <ul>
-<li><strong>PPO Preferred Provider Organization:</strong> The insurance providers create a list of in-network healthcare providers. There are incentives (higher coverage of cost) for patients to go to in-network healthcare providers. There is no restriction for patients to go to out of network providers.</li>
-<li><strong>HMO Health Maintenance Organization:</strong> There is gatekeeper physician to authorize all healthcare use.
+<li><strong>PPO Preferred Provider Organization:</strong> The insurance
+providers create a list of in-network healthcare providers. There are
+incentives (higher coverage of cost) for patients to go to in-network
+healthcare providers. There is no restriction for patients to go to out
+of network providers.</li>
+<li><strong>HMO Health Maintenance Organization:</strong> There is
+gatekeeper physician to authorize all healthcare use.
 <ul>
-<li>Staff model: The doctors are employees of the HMO. The benefit is only eligible if the patients go to these doctors</li>
+<li>Staff model: The doctors are employees of the HMO. The benefit is
+only eligible if the patients go to these doctors</li>
 <li>Group model: The group of doctors are contracted with the HMO</li>
 <li>Network model (contract with multiple groups of doctors)</li>
-<li>Independent providers: Individual providers have contract with the HMO and don’t see other patients not from the HMO. Question - what kind of doctors would want to go in to this kind of contract?</li>
+<li>Independent providers: Individual providers have contract with the
+HMO and don’t see other patients not from the HMO. Question - what kind
+of doctors would want to go in to this kind of contract?</li>
 </ul></li>
-<li><strong>POS Point of Service Plan:</strong> Mixture of PPO &amp; HMO. It has in/out of network, but it also has a gatekeeper.</li>
+<li><strong>POS Point of Service Plan:</strong> Mixture of PPO &amp;
+HMO. It has in/out of network, but it also has a gatekeeper.</li>
 </ul></li>
 </ul>
-<p>Real cost of treatment: Monetary cost + time cost. The higher income people value time more than money, willing to pay more premium and therefore bring up the price. In the end, the insurance would cater only to this group and the lower income group would become uninsured.</p>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="market-theory">7. Market Theory</h3>
+<p>Real cost of treatment: Monetary cost + time cost. The higher income
+people value time more than money, willing to pay more premium and
+therefore bring up the price. In the end, the insurance would cater only
+to this group and the lower income group would become uninsured.</p>
+<div id="market-theory" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>7. Market Theory</h3>
 </div>
 <ul>
-<li><strong>Perfect Competition:</strong> It is the most efficient. It is also hypothetical.
+<li><strong>Perfect Competition:</strong> It is the most efficient. It
+is also hypothetical.
 <ul>
 <li>Infinite number of buyers &amp; sellers</li>
 <li>All sellers sell indentical/homogeneous products</li>
 <li>All sellers are price takers, and there is 1 single price</li>
 <li>There is free entry/exit to/from the market for the seller</li>
 <li><span class="math inline">\(TR = P \cdot Q\)</span></li>
-<li><span class="math inline">\(MR = \frac{\Delta TR}{\Delta Q}\)</span></li>
-<li><span class="math inline">\(MR = \bar{P} = ATC\)</span> (By free entry/exit assumption, if <span class="math inline">\(P&gt;ATC\)</span> then new entries will bring down the price. If <span class="math inline">\(P&lt;ATC\)</span>, then merchant would exits the market and bring up the price)</li>
-<li>The <span class="math inline">\(Q\)</span> is at the cost minimizing level of output and therefore we say it is the most efficient</li>
+<li><span class="math inline">\(MR = \frac{\Delta TR}{\Delta
+Q}\)</span></li>
+<li><span class="math inline">\(MR = \bar{P} = ATC\)</span> (By free
+entry/exit assumption, if <span class="math inline">\(P&gt;ATC\)</span>
+then new entries will bring down the price. If <span
+class="math inline">\(P&lt;ATC\)</span>, then merchant would exits the
+market and bring up the price)</li>
+<li>The <span class="math inline">\(Q\)</span> is at the cost minimizing
+level of output and therefore we say it is the most efficient</li>
 </ul></li>
 <li><strong>Monopoly:</strong>
 <ul>
-<li>There is one single seller, and it is a price maker instead of a price taker</li>
+<li>There is one single seller, and it is a price maker instead of a
+price taker</li>
 <li>There are large number of buyers but is finite</li>
 <li>Homogenous product (because there is only one seller)</li>
-<li>Barrier to entry as the singel seller would try to stop new competitions</li>
-<li>The law of demand and diminishing of marginal revenue still hold</li>
-<li>The monopolist produces less than the cost minimizing level of output and charge a higher price, and that’s why the monopoly is less efficient than perfect competition.</li>
+<li>Barrier to entry as the singel seller would try to stop new
+competitions</li>
+<li>The law of demand and diminishing of marginal revenue still
+hold</li>
+<li>The monopolist produces less than the cost minimizing level of
+output and charge a higher price, and that’s why the monopoly is less
+efficient than perfect competition.</li>
 </ul></li>
-<li><strong>Monopolistic Competition:</strong> The pharmeseutical, healthcare workforce and the hospital fall under this categorical. There is a tendancy for company in this category to move to monopoly.
+<li><strong>Monopolistic Competition:</strong> The pharmeseutical,
+healthcare workforce and the hospital fall under this categorical. There
+is a tendancy for company in this category to move to monopoly.
 <ul>
-<li>Finite number of buyers of sellers and the number of sellers is less than number of buyers</li>
+<li>Finite number of buyers of sellers and the number of sellers is less
+than number of buyers</li>
 <li>The markets are geographically localized</li>
-<li>The sellers provide non-homogeneous products. The same kind of service, but different in, for example, branding, advertising and/or location.</li>
+<li>The sellers provide non-homogeneous products. The same kind of
+service, but different in, for example, branding, advertising and/or
+location.</li>
 <li>Relatively free entry/exit of sellers</li>
-<li>The law of demand and diminishing of marginal revenue still hold</li>
-<li>The buyer has imcomplete information about the product and/or price (i.e. the buyer does not if he/she can get the same service at a different price from another seller)</li>
-<li>In a case that the seller is loosing money, some of the sellers will exit, and from the other sellers who stay in the market, they would experience a upshift of demand curve to where <span class="math inline">\(P = ATC\)</span> (please note the overall demand curve has not change).</li>
-<li>The final equilibrium point Q is still lower than the cost minimizing level of output</li>
-<li>Like perfect competition, eventually break even will happen (<span class="math inline">\(P^Q = C^Q\)</span>), however, the Q is still lower than the cost minizing level of output. Therefore, we say Monopolistic Competition is more efficient than Monopoly but less efficient than Perfect Competition.</li>
+<li>The law of demand and diminishing of marginal revenue still
+hold</li>
+<li>The buyer has imcomplete information about the product and/or price
+(i.e. the buyer does not if he/she can get the same service at a
+different price from another seller)</li>
+<li>In a case that the seller is loosing money, some of the sellers will
+exit, and from the other sellers who stay in the market, they would
+experience a upshift of demand curve to where <span
+class="math inline">\(P = ATC\)</span> (please note the overall demand
+curve has not change).</li>
+<li>The final equilibrium point Q is still lower than the cost
+minimizing level of output</li>
+<li>Like perfect competition, eventually break even will happen (<span
+class="math inline">\(P^Q = C^Q\)</span>), however, the Q is still lower
+than the cost minizing level of output. Therefore, we say Monopolistic
+Competition is more efficient than Monopoly but less efficient than
+Perfect Competition.</li>
 </ul></li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="hospital-industry">8. Hospital Industry</h3>
+<div id="hospital-industry" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>8. Hospital Industry</h3>
 </div>
 <p>Hospital history</p>
 <ul>
-<li>1910: Hospital industry started to gain importance. Flexnor Report</li>
-<li>1928: Nursing reform. Before then, nurses were more volunteering work wihtout specialized traning.</li>
-<li>1945: During World War II, creation of new hospitals mostly with government fundings.</li>
-<li>1960’s: Public health insurance programs. Medicare &amp; Medicaid.</li>
-<li>1980’s: Competition is introduced. Before then, there was very little competition.</li>
-<li>1990’s: Large spending in hospitals both in terms of consumer spending and government spending. The costs had gone up.</li>
+<li>1910: Hospital industry started to gain importance. Flexnor
+Report</li>
+<li>1928: Nursing reform. Before then, nurses were more volunteering
+work wihtout specialized traning.</li>
+<li>1945: During World War II, creation of new hospitals mostly with
+government fundings.</li>
+<li>1960’s: Public health insurance programs. Medicare &amp;
+Medicaid.</li>
+<li>1980’s: Competition is introduced. Before then, there was very
+little competition.</li>
+<li>1990’s: Large spending in hospitals both in terms of consumer
+spending and government spending. The costs had gone up.</li>
 </ul>
 <p>Hospital industry classification</p>
 <ul>
@@ -567,14 +674,24 @@ div.tocify {
 <li>Federal (only a few)</li>
 <li>Non-federal
 <ul>
-<li>Community hospitals (a lot): short term stay, provides general service and some categories of specialized services. Private not for profit (60%). Private for profit (25%). Owned by state/local government (15%)</li>
+<li>Community hospitals (a lot): short term stay, provides general
+service and some categories of specialized services. Private not for
+profit (60%). Private for profit (25%). Owned by state/local government
+(15%)</li>
 <li>Speciality hospitals: Only focus on one specialized services</li>
 </ul></li>
-<li>Learning hospital: Usually affliated with university and needs to have residency program. Thses are usually long-term stay hospital. They have very high cost of operation.</li>
+<li>Learning hospital: Usually affliated with university and needs to
+have residency program. Thses are usually long-term stay hospital. They
+have very high cost of operation.</li>
 </ul></li>
 </ul>
-<p>In the past year, we have seen decrease in community hospitals and increase in ambulantory care clinic (not hospital) which are owned by physicians and need primary physicians referral.</p>
-<p>It has been observed that the profit margins are the same between for profit and non-profit hospitals. The problem of how to re-invest the retained earnings. We say that the non-profit hospitals are still doing profit maximization:</p>
+<p>In the past year, we have seen decrease in community hospitals and
+increase in ambulantory care clinic (not hospital) which are owned by
+physicians and need primary physicians referral.</p>
+<p>It has been observed that the profit margins are the same between for
+profit and non-profit hospitals. The problem of how to re-invest the
+retained earnings. We say that the non-profit hospitals are still doing
+profit maximization:</p>
 <ul>
 <li>Utility maximization (Owner’s utility)
 <ul>
@@ -587,68 +704,83 @@ div.tocify {
 <ul>
 <li>Price competition was very low</li>
 <li>There was non-price competition - in terms of quality</li>
-<li>It is a localized market and is therefore more closed to Monopolistic Competition than Perfect Competition.</li>
-<li>The service is not homogeneous (e.g. not identical in terms of quality)</li>
+<li>It is a localized market and is therefore more closed to
+Monopolistic Competition than Perfect Competition.</li>
+<li>The service is not homogeneous (e.g. not identical in terms of
+quality)</li>
 <li>The patients do not have perfect information of the product.</li>
 <li>Buyers are price insensitive (demand is inelastic)
 <ul>
-<li>Patients need the service, there is no choice of not taking it. Life is on the line…you might not have time to shop around to find the cheaper price.</li>
+<li>Patients need the service, there is no choice of not taking it. Life
+is on the line…you might not have time to shop around to find the
+cheaper price.</li>
 <li>Mostly of time it is covered by 3rd party (insurance company).</li>
 </ul></li>
-<li>We conclude that it is a low competition market, and therefore it is not efficient and produce less welfare.</li>
+<li>We conclude that it is a low competition market, and therefore it is
+not efficient and produce less welfare.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="physician-market">9. Physician Market</h3>
+<div id="physician-market" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>9. Physician Market</h3>
 </div>
 <p>Demand:</p>
 <ul>
-<li>Input demand: Derived demand, meaning that this demand is not the ultimate goal. The ultimate goal is to be healthy, so you seek for physician.</li>
-<li>It can be driven by related goods, complement goods or competing goods.</li>
+<li>Input demand: Derived demand, meaning that this demand is not the
+ultimate goal. The ultimate goal is to be healthy, so you seek for
+physician.</li>
+<li>It can be driven by related goods, complement goods or competing
+goods.</li>
 <li>Inelastic</li>
 <li>Induced demand</li>
 </ul>
 <p>Supply:</p>
 <ul>
-<li>Limited supply <span class="math inline">\(Q_S &lt; Q_D\)</span> because of the barrier to entry</li>
+<li>Limited supply <span class="math inline">\(Q_S &lt; Q_D\)</span>
+because of the barrier to entry</li>
 <li>High cost to entry -&gt; education, license</li>
 <li>Restriction on immigration
 <ul>
 <li>Upside: quality control</li>
 <li>Downside: supply shortage persists</li>
 </ul></li>
-<li>Monopolist Competition Market. Physicians compete in terms of quality but not price.</li>
+<li>Monopolist Competition Market. Physicians compete in terms of
+quality but not price.</li>
 </ul>
-<div style="background-color:white;color:blue;matrixOperation:20px;">
-<h3 id="healthcare-systems">10. Healthcare Systems</h3>
+<div id="healthcare-systems" class="section level3"
+style="background-color:white;color:blue;matrixOperation:20px;">
+<h3>10. Healthcare Systems</h3>
 </div>
 <ul>
-<li>Centralized: Government make the decision
+<li><p>Centralized: Government make the decision</p>
 <ul>
 <li>Advantage| Economies of scale</li>
 <li>Advantage| Better distribution</li>
 <li>Disadvantage| Lower degree of innovation</li>
 </ul></li>
-<li>Decentralized: The market make the decision
+<li><p>Decentralized: The market make the decision</p>
 <ul>
 <li>Disadvantage| Diseconomies of scale</li>
 <li>Disadvantage| Less coordination</li>
 <li>Advantage| Higher degree of innovation</li>
 </ul></li>
 <li><p>PPP - Public Private Partnership</p></li>
-<li>Consumer Sovereignty Model (Private Insurance Model)
+<li><p>Consumer Sovereignty Model (Private Insurance Model)</p>
 <ul>
 <li>Low government involvement.</li>
-<li>The consumers decide what insurance coverage they want. The consumer has a lot of freedom on how he/she want to manage the possible high cost of treatment.</li>
+<li>The consumers decide what insurance coverage they want. The consumer
+has a lot of freedom on how he/she want to manage the possible high cost
+of treatment.</li>
 <li>Example: USA</li>
 </ul></li>
-<li>Social Insurance Model
+<li><p>Social Insurance Model</p>
 <ul>
 <li>Government pushes the universal coverage</li>
-<li>Employers &amp; employees contribute to a fund that runs by non-profit organization</li>
+<li>Employers &amp; employees contribute to a fund that runs by
+non-profit organization</li>
 <li>The government subsidizes the insurance fund</li>
 <li>Example: Germany, Netherlands</li>
 </ul></li>
-<li>National Health Insurance
+<li><p>National Health Insurance</p>
 <ul>
 <li>Maximum involvement of the government</li>
 <li>The funding is directly through government taxation</li>
@@ -689,7 +821,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -707,7 +839,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -716,6 +848,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

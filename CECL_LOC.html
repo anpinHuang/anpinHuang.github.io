@@ -13,13 +13,23 @@
 
 <title>CECL for Credit Cards</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -36,22 +46,47 @@
 </script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-222711575-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-222711575-1');
+  gtag('config', 'G-LLS7JTFH7K');
 </script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -64,30 +99,28 @@ if (window.hljs) {
 
 
 
+
+
 <style type="text/css">
-h1 {
-  font-size: 34px;
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
 }
-h1.title {
-  font-size: 38px;
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-h2 {
-  font-size: 30px;
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-h3 {
-  font-size: 24px;
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
 }
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -99,10 +132,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -119,40 +148,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -180,7 +185,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -192,7 +197,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -202,11 +207,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -218,13 +240,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -232,16 +253,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -350,7 +364,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -364,7 +378,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -391,6 +405,9 @@ div.tocify {
 <li>
   <a href="Programming.html">Programming</a>
 </li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -399,7 +416,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -410,64 +427,143 @@ div.tocify {
 
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="cecl-requirements">1. CECL Requirements</h3>
+<div id="cecl-requirements" class="section level3">
+<h3>1. CECL Requirements</h3>
 </ins>
 </div>
-<p>Current Expected Credit Loss, or CECL, see <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>, is the latest guidelines publised by Financial Accounting Standards Board (FASB), regarding the Allowance for Loan and Lease Losses (ALLL). Under CECL, the lending company is required to reserve the expected “lifetime” credit loss for the loan as early as when the loan is originated as opposed to the “incurred” loss under the old standard. The main ideas of the CECL are</p>
+</div>
+<p>Current Expected Credit Loss, or CECL, see <span class="citation">(<a
+href="#ref-CECL16">Financial Accounting Standards Board
+2016</a>)</span>, is the latest guidelines publised by Financial
+Accounting Standards Board (FASB), regarding the Allowance for Loan and
+Lease Losses (ALLL). Under CECL, the lending company is required to
+reserve the expected “lifetime” credit loss for the loan as early as
+when the loan is originated as opposed to the “incurred” loss under the
+old standard. The main ideas of the CECL are</p>
 <ul>
 <li>forward-looking</li>
 <li>lifetime</li>
 </ul>
-<p>The first point requires the <strong>forward-looking</strong> forecast for the <strong>foreseable future</strong>. Beyond the foreseable future (2 years as common industry practice), it’s plausible to assume the <strong>through-the-cycle (TtC)</strong> probability of default (PD). A popular approach is to incorporate the economic indicators into the loss forecasting model and make the loss forecast based on the projection of economic indicators made by internal and/or external economists or senior management. Another approach would be to model the through-the-cycle (TtC) loss rate and then add model overlay based on the forward economic projection on top of the model forecast.</p>
-<p>The 2nd major difference is the requirement to reserve against the <strong>lifetime</strong> credit loss which means that the lending company not only has to have reserve to cover the loss occur in the following year, it has to have enough reserve to cover the total loss that are expected to occur in the future.</p>
-<p>For example, a loan $100K, 10 year loan, annual principal payment as 10K and has annual probability of default (PB) = 3%,</p>
+<p>The first point requires the <strong>forward-looking</strong>
+forecast for the <strong>foreseable future</strong>. Beyond the
+foreseable future (2 years as common industry practice), it’s plausible
+to assume the <strong>through-the-cycle (TtC)</strong> probability of
+default (PD). A popular approach is to incorporate the economic
+indicators into the loss forecasting model and make the loss forecast
+based on the projection of economic indicators made by internal and/or
+external economists or senior management. Another approach would be to
+model the through-the-cycle (TtC) loss rate and then add model overlay
+based on the forward economic projection on top of the model
+forecast.</p>
+<p>The 2nd major difference is the requirement to reserve against the
+<strong>lifetime</strong> credit loss which means that the lending
+company not only has to have reserve to cover the loss occur in the
+following year, it has to have enough reserve to cover the total loss
+that are expected to occur in the future.</p>
+<p>For example, a loan $100K, 10 year loan, annual principal payment as
+10K and has annual probability of default (PB) = 3%,</p>
 <ul>
-<li>The reserve under incurred loss for the following 12 months would be <span class="math inline">\(100K \cdot 3\% = 3K\)</span>,</li>
-<li>Whereas under CECL, the reserve would be <span class="math inline">\(100K \cdot 3\% + 90K \cdot 3\% + ...+ 10K \cdot 3\% = 16.5K\)</span>.</li>
+<li>The reserve under incurred loss for the following 12 months would be
+<span class="math inline">\(100K \cdot 3\% = 3K\)</span>,</li>
+<li>Whereas under CECL, the reserve would be <span
+class="math inline">\(100K \cdot 3\% + 90K \cdot 3\% + ...+ 10K \cdot
+3\% = 16.5K\)</span>.</li>
 </ul>
-<p>Although it’s unlikely for a loan to have uniform distribution of PD accross the life of the loan as the PD is usually quite low at the end of the loan, the example illustrates that the CECL reserve rate is significantly different from that of the incurred loss for a typical term loan.</p>
-<p>Another point of the CECL implementation is the allowance should consider not only the unpaid principal balance but the net <strong>amortized cost</strong>:</p>
-<p><span class="math display">\[\text{Amortized cost} = \text{Principal} + \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued interest &amp; other adjustments}\]</span> There are two ways that are common used in the industry. First is to directly model the credit loss based on the amortised cost. Another way, a simpler way, is to model the credit loss based on unpaid principal balance and make adjustment on top of that. For simplicity, the following content are based on unpaid principal balance only.</p>
+<p>Although it’s unlikely for a loan to have uniform distribution of PD
+accross the life of the loan as the PD is usually quite low at the end
+of the loan, the example illustrates that the CECL reserve rate is
+significantly different from that of the incurred loss for a typical
+term loan.</p>
+<p>Another point of the CECL implementation is the allowance should
+consider not only the unpaid principal balance but the net
+<strong>amortized cost</strong>:</p>
+<p><span class="math display">\[\text{Amortized cost} = \text{Principal}
++ \text{Premium/Discount}+\text{Deferred loan fees} + \text{Accrued
+interest &amp; other adjustments}\]</span> There are two ways that are
+common used in the industry. First is to directly model the credit loss
+based on the amortised cost. Another way, a simpler way, is to model the
+credit loss based on unpaid principal balance and make adjustment on top
+of that. For simplicity, the following content are based on unpaid
+principal balance only.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="unconditionally-cancellable">2. Unconditionally Cancellable</h3>
+<div id="unconditionally-cancellable" class="section level3">
+<h3>2. Unconditionally Cancellable</h3>
 </ins>
 </div>
-<p>In this section, we specifically discuss the line of credit under the CECL regulation. As specified in <strong>326-20-30-11</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>, the lender shall estimate the expected loss over the contractual period unless the obligation is <strong>“Unconditionally Cancellable”</strong>. The credit card normally falls into this category as the ‘term &amp; conditions’ often specifies the lender’s authority to unconditionally cancel the credit line provided that the borrower is still obligated to pay the outstanding principal &amp; interest balance. The covid-19 in 2020 is a good example as numorous fintech online lenders put the undrawn credit line on hold amid the crisis. FASB gives an example of credit card portfolio that is unconditionally cancellable in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of <span class="citation">(Financial Accounting Standards Board <a href="#ref-CECL16">2016</a>)</span>.</p>
+</div>
+<p>In this section, we specifically discuss the line of credit under the
+CECL regulation. As specified in <strong>326-20-30-11</strong> of <span
+class="citation">(<a href="#ref-CECL16">Financial Accounting Standards
+Board 2016</a>)</span>, the lender shall estimate the expected loss over
+the contractual period unless the obligation is <strong>“Unconditionally
+Cancellable”</strong>. The credit card normally falls into this category
+as the ‘term &amp; conditions’ often specifies the lender’s authority to
+unconditionally cancel the credit line provided that the borrower is
+still obligated to pay the outstanding principal &amp; interest balance.
+The covid-19 in 2020 is a good example as numorous fintech online
+lenders put the undrawn credit line on hold amid the crisis. FASB gives
+an example of credit card portfolio that is unconditionally cancellable
+in <strong>326-20-55-54</strong> to <strong>326-20-55-56</strong> of
+<span class="citation">(<a href="#ref-CECL16">Financial Accounting
+Standards Board 2016</a>)</span>.</p>
 <div style="background-color:white;color:blue;matrixOperation:20px;">
 <ins>
-<h3 id="lifetime-of-the-balance">3. Lifetime of the Balance</h3>
+<div id="lifetime-of-the-balance" class="section level3">
+<h3>3. Lifetime of the Balance</h3>
 </ins>
+</div>
 </div>
 <p>( O ) Lifetime of the outstanding balance<br />
 ( X ) Lifetime of the credit card account</p>
-<p>The unconditionally cancellable would lead to the conclusion that, it’s the outstanding balance that the lender should reserve against, instead of the credit card account itself. The implication is that not only the credit risk of uncommitted balance doesn’t need to be covered by the ALLL, but also that the ALLL should only concern the lifetime of the outstanding balance at the reporting date instead of the lifetime of the credit card account.</p>
-<p>That leads us to the next question: how we estimate the paydown of the balance and the behavioural maturity of the balance given</p>
+<p>The unconditionally cancellable would lead to the conclusion that,
+it’s the outstanding balance that the lender should reserve against,
+instead of the credit card account itself. The implication is that not
+only the credit risk of uncommitted balance doesn’t need to be covered
+by the ALLL, but also that the ALLL should only concern the lifetime of
+the outstanding balance at the reporting date instead of the lifetime of
+the credit card account.</p>
+<p>That leads us to the next question: how we estimate the paydown of
+the balance and the behavioural maturity of the balance given</p>
 <ul>
 <li>there is no fixed payment amount for credit card, and</li>
-<li>the customer is not only paying, but also drawing money before the account hits zero balance.</li>
+<li>the customer is not only paying, but also drawing money before the
+account hits zero balance.</li>
 </ul>
-<p>The Moody’s report, see <span class="citation">(Fieldhouse <a href="#ref-Moody18">2018</a>)</span>, gives clear demonstration of different approaches on how to estimate the balance paydown curve. Here, I would like to illustrate, by using the FIFO approach, how the balance paydown curve impact the estimation of PD &amp; EAD in the training dataset.</p>
-<p><span style="text-decoration:underline"><strong><em>Case 1: Default after balance paydown</em></strong></span></p>
+<p>The Moody’s report, see <span class="citation">(<a
+href="#ref-Moody18">Fieldhouse 2018</a>)</span>, gives clear
+demonstration of different approaches on how to estimate the balance
+paydown curve. Here, I would like to illustrate, by using the FIFO
+approach, how the balance paydown curve impact the estimation of PD
+&amp; EAD in the training dataset.</p>
+<p><span style="text-decoration:underline"><strong><em>Case 1: Default
+after balance paydown</em></strong></span></p>
 <ul>
-<li>PD: not considered default for the initial balance in the dataset</li>
+<li>PD: not considered default for the initial balance in the
+dataset</li>
 <li>EAD: EAD is 0 for the initial balance</li>
 </ul>
 <p><img src="paydown1.png" /></p>
-<p><span style="text-decoration:underline"><strong><em>Case 2: Default before balance paydown</em></strong></span></p>
+<p><span style="text-decoration:underline"><strong><em>Case 2: Default
+before balance paydown</em></strong></span></p>
 <ul>
 <li>PD: it is considered default in the dataset</li>
-<li>EAD: the remaining initial balance instead 15 of the account balance 80</li>
+<li>EAD: the remaining initial balance instead 15 of the account balance
+80</li>
 </ul>
 <p><img src="paydown2.png" /></p>
 <div id="references" class="section level3 unnumbered">
-<h3>4. References</h3>
-<div id="refs" class="references">
-<div id="ref-Moody18">
-<p>Fieldhouse, D. 2018. <em>Modeling Credit Card Losses Under CECL</em>. Moody’s Analytics. <a href="https://www.moodysanalytics.com/">https://www.moodysanalytics.com/</a>.</p>
+<h3 class="unnumbered">4. References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Moody18" class="csl-entry">
+Fieldhouse, D. 2018. <em>Modeling Credit Card Losses Under
+<span>CECL</span></em>. Moody’s Analytics. <a
+href="https://www.moodysanalytics.com/">https://www.moodysanalytics.com/</a>.
 </div>
-<div id="ref-CECL16">
-<p>Financial Accounting Standards Board. 2016. <em>Measurement of Credit Losses on Financial Instruments</em>. <a href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true</a>.</p>
+<div id="ref-CECL16" class="csl-entry">
+Financial Accounting Standards Board. 2016. <em>Measurement of Credit
+Losses on Financial Instruments</em>. <a
+href="https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true">https://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1176168232528&amp;acceptedDisclaimer=true</a>.
 </div>
 </div>
 </div>
@@ -483,7 +579,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -501,7 +597,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -510,6 +606,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

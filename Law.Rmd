@@ -1,0 +1,18 @@
+---
+title: "Law"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
+---
+
+#### Contract Law
+
+* [Contract Law I](contractLawI.html) 
+* [Contract Law II](contractLawII.html) 
+
+#### Criminal Procedure
+
+* [The Fourth Amendment - Foundations of Search and Seizure](criminal_procedure1.html) 
+* [Warrents and the Warrent Exceptions](criminal_procedure2.html) 
+

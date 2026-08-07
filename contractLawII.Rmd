@@ -1,0 +1,1508 @@
+---
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '5'
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+    includes:
+      in_header: GA_Script.html
+bibliography: references.bib
+link-citations: yes
+---
+
+
+### Capacity to Contract
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement §14*
+</div> 
+
+"Unless the statute provides otherwise, a natural person has the capacity to incur <u>***only voidable contractual duties***</u> until the beginning of the day before the person's eighteenth birthday."
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement §15 *
+</div> 
+
+(1) A person incurs only voidable contractual duties by entering into a transaction if by reason of mental illness or defect
+    a. he is unable to understand in a reasonable manner the nature and consequences of the transaction, or
+    b. he is unable to act in reasonable manner in relation to the transaction and <u>***the other party has reason to know***</u> of his condition 
+(2) Where the contract is made on fair terms and the other party is without knowledge of the mental illness or defect, the power of avoidance
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) §16 Intoxication (and Other Drug-Induced Incapacitation)*
+</div> 
+
+
+Reason to know?
+
+* The defense of infancy may be available even though the other party has no reason to suspect he was contracting with a minor. 
+* But the defense of mental incompetence focuses upon both the condition of the party seeking to avoid the contract and what the other party had reason to know. 
+
+#### Infancy - Davis v. Clelland
+
+
+<u>Situation: </u>
+
+* the defendant sold a car to a minor after crashing the car into a telephone pole. 
+* The minor sought to rescind the transaction and get his money back.
+
+<u>Ruling: </u>
+
+* The court ruling for the minor "*Those who deal with a minor must do so charged with the knowledge of the controlling principle of law which, as here, may work some injustice in individual cases but affords, in general, the <u>**protection of minors**</u> against their own improvidence at a time when they are presumed to be incapable of protecting themselves.*" 
+
+<u>Summary: </u>
+
+
+### Unilateral and Mutual Mistake
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 152*
+</div> 
+"Where a mistake of both parties at the time a contract was made as to a <u>***basic assumption***</u> on which the contract was made has a <u>***material effect***</u> on the agreed exchange of performances, the contract is <u>***voidable*** by the adversely affected party</u> unless he bears the risk of the mistake under the rule stated in § 154."
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 154 *
+</div>
+
+A party bears the risk of a mistake when 
+
+ (a) the risk is allocated to him by agreement of the parties OR
+ (b) he is aware, at the time the contract is made, that he has only limited knowledge with respect to facts to which the mistake relates but treats his limited knowledge as sufficient, OR
+ (c) the risk is allocated to him by the court on the ground that it is reasonable in the circumstances to do so.
+
+
+#### Mutual Mistake - "Pregnant Cow" - Sherwood v. Walker 
+
+<u>*Situation:* </u>
+
+* Mr. Sherwood was a banker, and he wanted to buy some cattle from Mr. Walker who imported inbred black Angus cattle. 
+* He went to one of Walker's farms but didn't like any of the cattle there. He then went to a second farm where he was told the cows were probably barren. And he decided to buy a cow named Rose the II of Aberlone. 
+* Sherwood called up Walker, and they agreed to a price that came to about \$80 at \$0.05 per pound. But when Sherwood went to pay for and pick up Rose, Walker refused to sell, because Rose had turned out to be pregnant. 
+* This is a suit for replevin, that is, Sherwood is claiming that Walker should be ordered by the court to give Sherwood his, namely Rose the II of Aberlone. 
+
+<u>*Central Issue & Ruling:* </u>
+
+* What happens when both parties to a contract base their agreement to the contract on a mistaken understanding of the situation?
+
+  * Justice Morse: "A party who has given apparent consent to a contract ... may refuse to execute it...if the assent was founded, or the contract made, upon the mistake of a material fact...and this can be done when the mistake is mutual"
+* but what counts as a mistake of a material fact? 
+  * "A difference of misapprehension as to the <u>***substance of the thing bargained for***</u>". 
+  
+      --> For Justice Morse the question of whether a cow is barren or not gets to the very core of the substance of what sort of creature Rose is.
+  * NOT "a difference in some quality or accident, even though the mistake may have been the actuating motive to the purchaser ro sell" (e.g. how fast a horse can run)
+  * Justice Sherwood's descent: the plaintiffs, suspected all along that Rose wasn't barren. He bought her on the hope that she might turn out to be able to bear calves and give milk. On this view, at most, one of the parties was truly mistaken about Rose's condition.
+  
+<u>*Summary:* </u>
+
+* When parties make a contract based on a material false assumption about the world, the party who came off worse because of the mistake may void the contract.
+* restatement more clearly establish that the mutual mistake voidability is merely a ***default allocation of risks*** that can be contracted around by the parties themselves. 
+
+
+#### Mutual Mistake - Lenawee County Board of Health v. Messerly 
+
+<u>*Situation:* </u>
+
+* Initial owner, Bloom, installed septic tank on the property without a permit and in violation of the Lenawee County Health Code
+* Messerlys purchased the property as an <u>***income investment property*** </u>
+* Barneses bought property from Messerlys and then defaulted on the contract
+* Barneses executed a quitclaim, conveying their interest back to the Messerlys
+* Pickleses bought the land from Messerlys
+* The provision in the contract includes: "Purchaser has examined this property and agrees to accept the same <u>***in its present condition***</u>. There are no other written or oral understandings"
+* A few days later, the new owners, Pickleses discovered raw sewage seeping out of the ground
+* Messerlys invoked the case of ***A&M Development Co. v. Miller***:
+  * Mistakes that go to the <u>***value or quality***</u> of real estate are collateral to an agreement.
+  * Such mistakes, even if mutual, do not warrant rescission.
+* Pickleses invoked the case of ***Sherwood v. Walker***
+  * Mutual mistake as to the <u>***essence of the consideration***</u> are not collateral to an agreement. 
+  
+    --> "The income producing capacity of the property in question and the property was uninhabitable. And therefore, unsuitable for residential use." 
+  * Such mistakes do warrant rescission.
+  
+<u>*Central issue & Ruling:* </u>
+
+Is this mistake as to value/quality, or is it a mistake that <u>***materially affect the essence of the consideration***</u>?
+
+* the mistake was about the quality and value of the land but the court found it was also simultaneously and materially affected the essence of the contractual consideration. 
+* "*The inexact and confusing distinction between contractual mistakes running to value and those touching the substance of considerations serves only as an impediment to a clear and helpful analysis for the equitable resolution of cases in which mistake is alleged and proven. Accordingly, the holdings of A&M Land Development and Sherwood with respect to material or collateral nature of a mistake are limited to the facts of those cases.*" 
+
+    --> This is a polite way for the Michigan Supreme Court to overrule *Sherwood and A&M Land* or at least overrule it with regard to future disputes.
+*  Instead, the court looked to two provisions of the restatement of contracts. Section 152 of the restatement advises that, "*Where a mistake of both parties at the time a contract was made as to a basic assumption on which the contract was made has a material effect on the agreed exchange of performances, the contract is voidable by the adversely affected party.*"
+* The court pointed to the <u>***as-is clause***</u> of the contract. Purchaser has examined the property and agrees to accept same in its present condition. This clause indicated the parties <u>***had allocated risk***</u> regarding the present condition of the land to the purchasers. Because of this, rescission based on mistake was not available to the purchasers.
+
+
+<u>*Summary:* </u>
+
+* **Rejection of Sherwood v. Walker **: the court limit the holding of Sherwood v. Walker to the facts of that case. The court adopt the Restatement standard for mutual mistake.
+* **Discretion of court**: Rescission is an equitable remedy and courts NEED NOT grant it if justice doesn't demand it. BH: This is awfully vague...
+* **Assumption of risk**: If there weren't "as-is" clause in the contract, the judge might have favored the Pickleses.
+
+
+###  Fraud
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 159*
+</div>
+"A misrepresentation is an assertion that is not in accord with the facts"
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 169*
+</div>
+"To the extent that an assertion is one of **opinion only**, the recipient is NOT justified on relying on it UNLESS the recipient 
+
+  a. stands in such a <u>***relation of trust and confidence***</u> to the person whose opinion is asserted that the recipient is reasonable in relying on it, or
+  b. reasonably believes that, as compared with himself, the person whose opinion is asserted <u>***has special skill, judgment or objectivity***</u> with respect to the subject matter, or
+  c. is for some other special reason particularly susceptible to a misrepresentation of the type involved."
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 164*
+</div>  
+If a party's manifestation of assent is <u>***induced by*** either a ***fraudulent*** or a ***material misrepresentation***</u> by the other party upon which the recipient is justified in relying, the contract is <u>***voidable*** by the recipient</u>.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 161*
+</div>  
+"<u>***Affirmative duty***</u> to disclose material facts where:
+
+1. Disclosure is necessary to prevent a <u>***previous assertion***</u> from being misrepresentation or from being fraudulent or material;
+2. Disclosure would <u>***correct a mistake of the other party***</u> as to a basic assumption on which that party is making the contract and if nondisclosure amounts to a failure to act in good faith and in accordance with reasonable standards of fair dealing; (it requires disclosure when one party knows the other's agreement to the contract is based on a mistake and where non disclosure would not be in accordance with principle of good faith and fair dealing)"
+
+
+
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Anthony Kronman on information*
+</div>  
+
+* Deliberately acquired
+* Casually acquired
+* --> Casually-acquired facts must be disclosed.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Cooter & Ulen on information*
+</div>  
+
+* Productive facts: can be used to create value
+* Redistributive facts: simply transfer wealth between parties
+* --> Redistributive facts must be disclosed.
+
+
+#### Disclosure and Misrepresentation - Laidlaw v. Organ
+
+<u> *Situation:* </u>
+
+* The plaintiff, appellee and buyer Organ, entered into a deal to buy a 111 hogsheads of tobacco from the defendant, appellant, seller Laidlaw, for $7,545.
+* The purchase was made around the time that news broke of the Peace Treaty of Ghent, which ended the war of 1812. 
+* During the war, the price of tobacco was very low because of the British naval embargo around the city of New Orleans. Because of the war, literally, tons of tobacco were going unsold, warehoused on the docks of New Orleans. Once the war was over and the embargo lifted, this tobacco would be worth a lot more money. 
+* Defendant Laidlaw initially delivered tobacco to the plaintiff, but later retook the hogsheads by force. The defendant alleged plaintiff had heard from the British fleet the news about the signing of the peace treaty before this news was made public and Wisconsin currently able to buy at an artificially depressed embargo price. 
+* When the defendant asked if there was any news which was calculated to enhance the price or value of the article about to be purchase, the plaintiff apparently <u>***remained silent***</u>. 
+* When the signing of the treaty was announced to the public, the value of tobacco increased from 30 to 50 percent
+
+<u> *Main Issue:* </u>
+
+
+<u> *Summary:* </u>
+
+* No duty to disclose in arms-length negotiations
+  * It was only until recently that courts have imposed a duty of disclosure in certain circumstances.
+* Silence in the face of a question <u>***could***</u> constitute implicit misrepresentation
+* Making a representation might force other side to disclose information
+
+#### Misrepresentation of Opinion - "Dance Class Ripoff" - Audrey E. Vokes v. Arthur Murray
+
+
+<u>*Situation:* </u> 
+
+* Vokes was a 51-year-old widow who desired to become an accomplished dancer. 
+* She spent over \$31,000, and that's in 1968 dollars, over 16 months on dance lessons provided by the defendant, Arthur Murray Incorporated 
+* <u>***relying upon***</u> the defendant's elaborate assurances that she was dramatically improving and would become an excellent dancer. 
+* The complaint alleged that she was a poor dancer in spite of the instruction and that the defendant's encouragements were designed to deceive her and induce her into purchasing additional lessons. 
+* Vokes sued to rescind the contracts for all of the lessons paid for but not completed and for the return of her \$31,000 less the cost of lessons that she had received.
+
+
+<u>*Main Issue & Ruling:* </u> 
+
+May a contract be rescinded for fraud consisting of misrepresenting one's dancing abilities?
+
+* Generally a contract can only be rescinded for fraud following a misrepresentation of fact. Not opinions.
+* But exceptions exist where
+  * there is a fiduciary relationship between the parties, OR
+  * there has been some artifice or trick employed by the representer, OR
+  * the parties do not in general deal at arm's length, OR
+  * representee does not have the equal opportunity to become apprised of the truth or falsity of the fact represented
+  * "*a party having superior knowledge may be regarded as a statement of fact although it would be considered as opinion if the parties were dealing on equal terms*"
+  --> the court said that it could be reasonably supposed that Arthur Murray had "superior knowledge" about Vokes' dancing ability and potential. 
+
+
+<u>*The Reach of "Misrepresentation"* </u> 
+
+Courts have expanded "mistrepresentations" beyond fraudulent statements of facts or opinions to include 
+
+* half-truths
+  * e.g. after repeated inquiries by the buyer about an oil storage facility, the seller disclosed the existence of one leak but not others of which you'd allegedly knew
+  * The court held that the disclosure of one leak carried with it <u>"***some implication of exclusivity.***"</u> That is an implication that the seller knew of no other leaks. 
+* concealment & failures to disclose
+  * e.g. covering up of some facts such as painting over water damage on basement walls or hiding evidence of termite damages
+  * While concealment is not exactly a falsehood or at least not an expressed misrepresentation, courts have held that such acts constitute actionable falsehoods by hearing <u>***implicit misrepresentations***</u>
+
+
+<u>*The Elements of the Defense* </u> 
+
+* There must be a representation, express or implied.
+* This representation must be untrue.
+
+<u>*Summary:  * </u> 
+
+* A contract <u>***may be rescinded***</u> if one party made fraudulent misrepresentations to <u>***induce***</u> the other party to agree to the contract.
+* Generally, this rule applies to **misrepresentations of fact**.
+* But misrepresentation may also be expanded, for example to cover misrepresentations of <u>***professional opinions***</u>.
+
+#### The Duty to Disclose - "Terminte Infestation" - Warren G. and Gloria R. Hill v. Ora G. and Barnara R.Jones 
+
+<u>*Situation:* </u>
+
+* In 1963, under earlier owners, the house received its first treatment for termites from Truly Nolen
+* Nolen then gave the owners termite guarantees, which entitled them to semi-annual inspections and annual termite booster treatments
+* When the Joneses subsequently bought the house in 1974, they renewed these guarantees and continued paying Nolen annual fees for inspection and treatment, as well as diagrams as where in the house there had been termite damage. During their ownership, there was additional evidence of infestation including streamers in the wood tile floor near the entryway and Truly Nolen came back and treated the house and fence
+* 1982 when the Joneses are selling the house. The Hill's are attracted to it because of the parquet floors, but they notice a ripple in the wood. <u>***When Mr. Hill asks whether the ripple is termite damage, Mrs. Jones says that it is water damage.***</u> They enter into an agreement for the Hill's to buy the house <u>***dependent on the results of the termite inspection***</u>
+  * The Joneses however, do NOT give the termite inspector the information they have about the past termite damage and so, he does not notice that the house is infested. In part, this may be because of strategically placed boxes and plants that hide all evidence of the past termite treatments, holes in the patio and the like
+* After they move in, the Hills discovered a serious infestation in the house which would cost them $5,000 to repair.
+* The Hills sued the Joneses for <u>***rescission of the contract***</u>, arguing that the termite report was fraudulent because of the Jones's misrepresentations.
+
+<u> *Key Questions & Ruling* </u>
+
+1. Does the <u>***integration clause***</u> prevent the court from considering defendant's silence?
+
+    * Judge Meyerson: "*Where a misrepresentation is <u>**fraudulent**</u> or where a negligent misrepresentation is one of material factor , the policy of finality rightly gives way to the <u>policy of promoting honest dealings between the parties</u>.*"
+
+2. Did the defendants have a duty to disclose the possibility of termite infestation?
+
+    * Florida Supreme Court's language that quote, "*Where the seller of a home knows of facts <u>materially affecting the value</u> of the property which are <u>NOT readily observable</u> and are not known to the buyer, the seller is under a duty to disclose them to the buyer.*"
+    * Another way to think about this issue is in terms of <u>***implicit default representations***</u>. A jury might find that when sellers don't mention termite infestations, they are by default, representing that house has no termite infestations. The buyer could then reasonably rely on that implied representation, and the seller would have a duty to disclose termite infestations to contract around the default
+    * Judge Meyerson found that there was enough evidence that the trial court should let a jury decide 
+      * whether the information about past infestations was material,
+      * whether the Joneses had misrepresented it, and 
+      * whether the Hills had <u>***relied***</u> on it. 
+      
+      
+### Promissory Fraud
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement of Torts § 530*
+</div> 
+
+* "*a representation of the maker's own intention to do or not do a particular thing is fraudulent if he does not have that intention*"
+* "*Since a promise necessarily carries with it the implied assertion of an intention to perform it, it follows that a promise made without such an intention is fraudulent and actionable*" - cmt. (c)
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement of Contracts § 171*
+</div> 
+
+* "*If it is reasonable to do so, the promisee may properly interpret a promise as an assertion that the promisor intends to perform the promise.*"
+* "*It is ordinarily reasonable for the promisee to infer from the making of a promise that the promisor intends to perform it. If, therefore, the promise is made with the intention of not performing it, this implied assertion is false and a misrepresentation.*" - cmt. (b)
+
+
+<u>*Proving Insincere Intent:* </u>
+
+* The tort restatement adds as well that the promisor's nonperformance doesn't place on the promisor the burden of showing that he failed to carry out his promise for reasons that didn't arise until after the party's entered in to an agreement.
+* It's the promisee that retains the burden in a promise or a fraud claim of actually proving that the promisor did not intend to perform.
+* Evidence:
+  * Pattern Evidence
+  * No changed Circumstances
+  * Impossibility of Performance
+  * Internal Documents
+
+<u>*Summary:* </u>
+
+* A promise usually includes an implied intent to perform the promise
+* Misrepresenting an intention to perform can result in ***punitive damages*** under promissory fraud doctrine
+
+###  Duress and Undue Influence
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) §§ 174-177
+</div> 
+
+
+It's easy to understand that if someone hold a gun to your head to sign a contract, that contract is not enforcable. But, what if someone threaten to breach a contract unless you agree to modify its terms?
+
+#### Economic Durass - "Radar Sets" - Austin Instrument, Inc. c. Loral Corp.
+
+Note, the military background may have influence the decision. If Loral Corp cannot deliver the Radar sets, the American soldiers might be in danger during Vietnam War.
+
+<u> *Situation:* </u>
+
+* The defendant and buyer Loral is a frequent government contractor. Loral contracted with the US Navy to provide radar headsets. 
+* In order to have the necessary parts to make these radar headsets, Loral had to subcontract with the plaintiff and seller, Austin instrument. 
+* Loral was awarded a second Navy contract and informed Austin that Austin would be awarded only those subcontracts for which it was the lowest bidder. 
+* Austin, unhappy with this change, decided to play hardball. Austin ***threatened to cease delivery under its first subcontract*** unless the defendant agreed to a substantial increase in the contract price. 
+* Loral ***contacted 10 alternative precision gear manufacturers*** but couldn't find any that could provide the parts in time. 
+* Faced with the ***prospect of being unable to meet the government's deadline***, Loral knuckled under and agreed to Austin's demands and awarded the second subcontract to Austin at the higher cost. 
+* After the parts were delivered, Loral refused to pay the full price. Austin brought sued to recover 17,750 bucks allegedly due on the second subcontract. * Loral itself brought suit claiming recovery of the price increase on the first subcontract. 
+* The two actions were consolidated. 
+* The trial judge found for Austin in the first complaint and dismissed the second. The appellate division affirmed and the ensuing court affirmed as to the first action and reversed as to the second.
+
+<u> *Central Issue & Ruling:* </u>
+
+
+whether a contractual modification, made under <u>***economic duress***</u> is voidable? 
+
+--> The court found that yes economic duress can void a contract. 
+
+Economic duress exists when three conditions are met. 
+
+1. one party threatens to breach a contract. 
+2. the threatened party cannot cover their obligation with another source. 
+3. the ordinary remedy for a breach of contract is inadequate. 
+
+The court found that all three of these conditions were met. 
+More generally, the court attempted to define the legal standard for economic duress. 
+
+* "*A contract is ***voidable on the grounds of duress***, when it is established that the party making the claim was forced to agree to it ***by means of a wrongful threat*** precluding the exercise of his free will.*"
+* The wrongful threat, in this case, was a threat to breach the contract. Why was failure to deliver a wrongful threat? Because there was a prior contract and ***a pre-existing duty*** to provide radar headsets.
+
+One of the key sources of duress is the ***failure of contractual damages***. 
+
+* If expectation damages fully compensated the promisee for a breach of contract, there would not be anything threatening about a breach. The promisee could say, "Go ahead and breach, I won't even notice if you breach because, I'll be made whole and put in such a good position as if the breach had not occurred." 
+* But legal damages often do not fully compensate. 
+  * Promisees are ***NOT awarded their attorney's fees*** 
+  * and more importantly a promisor sometimes have shallow pockets and cannot pay the damages that are awarded. 
+* --> The duress doctrine therefore is a substitute for failure of damages in contractual actions. It's noteworthy that this court disposed of the case in terms of the duress element without so much as a mention of the pre-existing duty doctrine or UCC Section 2-209. 
+
+<u> *Is it ever unlawful to threaten what one have a legal right to do? * </u>
+
+
+###  Unconscionability
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Court of Chancery in 1750*
+</div> 
+
+  * "unconscientious" bargain as one "such as no man in his senses and not under delusion would make on the one hand, and as no honest and fair man would accept on the other."
+
+    --> professor note: "Some bargains are so substantively unconscionable that <u>***there must have been some procedural defect in their formation***</u>. One of the parties must have been not in his senses or under delusion or somehow tricked into the contract. "
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC 2-302. Unconscionable contract or Clause*
+</div> 
+
+(1) If the court as a matter of law finds the contract or any clause of the contract to have been <u>***unconscionable at the time it was made***</u> the court may refuse to enforce the contract, or it may enforce the remainder of the contract without the unconscionable clause, or it may so limit the application of any unconscionable clause as to avoid any unconscionable result.
+
+    --> professor note: "This language, unconscionable at the time it was made, makes clear that the doctrine is a <u>***formation defense to be judged at the time of a contract formation***</u>, as opposed to the impracticability defense that we'll study later, that often concerns impracticability or impossibility that arises after the contract is formed"
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Contracts of Adhesion*
+</div> 
+
+* Standard form contracts presented on a take-it-or-leave-it basis are often referred to as "contracts of adhesion".
+  * <u>***California courts*** have taken the lead in holding that a contract of adhesion is ***always procedurally unconscionable***</u>.The unconscionability question in California then boils down to whether the bargain is sufficiently unconscionable from a substantive standpoint to warrant non enforcement.
+* However, notwithstanding California's position, Contracts of adhesion are generally enforceable.
+  * Thus, while the phrase "contract of adhesion" has a pejorative overtone, it's important to keep in mind that most adhesive contracts will be judicially enforced. 
+  * --> Merely arguing that your client signed a standardized contract, A contract of adhesion that was presented on a take-it-or-leave-it basis, <u>***will not normally be sufficient***</u> to avoid the finding of an enforceable agreement.
+  * If this were not the case, internet commerce would be dead because virtually all internet purchases come via click-it-or-leave-it contract she offers.
+
+
+***Procedural unconscionability:*** 
+
+how - how the contract is negotiated, does one party has more bargaining power over the other?
+
+***Substantive unconscionability:*** 
+
+what - whether the resulting terms were substantively one-sided or unfair
+
+#### "Substantive Unconscionability" - Fleet v. U.S. Consumer Council
+
+<u> *Situation:* </u>
+
+* The defendant United States Consumer Counsel represented that it would be able to help consumers facing the loss of their homes through foreclosure. 
+* In fact, the USCC simply charge consumers for referring them to attorneys when free referrals were available to these consumers through their state bar associations. 
+* The plaintiff Fleet was a consumer who had paid defendant for this service. Fleet brought this consumer class action suit against USCC in the instant court, the Federal District Court for the Eastern District of Pennsylvania and the court found the USCC's practices were unconscionable.
+
+<u> *Central Issue & Ruling:* </u>
+
+Did USCC's practice of charging ill-informed consumers for a simple service that could be freely obtained elsewhere violate New Jersey's UDAP statute? 
+
+The court held that it did. The court first notes that unconscionability is hard to define but states that its purpose is to <u>establish a broad business ethic</u>.
+
+Among other factors, the court will consider whether:
+
+* "*the price grossly exceeded the price at which similar ... services were readily obtainable in similar transactions by like consumers.*"
+* "*the professional seller is seeking the trade of those most subject to exploitation.*"
+
+The court found that:
+
+* "*Goods sold have little or no value to the consumer for the purposes for which she was persuaded to buy them,*" and
+* "*The consumers who turned to USCC for help were financially troubled and distraught.*"
+  * The court noted that unconscionability is more likely to be applicable when a professional seller is seeking to the trade of those most subject to exploitation, the uneducated, the inexperienced and people of low incomes. 
+  * Applying this asymmetry to the case at hand, the Court observed the consumers who turn to USCC for help were financially troubled and distraught. Some were unemployed or disabled. Many were facing the loss of their homes through foreclosure. 
+  * These factors were indicative of imposition. They had nothing to do with what the contract said the substantive terms but it helped explain <u>***how these unfair terms came about***</u>. 
+
+<u> *Summary:* </u>
+
+* under the unconscionability doctrine, a contract will not be enforced if its terms are seriously unfair to one of the parties. 
+* However, such substantive unfairness is not usually enough to set aside a contract. The complaining party must also demonstrate some flaw in the bargaining process that allowed the unfair terms to arise.
+
+
+#### "One Sided Arbitration" Ferguson v. Countrywide Credit Industries, Inc
+
+<u> *Situation:* </u>
+
+* Misty Ferguson was an employee of Countrywide. 
+* When she began working there, she signed a contract which included a provision mandating that certain types of disputes between her and Countrywide would be arbitrated rather than going to court. 
+* She later filed a lawsuit in court for sexual harassment against Countrywide and her manager Leo Deleon. 
+When Countrywide tried to force Ferguson to go to arbitration, 
+* the court refused to enforce the arbitration clause finding it to be unconscionable
+
+<u> *What is Arbitration:* </u>
+
+* A neutral 3rd party looks at the evidence, hears argument, and makes a decision.
+* The decision is binding on the parties and cannot be appealed.
+* How the arbitration works is determined by the contract between the parties
+* Some state courts have been skeptical about the impartiality of arbitrators and the fairness of the arbitration process, but Congress in 1925 passed the <u>*Federal Arbitration Act (FAA)*</u> to ensure that courts would enforce arbitration agreements unless those agreements were unenforceable because of some generally applicable state contract law doctrine. 
+* Under the *FAA*, a state cannot carve out special rules limiting enforcement of arbitration agreements.Those agreements can only be set aside for reasons that might also render other types of agreements unenforceable. 
+
+
+<u> *California's Hostility against Arbitration:*</u> (BH: and so do I. The day in court is a civil human right that should not be contracted around, just like you can't sell your kidney) 
+
+* Notwithstanding the FAA, some state courts have remained hostile to the enforcement of arbitration clause, so much so that states like California have been willing to distort their generally applicable law in order to reduce enforceability of arbitration agreements. 
+* Under California law, to find an arbitration clause unconscionable, the judge must find both procedural unconscionability and substantive unconscionability,
+* but the precise mix of these two elements can vary. "*The more substantively impressive the contract term, the less evidence of procedural unconscionability is required to come to the conclusion that the term is unenforceable.*"
+* In two recent cases, the United States Supreme Court has overturned California law about the unconscionability of arbitration clauses. 
+  * AT&T Mobility versus Concepcion in 2011, and 
+  * American Express versus Italian Colors in 2013. 
+  * Both of these cases dealt with provisions preventing class arbitration, the arbitration equivalent of class action lawsuits, and in both cases, the US Supreme Court overturned California decisions to say that arbitration clauses were valid and enforceable. 
+  * The US Supreme Court, in a sense understands that states like California are manipulating unconscionability law to end-run the FAA, and these two sovereigns can be seen as in a struggle over arbitration enforceability.
+
+<u> *Ruling:*</u> 
+
+* the court finds both procedural and substantive unconscionability and so the arbitration clause is unenforceable. 
+* <u>Procedural unconscionability:</u> The court looks at two factors to determine procedural unconscionability, which is about the fairness of the process by which the parties arrived at the contract. 
+  * ***Oppression:*** Did the parties have unequal bargaining power? Was there actual meaningful negotiation between the parties? Did both parties have a choice? Here, Ferguson had no ability to bargain to vary the terms of the agreement. The contract was offered on a <u>***take-it-or-leave-it basis***</u>. 
+  * ***Surprise:*** Was the arbitration clause ***hidden***? The court didn't discuss the surprise question in detail but it seems to reject the Countrywide's claim that, "The contract was written ***in plain language***." 
+  * One way that California's hostility to arbitration clauses has distorted unconscionability doctrine is by changing what constitutes procedural unconscionability. <u>Today, in California, any form contract that is offered on a take-it-or-leave-it basis is going to be treated as having at least some degree of procedural unconscionability. This means that the ***vast majority of consumer and employment contracts*** have, are going to be procedurally unconscionable </u> so that the question of unconscionability and setting aside the term will turn solely on whether the contract is sufficiently unconscionable in a substantive sense. 
+* <u>Substantive unconscionability:</u> Judge Pregerson focuses on the question of whether the terms of the agreement, "*Are so one-sided as to shock the conscience.*" He finds three ways in which they are substantively unconscionable. 
+  * First, the arbitration clause only applies to the sorts of claims and employee like Ferguson might bring against Countrywide, discrimination or harassment, tort claims, but the clause leaves Countrywide free to go to court for the sorts of claims that it might bring against Ferguson, violations of intellectual property or unauthorized disclosure of trade secrets. 
+  * Second, the contract forces Ferguson to bear a significant portion of the costs of arbitration. <u>An earlier California Supreme Court decision had held that mandatory arbitration clauses in employment contracts could only be enforceable if the cost to the employee for arbitration was no more than the cost of going to court.</u> Splitting the arbitration fees with the employee by itself can be substantively unconscionable. The court found that Countrywide's fees to be substantially unconscionable because they might be higher than employee would pay in going to court. 
+  * Third, the provisions of the contract that ***limit discovery*** in a way that disproportionately disadvantages Ferguson was found to be substantively unconscionable. Countrywide, as the employer, likely has access to all sorts of information about what happened without needing discovery, while Ferguson needs discovery to have any information at all. 
+  * These three one-sided aspects of the arbitration provisions seem to Judge Pregerson like an intentional attempt by Countrywide to bias the arbitration process in its own favor, and so he ruled that the whole arbitration clause was unconscionable and therefore unenforceable.
+  * However, the court's analysis of substantive unconscionability is hard to understand, except as an expression of judicial hostility toward enforcement of arbitration agreements, possibly especially when they are being used to deny an employee from having her day in court concerning the civil rights claim. <u>***Many individual provisions of the contract are by themselves one-sided. ***</u>
+
+
+###  6. Illegality
+
+Why an illegal contract between A and B can be unenforeacable? 
+
+One important reason is because of the <u>***negative externalities***</u> of the agreement with regard to person Z. Formation defenses, can be seen as policing the revealed preference inference to make sure that the contract is value enhancing. Formation defenses, tend to render contracts voidable, when courts aren't confident that the agreement really is in the party's joint interest. But illegality doctrine sets aside contracts when the agreement may not be welfare enhancing because of <u>***net negative effects on people outside the contract***</u>. The illegality defense can thus, set aside contracts even when there is no defect in the bargaining process. Even if the parties manifest sufficient assent, courts can set aside the agreement if one of the promises exchanged is illegal or violates public policy.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (First) §512 *
+</div> 
+
+""*[a] bargain is illegal within the meaning of the Restatement of this Subject if either its formation or its performance is criminal, tortious, or otherwise opposed to public policy*"
+
+* As the comments to this section make clear an agreement could be illegal either because 
+  * the ***statute*** specifically prescribed the conduct which was the agreement subject or 
+  * because ***courts had determined***, that such agreements were opposed to public policy.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (First) §598 *
+</div> 
+
+"*A party to an illegal bargain can neither recover damages for breach thereof nor, by rescinding the bargain, recover the performance that he has rendered thereunder or its value.*"
+
+  * If you pay a scalper, for a ticket, when the sale is prohibited by law, courts under the first restatement standard, would normally not force the scalper to give you your money back.
+  * --> the comment provided justification for this effect is further <u>***deterrence***</u>. According to the comment, denied the plaintiffs in such cases recovery, court tends to diminish the number of illegal agreements. Ticket purchasers may be less likely to pay for tickets. If the law says the scalper can take the money and run. 
+  * The no restitution rule, help support the maxim of there being no honor among thieves. In fact, while most of the formation defenses try to police certain types of sharp dealing. Illegality is a circumstance where the law is trying to facilitate and foster opportunism in order to <u>***drive out illegal contracting***</u>.    
+  * There are ***limited exceptions*** to this no restitution rule. 
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) §178 *
+</div> 
+
+"*a promise or other term of agtreement is unenforceable on grounds of public policy if legislation provides that it is unenforeable or the interest in its enforcement is clearly outweighed in the circumstances by a public policy against the enforcement of its terms.*"
+
+Subsection two offers factors, in the interest of enforcing an agreement and subsection three, list factors weighing against enforcement:
+
+| For Enforcement | Against Enforcement |
+| --- | ---|
+| Parties' Justified Expectations | Strength of Public Policy in Question (manifested by legislation / judicial decisions) |
+| Resulting Forfeiture if Enforcement Were Denied | Likelihood that No Enforcement Furthers Public Policy in Question |
+| Any Special Public Interest in Enforcement | Seriousness / Deliberateness of Misconduct Involved | 
+|  | Connection Between Misconduct and Contractual Terms |
+
+professor note: The second restatement however, has introduced a more flexible (vs 1st restatement) balancing test on enforceability of illegal agreements. Courts have significantly more discretion to determine whether to enforce an agreement, ​even if it may violate public policy.
+
+#### "Beer Bribe" - Siinar v. Le Roy
+
+<u> *Situation:* </u>
+
+* Sinnar a grocery store owner, applied to the Washington State Liquor Control Board for a license to sell beer. But his application was denied. 
+* He and Le Roy a friend of his agreed that he would pay Le Roy 450 dollars, so that Le Roy could get a city official Le Roy knew to secure Sinnar a license. * If this was unsuccessful, Le Roy would return the 450 dollars back to Sinnar. Sinnar did not get his license, and Le Roy did not return the bribe money. 
+* Sinnar sued to recover the funds, in the trial Le Roy did not raise an illegality defense. And the trial court found for Sinnar. An appeal to the state Supreme Court. Le Roy raised the defense of illegality. 
+
+<u> *Central Issues & Ruling:* </u>
+
+* the first question before the court was whether, illegality as a procedural matter, could be raised for the first time on appeal? 
+
+    * Usually parties are procedurally barred from raising defenses on appeal that were not pledged at the trial stage. But the court held not only that Le Roy could raise it, but also that the court could bring up illegality on its own, ***sua sponte***. "Illegality, if of a serious nature, need not be pleaded. If it appears in the evidence, the court of its own motion will deny relief to the plaintiff. The defendant cannot waive the defense, if he wishes to do so. Indeed, if the court suspects illegality, it may examine witnesses and develop facts not brought out by the parties and thereby establish illegality that precludes recovery by the plaintiff."
+    
+    * Professor note: Why the court resolved this issue where the court of its own motion can raise the question and decide the question of illegality? 
+
+    -> Probably because, illegality implicates the public interest to a far greater extent than other defenses that a defendant might raise in a contractual dispute. <u>***The negative externalities of illegality, mean the court shouldn't rely on private incentives of the parties to raise the defense.***</u>
+
+* It was clear that there was in fact illegality in this case. So the next question became whether, that fact would bar the plaintiff from recovery? 
+  * Not every instance of illegality, the court suggested would necessarily have the result of barring restitution. If however, the legality is not serious and neither public policy nor statute clearly requires denial relief, courts refuse to give effect to facts showing illegality, unless those facts are essential to establish a prima facie right of recovery or pleaded by the defendant.
+  * According to the court, the illegality at issue was of a serious nature and concerned a matter which is exclusively within the realm of public policy. Further, the evidence suggested that the parties planned on using only illegal means presumably, bribery of a city official to accomplish their aims. Therefore, the court asserted <u>***it would not knowingly aid in the furtherance of an illegal transaction, but will leave the parties where it finds them***</u>.
+
+
+
+
+###  7. The Scope of the Obligation
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-202: *
+</div> 
+
+***Final Written Expression: Parol or Extrinsic Evidence***
+
+Terms with respect to which the confirmatory memorenda of the parties agree or which are otherwise set forth in a writing intended by the parties as a final expression of their agreement with respect to such terms as are included therein <u>***may not be contradicted by evidence of any prior agreement***</u> or of a contemporaneous oral agreement ***but may be explained or supplemented***
+
+(a) by course of dealing or usage of trade (Section 1-205) or by course of performance (Section 2-208); and
+
+(b) by evidence of consistent additional terms unless the court finds the writing to have been intended also as a complete and exclusive statement of the terms of the agreement .
+
+#### 7.1 Alaska Northern Dev. INc. v. Alyeska Pipeline Service Co.
+
+
+
+
+
+
+###  8. Interpretation
+
+
+#### 8.1 "Steam Turbine Accident" - Pacific Gas & Electric Co. v. G. W. Thomas Drayage & Rigging Co.
+
+#### 8.2 "Friendly Chicken" Frigaliment Importing Co. v. B.N.S. International Sales Corp.
+
+
+
+###  Duty of Good Faith
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) §§ 174-177*:
+</div>  
+
+every contract imposes upon each party a duty of good faith and fair dealing in its performance and its enforcement.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC CC § 1-304*
+</div>  
+
+Obligation of Good Faith: Every contract or duty within the Uniform Commercial Code imposes an obligation of good faith in its performance and enforcement
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC CC § 2-103(b)*:
+</div>  
+
+"Good faith" in the merchant means **honesty in fact** and the observance of reasonable commercial standards of fair dealing in the trade.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-306 *
+</div>  
+1. A term which measures the quantity by the output of the seller or the requirements of the buyer means such actual output or requirements as may occur in good faith, except that no quantity unreasonably disproportionate to any stated estimated ... may be tendered or demanded.
+2. A lawful agreement by either the seller or the buyer for the exclusive dealing in the kind of goods concerned imposes unless otherwise agreed an obligation by the seller to use best efforts to supply the goods and by the buyer to use best efforts to promote their sale.
+
+#### "Unreleased Escrow" Centronics Corp. v. Genicom Corp
+
+#### Market Street Associates Limited Prtnership v. Dale Frey
+
+* Formation stage: "duty is minimized" - maybe just honesty
+* Performance and Enforcement stage - duty is heightened because of changed circumstances greater reliance
+* Equivalent to finding default conditions
+  * The concept of the duty of good faith like the concept of fiduciary duty is a stab at         approximating the terms the parties would have negotiated had they foreseen the               circumstances that have given rise to their dispute
+* Halfway - This duty is ,as it were, between a fiduciary duty (the duty of utmost good faith) and the duty merely to refrain from active fraud.
+* Did Market Street Beach Its Duty of Good Faith?
+  * "[Market Street and the Trust] want to minimize the costs of [contractual] performance. To the extent that a doctrine of good faith designed to do this by reducing defensive expenditures is a reasonable measure to this end, interpolating it into the contract advances the parties' joint goal."
+  * Sharp Dealing
+* Summary
+  * Good faith: implied duty not to intentionally take advantage of the other party's ignorance of terms.
+  * Good faith requirements in the performance of a contract help prevent opportunistic and inefficient behavior.
+
+
+
+#### "At-will Contract Termination" - Elaine Zapatha v. Dairy Mart, Inc.
+
+<u> *Situation:* </u>
+
+* Zapatha purchased a franchise from the defendant, Dairy Mart, an operator of a chain of franchise convenience stores. 
+* Zapatha relied on representations by Dairy Mart that the franchise business would be his own, stable and secure. 
+* The franchise agreement allowed either party to terminate without cause on 90 days written notice. 
+* When plaintiff refused to sign a new agreement modifying the terms of the franchise, defendants sent written notice that the franchise was terminating. 
+* Zapatha sued, claiming that Dairy Mart's termination was dishonest and in bad faith.
+
+<u> *Central Issue & Ruling:* </u>
+
+Was Dairy Mart's arbitrary termination of its franchise agreement with Zapatha invalid because of bad faith? 
+
+* The court found that the franchise agreement was not terminated in bad faith.
+* The court turned to the UCC as adopted by Massachusetts which says that good faith requires among merchants 
+  * "*Honesty and fact*", and 
+  * "the observance of <u>***reasonable commercial standards of fair dealing***</u> in the trade." 
+  * The honesty and fact requirement of good faith is a bit redundant with fraud, so most of the action in these cases will be about whether there was an observance of reasonable commercial standards at fair dealing
+* Holding:
+  * "*There was no evidence that Dairy Mart failed to observe reasonable commercial standards of fair dealing in the trade in terminating the agreement*" and, although the termination "*may have been arbitrary, it was not dishonest.*"
+  * The legislature "has not adopted limitations on the right to terminate all franchise agreements in general."
+
+<u> *What is Bad Faith:* </u>
+
+If terminating because the franchisee refuses to modify the franchise on terms more favorable to the franchisor is not a bad faith, what is?
+
+* Any of these reasons might have been bad faith
+  * franchisor ***discriminated*** against a minority franchisee, or 
+  * termination was in ***retaliation*** because the franchisee had reported salmonella in the ice cream to state health authorities, or 
+  * the purpose of the termination was to capture a thriving franchise for the benefit of the president's brother-in-law. 
+* Federal and state statutes have increasingly regulated the power to terminate a franchise relationship. 
+  * One example is the Automobile Dealers Day in Court Act, which provides that a dealer may sue an automobile manufacturer for damages "*By reason of the failure of said automobile manufacturers to act in good faith in terminating, canceling, or not renewing the franchise with said dealer.*" 
+
+Termination clauses are also relevant for <u>***at-will employees***</u>. 
+
+* For more than a century, American courts firmly adhered to the view that an employment contract of no fixed duration was terminable at-will. This means that an employee could quit or be fired <u>***for any reason, good or bad or even no reason at all***</u>. 
+* <u>***In recent years***</u>, both judges and legislatures have significantly limited employers' powers to discharge employees. 
+  * Legislatures have adopted statutory protections and 
+  * judges have developed common law limitations on the ability of employers to fire employees at-will, especially limiting the ability to fire for bad reason. 
+  * An employer will be liable if the employee terminates for a variety of bad reasons <u>*including race and gender discrimination*</u>. 
+* Tort Law allows a cause of action for wrongful discharge based on making the employee making public policy claims from being a whistleblower. 
+
+#### 9.4 "Good Faith Output" - Fred Feld v. Henry S. Levy & Sons, Inc.
+
+* Output and Requirements Contracts:
+  * **Output contract**: Buyer agrees to purchase all that seller makes.
+  * **Requirement contract**: Seller agrees to make all that buyer needs.
+  * --> note that only one side has discretion over another party
+
+
+
+* Summary
+  * In output and requirement contracts, the party with discretion over the quantity must act in good faith and stay reasonably close to estimates.
+  * if they have an exclusive deal, a party must use best efforts to secure business for the other party.
+
+
+###  10. Warranties and Representations
+
+
+***Representations:***
+
+* A representation is NOT a promise.
+* Promises are **forward-looking**.
+* Representations are **present-looking or backward-looking**. They concern existing or past facts about the world.
+* Express Representations v. Implied Representations
+
+
+***Warranties:***
+
+* We can think of warranties, on the other hand, as a special kind of promise, a warranty promises that a person's representations are true
+* *Learned Hand, Metropolitan Coal Co. v. Howard*: "[A warranty] amounts to a promise to indemnify the promisee for any loss if the fact warranted proves untrue".
+* A warranty is made (1) by one party to another about existing or past facts that are knowable but not necessarily known and (2) that become a term in the contract.
+* Warranties are very important because they allocate risk, the party who makes a representation bears the risk that the representation made will prove "not in accord with the facts"
+
+* ***Express Warranties:***
+
+  * <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-313 *
+</div>  
+    * Affirmations of fact about goods create warranty that goods will conform to those affirmations.
+    * <u>***Descriptions***</u> of good creates warranty that goods will conform to the description.
+    * <u>***Samples or models***</u> of goods create warranty that the whole of the goods will confirm to the sample or model.
+    * But...affirmations of the <u>***value of goods***</u>, or the seller's <u>***commendations or opinions***</u>, do NOT create a warranty.
+  * lecturer's comment: this "value of goods" is ambiguous, as it can be a central of the bargain.
+
+* ***Implied Warranties***
+
+  * <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-312 *: 
+</div>  
+    * **Implied Warranty of Title**
+    * Applies to all sales
+  * <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-314 *: 
+</div>
+    * **Implied Warranty of Merchantability**:
+    * Applies only to merchants
+    * "Merchantable" = fit fo the goods' <u>***ordinary purpose***</u>
+  * <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+    *UCC § 2-315 *: 
+    </div>
+    * Implied Warranty of Fitness for <u>***Particular Purpose***</u>:
+    * Applies when buyer disclose they require goods for a particular purpose and not merely goods' ordinary purpose. (where the seller has reason to know any particular purpose for which the goods are required, and that <u>***buyer is relying on the seller's skill or judgement to select or furnish suitable goods***</u>)
+  * These 3 provisions are **default rules and can be contracted around**
+* Limits to Contracting Around Warranties
+  * The UCC provisions are default rules- but the UCC regulates the **altering rules** - how to contract around these defaults.
+  * <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+  *UCC § 2-316 *
+  </div>
+    * Implied Warranty of Merchantability: exclusions must explicitly mention "merchantability" and be conspicuous if in writing.
+    * Implied Warranty of Fitness for a Particular Purpose: exclusions must be by writing and be conspicuous.
+  * However...<u>***"As is"***</u>/"with all faults" clauses **can exclude all** implied warranties (also the merchantability above)
+  * Defects buyers know or should have known.
+  * Warranty provisions for purchasing hard goods have become quite standard.
+    * generally disclaim implied warranties
+    * expressly warrant the goods against defects in material and workmanship
+    * usually limit the remedy to repair and replace
+    * exclude liability for contractual damages
+    * *UCC § 2-719 *: when the agreed remedy fails, a buyer may seek damages using default UCC remedy.
+
+
+
+###  11. Express Conditions
+
+
+
+
+#### 11.1 Warrenties & Conditions - "Failing Finances" - In re Carter's Claim
+
+
+A promisee has 2 ways to protect herself in a contract:
+
+* ***Warranty Protections***: 
+
+  An **offensive sword** - allows the promisee to actively **sue for damage**
+* ***Condition Protections***: 
+
+  a **defensive shield** - allows a promisee to **get out of its own obligation** -> advantage of not having to go to court and win the judgement
+
+<u> *Situation:*</u>
+
+* The plaintiff, the buyer, and appellant, Lester L. Carden, entered into a 25 page written contract to purchase a Pennsylvania Corporation and five of its subsidiaries including the defendant at Pelly, Edwin J. Shuttle Company. 
+* About 187 thousand dollars of the purchased price was put in escrow to indemnify the plaintiff buyer against liabilities specified in the agreement. 
+* As we have studied before in centronics versus Jennicam, escrows involved an arrangement where part of the purchased price is held by a third party to compensate the buyer with effectively a reduced price if the seller's assets turn out to be worth less than expected. 
+* In the contract, ***listed under the heading of conditions precedent*** was a term "Paragraph nine" that said, "***The financial condition of the defendant company, shall be no less favorable at the time of closing than on June 30, 1954,***" which was probably when the books closed at the end of the last financial year.
+* As you know, the closing date refers to when the sale actually occurs with title up to the assets transferring to the new buyer. 
+* The plaintiff claimed that the financial condition was less favorable at closing and refused, and requested approximately 70 thousand dollars from the escrow. 
+* The parties submitted this to arbitration, the arbitrator awarded 3,182 dollars to the plaintiff. Plaintiffs appealed to the Court of Common Pleas was denied and the instant court affirmed. 
+
+<u> *Central Issue & Ruling* </u>
+
+* The main issue is whether the financial condition in this case was actually a warranty such that plaintiff is entitled to damages. 
+
+  --> The court held the agreement was carefully drafted and is clear that the provision in question is not a warranty, but a ***condition precedent***.
+  * plaintiff had the right to refuse to purchase because of the failure of this condition. But that option to refuse had to be made by the closing date
+  * by accepting sellers performance and going ahead with the closing, plaintiff ***waived its right under the condition Precedent***
+
+
+<u> *Supreme Court of Pennsylvania, 1957. *</u> 
+
+  * In this case, the contract has a clear separation of warranty section and condition section.
+  * in the warranty (offensive) section, it promises that no materially adverse change in the company's financial condition outside of ordinary course of business
+  * in the condition (defensive) section, it states the buyer's obligation to buy if the financial condition of the company at closing date is not less than the that of June 30 1954
+  
+Therefore, the contract provides more defensive protection than offensive protection, such that the buyer can walk away from the contract if it sees that the transaction is no longer attractive because the value at closing is less than that of June 30 1954. However, once the buyer complete the purchase at the closing date, it only has limited power to sue for claim if the company's value before closing has materially declined due to non-ordinary course of business (e.g. the seller of the company sold all machinaries at lost).
+
+Usually, if the contract is not clear whether it's a warranty or condition, the court would prefer the warranty interpretation.
+
+
+###  12. Excuse of Conditions
+
+
+Waiving the express condition is in essence modifying the contract, modifying the contract from "conditional contract" to "unconditional contract". However, unless the condition is the core of the consideration, the promisor benefiting from an express condition can waive the express condition without the promisee providing any consideration. 
+
+#### 12.1 "Casebook Case" - William L. Clark v. John B. West
+
+*Court of Appeals of New York, 1908.*
+
+* Situation: West agreed to pay \$2 per page for Clark to write a casebook. West further promised to pay extra \$4 per page ff Clark stay sober from any intoxicating liquor during the entire duration of the work. Clark did not stay sober and West only paid Clark \$2 per page. 
+
+* West argued that Clark's promise not to drink was consideration for the payment of the extra \$4 per page. If the promise for not to drink was the consideration in exchange for the additional \$4 per page, then the promise cannot be modified except by a new agreement by between by both parties supported by the new consideration.
+
+* Clark argued that the his abstinence from alcohol was a condition precedent. If the abstinence from alcohol is merely a condition that did not go to the consideration, then it could be waived by West without additional consideration.
+
+The court held that this promise is merely a condition precedent.
+
+#### 12.2 "Untampered Safe" - Forrest D. Ferguson v. Phoenix Assurance Company of New York
+
+*Supreme Court of Kansas, 1962.*
+
+<u>Situation</u>: 
+
+Ferguson's drug store got burgled, and lost \$433 in the safe. The safe has 2 door. The outer door has a combination lock and the inner door opens with a key. The burglar managed to open the outer door (the combination door) without leaving trace of visible damage, but he/she punched out the lock in the inner door. However, Phoenix Assurance point to the safe burglary policy, which requires that both doors to have visible damage for the policy holder to recover losses above 
+\$50.
+
+<u>Justice Schoeder</u>:
+
+* ***Substantive conditions***: 
+
+  The requirement for the safe doors to be opened by force/violent is used for <u>***determining what kind of risk that the insurance company is insuring against***</u> -that is burglar and not inside job.
+
+
+* ***Evidentiary conditions***: 
+
+  The requirement of visible mark is not intended to identify the kind of risk it is insuring. Rather, it is to determine the character of the evidence necessary to show liability. The rule of evidence requirement asserted in the policy in this case is <u>***beyond the reasonable requirements necessary to prevent fradulant claims***</u> against it in proof of the substantive conditions imposed by the policy, and therefore <u>***contravened the public policy of this state***</u>.
+
+
+note that, the court
+
+* did NOT find the condition to be unconscionable
+* or, construing the contract in favor of the insured
+* instead, it's finding it against the public policy
+
+
+###  13. Excuse for impracticibility
+
+
+* <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 262 - Doctrine of impossibility*
+</div>
+"If the existence of a particular person is necessary for the performance of a duty, **his death or such incapacity as makes performance impracticable** is an event the non-occurrence of which was a **basic assumption** on which the contract was made."
+
+* <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 263 - Doctrine of impossibility*
+</div>
+"If the existence of a specific thing is necessary for the performance of a duty, **its failure to come into existence**, destruction, or such deterioration as makes performance impracticable is an even the non-occurrence of which was a **basic assumption** on which the contract was made"
+
+
+* <div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 265 - Doctrine of frustration of purpose*
+</div>
+"Where, after a contract is made, a party's **principal purpose is substantially frustrated** without his fault by the occurrence of an event the non-occurrence of which was a **basic assumption** on which the contract was made, his remaining duties to render performance are discharged, unless the language or the circumstances indicate the contrary."
+
+#### 13.1 "Technological Difficulties" - U.S. v. Wegematic Corp.
+
+* Situation: FRB agree to pay \$231,000 and Wegematic to deliver in 9 months the most cutting edge computer with liquidated damage of \$100 per day for delay. FRB can procure the service from other providers if Wegematic failed to and Wegematic would have to pay the excess cost. A few months later, Wegematic requested to postpone, and later claim that the due to the technology difficulties, the delivery date is impractical.
+
+* It is ruled that the technology difficulties is not sufficient to establish impracticality. 
+
+
+
+
+#### 13.2 "Theater Fire" - Taylor v. Caldwell
+
+* Due to the fire that destroyed the theater, the venue owner is relieved from the contract.
+* Although both parties might not have thought of that the theater's existence is the prerequisite condition for the contract, the theater's existence is still an implied condition of the contract. Thus, when the theater ceased to exist, the owner is relieved from the contract.
+
+#### 13.3 "Postponed Coronation" - Krell v. Henry - Frustration of Purpose 
+
+<u>Situation</u>: 
+
+Krell owns the apartment that can see the King's coronation. Henry booked the apartment for this purpose and paid the deposit. However, the coronation is postponed. Both party sued each other, one for the remaining payable, and one for the deposit.
+
+Key question: Was the coronation and implied condition precedent for the rental contract
+
+<u>Holding</u>: 
+
+Court ruled that the coronation is the <u>***implied condition***</u> for the contract
+The impossibility does not stop the transaction to happen as it is still possible to rent the room given the delay of the coronation. However, the principle purpose of the contract is <u>***substantially frustrated***</u> and therefore the obligation is excused.
+
+
+###  Right to Suspend Performance
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 250 *
+</div>
+"A repudiation is
+
+a. a statement by the obligor to the obligee indicating that the obligor ***will commit a breach*** that would of itself give the obligee a claim for damages for total breach under § 243, or
+b. a voluntary affirmation act which renders the obligor ***unable or apparently unable*** to perform without such a breach."
+  
+  
+When one party indicates by **word or action** that it will breach its contractual obligation, the other party get both of the rights below.    
+
+* immediate right to **sue for damage**
+* immediately **released from its contractual obligations**
+  
+
+Repudiation can be seen as an offer to cancel an agreement which can be which can be rejected by the other party or retracted by the repudiating party.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-610: *
+</div>
+***Anticipatory Repudiation***
+
+When either party repudiates the contract with respect to a performance not yet due the loss of which will substantially impair the value of the contract to the other, the aggrieved party may
+
+a. for a commercially reasonable time **await performance** by the repudiating party; or
+b. resort to any **remedy for breach** (Section 2-703 or Section 2-711) even though he has notified the repudiating party that he would await the latter's performance and has urge retraction; and 
+c. in either case **suspend his own performance** or proceed in accordance with the provisions of this Article on the seller's right to identify goods to the contract notwithstanding breach or to salvage unfinished goods (Section 2-704).
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-609: *
+</div>
+***Adequate assurance***
+
+1. A contract for sale imposes an obligation on each party that the other's expectation of receiving due performance will not be impaired. When ***reasonable grounds for insecurity arise*** with respect to the performance of either party the other may ***in writing*** demand adequate assurance of due performance and until he receives such assurance may if commercially reasonable suspend any performance for which he has not already received the agreed return.
+2. Between merchants the reasonableness of grounds for insecurity and the adequacy of any assurance offered shall be determined according to commercial standards.
+3. Acceptance of any improper delivery or payment does not prejudice the aggrieved party's right to demand adequate assurance of future performance. 
+4. After receipt of a justified demand failure to provide ***within a reasonable time not exceeding 30 days*** such assurance of due performance as is adequate under the circumstances of the particular case is a repudiation of the contract.
+
+Professor's opinion: UCC 2-609 is a fuzzy one:
+
+* what's a **reasonable grounds** for insecurity?
+* what's considered an **adequate** assurance?
+* how long is considered within a **reasonable time**?
+* the only rule-like requirement is the demand for assurance should be **in writing**
+
+However, the promisee seeking adequate assurance can also be a risky strategy. If the reasonable grounds for insecurity is not sufficed. Then by treated as repudiation and cancelling the contract, the promisee can be itself breaching the contract. From this respect, it's possible that the "fuzziness" of UCC 2-609 is by design but not a mistake in order for drive promisee and promisor negotiate a ompromise and dampen the likilhood for the promisee to overuse UCC 2-609.
+
+The UCC only applies to sale of goods. The adequate assurance doctrine of the Common law rule also concerns the service and non-goods contracting:
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 251*
+</div>  
+
+1. Where reasonable grounds arise to believe that the obligor will commit a breach by non-performance that would itself give the obligee a **claim for damages** for total breach under § 243, that the obligee may **demand adequate assurance** of due performance and may, if reasonable, **suspend any performance** for which he has not already received the agreed exchange until he receives such assurance.
+2. The obligee may treat as repudiation the obligor's failure to provide within a reasonable time such assurance of due performance as is adequate in the circumstances of the particular case.
+  
+However, not all States embrace the adequate assurance doctrine outside of UCC cases.
+
+
+#### 14.1 Anticipatory Breach - "Courier's Alternative" - Hochster v. De La Tour
+
+<u>*Situation:* </u>
+
+* Edgar De La Tour planned a three month grand tour of the European continent for the summer of 1852. He decided to hire a courier to accompany him on his travels. And so, in April, he hired Albert Hochster to serve as his courier on the trip which was to begin on June 1st. 
+* But De La Tour soon changed his mind. On May 11th he wrote that he no longer required Hochster services, and that Hochster would receive no compensation. 
+* On May 22nd, Hochster sued De La Tour for breach of contract. And then sometime between then and June 1st, he managed to find another job on just as good terms, but not beginning until July 4th. 
+
+<u>*Central Issue & Ruling from Lord Campbell (England):* </u>
+
+* Were Hochster's contractual obligations still holds after De La Tour's repudiation? Note that this would have prevented him from accepting the alternative employment beginning on July 4th.
+
+* Could Hochster bring suit before June 1 given that De La Tour had not yet failed to meet any of his contractual obligations.?
+
+  * ***Doctrinal Reason***:  Lord Campbell finds no universal rule that whereby agreement and act is to be done on a future day, no action can be brought for a breach of the agreement till the day for doing the act has arrived. Courts had allowed such suits and contracts of 
+    * marriage where one party marries someone else. 
+    * in contracts to lease a particular property, the lessor leases it to someone else for the same time period. 
+    * Ending contracts for purchase of goods where the seller sells them to someone else. 
+
+    --> In this case, he suggests that if De La Tour had set to sail for Australia before June 1st arrived, Hochster could have sued for breach under the same precedents. When someone marries someone other than his or her fiance, or as in this case a party renounces a commitment, that person has breached "*An implied contract if either of them renounces the engagement*"
+
+This case comes from England and we're reading the decision from the Court of Queens Bench on appeal after Hochster won a trial. There were two legal questions for the appeals court to answer. The first was whether Hochster was obligated even after receiving De La Tour's letter to be ready to accompany him on a three month tour of Europe beginning on June 1st. Note that this would have prevented him from accepting the alternative employment beginning on July 4th. The second question was whether Hochster could sue De La Tour before June 1st given that De La Tour had not yet failed to meet any of his contractual obligations. 
+
+
+
+Lord Campbell also makes **economic argument**: "[I]nstead of remaining idle and laying out money in preparations which might be useless, he is at liberty to service under another company". **-->** This would allow for "mitigation of the damages to which he would otherwise be entitled for a breach of the contract"
+
+<u>*Summary:* </u>
+
+* Doctrinal argument:
+  * Implied "promise that in the meantime neither will do anything to the prejudice of the other inconsistent with that [contractual] relation"
+  * "Breach of implied contract if either of them renounces the engagement"
+
+* Economic argument:
+  * "[I]nstead of remaining idle and laying out money in preparations which might be useless, he is at liberty to seek service under another employer"
+  * This would allow for "mitigation of the damages to which he would otherwise be entitled for a breach of the contract."
+
+* When one party indicates ***by word or action*** that it will breach its contractual obligation, the other party:
+
+  1. gets an immediate right to sue
+  2. Is released from its contractual obligations
+
+#### 14.2 "Premature Breeding Cancellation - Anticipatory Breach" - H.B. Taylor v. Elizabeth Johnston - 
+
+Situation:
+
+1. Taylor (plantiff) bred, raised horses in LA. Two of them mares named Sunday Slippers and Sandy Fork
+2. Johnston (defendant) operated Old English Rancho, a well-known horse farm that provided stallion stud services
+3. Taylor sought to have Sunday Slipper and Sandy Fork breed with Fleet Nashrullah, a Johnston's stallion
+4. They entered into a contract that in 1966 Fleet Nashrullah would would provide breeding services
+5. However, in Octobor 1965, Johnston sold Fleet Nasrullah to breeders in Kentucky
+6. Johnston informed the Taylor of the sale, stating Taylor is released from their reservation
+7. After the Taylor's attorney wrote back demanding performance and threatening suit, Johnston changed their tone and explained that they had made arrangement with the buyer to breed the Taylor's mares to Fleet Nasrullah in Kentucky.
+8. Sunday Slipper and Sandy Fork were then shipped to Kentucky to await breeding, but each time when they try to book, Fleet Nasrullah was already booked. Eventually Sunday Slipper and Sandy Fork were bred to the stallion Chateaugay.
+9. Because of it, Taylor didn't have to pay for the fee for the Fleet Nasruhall's stallion services. The Taylor ultimately sued the Johnston for breach of contract
+
+
+***Anticipatory Breach***:
+
+1. Occurs when a party repudiates the contract.
+    * ***Express Repudiation (words) *** : a clear, positive, unequivocal refusal to perform
+    * ***Implied Repudiation (actions) ***: when the promisor puts it out of his power to perform so as to make substantial performance of his promise impossible
+2. When a party repudiates, the other party can either treat it as:
+    * Anticipatory breach: treat the repudiation as an anticipatory breach and seak damage
+    * Contract still in force: treat the contract as still in force until the time of performance. If a party treats the contract as still in force, *"the repudiation is nullified"*
+    * -> think of the repudiation as offer from the promisor to cancel that the promisee can either accept or reject
+
+<u>The Supreme Court of California found that:</u>
+
+* The letter to the Taylors after Johnstons sold Fleet Nasrullah is an **Express Repudiation**
+* However, since the Taylors still demanded the service and threatened to sue, they are treating the contract as still in force, rejecting the "offer" to cancel, and thus nullified the repudiation
+* The court found that after maces were shipped to Kenkachy, there was no express nor implied repudiation. There was only postponed, and the postpone never went beyond the term of the contract, and thus no anticipatory breach.
+
+
+
+#### 14.3 "Cash for Cash Registers - Adequate Assurance" - AMF v. McDonalds
+
+About promisee's right to suspend performance before a promisor's breach, and right to adequate assurance for performance in case of anticipatory repudiation.
+
+Situation:
+
+1. McDonald's (defendant) paid AMF (plaintiff) $20,000 cash registers
+2. McDonald's ordered more later
+3. AMF kept push the delivery date and the test unit did not test satisfactory
+4. McDonald's requested the production to be stop until they negotiation the performance and reliability the register machines. The parties were unable to reach agreement
+5. McDonald's remove the machine from their stores and cancel the contract
+6. AMF sued for wrongful cancellation and McDonald's sued to recovered the purchase price. The cases were trialed together.
+
+The steps that the court used for finding McDonald's rightfully cancelled the contract:
+
+1. *UCC § 2-609 (1)* : Reasonable grounds for insecurity
+    * **->** the court found that McDonald's had reasonable ground for insecurity
+2. *UCC § 2-609 (1)* : Excused lack of written demand
+    * McDonald's never gave written demand for adequate assurance
+    * The court excused McDonald's and claimed that UCC is to be liberally construed. 
+3. *UCC § 2-609 (4)* : AMF Failed to give assurance to perform is considered a repudiation
+4. *UCC § 2-610 (b)* : Repudiation entitles aggrieved party to remedies
+5. *UCC § 2-711 (1)* : Buyer can cancel a contract as remedy
+
+
+###  15. Breach by the Buyer
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 350*
+</div>  
+
+1. Except as stated in Subsection (2), damages are not recoverable for loss that the injured party could have avoided without undue risk, burden or humiliation.
+2. The injured party is not precluded from recovery by the rule stated in Subsection (1) to the extent that **he has made reasonable but unsuccessful efforts to avoid loss**.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement (Second) § 371 - calculating restitution damages*
+</div>  
+
+If a sum of money is awarded to protect a party's restitution interest, it may as justice requires be measured by either
+
+a. the reasonable value to the other party of what he received in terms of ***what it would have cost him to obtain it*** from a person in the claimant's position, OR
+b. the extent to which ***the other party's property has been increased in value*** or his other interests advanced.
+
+<u>Burden of proof:</u>
+
+* The plaintiff has the burden of **proving damages**.
+* The defendant has the burden to **show that the plaintiff did not mitigate damages**. BH: how is the defendant going to know if plaintiff did or did not do anything to mitigate at all?
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-708(1)*
+</div>  
+
+"*The measure of damages for non-acceptance or repudiation by the buyer is the **difference between the market price at the time and place for tender and the unpaid contract price**, together with any incidental damages ... but less expenses saved in consequence of the buyer's breach.*"
+
+professor note: if the market price of the goods at the specified performance time and place is less than the amount specified in the contract, the seller can recover the difference. But if the market price is the same, 2-708(1) wouldn't provide damages for the seller. This is where 2-708(2) comes in.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-708(2)*
+</div>  
+
+"*If ... subsection (1) is inadequate to put the seller in as good a position as performance would have done then the measure of damages is the **profit ... which the seller would have made from full performance by the buyer**. together with any incidental damages ... due allowance for costs reasonably incurred and due credit for payments or proceeds of resale.*"
+
+
+
+
+#### 15.1 "Duty to Mitigate" - American Mech. Corp. v. Union of Lynn
+
+To learn:
+
+1. How to calculate contractual damages available to a seller when the buyer breaches
+2. seller's duty to mitigate damages
+
+Traditional rule of calculating
+
+* contract price: 100,000
+* date of breach: 75,000
+* date set for closing: 70,000
+
+-> traditional rule: damage = diff(contract price, **market price at the date of breach**)
+  
+<u>Trial Court Ruling:</u>
+
+* The price at the date of breach is unavailable, so only nominal damage is awarded 
+  
+<u>Appellate Court Holding: </u>
+
+* although the American Mech. Corp didn't prove market value
+* it did prove a foreseeable loss (also known as "consequential damages")
+
+<u>Duty to Mitigate: </u>
+
+* Union would be entitled to the amount of American's damage reduced by the loss that American could have reasonably avoided
+* -> If once it knew the breach, American could have sold the property to someone else, then the it would be entitled to damage <= (contract price - the price it could have sold to someone else)
+* However, the burden is under Union to prove that the losses by American could have been avoided by reasonable effort
+
+
+* "[T]he aim in measuring damages in the event of a breach is to place the injured party in as good a position as he would have been in had the contract been performed"
+* Since "Union knew that, if the sale of the property go through, the result would be that [Saugus Bank] would enforce it's rights under the mortgage and that a foreclosure sale was likely", the "correct measure of damages, on traditional contract principles, was the full amount of actual loss, the contract price less the amount received for the property at the foreclosure sale"
+
+
+#### 15.2 "Restitution and Losing Contract" - Bernstein v. Nemeyer
+
+<u>Situation: </u>
+
+* Defendant (Nemeyer) promised the plaintiff (Bernstein) to loan money to cover any negative cash-flow
+* Take priority in having loan paid off in future before other investors
+* The apartment decline in value and the defendant loaned $3mm to the plaintiff due to the negative cash-flow
+* defendant stopped loaning money to the plaintiff, then the whole investment was lost
+* Bernstein and other limited partners then sued the general partner Nemeyer for rescission of the contract and restitution of their investment 
+* trial court ruled that the defendant's breach was not material
+
+<u>Take from Chief Justice Peters: </u>
+
+* Supreme Court of Connecticut Chief Justice Peters found the breach of <u>not lending money that one promised to lend to be ***material***</u>. Then can the plaintiff get restitution?
+* Then the question: May a plaintiff obtain restitution <u>***when the breaching defendant obtained no benefit from the contract***</u>?
+  * Plaintiffs have not tried to put defendants back in their original position (prerequisite for restitution, though meaningless in this case since the shares are already worthless).
+  * No unjust enrichment: defendants lost money due to the contract.
+
+
+<u>Review types of recovery for damages: </u>
+
+* **Expectation:**        
+  "put the non-breaching (injured) party in as good a position as he would have been **if the contract had been performed**"
+* **Reliance:**         
+  "put the injured party back in the position he would have been in **if the contract had not been made**"
+* **Restitution:**        
+  "put the **party in breach** back in the position he would have been in if the contract had not been made". **The calculation focuses on the defendant, not on the plaintiff.** The goal of restitution is to prevent defendants from being **unjustly enriched** by their breach of contract.
+* plaintiffs are usually limited to <u>***the lesser of reliance and expectation damages***</u>.        
+  If a plaintiff elects to pursue reliance damages, courts will reduce them to the expectation about if the defendants persuade the court that expectation damages would be smaller. (BH: if your reliance damage is higher than expectation damage, then you must be doing something wrong because your expected value could be negative)
+* At common law,         
+  * the plaintiff initially gets to choose among any of the three classic measures, for damages - expectation, reliance, or restitution. 
+  * the plaintiff has the burden of proving the amount of the elected damage measure. 
+  * If the plaintiff chooses reliance or restitution and meets her burden of proving these damages, the burden then shifts to the defendant to show that expectation damages would be smaller. 
+
+--> in this case the plaintiff sue for **restitution**.
+
+--> However, since the "unjustly enriched" amount of the defendants is negative, the plaintiff cannot receive the amount of "unjustly enriched" which is negative
+
+  
+Election of Remedies:
+
+* Plaintiff gets to elects reliance, restitution or expectation and has burden of proving that measure
+* If plaintiff elects reliance or restitution, burden shifts to defendant to prove that **expectation** would be lower.
+
+Example: 
+
+1. A homeowner hires a gardener to landscape the front and back yard for $25,000.
+2. The homeowner breaches when the gardener finished the front yard
+3. it costs the gardener $8,000
+4. the market price of the complete work is $10,000
+5. it increased the home's value by $12,000
+6. the whole job (front and back) would have cost the gardener $16,000
+
+then
+
+* Expectation damages         = 17,000 = \$25,000 - (\$16,000 - \$8,000)
+* Reliance damages            = $8,000 (the **cost** that the gardener already spent on doing the front yard)
+* Restitution damages (371a)  = $10,000 (the plaintiff gets back the **market price of the services** that the defendant received)
+* Restitution damages (371b)  = $12,000 (the effect/change on the property value because of the service from plaintiff)
+
+
+
+
+#### "Lost Volume Profits" - Locks v. Wade
+
+<u>*Situation:* </u>
+
+* Jerry Locks was in the business of leasing music equipment. He contracted to lease a jukebox to the defendant Gerald Wade for two years. Lock would provide records and replace the worn out parts on the jukebox. 
+* He and Wade would split the profits and with Wade paying Lock a minimum of $20 per week. 
+* Wade, the lessee ***repudiated*** the agreement before the jukebox was installed
+* Lock's leased the equipment to others. But he sued Wade for breach of contract and recovered \$836 an amount representing the \$20 per week for the two years that he would have received if the contract had been performed minus the cost Locks would have had to put in the jukebox and to maintain it. 
+* Wade appealed. He argued at because the plaintiff was able to lease the equipment elsewhere, he hadn't really lost those two years of profits. To the extent he owed anything, Wade argued, he only owed the amount that remained after the amount he'd gained from the leases were taken into account. Considering our home sale example again, suppose a court awarded you the full purchase price for the first buyer's breach even though you'd completed the sale with a different buyer. Wade argued this was essentially what happened in this case.
+
+<u> *Ruling:*</u>
+
+* The court disagreed. It explained that ***Locks had many jukeboxes to sell or rent***. Where in our earlier hypothetical, you only had one house you could sell. Locks had many jukeboxes. Because of this <u>***ample supply and limited demand***</u>, if Wade had kept his promise and leased the jukebox equipment, Locks still would have been able to lease additional jukebox equipment to the same people that wanted the equipment after Wade breached. He would have realized the profits from both agreements.
+* "*Where, as here, a plaintiff lessor agrees to lease an article of which the <u>***supply in the market is for practical purposes not limited***</u>, then the law would be depriving him of the benefit of his bargain if, on the breach of the agreement, it required his claim against the lessee to be reduced by the amount he actually did or reasonably could realize on a reletting of the article.*"
+* Lost-volume damages should only be awarded if the breach is ***but-for cause*** of a change in the seller's volume. 
+* It is the <u>***breaching lessees burdened to prove that there was no lost volume in these cases***</u>.
+
+###  Breach by the Seller
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-610: *
+</div>
+
+When either party repudiates the contract with respect to a performance not yet due the loss of which will substantially impair the value of the contract to the other, the aggrieved party may
+
+a. for a commercially reasonable time **await performance** by the repudiating party, or ...
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-713 (1): *
+</div>
+
+The measure of damage for non-delivery or repudiation by the seller is the difference between the market price ***at the time when the buyer learned of the breach*** and the contract price
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-712 (Cover): *
+</div>
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 346(1)(a)* 
+</div>  
+
+The Restatement on Economic Waste
+
+[The promisee in defective or unfinished construction contract is entitled to:]
+
+(i) the reasonable cost of construction and completion in accordance with the contract, if this is possible and does not involve unreasonable economic waste; or
+(ii) the difference between the value that the product contracted for would have had and the value of the performance that has been received by the plaintiff; if construction and completion in accordance with the contract would involve unreasonable economic waste.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 351* 
+</div>  
+
+
+
+
+#### "Mitigation" - Reliance Cooperage Corp. vs. Treat
+
+Main issue:
+Was the plaintiff under an unconditional duty to mitigate damages upon learning of defendant's anticipatory repudiation?
+
+Answer: No - there is no duty to mitigate until the date of performance 
+
+
+Does covering that satisfies UCC § 2-712 preclude a claim under § 2-713?
+
+Summary:
+
+* This case (Common law), the court rules that - No obligation to mitigate ***until date of performance***
+* UCC: Obligation to mitigate starts ***at the time the buyer learns of breach***
+
+#### 16.2 Peevyhouse vs. Garland Coal & Mining Co.
+
+<u>Central Issue:</u>
+
+Is the measure of contract damages the ***cost of performance*** or the ***diminution in value*** as a result of the breach?
+
+<u>*Holding:* </u>
+
+The court relied on ***Oklahoma statues*** which 
+
+  * "limit the damages recoverable to a reasonable amount not 'contrary to substantial justice'" and 
+  * "prevent plaintiffs from recovering a 'greater amount in damages for the breach of an obligation' than they would have 'gained by the full performance thereof.'"
+
+The majority referenced the restatement on economic waste - 346(1)(a)
+
+
+<u>*Dissent by Justice Erwin:*</u>
+
+The "defendant had knowledge, when it prevailed upon the plaintiffs to execute the lease, that the cost of performance might be disproportionate to the value or benefits received by plaintiff for the performance" and that "there were several negotiations between the plaintiffs and defendant before the contract is executed.
+
+<u>*Professor:*</u>
+
+There might be a reason why Garland agreed to the contract but then later breach, that is close to ***promissory fraud***, i.e. Garland in making the promise to restore never intended to perform.
+
+#### 16.3 American Standard Inc vs. Harold Schectman
+
+<u>Angles to consider: </u>
+
+* Intentional or un-intentional breach
+* subjective value or objective value. e.g. does the owner intend to use the land himself or to sell it?
+
+#### 16.4 Hadley vs. Baxendale
+
+<u>Situation: </u>
+
+
+<u> Ruling:</u> 
+
+The judge pretty much left the jury to decide, and the jury award the damage of 
+
+<u> Direct vs. Consequential damage </u>
+
+* Direct damages: The damages need to acquire substitute goods or services or their equivalent
+* Consequential damages: The damages flowing from the loss incurred as a consequence the plaintiff not having the promised goods or services
+
+
+<u> Why the Hadley Rule </u>
+
+
+<u> Example: FedEx's shipping contract </u>
+
+FedEx's liability for each package is limited to US$100 unless a higher value is declared and the charge for the higher value is paid. See the FedEx Service Guide for full terms and conditions regarding declared value and our shipping services in general
+
+If not for this provision, then FedEx would have to increase the shipping price for everyone (also those who ship low value packages) to cover the cost when it accidently damages some package of high value 
+
+###  17. Mental Anguish and Punitive Damages
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Restatement § 353* 
+</div>  
+
+Loss Due to Emotional Disturbance
+
+Recovery for emotional disturbance will be excluded unless the breach ***also caused bodily harm*** or the contract or the breach is of such a kind that serious emotional disturbance was a ***particularly likely result***.
+
+<u>Professor:</u>
+
+The focus for the second restatement, is the likelihood of emotional disturbance at the time of breach, not the time of contracting.
+
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Second Restatement of Torts § 766* 
+</div>  
+
+One who intentionally and improperly interferes with the performance of a contract (except a contract to marry) between another and a third person by inducing or otherwise causing the third
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*California's Seamans Rule* 
+</div>  
+
+A contracting party seeking to avoid all liability on a meritorious contract claim by adopting a "stonewall" position ("see you in court") without probable cause and with no belief in the existence of a defense. Such conduct goes beyond the mere breach of contract. It offends accepted notions of business ethics....Acceptance of tort remedies in such a situation is not likely to intrude upon the bargaining relationship or upset reasonable expectations of the contracting parties.
+
+Seaman's Direct Buying Service, Inc v. Standard Oil Company of California, 36 Cal.3d 752 (1984)
+
+
+
+#### 17.1 Janice Bohac vs. Department of Agriculture - Emotional Damages
+
+<u>Main Issue:</u> 
+
+Do ***non-pecuniary emotional damages*** constitute consequential damages?
+
+Recalling from Hadley vs. Baxendale, the court ruled that a breaching party is liable for consequential damages, for losses that the contracting parties should have foreseen. 
+
+--> question then becomes, is the non-pecuniary damages foreseeable when the contract is signed?
+
+Court's Answer is No.
+
+* non-pecuniary damages are ***NOT sufficient foreseeable*** to be awarded. Non pecuniary damages are general unforeseeable when the contract is signed
+* --> Consequential damages are limited to pecuniary damages and out-of-pocket costs.
+
+
+<u> Tort or Contract ? </u>
+
+* The emotional disturbance results from a breach of contract (e.g. wrongful termination), but the injury might be called a tort instead of a contract interest
+* In addition to losing the value from the contract, the plaintiff is worse off physically than before the contract
+
+
+#### Rite Aid Corp vs. Lake Shore Investors - Punitive damages
+
+<u>Situation:</u>
+
+* Lake Shore sued the defendant, Rite Aid, for falsely claiming that a valid lease agreement existed between the two of them, when it did not.
+* Lake Shore also sued Rite Aid for interference with another contract, because Rite Aid refused to provide a release allowing a third party purchaser to withdraw from its deal with Lake Shore if the right aid claim over the property became an issue.
+
+<u> Trial count ruling: </u>
+
+* The trial court did not distinguish between these two separate causes of action. 
+* And it also refused to award punitive damages.
+
+<u> Court of Special Appeals reversed: </u>
+
+Lake Shore should have been able to prove damages that would "reasonably" flow from a tortious contractual interference.
+
+<u> Main issue: </u>
+
+<u> Factors required to award punitive damages: </u>
+
+* Compensatory damages are also awarded.
+* There is actual malice.
+
+
+###  Injunctions and Specific Performance
+
+In contract law, there is strong preference to compensate the plaintiff instead of to punish the defendant. 
+
+--> severe limitations on punitive damages in contract cases
+
+--> courts reluctant to enforce conditions that work forfeitures on defendants
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Theory of Efficient Breach* 
+</div>  
+
+A promisor should be allowed to breach his as long as he compensates the promisee, because this allows for a more efficient allocation of resources in the event that performance becomes relatively less economical.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-718(1): *
+</div>
+
+Damages for breach by either party may be liquidated in the agreement but only at an amount which is reasonable in the light of 
+
+* the anticipated or actual harm caused by the breach, (--> They cannot be unreasonably large)
+* (AND) the difficulties of proof of loss, ( --> the actual loss from the breach must be difficult to calculate)
+* and the inconvenience or nonfeasibility of otherwise obtaining an adequate remedy. 
+
+A term fixing unreasonably large liquidated damages is void as a penalty.
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*Economic (severe) critique on the doctrine on liquidated damages*
+</div>
+
+* Rationality: Parties can bargain for other advantages in exchange for a liquidated damages clause.
+* Informational advantage: parties know more about the value of a breach.
+* Distributional bias: courts prevent parties from shifting risk.
+* They argue without the doctrine, court can still strike down the provision if it's considered procedurally or substantively unconscionable
+* --> State courts have varied in the extent to which they've engaged with these economic arguments with some more willing to enforce liquidated damage provisions than others
+
+<div style="background-color:white;color:#0000FF;matrixOperation:20px;">
+*UCC § 2-719: *
+</div>
+
+(1) Subject to the provisions of subsection (2) and (3) of this section and of the preceding section on liquidation and limitation of damages, 
+    (a) the agreement may provide for remedies in addition to or in substitution for those provided in this Article and may limit or alter the measure of damages recoverable under this Article and may limit or alter the measure of damages recoverable under this Article, as by limiting the buyer's remedies to return of the goods and repayment of the price or to repair an replacement of non-conforming goods or parts; and
+    (b) resort to a remedy as provided is optional unless the remedy is expressly agreed to be exclusive, in which case it is the sole remedy.
+(2) Where circumstances cause an exclusive or limited remedy to fail of its essential purpose, remedy may be had as provided in this Act
+
+#### 18.1 Northern Indiana Public Service Co. vs. Carbon Country Coal - Specific Performance
+
+
+<u> Summary: </u>
+
+* Under the remedy of specific performance, the breaching party is required to perform
+* Specific performance is available only if monetary damages are an inadequate remedy.
+
+#### 18.2 Cellphone Early Termination Fee Case - Liquidated Damages and Settlements
+
+<u> *Liquidated damages:*</u>
+
+* Liquidated damages = present damages in the contract
+* Unenforceable if serving as a penalty
+* Courts will enforce only "*if the amount liquidated bears a ***reasonable proportion to the probable loss*** and the amount of the actual loss is incapable or difficult of precise estimation.*"
+* NOT enforced if "***plainly or grossly disproportionate*** to the probable loss."
+
+<u> *Situation:* </u>
+
+* Back in the 1990's, Sprint found that it had excessive churn in it's cell phone customers. (too many customers were backing out of their contracts and going with other providers.)
+* In 2000, it introduced an early termination fee of \$150 and saw a significant decrease in churn. In 2005, it increased the termination fees to \$200 over the period covered by this case, which is a class action on behalf of California Sprint customers. It managed to collect nearly \$74 million in early termination fees from just it's California customers. 
+
+<u> *Central Issue* </u>
+
+Did Sprint's early termination fees act as invalid liquidated damages?
+
+<u> *Trial Court:* </u>
+
+The trial court found the early termination fee to be an ***unlawful penalty***, and so it enjoined Sprint from continuing to collect it and awarded damages of the full amount collected. But the jury had also found that the actual damages to Sprint were more than $225 million equal to the amount of unpaid early termination fees which indicated that they had misunderstood the question and the testimony.
+
+<u> *Appeal Court, Justice Terence L. Bruiniers, Mar 3, 2011*</u>
+
+The court applied a two-part test to determine whether the early termination fees served as a penalty and was therefore unenforceable.
+
+1. It must be impracticable or extremely difficult to determine the amount of damages. Here, the trial court had found that it was very difficult to calculate Sprint's avoidable costs from any given termination, and so, Sprint passed this first test and the plaintiffs didn't dispute that
+2. Sprint failed the second part, however. This required not merely as Judge Kaufman and the UCC had it that liquidated damages be reasonable, rather, the amount of the damages must have been set by a reasonable endeavor to determine what is fair compensation for the loss. 
+
+    --> <u>***It's not enough that the amount be reasonable, but the process to reach that amount must have been based on an estimation of actual damages.***</u> Here, Sprint failed. It set the amount with an eye <u>toward reducing churn by imposing penalties on customers who left, not with an eye toward compensating itself for their lost business.</u> 
+
+
+
+### Final Review
+
+1. Contract formation
+
+    * who are you contracting with? 
+      * capacity?
+      * merchant or not? does UCC applies?
+    * consideration
+    * 
+
+
+
+
+
+
