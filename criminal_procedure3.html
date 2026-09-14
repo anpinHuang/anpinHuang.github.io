@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Terry Stops, Special Needs, and the Exclusionary Rule</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DH9DRW0BMM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DH9DRW0BMM');
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LLS7JTFH7K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LLS7JTFH7K');
+</script>
+
+<style>
+h3 {
+  color: #FF8250;
+  font-weight: bold;
+}
+
+/* TOC styling */
+#TOC .tocify-header.level3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FF8250;
+}
+
+#TOC .tocify-header.level4 {
+  font-size: 0.1em;
+  font-weight: normal;
+  color: #666666;
+}
+
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Ben Huang</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About me</a>
+</li>
+<li>
+  <a href="econometrics.html">Econometrics</a>
+</li>
+<li>
+  <a href="dataScienceML.html">Data Science</a>
+</li>
+<li>
+  <a href="Finance.html">Financial Math &amp; Credit Models</a>
+</li>
+<li>
+  <a href="Programming.html">Programming</a>
+</li>
+<li>
+  <a href="Law.html">Law</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Terry Stops, Special Needs, and the Exclusionary Rule</h1>
+
+</div>
+
+
+<div id="terry-v.-ohio-1968---terry-stop-reasonable-articulable-suspicion" class="section level3">
+<h3>Terry v. Ohio (1968) - Terry Stop &amp; <u>Reasonable, Articulable Suspicion</u></h3>
+<p><u> <em>Situation</em> </u></p>
+<ul>
+<li>A Cleveland plainclothes detective named Martin McFadden watched three men walk back and forth past a store window multiple times, suspecting they were “casing” the location for a planned robbery.</li>
+<li>The officer approached the men, identified himself, and asked for their names when they mumbled a response.He grabbed John Terry, spun him around, and patted down his outer clothing, finding a pistol in his coat pocket.</li>
+<li>Terry was convicted of carrying a concealed weapon. His defense argued the search violated his Fourth Amendment rights because the officer lacked probable cause to arrest him before the search.</li>
+</ul>
+<p><u> <em>Ruling:</em> </u></p>
+<p>Terry’s lawyers argued pure constitutional text. The 4th Amendment requires probable cause for a seizure and a search. The officer admitted he didn’t have probable cause. From a strict textualist perspective, touching him was an illegal search and seizure.</p>
+<p>The Supreme Court, led by Chief Jusrice Earl Warren creates a pragmatic middle ground. They rule that <u>forcing an officer to walk away in the face of imminent danger is unacceptble</u>. They established a lower tier of interaction, Terry Stop, based on a brand new constitutional standard.</p>
+<ul>
+<li>Reasonable, Articulable Suspicion (RAS):
+<ul>
+<li>A Terry Stop is a <strong><em>brief investigatory detention</em></strong></li>
+<li>which is undeniably a seizure under the 4th Amendment because a reasonable person in that situation would not feel free to walk away from the officer</li>
+<li>But because it is <strong><em>significantly less intrusive than a full blown custodial arrest</em></strong>, the court decided it requires less constitutional justification. That “less constitutional justification” is Reasonable, Articulable Suspicion (RAS)</li>
+<li>The court stated that <strong><em>unparticularized suspicion or hunch is NEVER enough</em></strong>.</li>
+<li>The courts allow officers to draw on their specialized training to make deductions that might completely elude an untrained person. But the officer must testify on the stand and connect the dots (articulate). -&gt; it transform a subjective hunch into an <strong><em>objective, reviewable fact</em></strong>.</li>
+</ul></li>
+<li>Limited Frisk:
+<ul>
+<li>the officer executing a valid Terry Stop, suspecting someone is selling counterfeit watches. Can the officer immediately pat the person down? –&gt; <u>NO!!!, the officer must have a separate, independent, reasonable, articulable suspicion that the person is <strong><em>armed and presently dangerous</em></strong></u>.</li>
+<li>The sole exclusive purpose of a Terry Frisk is <strong><em>officer safety</em></strong>.
+<ul>
+<li>NOT a tool to search for contraband</li>
+<li>NOT a fishing expedition for criminal evidence</li>
+<li>The court allows the frisk strictly to ensure the officer does not get shotoor stabbed while conducting the brief investigation.</li>
+</ul></li>
+<li>Officers (unless the initial pat down reveals something that feels like a weapon)
+<ul>
+<li>CANNOT reach inside th suspect’s pockets</li>
+<li>CANNOT open their backpack</li>
+<li>CANNOT command them to empty their pockets</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>some other notes:</p>
+<ul>
+<li>Officer cannot artificially prolong a traffic stop, unless RAS shows up during the traffic stop.</li>
+<li>If the officers only had a reasonable suspicion to begin with and they morph the stop into a <strong><em>de facto arrest</em></strong> (e.g. move to interrogation room at the precinct) without probable cause, that arrest is illegal.</li>
+</ul>
+</div>
+<div id="minnesota-v.-dickerson-1993---plain-view-extend-to-plain-feeltouch" class="section level3">
+<h3>Minnesota v. Dickerson (1993) - Plain view extend to <u>“plain feel/touch”</u></h3>
+<p><u> <em>Situation:</em></u></p>
+<ul>
+<li>Police officers stopped Timothy Dickerson as he was leaving an apartment building known for crack cocaine sales.</li>
+<li>After ordering Dickerson to submit to a Terry Frisk, the officer felt a small, hard lump in Dickerson’s jacket pocket.</li>
+<li>The officer testified that he <strong><em>did not immediately recognize the lump as a weapon</em></strong>,</li>
+<li>but after <strong><em>further tactile examination and manipulation</em></strong>, he concluded it was a lump of crack cocaine in cellophane. He then reached into the pocket and seized the drugs.</li>
+</ul>
+<p><u> <em>Ruling:</em></u></p>
+<ul>
+<li>the Court determined the officer’s initial Terry stop and pat-down were valid.</li>
+<li>However, the seizure of the cocaine was unconstitutional. Because the officer already knew the hard lump in the pocket was not a weapon (it is not immediate apparent that it is drug during the process of determining of it is a weapon), his continued exploration and manipulation of the object to determine it was drugs exceeded the authorized scope of a Terry Frisk.</li>
+<li>If when identifying whether the object is a weapon, it is immediate apparent that the object is a countraband (not the exploration/manipulation after that), then the officer can then take it out.</li>
+</ul>
+<p>some other notes on <u>the crime suspected and the danger persumed</u>:</p>
+<ul>
+<li>as mentioned, to pad down a person during a Terry Stop, the officer need separate, independent, reasonable, articulable suspicion that the person is <strong><em>armed and presently dangerous</em></strong></li>
+<li>But for some crime the nature of the crime itself provides the RAS, that they are armed and dangerous
+<ul>
+<li>For example, for narcartic trafficing, the <strong><em>firearms can be recognized as the tool of the trade</em></strong></li>
+<li>But for nonviolent crime like shoplifting, fraud, or minor possession of marijuana or standard traffic ticket, the officer need something more to justify the frisk. For example,
+<ul>
+<li><strong><em>specific observation</em></strong>: visible bulge in clothing, sudde furtive movement toward the waistband, OR</li>
+<li><strong><em>prior knowledge</em></strong> of the suspect’s voilet history</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="michigan-v.-long-1983---extend-terry-frisk-to-passenger-compartments" class="section level3">
+<h3>Michigan v. Long (1983) - Extend Terry Frisk to <u>Passenger Compartments</u></h3>
+<p><u> <em>Situation:</em></u></p>
+<ul>
+<li>police officers stopped David Long after seeing him drive into a ditch.</li>
+<li>Long appeared intoxicated, and when he walked back toward his vehicle to retrieve his registration, officers spotted a large knife on the car floorboard.</li>
+<li>They patted him down, found nothing, and then searched the passenger compartment for other weapons.</li>
+<li>During this protective sweep, an officer found marijuana under the armrest, leading to Long’s arrest and the subsequent discovery of 75 pounds of marijuana in his trunk.</li>
+</ul>
+<p><u> <em>Ruling:</em></u></p>
+<ul>
+<li>The <u><strong><em>protective search</em></strong></u> of the passenger compartment of respondent’s car was reasonable under the principles articulated under <em>Terry</em>.</li>
+<li>It did NOT restrict the preventive search to the person of the detained suspect.</li>
+<li>the search of the passenger compartment of an automobile, limited to those areas in which a weapon may be placed or hidden, is permissible if the police officer possesses a reasonable belief based on specific and articulable facts which, taken together with the rational inferences from those facts, reasonably warrant the officer to believe that
+<ul>
+<li>the suspect is dangerous and</li>
+<li>the suspect may gain immediate control of weapons</li>
+</ul></li>
+<li>If, while conducting a legitimate Terry search of an automobile’s interior (e.g. compartments, but not trunk), the officer discovers contraband other than weapons, he cannot be required to ignore the contraband</li>
+</ul>
+<p>–&gt; Officer saw large knife on the car floorboard –&gt; The Terry Search is legal –&gt; found marijuana in armrest –&gt; probable cause to arrest –&gt; the search of the trunk is legal –&gt; marijuana found in the trunk is permissable as evidence</p>
+</div>
+<div id="maryland-v.-buie-1990---protective-sweep-at-a-home" class="section level3">
+<h3>Maryland v. Buie (1990) - <u>Protective Sweep at a Home</u></h3>
+<p>Supreme Court recognized that arresting someone in their own home is incredibly dangerous for police. They’re in unfamiliar territory, and accomlices could be hiding anywhere.</p>
+<p>But because it is a home, the Court divided the analysis into two distinct tiers.</p>
+<ol style="list-style-type: decimal">
+<li><p>Tier 1 adjacant sweep -</p>
+Automatic tier, separate reasonable suspicion NOT needed. When officers make an in home arrest, they’re automatically permitted to conduct a brief visual sweep of closets and <strong><em>spaces immediately adjoining the place of arrest</em></strong> to look for hidden attackers. For example,
+<ul>
+<li>if they arrest the suspect in the living room, they can look behind the living room sofa, behind the curtains, and in the coat closet right next to him.</li>
+<li>but NOT automatically permitted to go upstairs and check the bedrooms</li>
+</ul></li>
+<li><p>Tier 2 whole house sweep</p>
+Need <strong><em>specific, reasonable, articulable suspicion that <u>someone else who poses a danger to them is present on the premises</u></em></strong>. For example,
+<ul>
+<li>Did the police hear footsteps scurrying upstairs?</li>
+<li>Did the dispatcher tell them the suspects violent armed roommate is likely home?</li>
+<li>Are there 5 cars parked in the driveway but only one person in the living room? If those specific facts are missing, the whole house sweep is unconstitutional and any contraband they find upstairs in plain view gets suppressed.</li>
+</ul></li>
+</ol>
+<p><u><em>Situation</em>:</u></p>
+<ul>
+<li>Following a Maryland armed robbery by two men, one of whom was wearing a red running suit, police obtained arrest warrants for respondent Buie and his suspected accomplice and</li>
+<li>executed the warrant for Buie at his house.</li>
+<li>Buie was arrested upon emerging from the basement.</li>
+<li>After that one of the officers entered the basement “in case there was someone else” there and seized a red running suit lying in plain view</li>
+</ul>
+<p><u><em>Ruling</em>:</u></p>
+<ul>
+<li>the running suit was inadmissible because the officer who conducted the “protective sweep” of the basement did not have probable cause to believe that a serious and demonstrable potentiality for danger existed.</li>
+<li>The Fourth Amendment permits a properly limited protective sweep in conjunction with an in-home arrest when the searching officer possesses a reasonable belief based on specific and articulable facts that <u><strong><em>the area to be swept harbors an individual posing a danger to those on the arrest scene</em></strong></u>.</li>
+</ul>
+</div>
+<div id="michigan-department-of-state-police-v.-sitz-1990---special-needs-and-the-primary-purpose-test" class="section level3">
+<h3>Michigan Department of State Police v. Sitz (1990) - <u>Special Needs and the Primary Purpose Test</u></h3>
+<p>Transitioning from RAS to NO individualized suspicion.</p>
+<p>Up until this point we were all talking about the police must suspect <u>this <strong><em>specific person</em></strong> of committing this <strong><em>specific crime</em></strong></u>.</p>
+<p>4 core characteristics of a special needs:</p>
+<ol style="list-style-type: decimal">
+<li>these searches are directed at people in general, not specific criminal suspects</li>
+<li>they can result in criminal prosecution and conviction, even though that is <strong><em>NOT the primary intent</em></strong>.</li>
+<li>they do not require warrants or probable cause</li>
+<li>their constitutional validity depends on a balancing test weighing the gravity the special government need against the level of intrusion on individual privacy.</li>
+</ol>
+<p><u><strong><em>Primary Purpose Test</em></strong></u>:</p>
+<ul>
+<li>Primary purpose of a special needs program cannot be general crime control.</li>
+<li>If the police’s main goal is looking for evidence of crimes to arrest people, they must play by regular 4th Amendment rules</li>
+</ul>
+<p><u><em>Situation</em>:</u></p>
+<ul>
+<li>the Michigan Department of State Police establishing a new pilot program in 1986 to set up highway sobriety checkpoints.</li>
+<li>Officers stopped <strong><em>every single vehicle passing through the checkpoint</em></strong> (NOT specific).
+<ul>
+<li>They briefly checked the drivers for signs of intoxication through the window.</li>
+<li>A total of 126 cars passed through.</li>
+<li>The average delay per vehicle was just 25 seconds.</li>
+<li>Two drivers were detained for field sobriety tests, resulting in one arrest for driving under the influence (DUI). A third driver was arrested after refusing to stop at the roadblock.</li>
+</ul></li>
+<li>Rick Sitz and the other drivers filed a lawsuit in a Michigan county court seeking an injunction to permanently halt the program, arguring:
+<ul>
+<li>stopping drivers <u><strong><em>without a search warrant, probable cause, or even a reasonable suspicion</em></strong></u> of wrongdoing violated the Fourth Amendment.</li>
+<li>letting police randomly detain drivers on a highway was an overly intrusive violation of personal privacy and freedom of movement.</li>
+</ul></li>
+</ul>
+<p><u><em>The Federal Ruling (U.S. Supreme Court, 1990)</em>:</u></p>
+<p>In a 6–3 decision, the U.S. Supreme Court ruled that sobriety checkpoints do NOT violate the Fourth Amendment.</p>
+<ul>
+<li>the state has a massive, compelling interest in road safety.A drunk driver is an immediate lethal physical hazard to everyone around them on the highway</li>
+<li>The intrusion is relatively minimal on the sober driver. Just a brief stop, a quick visual inspection of the driver, maybe a question or two.</li>
+</ul>
+<p>Note: So the <strong><em>primary purpose is actively removing an imminent roadway hazard</em></strong>, not investigating past crimes.</p>
+<p>Because the U.S. Supreme Court only decides federal law, it sent the case back to Michigan to see if the checkpoints violated the state constitution.</p>
+</div>
+<div id="city-of-indianapolis-v.-edmond-2000---discover-criminal-evidence-as-primary-purpose-not-allowed" class="section level3">
+<h3>City of Indianapolis v. Edmond (2000) - <u>Discover Criminal Evidence as Primary Purpose <strong>NOT Allowed</strong></u></h3>
+<p><u><em>Situation</em>:</u></p>
+<ul>
+<li>In 1998, the City of Indianapolis began to operate vehicle checkpoints in an effort to interdict unlawful drugs.</li>
+<li>At each roadblock, one office would conduct an open-view examination of the vehicle.</li>
+<li>At the same time, another office would <strong><em>walk a narcotics-detection dog around the vehicle</em></strong>.</li>
+<li>Each stop was to last five minutes or less, <strong><em>without reasonable suspicion or probable cause</em></strong>.</li>
+<li>Both James Edmond and Joell Palmer were stopped at one of the narcotics checkpoints. They then filed a lawsuit, on their behalf and the class of motorists who had been stopped or were subject to being stopped, alleging that the roadblocks violated the Fourth Amendment and the search and seizure provision of the Indiana Constitution.</li>
+</ul>
+<p><u><em>Ruling</em>:</u></p>
+<p>In a 6-3 opinion delivered by Justice Sandra Day O’Connor, the Court held that</p>
+<ul>
+<li>the primary purpose of the drug checkpoint was simply to discover ordinary criminal evidence of narcotics trafficking, <strong><em>the checkpoints violated the Fourth Amendment</em></strong>.</li>
+<li>“We cannot sanction stops justified only by the generalized and ever-present possibility that interrogation and inspection may reveal that any given motorist has committed some crime,”</li>
+</ul>
+<p>Dissent:</p>
+<ul>
+<li>Justices Antonin Scalia and Clarence Thomas dissented, arguing that the reasonableness of the city’s roadblocks depended on whether they served a “significant state interest with minimal intrusion on motorists.”</li>
+</ul>
+<p>Some other notes:</p>
+<ul>
+<li>A drunk driver is committing a crime that kills people. A Drug trafficking is committing a crime that fuels violence and kills people. Both are highly illegal and dangerous. Why is catching 1 considered roadway safety and the other general crime control?
+<ul>
+<li>A drunk driver is using the vehicle itself as a deadly weapon. The danger is actively occurring at that exact moment.</li>
+<li>A brick of cocaine sitting quietly in the trunk of a car is certainly illegal, and it undoubtedly causes severe societal harm downstream, <u><strong><em>but it is not an immediate physical hazard</em></strong></u> to the cars driving next to it in traffic. You cannot suspend the 4th Amendment just because a tactic is highly effective at catching criminals. The ends do not justify the constitutional means.</li>
+</ul></li>
+</ul>
+</div>
+<div id="new-jersey-v.-t.l.o.-1985---warrent-or-probable-cause-not-required-in-schools" class="section level3">
+<h3>New Jersey v. T.L.O. (1985) - <u>Warrent or Probable Cause NOT Required in Schools</u></h3>
+<p>The court recognized that the school environment is unique.</p>
+<p>Administrators require a modified legal approach to maintain order, discipline and an environment conducive to learning. Students have diminished rights, not zero rights.</p>
+<p><u><em>Situation</em>:</u></p>
+<ul>
+<li>A teacher at a New Jersey high school discovered T.L.O. 14-year-old freshman and her companion smoking cigarettes in a school lavatory in violation of a school rule,</li>
+<li>The teacher took them to the Principal’s office, they met with the Assistant Vice Principal.</li>
+<li>T.L.O. denied that she had been smoking and claimed that she did not smoke at all</li>
+<li>Assistant Vice Principal demanded to see her purse.</li>
+<li>He found a pack of cigarettes and also noticed a package of cigarette rolling papers that are commonly associated with the use of marijuana.</li>
+<li>He then proceeded to search the purse thoroughly and found some marijuana, a pipe, plastic bags, a fairly substantial amount of money, an index card containing a list of students who owed respondent money, and two letters that implicated her in marijuana dealing.</li>
+<li>T.L.O. was charged with possession of marijuana.</li>
+<li>Before trial, T.L.O. moved to suppress evidence discovered in the search</li>
+</ul>
+<p><u><em>Ruling</em>:</u></p>
+<p>The Court ruled 6–3 in favor of the school.</p>
+<ol style="list-style-type: decimal">
+<li><p><u><strong><em>The 4th Amendment applies to school officials</em></strong></u>:</p>
+<ul>
+<li>The Fourth Amendment’s prohibition on unreasonable searches and seizures applies to searches conducted by public school officials, and is <strong><em>NOT limited to searches carried out by law enforcement officers</em></strong>.</li>
+<li>Nor are school officials exempt from the Amendment’s dictates by virtue of the special nature of their authority over schoolchildren.</li>
+<li>In carrying out searches and other functions pursuant to disciplinary policies mandated by state statutes, <strong><em>school officials act as representatives of the State</em></strong>, not merely as surrogates for the parents of students, and</li>
+<li>they cannot claim the parents immunity from the Fourth Amendment’s strictures.</li>
+</ul></li>
+<li><p>Balance between schoolchildren’s privacy and school’s need to maintain environment conducive to learning</p>
+<ul>
+<li>Schoolchildren have legitimate expectations of privacy.</li>
+<li>But striking the balance between schoolchildren’s legitimate expectations of privacy and the school’s equally legitimate need to maintain an environment conducive to learning requires some easing of the restrictions to which searches by public authorities are ordinarily subject.
+<ul>
+<li>Thus, warrent is not required</li>
+<li>probable cause to believe that the subject of the search has violated or is violating the law is not required.</li>
+<li>legality of to search a student should depend simply on the <strong><em>reasonableness</em></strong>, under all the circumstances, of the search.
+<ol style="list-style-type: decimal">
+<li>it was reasonably related in scope to the circumstances that justified the interference in the first place. <u> –&gt; The initial search for cigarettes was reasonable. The report to the Assistant Vice Principal that respondent had been smoking warranted a reasonable suspicion that she had cigarettes in her purse</u></li>
+<li>Under ordinary circumstances, the search of a student by a school official will be justified at its inception where there are reasonable grounds for suspecting that the search will turn up evidence that the student has violated or is violating either the law or the rules of the school. –&gt; The discovery of the rolling papers <u>–&gt; reasonable suspicion of carrying marijuana –&gt; justified the further exploration that turned up more evidence of drug-related activities</u></li>
+<li>And such a search will be permissible in its scope when the measures adopted are reasonably related to the objectives of the search, and <strong><em>NOT excessively intrusive</em></strong> in light of the student’s age and sex and the nature of the infraction.</li>
+</ol></li>
+</ul></li>
+</ul></li>
+</ol>
+</div>
+<div id="safford-unified-school-district-v.-redding-2009---the-content-of-suspicion-failed-to-match-the-degree-of-intrusion-school" class="section level3">
+<h3>Safford Unified School District v. Redding (2009) - <u>The Content of Suspicion Failed to Match the Degree of Intrusion (School)</u></h3>
+<p><u><em>Situation</em>:</u></p>
+<ul>
+<li>Assistant principal of the school, Kerry Wilson showed Savana (13yr) four white prescription-strength ibuprofen 400-mg pills, and one over-the-counter blue naproxen 200-mg pill, all used for pain and inflammation but <strong><em>banned under school rules without advance permission</em></strong>. He asked Savana if she knew anything about the pills and Savana said no. He then told her that he had received a report that she was giving these pills to fellow students;</li>
+<li>Savana denied it and agreed to let Wilson search her belongings. Helen Romero, an administrative assistant, came into the office, and together with Wilson they searched Savana’s backpack, finding nothing.</li>
+<li>Wilson instructed Romero to take Savana to the school nurse’s office to search her clothes for pills. Romero and the nurse, Peggy Schwallier, asked Savana to remove her jacket, socks, and shoes, leaving her in stretch pants and a T-shirt (both without pockets), which she was then asked to remove.</li>
+<li>Finally, Savana was told to pull her bra out and to the side and shake it, and to pull out the elastic on her underpants, thus <strong><em>exposing her breasts and pelvic area to some degree. No pills were found</em></strong>.</li>
+<li>Savana’s mother filed suit against Safford Unified School District, Wilson, Romero, and Schwallier for conducting a strip search in violation of Savana’s Fourth Amendment rights.</li>
+</ul>
+<p><u><em>Ruling</em>:</u></p>
+<ul>
+<li>In T. L. O., the court held that for searches by school officials “a careful balancing of governmental and private interests suggests that the public interest is best served by a <strong><em>standard of reasonableness that stops short of probable cause</em></strong>. The court held that a school search “will be permissible in its scope when the measures adopted are <strong><em>reasonably related to the objectives of the search and not excessively intrusive in light of the age and sex of the student and the nature of the infraction</em></strong>”.</li>
+<li>The required knowledge component of probable cause for a law enforcement officer’s evidence search is that it raise a <u>“<em>fair probability</em>,”</u> (Gates, 462 U. S., at 238), or a <u>“<em>substantial chance</em>,”</u> (id., at 244, n. 13), of discovering evidence of criminal activity. The lesser standard for school searches could as readily be described as a <u><strong><em>moderate chance</em></strong></u> of finding evidence of wrongdoing.</li>
+<li>“<em>both subjective and reasonable societal expectations of personal privacy support the treatment of such a search (the strip search) as categorically distinct, <u>requiring distinct elements of justification</u> on the part of school authorities for going beyond a search of outer clothing and belongings</em>”</li>
+<li>combination of these deficiencies was fatal to finding the search reasonable.
+<ol style="list-style-type: decimal">
+<li><u><strong><em>The content of the suspicion failed to match the degree of intrusion</em></strong></u>
+<ul>
+<li>Wilson knew beforehand that the pills were prescription-strength ibuprofen and over-the-counter naproxen, common pain relievers equivalent to two Advil, or one Aleve.</li>
+<li>while just about anything can be taken in quantities that will do real harm, Wilson had no reason to suspect that large amounts of the drugs were being passed around, or that individual students were receiving great numbers of pills.</li>
+</ul></li>
+<li>Wilson could not have suspected that Savana was hiding common painkillers in her underwear.
+<ul>
+<li>no evidence in the record of any general practice among Safford Middle School students of hiding that sort of thing in underwear</li>
+<li>neither Jordan nor Marissa suggested to Wilson that Savana was doing that</li>
+<li>the preceding search of Marissa that Wilson ordered yielded nothing</li>
+<li><strong><em>general background possibilities fall short</em></strong> for categorically extreme intrusiveness of a search down to the body of an adolescent - nondangerous school contraband does not raise the specter of stashes in intimate places.</li>
+</ul></li>
+</ol></li>
+</ul>
+</div>
+<div id="vernonia-school-district-47j-v.-acton-1995---school-athelete-drug-test-is-allowed" class="section level3">
+<h3>Vernonia School District 47J v. Acton (1995) - <u>School Athelete Drug Test Is Allowed </u></h3>
+<p>A public school does not violate the Fourth Amendment when it chooses to randomly test children participating in its athletic programs for controlled substances.</p>
+<p><u><em>Ruling:</em></u></p>
+<ul>
+<li>Is it a search?
+<ul>
+<li>“State-compelled collection and testing of urine constitutes a”search&quot; under the Fourth Amendment&quot;</li>
+</ul></li>
+<li>Privacy Expectation:
+<ol style="list-style-type: decimal">
+<li>“the subjects of the Policy are children who have been committed to the <strong><em>temporary custody of the State</em></strong> as schoolmaster;”</li>
+<li>“in that capacity, the State may exercise a degree of <strong><em>supervision and control greater than it could exercise over free adults</em></strong>.”</li>
+<li>“The requirements that public school children submit to physical examinations and be vaccinated indicate that they have a <strong><em>lesser privacy expectation with regard to medical examinations</em></strong> and procedures than the general population.”</li>
+<li>“Student athletes have even less of a legitimate privacy expectation, for an element of communal undress is <strong><em>inherent in athletic participation</em></strong>, and athletes are subject to preseason physical exams and rules regulating their conduct.”</li>
+</ol></li>
+<li>Is it excessively intrusive?
+<ul>
+<li>The privacy interests compromised by the process of obtaining urine samples under the Policy are <strong><em>negligible</em></strong>, since
+<ul>
+<li>the conditions of collection are nearly identical to those typically encountered in public restrooms.</li>
+<li>the tests look only for standard drugs, not medical conditions, and the results are released to a limited group.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="mapp-v.-ohio-1961---the-exclusionary-rule" class="section level3">
+<h3>Mapp v. Ohio (1961) - The Exclusionary Rule</h3>
+<p>The prosecution is not allowed to present evidence that law enforcement secured during a search that was unconstitutional under the Fourth Amendment.</p>
+<p><u><em>Ruling:</em></u></p>
+<ul>
+<li><p>“<strong><em>If letters and private documents can thus be seized and held and used in evidence against a citizen accused of an offense, the protection of the Fourth Amendment declaring his right to be secure against such searches and seizures is of no value</em></strong>, and, so far as those thus placed are concerned, <strong><em>might as well be stricken from the Constitution</em></strong>. The efforts of the courts and their officials to bring the guilty to punishment, praiseworthy as they are, are not to be aided by the sacrifice of those great principles established by years of endeavor and suffering which have resulted in their embodiment in the fundamental law of the land.”</p></li>
+<li><p>“in a federal prosecution, the Fourth Amendment barred the use of evidence secured through an illegal search and seizure.” Wolf v. Colorado, supra, at 28. This Court has ever since required of federal law officers a strict adherence to that command which this Court has held to be a clear, specific, and constitutionally required–even if judicially implied–deterrent safeguard <strong><em>without insistence upon which the Fourth Amendment would have been reduced to &quot;a form of words</em></strong>.&quot;</p></li>
+<li><p>Since the Fourth Amendment’s right of privacy has been declared enforceable against the States through the <strong><em>Due Process Clause of the Fourteenth</em></strong>, it is enforceable against them by the same sanction of exclusion as is used against the Federal Government.</p></li>
+<li><p>“the Court itself recognized that the purpose of the exclusionary rule”is to deter–to compel respect for the constitutional guaranty in the only effectively available way–by removing the incentive to disregard it.&quot;</p></li>
+<li><p>“the exclusionary rule is an <strong><em>essential part of both the Fourth and Fourteenth Amendments</em></strong>”</p></li>
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

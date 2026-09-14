@@ -1,4 +1,5 @@
 ---
+title: "Warrents and the Warrent Exceptions"
 output:
   pdf_document:
     toc: yes
@@ -15,7 +16,6 @@ bibliography: references.bib
 link-citations: yes
 ---
 
-### Warrents and the Warrent Exceptions
 
 The 4th Amendment protects people from ***unreasonable searches and seizures***.
 
@@ -72,7 +72,7 @@ It must satisfy below requirements:
 
     the incriminating nature of the object must be immediately apparent
 
-#### Chimel v. California (1969) - Arrest Doesn't Grant Search
+### Chimel v. California (1969) - <u>Arrest Does NOT Grant Searching Home</u>
 
 
 <u> *Situation* </u>
@@ -80,7 +80,7 @@ It must satisfy below requirements:
 * Santa Ana, California police arrived at Ted Chimel's home with an arrest warrant for burglary, but without a search warrant. 
 * Upon arresting him inside his home, they ignored his objections and spent roughly an hour searching his entire three-bedroom house, including the attic, garage, and drawers, ultimately seizing items used to convict him
 
-#### Riley v. California (2014) - digital data (Cell phone) cannot be search during arrest
+### Riley v. California (2014) - Digital Data (Cellphone) Cannot Be Search During Arrest
 
 A landmark 2014 unanimous U.S. Supreme Court decision holding that police must obtain a warrant before searching the digital contents of a cell phone seized from an individual who has been arrested.
 
@@ -108,7 +108,7 @@ The Court rejected the government's argument that a cell phone should be treated
 
     Historically, police are permitted to search suspects incident to an arrest <u>***to ensure officer safety and prevent the destruction of evidence***</u>. The Court reasoned that digital data cannot be used as a weapon to harm an officer. Furthermore, evidence destruction can usually be prevented simply by turning off the phone, removing the battery, or placing it in a signal-blocking Faraday bag while waiting for a judge to issue a warrant
     
-#### Carroll v. United States (1925) - The Carroll Doctrine for Automobiles 
+### Carroll v. United States (1925) - The Carroll Doctrine for Automobiles 
 
 The exception for SILA for automobiles.
 
@@ -129,7 +129,7 @@ The ruling relies on two core rationales:
 * ***Reduced Expectation of Privacy***: Individuals have a lower expectation of privacy in a vehicle compared to a home because vehicles are highly regulated and travel on public thoroughfares
 
 
-#### Arizona v. Hicks (1987) - probable cause required for Plan View Doctrine
+### Arizona v. Hicks (1987) - <u>Probable Cause Required for Plan View Doctrine. Reasonable Suspicion Not Enough</u>
 
 <u> *Situation:*</u>
 
@@ -145,25 +145,11 @@ The ruling relies on two core rationales:
 
 1. ***Movement is a Search***: 
 
-    Taking action to move or physically manipulate an object to view concealed information (like a serial number) compromises the owner's possessory rights and qualifies as an independent search. Justice Scalia wrote that: moving the stereo even just a few inches to read the serial numbers constituted a new, independent, warrantless search that was unrelated to the initial emergency of looking for the shooter.
+    Taking action to move or physically manipulate an object to view concealed information (like a serial number) compromises the owner's possessory rights and qualifies as an independent search. Justice Scalia wrote that: moving the stereo even just a few inches to read the serial numbers <u>constituted a new, independent, warrantless search that was ***unrelated to the initial emergency*** of looking for the shooter</u>.
 
 2. ***Probable Cause Required for Plain View***: 
 
     For the plain view doctrine to allow warrantless seizure (or inspection), police must have probable cause to believe the object in plain view is evidence of a crime. The Court rejected the argument that "reasonable suspicion" is sufficient to invoke the plain view exception
 
 
-#### Minnesota v. Dickerson (1993) - Plain view extend to "plain feel/touch"
-
-<u> *Situation:*</u>
-
-* Police officers stopped Timothy Dickerson as he was leaving an apartment building known for crack cocaine sales. 
-* After ordering Dickerson to submit to a Terry frisk, the officer felt a small, hard lump in Dickerson's jacket pocket. 
-* The officer testified that he ***did not immediately recognize the lump as a weapon***, 
-* but after ***further tactile examination and manipulation***, he concluded it was a lump of crack cocaine in cellophane. He then reached into the pocket and seized the drugs.
-
-
-<u> *Ruling:*</u>
-
-* the Court determined the officer's initial Terry stop and pat-down were valid. 
-* However, the seizure of the cocaine was unconstitutional. Because the officer already knew the hard lump in the pocket was not a weapon (it is not immediate apparent that it is drug during the process of determining of it is a weapon), his continued exploration and manipulation of the object to determine it was drugs exceeded the authorized scope of a Terry frisk.
 

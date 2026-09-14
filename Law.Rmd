@@ -14,5 +14,6 @@ output:
 #### Criminal Procedure
 
 * [The Fourth Amendment - Foundations of Search and Seizure](criminal_procedure1.html) 
-* [Warrents and the Warrent Exceptions](criminal_procedure2.html) 
+* [Warrents & Warrent Exceptions](criminal_procedure2.html) 
+* [Terry Stops & Special Needs & Exclusionary Rule](criminal_procedure3.html) 
 
