@@ -102,7 +102,7 @@ some other notes on <u>the crime suspected and the danger persumed</u>:
 
 --> Officer saw large knife on the car floorboard --> The Terry Search is legal --> found marijuana in armrest --> probable cause to arrest --> the search of the trunk is legal --> marijuana found in the trunk is permissable as evidence
 
-### Maryland v. Buie (1990) - <u>Protective Sweep at a Home</u>
+### Maryland v. Buie (1990) - <u>Protective Home Sweep at a Home Arrest</u>
 
 Supreme Court recognized that arresting someone in their own home is incredibly dangerous for police. They're in unfamiliar territory, and accomlices could be hiding anywhere.
 
@@ -311,3 +311,49 @@ The prosecution is not allowed to present evidence that law enforcement secured 
 * "the Court itself recognized that the purpose of the exclusionary rule "is to deter--to compel respect for the constitutional guaranty in the only effectively available way--by removing the incentive to disregard it."
 
 * "the exclusionary rule is an ***essential part of both the Fourth and Fourteenth Amendments***"
+
+
+### Murray v. United States (1988) - <u>Independent Source Doctrine</u>
+
+Under the "independent source" doctrine, the Fourth Amendment does not require the suppression of evidence initially discovered during police officers' illegal entry of private premises if that evidence is also discovered during a later search pursuant to a valid warrant that is wholly independent of the initial illegal entry.
+
+<u>*Situation*:</u>
+
+* Federal agents are investigating a drug ring. They've forced their way into a warehouse illegally without a warrant and no exigent circumstances to justify the entry. ***They trespassed***.
+* Inside, they see massive bales of marijuana
+* They left the warehouse and posted agents outside to keep it under surveillance and apply for a search warrant
+* In their warrant application, 
+  * they did not mention the illegal entry and did not mention the marijuana they saw
+  * They solely relied on other independent intelligence they gathered beforehand through legal surveillance and informants
+* The magistrate issues the warrant and they went back in and officially seize the marijuana
+
+<u>*Ruling*:</u>
+
+* "if that later acquisition ***was NOT the result of the earlier (unlawfully) entry***, the independent source doctrine allows the admission of testimony as to that knowledge."
+* "[T]he interest of society in deterring unlawful police conduct and the public interest in having juries receive all probative evidence of a crime are properly balanced by <u>***putting the police in the same, not a worse, position that they would have been in if no police error or misconduct had occurred***</u>. . . . When the challenged evidence has an independent source, exclusion of such evidence would put the police in a worse position than they would have been in absent any error or violation."
+
+### Nix v. Williams (1984) - <u>Inevitable Discovery Exception</u>
+
+<u>*Situation*:</u>
+
+* Young girl was abducted and murdered in Des Moines, IA
+* The suspect, Williams, was arrested in another city across the state
+* Police officers were transporting him back
+  * Williams attorney had explicitly instructed the police not to question and interrogate him during the long drive
+  * But the detective know that Williams is deeply religious, so without explicitly asking him a direct question, the detective started giving him "Christian burial speech", saying that the coming blizzard will cover her body forever.
+  * It worked and Williams broke down and waved his rights and directed the police to the body
+  
+<u>*Ruling*:</u>
+
+* The psychological pressure was an illegal interrogation that violated Williams' right to counsel
+* However, at the exact time Williams led the police to the body, 
+  * there was a massive 200 person search party combing the area
+  * they had divided the county into strict grids and were sweeping systematically
+  * the prosecution proved that the search party was only two and half miles away moving directly toward the exact ditch where the body was located
+* "Although the independent source doctrine does not apply here, its rationale is wholly consistent with, and justifies adoption of, the ultimate or inevitable discovery exception to the exclusionary rule."
+* "If the prosecution can establish by a ***preponderance of the evidence that the information ultimately or inevitably would have been discovered by lawful means*** -- here the volunteers' search -- then the deterrence rationale has so little basis that the evidence should be received."
+* This (excluding the found body) would put the police in a worse position than they would have been in if no unlawful conduct had transpired, and would fail to take into account the ***enormous societal cost of excluding truth in the search for truth in the administration of justice***.
+* Exclusion of physical evidence that would inevitably have been discovered adds nothing to either 
+  * the integrity or fairness of a criminal trial. 
+  * Nor would suppression ensure fairness on the theory that it tends to safeguard the adversary system of justice.
+

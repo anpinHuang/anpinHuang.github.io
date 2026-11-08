@@ -16,4 +16,4 @@ output:
 * [The Fourth Amendment - Foundations of Search and Seizure](criminal_procedure1.html) 
 * [Warrents & Warrent Exceptions](criminal_procedure2.html) 
 * [Terry Stops & Special Needs & Exclusionary Rule](criminal_procedure3.html) 
-
+* [The Fifth Amendment - Privilege Against Self-Incrimination](criminal_procedure4.html) 
